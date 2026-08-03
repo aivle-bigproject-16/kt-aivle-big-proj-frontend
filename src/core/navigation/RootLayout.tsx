@@ -1,19 +1,19 @@
-import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
-import { TopAppBar, SideBar } from '@/features/header'
+import { SideBar } from '@/features/header'
+import './RootLayout.css'
 
 function RootLayout() {
-  const [searchValue, setSearchValue] = useState('')
-
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
-      <SideBar />
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
-        <TopAppBar onSearch={setSearchValue} onSettingsClick={() => console.log('설정 클릭')} />
-        <div style={{ flex: 1, overflowY: 'auto', minHeight: 0, scrollbarGutter: 'stable' }}>
-          <Outlet context={{ searchValue }} />
+    <div className="root-layout">
+      <aside className="root-layout__left">
+        <SideBar />
+      </aside>
+      <div className="root-layout__center">
+        <div className="root-layout__content">
+          <Outlet />
         </div>
       </div>
+      <aside className="root-layout__right" />
     </div>
   )
 }

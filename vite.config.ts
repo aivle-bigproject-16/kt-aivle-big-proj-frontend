@@ -18,11 +18,11 @@ export default defineConfig({
     // 개발 서버(vite dev) 전용 설정 — 프로덕션 빌드(vite build)에는 적용되지 않음
     proxy: {
       '/api': {
-        target: 'http://localhost:4000',
+        target: process.env.VITE_PROXY_TARGET ?? 'http://localhost:4000',
         changeOrigin: true,
       },
       '/ws': {
-        target: 'http://localhost:4000',
+        target: process.env.VITE_PROXY_TARGET ?? 'http://localhost:4000',
         changeOrigin: true,
         ws: true,
       },

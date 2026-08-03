@@ -28,6 +28,8 @@ export interface CellProgress {
   finalLabel: FinalLabel | null
   batchId: number
   status: CellStatus
+  /** 재분석 횟수. WS 모델에 추가 예정이라 아직 내려오지 않을 수 있다 */
+  retryCount?: number
 }
 
 // WS event: PROGRESS

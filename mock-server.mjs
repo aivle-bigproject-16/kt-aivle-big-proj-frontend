@@ -131,6 +131,22 @@ const server = http.createServer(async (req, res) => {
     return
   }
 
+  // GET /api/reports/individual/:reportId/cell-view
+  const cellViewMatch = url.pathname.match(/^\/api\/reports\/individual\/(\d+)\/cell-view$/)
+  if (req.method === 'GET' && cellViewMatch) {
+    const reportId = Number(cellViewMatch[1])
+    const db = await readDb()
+    const item = db.cellDefectViews?.find((v) => v.reportId === reportId)
+    if (!item) {
+      res.writeHead(404, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
+      res.end(JSON.stringify({ success: false, message: '해당 셀 결함 뷰 데이터가 없습니다.', data: null }))
+      return
+    }
+    res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
+    res.end(JSON.stringify(wrap(item)))
+    return
+  }
+
   // GET /api/reports/individual/:reportId, GET /api/reports/daily/:reportId
   // 3단계 경로라 json-server의 /:name/:id 라우트가 못 잡는다.
   // db.json의 reports[].content 배열에서 직접 항목을 찾아 반환한다.
@@ -238,10 +254,46 @@ function snapshot(forceProgress = false) {
   }
 }
 
+// ── 최소 STOMP 프레임 파서 / 빌더 ──
+function parseStompFrame(raw) {
+  const text = raw.toString().replace(/\0$/, '')
+  const lines = text.split('\n')
+  const command = lines[0].trim()
+  const headers = {}
+  let i = 1
+  while (i < lines.length && lines[i].trim() !== '') {
+    const colon = lines[i].indexOf(':')
+    if (colon >= 0) headers[lines[i].slice(0, colon).trim()] = lines[i].slice(colon + 1).trim()
+    i++
+  }
+  const body = lines.slice(i + 1).join('\n').replace(/\0$/, '')
+  return { command, headers, body }
+}
+
+function buildStompFrame(command, headers = {}, body = '') {
+  const h = Object.entries(headers).map(([k, v]) => `${k}:${v}`).join('\n')
+  return `${command}\n${h}\n\n${body}\0`
+}
+
+function sendStompMessage(socket, body) {
+  if (socket.readyState !== socket.OPEN) return
+  const subs = socket._stompSubs ?? {}
+  for (const [id, dest] of Object.entries(subs)) {
+    if (dest === '/topic/sim') {
+      socket.send(buildStompFrame('MESSAGE', {
+        subscription: id,
+        'message-id': Date.now(),
+        destination: '/topic/sim',
+        'content-type': 'application/json',
+      }, body))
+    }
+  }
+}
+
 function broadcastSnapshot(forceProgress = false) {
   const payload = JSON.stringify(snapshot(forceProgress))
   for (const client of wss.clients) {
-    if (client.readyState === client.OPEN) client.send(payload)
+    sendStompMessage(client, payload)
   }
 }
 
@@ -371,7 +423,44 @@ function startSimulation({ batchSize, batteryCellCount, captureSpeed }) {
 const wss = new WebSocketServer({ server, path: '/ws/sim' })
 
 wss.on('connection', (socket) => {
-  socket.send(JSON.stringify(snapshot()))
+  socket._stompSubs = {}
+
+  socket.on('message', (raw) => {
+    const frame = parseStompFrame(raw.toString())
+
+    if (frame.command === 'CONNECT' || frame.command === 'STOMP') {
+      socket.send(buildStompFrame('CONNECTED', {
+        version: '1.2',
+        'heart-beat': '0,0',
+        server: 'mock/1.0',
+      }))
+      // 연결 즉시 현재 스냅샷 전송은 SUBSCRIBE 후에 한다
+      return
+    }
+
+    if (frame.command === 'SUBSCRIBE') {
+      const id = frame.headers.id ?? 'sub-0'
+      const dest = frame.headers.destination ?? ''
+      socket._stompSubs[id] = dest
+      console.log(`[stomp] SUBSCRIBE id=${id} dest=${dest}`)
+      // 구독 즉시 현재 스냅샷 전송
+      if (dest === '/topic/sim') {
+        sendStompMessage(socket, JSON.stringify(snapshot()))
+      }
+      return
+    }
+
+    if (frame.command === 'UNSUBSCRIBE') {
+      delete socket._stompSubs[frame.headers.id]
+      return
+    }
+
+    if (frame.command === 'DISCONNECT') {
+      socket.send(buildStompFrame('RECEIPT', { 'receipt-id': frame.headers.receipt ?? '' }))
+      socket.close()
+      return
+    }
+  })
 })
 
 server.listen(PROXY_PORT, () => {

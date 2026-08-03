@@ -1,0 +1,251 @@
+.capture-panel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.capture-card {
+  flex-shrink: 0;
+  width: 137rem;
+  height: 46rem;
+  background: #f4f4f4;
+  border-radius: 2.8rem;
+  box-shadow: 0 3.2px 13.6px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ── 좌측 정보 패널 ── */
+.capture-info {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 3.2rem 5.6rem;
+  box-sizing: border-box;
+}
+
+/* ── X-ray 스캐너 애니메이션 ── */
+.capture-scanner {
+  position: absolute;
+  width: 100%;
+  height: 120%;
+  top: 0rem;
+  left: 21rem;
+  pointer-events: none;
+}
+
+.capture-scanner svg {
+  width: 100%;
+  height: 100%;
+}
+
+.capture-info__header {
+  margin-bottom: auto;
+}
+
+.capture-info__title {
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.capture-info__date {
+  font-size: 1.84rem;
+  color: #6b7280;
+  margin-top: 0.8rem;
+}
+
+/* 크기 고정. 자식(.capture-info__group)은 블록이라 flex 없이도 세로로 쌓인다 */
+.capture-info__bottom {
+  width: 83.1rem;
+  height: 21rem;
+}
+
+/* 내용 폭으로 줄여야 실측값이 카운터 자체의 폭이 된다 */
+.capture-info__counter {
+  width: fit-content;
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+/* 모든 숫자 글리프 폭을 동일하게 — 폭이 자릿수에만 좌우된다 */
+.capture-info__number {
+  font-size: 7.68rem;
+  font-weight: 700;
+  color: #191c1d;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.capture-info__number--red {
+  color: #e03636;
+}
+
+.capture-info__unit {
+  font-size: 3.84rem;
+  color: #5b5f63;
+  width: 17rem;
+}
+
+/* width는 실측값이 인라인으로 덮어쓴다. 여기 값은 측정 전 초기 폭 */
+.capture-info__bar {
+  width: 19.3rem;
+  height: 0.32rem;
+  background: #cca6a6;
+  border-radius: 0.16rem;
+  margin-bottom: 1.6rem;
+  transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── 우측 배치 리스트 ── */
+.capture-batches {
+  flex: none;
+  width: 42.7rem;
+  height: 91%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+  padding: 1rem 3.6rem 2rem;
+  margin: 0 -1rem;
+  box-sizing: border-box;
+  scrollbar-width: none;
+}
+
+.capture-batches::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* ── 배치 카드 ── */
+.capture-batch {
+  flex-shrink: 0;
+  background: #ffffff;
+  border-radius: 1.6rem;
+  box-shadow: 0 3.2px 13.6px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.capture-batch__header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 5rem;
+  padding: 0 2.4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  gap: 1rem;
+}
+
+.capture-batch__title {
+  font-size: 1.92rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.capture-batch__status {
+  font-size: 1.92rem;
+  font-weight: 700;
+  color: #000;
+  margin-left: auto;
+}
+
+.capture-batch__status--capturing {
+  color: #e03636;
+}
+
+.capture-batch__chevron {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.capture-batch--open .capture-batch__chevron {
+  margin-left: 0;
+}
+
+/* ── 셀 그리드 토글 ── */
+.capture-batch__cells {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.8rem;
+  padding: 0 1.6rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease-in-out, padding 0.35s ease-in-out;
+}
+
+.capture-batch__cells--open {
+  max-height: 40rem;
+  padding: 0 1.6rem 1.6rem;
+}
+
+/* ── 셀 ── */
+.capture-cell {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 83 / 41;
+}
+
+/* CompletePanel의 complete-cell-enter 를 뒤집은 퇴장 애니메이션.
+   easing 도 뒤집었다 — cubic-bezier(x1,y1,x2,y2)의 역은 (1-x2, 1-y2, 1-x1, 1-y1) */
+@keyframes capture-cell-exit {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+.capture-cell--exit {
+  animation: capture-cell-exit 0.35s cubic-bezier(0.36, 0, 0.66, -0.56) both;
+  pointer-events: none;
+}
+
+.capture-cell svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.capture-cell__id {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  pointer-events: none;
+  padding-left: 0.6rem;
+}
+
+/* ── 빈 상태 ── */
+.capture-batch--empty {
+  height: 16rem;
+}
+
+.capture-batch__empty-text {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #111827;
+  text-align: center;
+  padding-top: 1.6rem;
+}

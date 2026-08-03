@@ -268,7 +268,7 @@
           "value": 4
         },
         {
-          "label": "SWELLING",
+          "label": "CRACK",
           "value": 9
         }
       ]
@@ -400,7 +400,7 @@
             "failedCount": 0,
             "defects": [
               {
-                "defectType": "SWELLING",
+                "defectType": "CRACK",
                 "count": 3
               },
               {
@@ -586,7 +586,7 @@
               "label": "REJECT",
               "imageId": 2002,
               "imageType": "RGB",
-              "defectType": "SWELLING",
+              "defectType": "CRACK",
               "imageUrl": "https://picsum.photos/seed/rgb1002/1920/1080",
               "confidence": 0.7623,
               "bbox": {
@@ -852,7 +852,7 @@
               "label": "REJECT",
               "imageId": 5001,
               "imageType": "CT",
-              "defectType": "SWELLING",
+              "defectType": "CRACK",
               "imageUrl": "https://picsum.photos/seed/ct2002/4000/530",
               "confidence": 0.9401,
               "bbox": {
@@ -1046,7 +1046,7 @@
               "label": "REJECT",
               "imageId": 7002,
               "imageType": "RGB",
-              "defectType": "SWELLING",
+              "defectType": "CRACK",
               "imageUrl": "https://picsum.photos/seed/rgb2006/1920/1080",
               "confidence": 0.7456,
               "bbox": {
@@ -1230,7 +1230,7 @@
               "label": "FAIL",
               "imageId": 9001,
               "imageType": "CT",
-              "defectType": "SWELLING",
+              "defectType": "CRACK",
               "imageUrl": "https://picsum.photos/seed/ct3004/4000/530",
               "confidence": 0.5891,
               "bbox": null
@@ -1517,6 +1517,84 @@
       "password": "testpass456!",
       "name": "이영희",
       "role": "user"
+    }
+  ],
+  "cellDefectViews": [
+    {
+      "reportId": 1,
+      "cellId": 1,
+      "cloud": {
+        "bounds": { "a": 100, "b": 254, "c": 871 },
+        "points": [
+          [41, 122, 107, 0.92],
+          [43, 130, 111, 0.88],
+          [39, 117, 114, 0.95],
+          [45, 135, 104, 0.81],
+          [42, 125, 122, 0.76],
+          [50, 140, 109, 0.69],
+          [38, 112, 118, 0.84],
+          [47, 127, 100, 0.91],
+          [40, 119, 120, 0.78],
+          [44, 132, 106, 0.87],
+          [21, 58, 248, 0.45],
+          [24, 69, 254, 0.41],
+          [19, 53, 242, 0.38],
+          [82, 216, 46, 0.33],
+          [85, 224, 53, 0.29],
+          [79, 208, 42, 0.31]
+        ],
+        "metrics": { "dvfPpm": 1240, "posSliceRate": 0.72, "defectCount": 16 }
+      },
+      "annotation": {
+        "pattern": "LOCAL_CLUSTER",
+        "severity": "HIGH",
+        "highlights": [
+          { "zone": "TOP_TAB", "note": "상단 탭 접합부에 크랙 집중 — 94% 신뢰도" },
+          { "zone": "MID_CORE", "note": "코어 중앙 미세 기공 산발" }
+        ],
+        "recommendedView": { "azimuth": 45, "elevation": 20 },
+        "caption": "상단 탭 접합부(a=41~50, b=112~140, c=100~122 구간)에 고밀도 결함 군집이 확인됩니다. DVF 1240ppm은 허용 임계(800ppm)를 초과하며, 즉각 폐기 판정을 권고합니다.",
+        "citedMetrics": ["dvfPpm", "posSliceRate"]
+      }
+    },
+    {
+      "reportId": 2,
+      "cellId": 2,
+      "cloud": {
+        "bounds": { "a": 100, "b": 254, "c": 871 },
+        "points": [
+          [12, 231, 30, 0.55],
+          [15, 224, 33, 0.51],
+          [10, 236, 25, 0.48],
+          [91, 30, 327, 0.42],
+          [88, 38, 332, 0.39],
+          [93, 23, 321, 0.44],
+          [51, 127, 176, 0.31],
+          [49, 132, 173, 0.28],
+          [53, 122, 180, 0.34]
+        ],
+        "metrics": { "dvfPpm": 620, "posSliceRate": 0.41, "defectCount": 9 }
+      },
+      "annotation": {
+        "pattern": "VOLUMETRIC",
+        "severity": "MEDIUM",
+        "highlights": [
+          { "zone": "SURFACE_CORNER", "note": "표면 모서리 오점 — RGB 분석 기반" }
+        ],
+        "recommendedView": { "azimuth": 135, "elevation": 10 },
+        "caption": "결함이 셀 전체에 산발적으로 분포합니다. DVF 620ppm으로 경계 수준이며 재검사를 권고합니다.",
+        "citedMetrics": ["dvfPpm", "defectCount"]
+      }
+    },
+    {
+      "reportId": 3,
+      "cellId": 1,
+      "cloud": {
+        "bounds": { "a": 100, "b": 254, "c": 871 },
+        "points": [],
+        "metrics": { "dvfPpm": 0, "posSliceRate": 0.0, "defectCount": 0 }
+      },
+      "annotation": null
     }
   ]
 }

@@ -1,13 +1,11 @@
 import { useState, type ReactNode } from 'react'
 import './Simulation.css'
-import { InputIcon, CaptureIcon, AnalysisIcon, SimControlIcon, CheckIcon, AlertIcon } from './Icons'
+import { InputIcon, CaptureIcon, AnalysisIcon, CheckIcon, AlertIcon } from './Icons'
 import SimulationCard from './SimulationCard'
 import AnalysisCard from './AnalysisCard'
 import CompactCard from './CompactCard'
-import SimControlPanel from './SimControlPanel'
 import { SimulationCardModal } from './SimulationCardModal'
 import { useSimulationStore } from '../store/useSimulationStore'
-import { useSimulationSocket } from '../hooks/useSimulationSocket'
 
 const ACCENT_COLOR = '#E60012'
 const TEXT_SECONDARY = '#5B5F63'
@@ -17,9 +15,6 @@ function VariantLabel({ children }: { children: ReactNode }) {
 }
 
 function Simulation() {
-  useSimulationSocket()
-
-  const [isControlOpen, setIsControlOpen] = useState(false)
   type ModalCard = 'pending' | 'capture' | 'analyze' | 'pass' | 'reject' | 'fail' | null
   const [modalCard, setModalCard] = useState<ModalCard>(null)
 
@@ -46,13 +41,6 @@ function Simulation() {
     <section className="simulation">
       <div className="simulation__header">
         <h3 className="simulation__title">Live Monitoring Flow</h3>
-        <div className="simulation__control-wrapper">
-          <button className="simulation__sim-control" onClick={() => setIsControlOpen((open) => !open)}>
-            <SimControlIcon />
-            Sim Control (시뮬레이션 제어)
-          </button>
-          {isControlOpen && <SimControlPanel onClose={() => setIsControlOpen(false)} />}
-        </div>
       </div>
 
       <div className="simulation__body">

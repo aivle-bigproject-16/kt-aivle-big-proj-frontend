@@ -1,105 +1,161 @@
-import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './ResultSummary.css'
-import { useBatteryListStore } from '@/features/battery'
 import { useSimulationStore } from '../store/useSimulationStore'
-import type { FinalLabel } from '@/features/battery/types'
 import { ROUTES } from '@/core/navigation/routes'
 
-type ResultLabel = FinalLabel | 'FAIL'
-type ResultFilter = ResultLabel | 'ALL'
-
-function formatDateTime(value: string | null): string {
-  if (!value) return '-'
-  const date = new Date(value)
-  if (Number.isNaN(date.getTime())) return value
-
-  const pad = (n: number) => String(n).padStart(2, '0')
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`
+/* ── 색상 팔레트 ── */
+const LABEL_COLORS: Record<string, string> = {
+  PASS:   '#2A78D6',
+  REJECT: '#EB6834',
+  FAIL:   '#E34948',
+}
+const LABEL_NAMES: Record<string, string> = {
+  PASS:   'PASS',
+  REJECT: 'REJECT',
+  FAIL:   'FAIL',
 }
 
-interface CompletedCellRow {
-  batteryCellId: number
-  inspectionId: number
-  latestFinalLabel: ResultLabel | null
+/* ── SVG 파이차트 헬퍼 ── */
+function polarToCartesian(cx: number, cy: number, r: number, angleDeg: number) {
+  const rad = ((angleDeg - 90) * Math.PI) / 180
+  return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) }
 }
 
+function describeSlice(cx: number, cy: number, r: number, start: number, end: number) {
+  const s = polarToCartesian(cx, cy, r, start)
+  const e = polarToCartesian(cx, cy, r, end)
+  const large = end - start > 180 ? 1 : 0
+  return `M ${cx} ${cy} L ${s.x} ${s.y} A ${r} ${r} 0 ${large} 1 ${e.x} ${e.y} Z`
+}
+
+/* ── 파이차트 컴포넌트 ── */
+function DefectPie({ slices }: { slices: { label: string; value: number; percent: number; color: string; path: string; labelPos: { x: number; y: number } }[] }) {
+  return (
+    <svg className="result-pie__svg" viewBox="0 0 200 200" aria-label="결과 분포 파이 차트">
+      {slices.map(s => (
+        <path key={s.label} d={s.path} fill={s.color} stroke="#fff" strokeWidth={2} style={{ transition: 'd 0.5s ease-in-out' }}>
+          <title>{`${s.label}: ${s.value}건 (${s.percent}%)`}</title>
+        </path>
+      ))}
+      {slices.map(s =>
+        s.percent >= 8 ? (
+          <text
+            key={`${s.label}-lbl`}
+            x={s.labelPos.x} y={s.labelPos.y}
+            textAnchor="middle" dominantBaseline="middle"
+            className="result-pie__slice-label"
+          >
+            {s.percent}%
+          </text>
+        ) : null
+      )}
+    </svg>
+  )
+}
+
+/* ── ResultSummary ── */
 function ResultSummary() {
   const navigate = useNavigate()
-  const { fetchList } = useBatteryListStore((s) => s.actions)
-  const completed = useSimulationStore((s) => s.completed)
-  const [resultFilter, setResultFilter] = useState<ResultFilter>('ALL')
+  const completed = useSimulationStore(s => s.completed)
 
-  useEffect(() => {
-    fetchList()
-  }, [fetchList])
+  /* 파이차트 데이터 집계 */
+  const counts: Record<string, number> = { PASS: 0, REJECT: 0, FAIL: 0 }
+  for (const c of completed) {
+    if (c.finalLabel && c.finalLabel in counts) counts[c.finalLabel]++
+  }
+  const total = completed.length
 
-  const displayList: CompletedCellRow[] = completed.map((cell) => ({
-    batteryCellId: cell.batteryCellId,
-    inspectionId: cell.inspectionId,
-    latestFinalLabel: cell.finalLabel,
-  }))
-
-  const filteredList = displayList.filter(
-    (item) => resultFilter === 'ALL' || item.latestFinalLabel === resultFilter,
-  )
+  let cursor = 0
+  const cx = 100, cy = 100, r = 96
+  const slices = Object.entries(counts)
+    .filter(([, v]) => v > 0)
+    .map(([label, value]) => {
+      const ratio = value / (total || 1)
+      const start = cursor
+      const end = cursor + ratio * 360
+      cursor = end
+      const mid = (start + end) / 2
+      return {
+        label,
+        value,
+        percent: Math.round(ratio * 1000) / 10,
+        color: LABEL_COLORS[label] ?? '#ccc',
+        path: describeSlice(cx, cy, r, start, end),
+        labelPos: polarToCartesian(cx, cy, r * 0.68, mid),
+      }
+    })
 
   return (
     <div className="result-summary">
-      <div className="result-summary__header">
-        <h4 className="result-summary__title">검사 요약 목록</h4>
-        <div className="result-summary__actions">
-          <select
-            className="result-summary__filter"
-            value={resultFilter}
-            onChange={(e) => setResultFilter(e.target.value as ResultFilter)}
-          >
-            <option value="ALL">전체</option>
-            <option value="PASS">PASS</option>
-            <option value="REJECT">REJECT</option>
-            <option value="FAIL">FAIL</option>
-          </select>
-          <button className="result-summary__report-button">일일 리포트 생성</button>
+
+      {/* ── 좌측: 불량 상태 확인 ── */}
+      <div className="result-summary__card result-summary__card--left">
+        <h4 className="result-summary__card-title">불량 상태 확인</h4>
+        <div className="result-summary__chart-body">
+          {total === 0 ? (
+            <p className="result-summary__empty">완료된 검사가 없습니다.</p>
+          ) : (
+            <>
+              <DefectPie slices={slices} />
+              <ul className="result-summary__legend">
+                {slices.map(s => (
+                  <li key={s.label} className="result-summary__legend-item">
+                    <span className="result-summary__legend-dot" style={{ background: s.color }} />
+                    <span className="result-summary__legend-name">{LABEL_NAMES[s.label]}</span>
+                    <span className="result-summary__legend-value">{s.value}건 ({s.percent}%)</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </div>
       </div>
-      <div className="result-summary__table-wrapper">
-        <table className="result-summary__table">
-          <colgroup>
-            <col className="result-summary__col-id" />
-            <col className="result-summary__col-result" />
-            <col className="result-summary__col-time" />
-          </colgroup>
-          <thead>
-            <tr>
-              <th>Cell ID</th>
-              <th>Result</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredList.map((item) => (
-              <tr
-                key={item.batteryCellId}
-                className="result-summary__row--clickable"
-                onClick={() => navigate(ROUTES.BATTERY_DETAIL(item.batteryCellId))}
-              >
-                <td>CELL-{item.batteryCellId}</td>
-                <td className="result-summary__result">
-                  <span
-                    className={
-                      item.latestFinalLabel === 'REJECT'
-                        ? 'result-summary__dot result-summary__dot--reject'
-                        : 'result-summary__dot'
-                    }
-                  />
-                  {item.latestFinalLabel}
-                </td>
-                <td>-</td>
+
+      {/* ── 우측: 검사 결과 테이블 ── */}
+      <div className="result-summary__card result-summary__card--right">
+        <div className="result-summary__table-wrapper">
+          <table className="result-summary__table">
+            <colgroup>
+              <col style={{ width: '34%' }} />
+              <col style={{ width: '33%' }} />
+              <col style={{ width: '33%' }} />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Cell ID</th>
+                <th>Result</th>
+                <th>Time</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {completed.length === 0 ? (
+                <tr>
+                  <td colSpan={3} className="result-summary__empty-row">완료된 셀이 없습니다.</td>
+                </tr>
+              ) : (
+                completed.map(cell => (
+                  <tr
+                    key={cell.batteryCellId}
+                    className="result-summary__row"
+                    onClick={() => navigate(ROUTES.BATTERY_DETAIL(cell.batteryCellId))}
+                  >
+                    <td>CELL-{cell.batteryCellId}</td>
+                    <td className="result-summary__result-cell">
+                      <span
+                        className="result-summary__dot"
+                        style={{ background: LABEL_COLORS[cell.finalLabel ?? ''] ?? '#5B5F63' }}
+                      />
+                      {cell.finalLabel ?? '-'}
+                    </td>
+                    <td>-</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
+
     </div>
   )
 }

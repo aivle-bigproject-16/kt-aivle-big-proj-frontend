@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react'
-import useCountUp from '../hooks/useCountUp'
+import { useCountUp } from '../hooks/useCountUp'
 import './Simulation.css'
 
 interface SimulationCardProps {
@@ -30,9 +30,9 @@ function SimulationCard({
   batchId,
   onClick,
 }: SimulationCardProps) {
-  const animatedCurrent = useCountUp(current, 0, 600)
   const [displayBatchId, setDisplayBatchId] = useState<number | null>(batchId ?? null)
   const [isBatchIdVisible, setIsBatchIdVisible] = useState(batchId != null)
+  const currentDisplay = useCountUp(current)
 
   useEffect(() => {
     if (batchId != null) {
@@ -64,7 +64,7 @@ function SimulationCard({
 
       <div className="simulation-card__body">
         <div className="simulation-card__value-row">
-          <span className="simulation-card__value">{animatedCurrent.toLocaleString()}</span>
+          <span className="simulation-card__value">{currentDisplay.toLocaleString()}</span>
           <span className="simulation-card__unit">{unit}</span>
         </div>
 

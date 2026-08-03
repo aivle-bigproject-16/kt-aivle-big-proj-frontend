@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import useCountUp from '../hooks/useCountUp'
+import { useCountUp } from '../hooks/useCountUp'
 import './Simulation.css'
 
 interface CompactCardProps {
@@ -13,9 +13,8 @@ interface CompactCardProps {
 }
 
 function CompactCard({ label, icon, iconColor, current, total, unit, onClick }: CompactCardProps) {
-  const animatedCurrent = useCountUp(current, 0, 420)
-
   const progress = total > 0 ? Math.min(100, Math.max(0, (current / total) * 100)) : 0
+  const currentDisplay = useCountUp(current)
 
   return (
     <div
@@ -32,7 +31,7 @@ function CompactCard({ label, icon, iconColor, current, total, unit, onClick }: 
 
       <div className="simulation-card__body">
         <div className="simulation-card__value-row">
-          <span className="simulation-card__value">{animatedCurrent.toLocaleString()}</span>
+          <span className="simulation-card__value">{currentDisplay.toLocaleString()}</span>
           <span className="simulation-card__unit">{unit}</span>
         </div>
 

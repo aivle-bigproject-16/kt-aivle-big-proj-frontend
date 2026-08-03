@@ -1,0 +1,34 @@
+.root-layout {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.root-layout__left {
+  flex: none;
+  width: var(--col-side);
+}
+
+.root-layout__center {
+  flex: none;
+  width: var(--col-main);
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.root-layout__right {
+  flex: none;
+  width: var(--col-side);
+}
+
+.root-layout__content {
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}

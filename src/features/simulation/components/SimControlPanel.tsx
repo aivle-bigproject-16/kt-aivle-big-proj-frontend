@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import './Simulation.css'
+import './SimControlPanel.css'
 import { useSimulationStore } from '../store/useSimulationStore'
 
 interface SimControlPanelProps {
@@ -12,8 +12,8 @@ function SimControlPanel({ onClose }: SimControlPanelProps) {
   const { start } = useSimulationStore((s) => s.actions)
 
   const [batchSize, setBatchSize] = useState(6)
-  const [batteryCellCount, setBatteryCellCount] = useState(12)
-  const [captureSpeed, setCaptureSpeed] = useState(30)
+  const [batteryCellCount, setBatteryCellCount] = useState(120)
+  const [captureSpeed, setCaptureSpeed] = useState(5)
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
@@ -22,41 +22,54 @@ function SimControlPanel({ onClose }: SimControlPanelProps) {
   }
 
   return (
-    <form className="simulation__control-panel" onSubmit={handleSubmit}>
-      <label className="simulation__control-field">
-        배치 사이즈
-        <input
-          type="number"
-          min={1}
-          value={batchSize}
-          onChange={(e) => setBatchSize(Number(e.target.value))}
-          required
-        />
-      </label>
-      <label className="simulation__control-field">
-        사진수
-        <input
-          type="number"
-          min={1}
-          value={batteryCellCount}
-          onChange={(e) => setBatteryCellCount(Number(e.target.value))}
-          required
-        />
-      </label>
-      <label className="simulation__control-field">
-        촬영속도
-        <input
-          type="number"
-          min={1}
-          value={captureSpeed}
-          onChange={(e) => setCaptureSpeed(Number(e.target.value))}
-          required
-        />
-      </label>
+    <form onSubmit={handleSubmit}>
+      <div className="sim-settings-card">
+        <div className="sim-settings-row sim-settings-row--batch">
+          <span className="sim-settings-label sim-settings-label--batch">배치 사이즈 :</span>
+          <div className="sim-settings-box">
+            <input
+              type="number"
+              className="sim-settings-input"
+              min={1}
+              value={batchSize}
+              onChange={(e) => setBatchSize(Number(e.target.value))}
+              required
+            />
+          </div>
+        </div>
 
-      {startError && <p className="simulation__control-error">{startError}</p>}
+        <div className="sim-settings-row sim-settings-row--photo">
+          <span className="sim-settings-label sim-settings-label--photo">사진 수 :</span>
+          <div className="sim-settings-box">
+            <input
+              type="number"
+              className="sim-settings-input"
+              min={1}
+              value={batteryCellCount}
+              onChange={(e) => setBatteryCellCount(Number(e.target.value))}
+              required
+            />
+          </div>
+        </div>
 
-      <div className="simulation__control-actions">
+        <div className="sim-settings-row sim-settings-row--speed">
+          <span className="sim-settings-label sim-settings-label--speed">촬영 속도 :</span>
+          <div className="sim-settings-box">
+            <input
+              type="number"
+              className="sim-settings-input"
+              min={1}
+              value={captureSpeed}
+              onChange={(e) => setCaptureSpeed(Number(e.target.value))}
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      {startError && <p className="sim-settings-error">{startError}</p>}
+
+      <div className="sim-settings-actions">
         <button type="button" onClick={onClose} disabled={isStarting}>
           취소
         </button>

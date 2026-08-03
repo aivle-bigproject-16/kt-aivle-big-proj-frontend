@@ -5,6 +5,7 @@ import type {
   IndividualReportCreateResponse,
   IndividualReportDetail,
   IndividualReportListItem,
+  CellDefectView,
 } from '../types'
 
 const BASE_URL = '/reports/individual'
@@ -26,4 +27,7 @@ export const individualReportService = {
     httpClient.get<ApiResponse<ListResponse<IndividualReportListItem>>>(BASE_URL, {
       params,
     }),
+
+  getCellDefectView: (reportId: number) =>
+    httpClient.get<ApiResponse<CellDefectView>>(`${BASE_URL}/${reportId}/cell-view`),
 }

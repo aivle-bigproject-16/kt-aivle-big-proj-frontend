@@ -5,6 +5,7 @@ import { ROUTES } from '@/core/navigation/routes'
 import { useIndividualReportDetailStore } from '../store/useIndividualReportDetailStore'
 import { BatteryInfoHeader } from '@/shared/ui/BatteryInfoHeader'
 import { ImageBboxGrid } from '@/shared/ui/ImageBboxGrid'
+import { Cell3DView } from './Cell3DView'
 import type { ImageBboxGridItem } from '@/shared/ui/ImageBboxGrid'
 import type { IndividualReportDetail, ImageMapping } from '../types'
 
@@ -25,11 +26,12 @@ function IndividualReportDetailCard({ reportId }: IndividualReportDetailCardProp
   const detail = useIndividualReportDetailStore((s) => s.detail)
   const isLoading = useIndividualReportDetailStore((s) => s.isLoading)
   const error = useIndividualReportDetailStore((s) => s.error)
-  const { fetchDetail } = useIndividualReportDetailStore((s) => s.actions)
+  const { fetchDetail, fetchCellView } = useIndividualReportDetailStore((s) => s.actions)
 
   useEffect(() => {
     fetchDetail(reportId)
-  }, [fetchDetail, reportId])
+    fetchCellView(reportId)
+  }, [fetchDetail, fetchCellView, reportId])
 
   return (
     <section className="individual-detail">
@@ -56,6 +58,9 @@ function IndividualReportDetailCard({ reportId }: IndividualReportDetailCardProp
 }
 
 function IndividualDetailBody({ detail }: { detail: IndividualReportDetail }) {
+  const cellView = useIndividualReportDetailStore((s) => s.cellView)
+  const cellViewLoading = useIndividualReportDetailStore((s) => s.cellViewLoading)
+
   return (
     <>
       <BatteryInfoHeader
@@ -100,6 +105,11 @@ function IndividualDetailBody({ detail }: { detail: IndividualReportDetail }) {
               </ul>
             )}
           </div>
+
+          {cellViewLoading && (
+            <p className="individual-detail__notice">3D 뷰 불러오는 중...</p>
+          )}
+          {cellView && <Cell3DView data={cellView} />}
         </div>
       </div>
     </>

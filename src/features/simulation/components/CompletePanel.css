@@ -1,0 +1,135 @@
+.complete-panel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 디자인 컴포넌트: 고정 크기 + flex-shrink: 0.
+   좌우 패딩은 2.5rem — 서브카드 3개(40rem×3 + gap 5.8rem×2 = 131.6rem)가
+   137rem 안에 들어가려면 다른 섹션의 5.6rem 패딩을 그대로 못 쓴다.
+   헤더 정렬은 .complete-card__header 에서 별도로 맞춘다 */
+.complete-card {
+  flex-shrink: 0;
+  width: 137rem;
+  height: 46rem;
+  background: #f4f4f4;
+  border-radius: 2.8rem;
+  box-shadow: 0 3.2px 13.6px rgba(0, 0, 0, 0.25);
+  padding: 3.2rem 2.5rem 2rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow: hidden;
+}
+
+/* 다른 섹션(pending-info/capture-info/analyze-info)의 padding-left 5.6rem 과
+   시작 x좌표를 맞춘다: 카드 좌측 패딩 2.5rem + 3.1rem = 5.6rem */
+.complete-card__header {
+  padding-left: 3.1rem;
+}
+
+.complete-card__title {
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.complete-card__subtitle {
+  font-size: 1.84rem;
+  color: #6b7280;
+  margin-top: 0.6rem;
+}
+
+.complete-card__panels {
+  flex: 1;
+  display: flex;
+  gap: 5.8rem;
+  align-items: flex-start;
+  min-height: 0;
+}
+
+/* 디자인 컴포넌트: 고정 크기 + flex-shrink: 0 */
+.complete-sub {
+  flex-shrink: 0;
+  width: 40rem;
+  height: 31.3rem;
+  background: #ffffff;
+  border-radius: 2.8rem;
+  box-shadow: 0 3.2px 13.6px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.complete-sub__header {
+  flex-shrink: 0;
+  height: 6.6rem;
+  display: flex;
+  align-items: center;
+  padding: 0 2.4rem;
+  border-radius: 2.8rem 2.8rem 0 0;
+}
+
+.complete-sub__title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.complete-sub__count {
+  margin-left: auto;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.complete-sub__cells {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 1.2rem 1.6rem;
+  display: grid;
+  grid-template-columns: repeat(4, 8.1rem);
+  gap: 0.8rem;
+  align-content: start;
+}
+
+.complete-sub__cells::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes complete-cell-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.complete-cell {
+  position: relative;
+  flex-shrink: 0;
+  width: 8.1rem;
+  height: 3.8rem;
+  animation: complete-cell-enter 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.complete-cell__id {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  pointer-events: none;
+  padding-left: 0.6rem;
+}

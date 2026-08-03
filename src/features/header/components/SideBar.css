@@ -1,98 +1,85 @@
 .side-bar {
   display: flex;
   flex-direction: column;
-  flex-shrink: 0;
-  width: 28rem;
-  background: #ffffff;
-  border-right: 1px solid #e9bcb6;
-  box-sizing: border-box;
-}
-
-.side-bar__logo {
-  display: flex;
   align-items: center;
-  gap: 1.2rem;
-  padding: 2.4rem;
-  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  padding: 3.5rem 1.24rem;
+  box-sizing: border-box;
+  background: transparent;
 }
 
-.side-bar__logo-icon {
+/* 로고 카드 — Group 93: 100×100, rx=27.27px, shadow dy=2.92 blur=2.92 alpha=0.25 */
+.side-bar__logo-card {
+  width: 10rem;
+  height: 10rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 4rem;
-  height: 4rem;
-  border-radius: 0.2rem;
-  background: #fef2f2;
-  color: #e11d48;
+  background: #ffffff;
+  border-radius: 2.73rem;
+  box-shadow: 0 0.29rem 0.29rem rgba(0, 0, 0, 0.25);
   flex-shrink: 0;
+  margin-bottom: 3.5rem;
+  margin-left: 10rem;
 }
 
-.side-bar__logo-text {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  overflow: hidden;
+.side-bar__logo-img {
+  width: 9rem;
+  height: 9rem;
+  object-fit: contain;
 }
 
-.side-bar__logo-subtitle {
-  font-size: 1.2rem;
-  color: #6b7280;
-  white-space: nowrap;
-}
-
-.side-bar__nav.side-bar__nav--bottom {
-  margin-top: auto;
-  border-top: 1px solid #e5e7eb;
+/* 내비 pill — Group 94: w=100 h=358 rx=21.875, shadow dy=2.92 blur=12.4 alpha=0.25 */
+.side-bar__pill {
+  width: 10rem;
+  height: 35.8rem;
+  background: #ffffff;
+  border-radius: 2.19rem;
+  box-shadow: 0 0.29rem 1.24rem rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  padding-top: 2.3rem;
+  padding-bottom: 3.7rem;
+  margin-left: 10rem;
 }
 
 .side-bar__nav {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  padding: 1.2rem;
+  align-items: center;
+  gap: 4.4rem;
   list-style: none;
   margin: 0;
+  padding: 0;
 }
 
+/* 아이콘 버튼 — Group 94: w=70 h=70 rx=19.09px, shadow dy=2.92 blur=2.92 alpha=0.25 */
 .side-bar__nav-item {
-  position: relative;
   display: flex;
   align-items: center;
-  gap: 1.2rem;
-  height: 4rem;
-  padding-inline: 1.2rem;
-  border-radius: 1rem 0 0 1rem;
+  justify-content: center;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 1.91rem;
+  background: #ededed;
   color: #5b5f63;
-  font-size: 1.4rem;
   cursor: pointer;
   text-decoration: none;
   flex-shrink: 0;
+  transition: background 0.15s;
+  box-shadow: 0 0.29rem 0.29rem rgba(0, 0, 0, 0.25);
 }
 
 .side-bar__nav-item:hover {
-  background: #f3f4f5;
-  border-radius: 1rem;
+  background: #dde0e2;
 }
 
 .side-bar__nav-item--active {
-  background: #e7e8e9;
-  color: #b7000c;
-  font-weight: 700;
-}
-
-.side-bar__nav-item--active::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 0.4rem;
-  height: 100%;
-  background: #b7000c;
+  color: #d94730;
 }
 
 .side-bar__nav-item-icon {
   display: flex;
   align-items: center;
-  flex-shrink: 0;
+  justify-content: center;
 }

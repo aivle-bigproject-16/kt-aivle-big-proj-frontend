@@ -1,0 +1,221 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1628 856" width="1628" height="856" font-family="Pretendard, -apple-system, BlinkMacSystemFont, sans-serif">
+
+  <!-- ══════════════════════════════════════════════════════════
+       배경
+  ══════════════════════════════════════════════════════════ -->
+  <rect width="1628" height="856" fill="#f8f9fa"/>
+
+  <!-- ══════════════════════════════════════════════════════════
+       ROW 1 — KPI CARDS  (y=24, h=100)
+  ══════════════════════════════════════════════════════════ -->
+
+  <!-- KPI 1: 공정 상태 -->
+  <rect x="24" y="24" width="515" height="100" rx="8" fill="#fff" stroke="#e9bcb6" stroke-width="1"/>
+  <text x="44" y="52" font-size="14" font-weight="600" fill="#5b5f63">공정 상태 (PROCESS STATUS)</text>
+  <circle cx="44" cy="92" r="5" fill="#5b5f63"/>
+  <text x="57" y="98" font-size="28" font-weight="700" fill="#191c1d">대기 중</text>
+
+  <!-- KPI 2: 총 검사 수 -->
+  <rect x="555" y="24" width="515" height="100" rx="8" fill="#fff" stroke="#e9bcb6" stroke-width="1"/>
+  <text x="575" y="52" font-size="14" font-weight="600" fill="#5b5f63">총 검사 수 (TOTAL INSPECTIONS)</text>
+  <text x="575" y="98" font-size="28" font-weight="700" fill="#191c1d">0</text>
+  <text x="617" y="98" font-size="14" fill="#5b5f63">units</text>
+
+  <!-- KPI 3: 양품률 -->
+  <rect x="1086" y="24" width="515" height="100" rx="8" fill="#fff" stroke="#e9bcb6" stroke-width="1"/>
+  <text x="1106" y="52" font-size="14" font-weight="600" fill="#5b5f63">양품률 (YIELD RATE)</text>
+  <text x="1106" y="98" font-size="28" font-weight="700" fill="#e60012">0%</text>
+  <text x="1158" y="98" font-size="14" fill="#5b5f63">target 99%</text>
+
+  <!-- ══════════════════════════════════════════════════════════
+       ROW 2 — SIMULATION  (y=148, h=350)
+  ══════════════════════════════════════════════════════════ -->
+  <rect x="24" y="148" width="1580" height="350" rx="12" fill="#fff" stroke="#e9bcb6" stroke-width="1"/>
+
+  <!-- 헤더 -->
+  <text x="40" y="183" font-size="18" font-weight="700" fill="#191c1d">Live Monitoring Flow</text>
+  <!-- Sim Control 버튼 -->
+  <rect x="1390" y="161" width="198" height="32" rx="6" fill="#fff" stroke="#e9bcb6" stroke-width="1"/>
+  <text x="1489" y="181" font-size="13" font-weight="500" fill="#5b5f63" text-anchor="middle">⚙ Sim Control (시뮬레이션 제어)</text>
+
+  <!-- ── 카드 1: 대기 (PENDING)  x=40, y=204 ── -->
+  <rect x="40" y="204" width="265" height="245" rx="10" fill="#fff" stroke="#191c1d" stroke-width="2"/>
+  <text x="56" y="230" font-size="15" font-weight="600" fill="#5b5f63">대기 (PENDING)</text>
+  <!-- 아이콘 -->
+  <rect x="274" y="213" width="20" height="20" rx="3" fill="#e9e9e9"/>
+  <text x="56" y="318" font-size="45" font-weight="700" fill="#191c1d">0</text>
+  <text x="107" y="318" font-size="22" fill="#5b5f63">units</text>
+  <rect x="56" y="390" width="233" height="4" rx="2" fill="#f0f0f0"/>
+
+  <!-- 커넥터 1 -->
+  <line x1="305" y1="326" x2="351" y2="326" stroke="#191c1d" stroke-width="1"/>
+
+  <!-- ── 카드 2: 촬영 (CAPTURING)  x=351 ── -->
+  <rect x="351" y="204" width="265" height="245" rx="10" fill="#fff" stroke="#191c1d" stroke-width="2"/>
+  <text x="367" y="230" font-size="15" font-weight="600" fill="#5b5f63">촬영 (CAPTURING)</text>
+  <rect x="585" y="213" width="20" height="20" rx="3" fill="#ffe5e5"/>
+  <text x="367" y="318" font-size="45" font-weight="700" fill="#191c1d">0</text>
+  <text x="418" y="318" font-size="22" fill="#5b5f63">active</text>
+  <text x="367" y="360" font-size="20" font-weight="600" fill="#5b5f63">—</text>
+  <rect x="367" y="390" width="233" height="4" rx="2" fill="#f0f0f0"/>
+
+  <!-- 커넥터 2 -->
+  <line x1="616" y1="326" x2="662" y2="326" stroke="#191c1d" stroke-width="1"/>
+
+  <!-- ── 카드 3: 분석 (ANALYSIS)  x=662 ── -->
+  <rect x="662" y="204" width="265" height="245" rx="10" fill="#fff" stroke="#191c1d" stroke-width="2"/>
+  <text x="678" y="230" font-size="15" font-weight="600" fill="#5b5f63">분석 (ANALYSIS)</text>
+  <rect x="896" y="213" width="20" height="20" rx="3" fill="#ffe5e5"/>
+  <text x="678" y="318" font-size="45" font-weight="700" fill="#191c1d">0</text>
+  <text x="729" y="318" font-size="22" fill="#5b5f63">queued</text>
+  <rect x="678" y="390" width="233" height="4" rx="2" fill="#f0f0f0"/>
+
+  <!-- ── 분기 커넥터 ── -->
+  <line x1="927" y1="326" x2="972" y2="326" stroke="#191c1d" stroke-width="1"/>
+  <line x1="972" y1="268" x2="972" y2="384" stroke="#191c1d" stroke-width="1"/>
+  <line x1="972" y1="268" x2="1017" y2="268" stroke="#191c1d" stroke-width="1"/>
+  <line x1="972" y1="384" x2="1017" y2="384" stroke="#191c1d" stroke-width="1"/>
+
+  <!-- ── 카드 4: 정상 (PASS)  x=1017, y=227 ── -->
+  <rect x="1017" y="227" width="255" height="115" rx="10" fill="#fff" stroke="#191c1d" stroke-width="2"/>
+  <text x="1033" y="253" font-size="15" font-weight="600" fill="#5b5f63">정상 (PASS)</text>
+  <rect x="1249" y="235" width="16" height="16" rx="3" fill="#e9e9e9"/>
+  <text x="1033" y="315" font-size="30" font-weight="700" fill="#191c1d">0</text>
+  <text x="1073" y="315" font-size="16" fill="#5b5f63">units</text>
+  <rect x="1033" y="328" width="223" height="4" rx="2" fill="#f0f0f0"/>
+
+  <!-- 가로 커넥터 (REJECT-FAIL 사이) -->
+  <line x1="1272" y1="384" x2="1296" y2="384" stroke="#191c1d" stroke-width="1"/>
+
+  <!-- ── 카드 5: 불량 (REJECT) ── -->
+  <rect x="1017" y="355" width="255" height="115" rx="10" fill="#fff" stroke="#191c1d" stroke-width="2"/>
+  <text x="1033" y="381" font-size="15" font-weight="600" fill="#5b5f63">불량 (REJECT)</text>
+  <rect x="1249" y="363" width="16" height="16" rx="3" fill="#ffe5e5"/>
+  <text x="1033" y="443" font-size="30" font-weight="700" fill="#191c1d">0</text>
+  <text x="1073" y="443" font-size="16" fill="#5b5f63">units</text>
+  <rect x="1033" y="456" width="223" height="4" rx="2" fill="#f0f0f0"/>
+
+  <!-- ── 카드 6: 검사 실패 (FAIL) ── -->
+  <rect x="1296" y="355" width="255" height="115" rx="10" fill="#fff" stroke="#191c1d" stroke-width="2"/>
+  <text x="1312" y="381" font-size="15" font-weight="600" fill="#5b5f63">검사 실패 (FAIL)</text>
+  <rect x="1528" y="363" width="16" height="16" rx="3" fill="#ffe5e5"/>
+  <text x="1312" y="443" font-size="30" font-weight="700" fill="#191c1d">0</text>
+  <text x="1352" y="443" font-size="16" fill="#5b5f63">units</text>
+  <rect x="1312" y="456" width="223" height="4" rx="2" fill="#f0f0f0"/>
+
+  <!-- ══════════════════════════════════════════════════════════
+       ROW 3 — BOTTOM  (y=522)
+  ══════════════════════════════════════════════════════════ -->
+
+  <!-- ── 불량 분석 차트 (620×310) ── -->
+  <rect x="24" y="522" width="620" height="310" rx="12" fill="#fff" stroke="#e9bcb6" stroke-width="1"/>
+  <!-- 헤더 -->
+  <text x="44" y="556" font-size="18" font-weight="700" fill="#191c1d">불량 분석</text>
+  <!-- 드롭다운 -->
+  <rect x="440" y="536" width="184" height="30" rx="4" fill="#fff" stroke="#e9bcb6" stroke-width="1"/>
+  <text x="448" y="556" font-size="13" font-weight="500" fill="#191c1d">불량 원인 파이 차트 ▾</text>
+
+  <!-- 파이 차트 (cx=174, cy=680, r=96) -->
+  <!-- 슬라이스 1: 크랙 38% -->
+  <path d="M174 680 L174 584 A96 96 0 0 1 254.9 718.8 Z" fill="#eb6834"/>
+  <text x="218" y="640" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">38%</text>
+  <!-- 슬라이스 2: 이물질 27% -->
+  <path d="M174 680 L254.9 718.8 A96 96 0 0 1 120.4 771.8 Z" fill="#eda100"/>
+  <text x="200" y="750" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">27%</text>
+  <!-- 슬라이스 3: 변형 19% -->
+  <path d="M174 680 L120.4 771.8 A96 96 0 0 1 82.7 611.5 Z" fill="#e87ba4"/>
+  <text x="118" y="700" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">19%</text>
+  <!-- 슬라이스 4: 기타 16% -->
+  <path d="M174 680 L82.7 611.5 A96 96 0 0 1 174 584 Z" fill="#2a78d6"/>
+  <text x="144" y="624" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">16%</text>
+
+  <!-- 범례 -->
+  <circle cx="292" cy="602" r="5" fill="#eb6834"/>
+  <text x="304" y="607" font-size="13" font-weight="600" fill="#191c1d">크랙</text>
+  <text x="380" y="607" font-size="13" fill="#5b5f63">152건 (38%)</text>
+
+  <circle cx="292" cy="628" r="5" fill="#eda100"/>
+  <text x="304" y="633" font-size="13" font-weight="600" fill="#191c1d">이물질</text>
+  <text x="380" y="633" font-size="13" fill="#5b5f63">108건 (27%)</text>
+
+  <circle cx="292" cy="654" r="5" fill="#e87ba4"/>
+  <text x="304" y="659" font-size="13" font-weight="600" fill="#191c1d">변형</text>
+  <text x="380" y="659" font-size="13" fill="#5b5f63">76건 (19%)</text>
+
+  <circle cx="292" cy="680" r="5" fill="#2a78d6"/>
+  <text x="304" y="685" font-size="13" font-weight="600" fill="#191c1d">기타</text>
+  <text x="380" y="685" font-size="13" fill="#5b5f63">64건 (16%)</text>
+
+  <!-- ── 검사 요약 목록 (935×310) ── -->
+  <rect x="668" y="522" width="935" height="310" rx="12" fill="#fff" stroke="#e9bcb6" stroke-width="1"/>
+  <!-- 헤더 -->
+  <text x="688" y="556" font-size="18" font-weight="700" fill="#191c1d">검사 요약 목록</text>
+  <!-- 필터 드롭다운 -->
+  <rect x="1360" y="535" width="80" height="30" rx="4" fill="#fff" stroke="#e9bcb6" stroke-width="1"/>
+  <text x="1400" y="555" font-size="13" fill="#191c1d" text-anchor="middle">전체 ▾</text>
+  <!-- 일일 리포트 생성 버튼 -->
+  <rect x="1454" y="535" width="133" height="30" rx="4" fill="#e60012"/>
+  <text x="1520" y="555" font-size="13" font-weight="600" fill="#fff" text-anchor="middle">일일 리포트 생성</text>
+
+  <!-- 테이블 헤더 구분선 -->
+  <line x1="688" y1="578" x2="1583" y2="578" stroke="#e9bcb6" stroke-width="1"/>
+  <text x="688" y="572" font-size="16" font-weight="600" fill="#5b5f63">Cell ID</text>
+  <text x="968" y="572" font-size="16" font-weight="600" fill="#5b5f63">Result</text>
+  <text x="1248" y="572" font-size="16" font-weight="600" fill="#5b5f63">Time</text>
+
+  <!-- 테이블 행 1 -->
+  <line x1="688" y1="610" x2="1583" y2="610" stroke="#f8f9fa" stroke-width="1"/>
+  <text x="688" y="600" font-size="13" fill="#191c1d">CELL-001</text>
+  <circle cx="975" cy="596" r="4" fill="#5b5f63"/>
+  <text x="988" y="600" font-size="13" fill="#191c1d">PASS</text>
+  <text x="1248" y="600" font-size="13" fill="#191c1d">2026-07-23 09:12</text>
+
+  <!-- 테이블 행 2 -->
+  <line x1="688" y1="636" x2="1583" y2="636" stroke="#f8f9fa" stroke-width="1"/>
+  <text x="688" y="626" font-size="13" fill="#191c1d">CELL-002</text>
+  <circle cx="975" cy="622" r="4" fill="#e60012"/>
+  <text x="988" y="626" font-size="13" fill="#191c1d">REJECT</text>
+  <text x="1248" y="626" font-size="13" fill="#191c1d">2026-07-23 09:15</text>
+
+  <!-- 테이블 행 3 -->
+  <line x1="688" y1="662" x2="1583" y2="662" stroke="#f8f9fa" stroke-width="1"/>
+  <text x="688" y="652" font-size="13" fill="#191c1d">CELL-003</text>
+  <circle cx="975" cy="648" r="4" fill="#5b5f63"/>
+  <text x="988" y="652" font-size="13" fill="#191c1d">PASS</text>
+  <text x="1248" y="652" font-size="13" fill="#191c1d">2026-07-23 09:18</text>
+
+  <!-- 테이블 행 4 -->
+  <line x1="688" y1="688" x2="1583" y2="688" stroke="#f8f9fa" stroke-width="1"/>
+  <text x="688" y="678" font-size="13" fill="#191c1d">CELL-004</text>
+  <circle cx="975" cy="674" r="4" fill="#5b5f63"/>
+  <text x="988" y="678" font-size="13" fill="#191c1d">PASS</text>
+  <text x="1248" y="678" font-size="13" fill="#191c1d">2026-07-23 09:21</text>
+
+  <!-- 테이블 행 5 -->
+  <line x1="688" y1="714" x2="1583" y2="714" stroke="#f8f9fa" stroke-width="1"/>
+  <text x="688" y="704" font-size="13" fill="#191c1d">CELL-005</text>
+  <circle cx="975" cy="700" r="4" fill="#e60012"/>
+  <text x="988" y="704" font-size="13" fill="#191c1d">FAIL</text>
+  <text x="1248" y="704" font-size="13" fill="#191c1d">2026-07-23 09:24</text>
+
+  <!-- 테이블 행 6 -->
+  <line x1="688" y1="740" x2="1583" y2="740" stroke="#f8f9fa" stroke-width="1"/>
+  <text x="688" y="730" font-size="13" fill="#191c1d">CELL-006</text>
+  <circle cx="975" cy="726" r="4" fill="#5b5f63"/>
+  <text x="988" y="730" font-size="13" fill="#191c1d">PASS</text>
+  <text x="1248" y="730" font-size="13" fill="#191c1d">2026-07-23 09:27</text>
+
+  <!-- 테이블 행 7 -->
+  <line x1="688" y1="766" x2="1583" y2="766" stroke="#f8f9fa" stroke-width="1"/>
+  <text x="688" y="756" font-size="13" fill="#191c1d">CELL-007</text>
+  <circle cx="975" cy="752" r="4" fill="#e60012"/>
+  <text x="988" y="756" font-size="13" fill="#191c1d">REJECT</text>
+  <text x="1248" y="756" font-size="13" fill="#191c1d">2026-07-23 09:30</text>
+
+  <!-- 테이블 행 8 -->
+  <text x="688" y="782" font-size="13" fill="#191c1d">CELL-008</text>
+  <circle cx="975" cy="778" r="4" fill="#5b5f63"/>
+  <text x="988" y="782" font-size="13" fill="#191c1d">PASS</text>
+  <text x="1248" y="782" font-size="13" fill="#191c1d">2026-07-23 09:33</text>
+
+</svg>
