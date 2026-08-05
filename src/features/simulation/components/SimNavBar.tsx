@@ -2,7 +2,7 @@ import { useState } from 'react'
 import SimControlPanel from './SimControlPanel'
 import './SimNavBar.css'
 
-const TABS = ['대기', '촬영', '분석', '완료'] as const
+const TABS = ['전체', '대기', '촬영', '분석', '완료'] as const
 
 interface SimNavBarProps {
   activeTab: number

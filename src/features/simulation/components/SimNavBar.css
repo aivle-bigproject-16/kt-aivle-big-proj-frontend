@@ -6,10 +6,10 @@
   height: 100%;
 }
 
-/* 탭 트랙 — SVG: x=12 w=360 h=50 rx=25 fill=#DCDCDC */
+/* 탭 트랙 — SVG: w=450 h=50 rx=25 fill=#DCDCDC (5탭 × 9rem) */
 .sim-nav__track {
   position: relative;
-  width: 36rem;
+  width: 45rem;
   height: 5rem;
   background: #dcdcdc;
   border-radius: 2.5rem;
@@ -33,7 +33,7 @@
   pointer-events: none;
 }
 
-/* 탭 버튼 — 4개, 각 9rem(90px) */
+/* 탭 버튼 — 5개, 각 9rem(90px) */
 .sim-nav__tab {
   position: relative;
   z-index: 1;

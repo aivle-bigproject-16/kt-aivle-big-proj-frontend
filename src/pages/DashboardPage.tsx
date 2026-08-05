@@ -17,8 +17,9 @@ function DashboardPage() {
           className="dashboard__panels"
           style={{ transform: `translateX(calc(${activeTab} * -140rem))` }}
         >
-          <div className="dashboard__panel"><PendingPanel active={activeTab === 0} /></div>
-          <div className="dashboard__panel"><CapturePanel active={activeTab === 1} /></div>
+          <div className="dashboard__panel"><Simulation /></div>
+          <div className="dashboard__panel"><PendingPanel active={activeTab === 1} /></div>
+          <div className="dashboard__panel"><CapturePanel active={activeTab === 2} /></div>
           <div className="dashboard__panel"><AnalyzePanel /></div>
           <div className="dashboard__panel"><CompletePanel /></div>
         </div>
