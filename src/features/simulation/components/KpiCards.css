@@ -5,20 +5,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4.1rem;
+  gap: 2rem;
 }
 
-/* ── 카드 공통 — SVG: 430×160, rx=28, white, shadow ── */
+/* ── 카드 공통 — 380×150, rx=28, white, shadow ── */
 .kpi-card {
   flex: none;
   flex-shrink: 0;
-  width: 43rem;
-  height: 16rem;
+  width: 38rem;
+  height: 15rem;
   background: #ffffff;
-  border-radius: 2.8rem;
-  box-shadow: 0 3.2px 13.6px rgba(0, 0, 0, 0.25);
+  border-radius: 2.4rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
-  padding: 2.4rem 3rem;
+  padding: 2.0571rem 2.5714rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -28,12 +28,12 @@
 .kpi-card__header {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.3429rem;
 }
 
 /* SVG: font-size=32, bold, #111827 */
 .kpi-card__title {
-  font-size: 3.2rem;
+  font-size: 2.7429rem;
   font-weight: 700;
   color: #111827;
   line-height: 1.2;
@@ -41,7 +41,7 @@
 
 /* SVG: font-size=19.2, bold, #5B5F63 */
 .kpi-card__subtitle {
-  font-size: 1.92rem;
+  font-size: 1.6457rem;
   font-weight: 700;
   color: #5b5f63;
 }
@@ -50,23 +50,23 @@
 .kpi-card__value-row {
   display: flex;
   align-items: baseline;
-  gap: 0.8rem;
+  gap: 0.6857rem;
   justify-content: flex-end;
 }
 
 /* Process Status 전용 — 상태 dot */
 .kpi-card__dot {
   flex-shrink: 0;
-  width: 0.8rem;
-  height: 0.8rem;
+  width: 0.6857rem;
+  height: 0.6857rem;
   border-radius: 50%;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.1714rem;
   align-self: center;
 }
 
 /* SVG: font-size=51.2, bold, #111827 (기본) / #D94730 (accent) */
 .kpi-card__value {
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: 700;
   color: #111827;
   line-height: 1;
@@ -75,7 +75,7 @@
 /* 값 영역 — rem 고정 */
 .kpi-card__value--accent {
   flex-shrink: 0;
-  width: 13rem;
+  width: 11.1429rem;
   color: #d94730;
   text-align: center;
 }
@@ -85,27 +85,27 @@
    우측 정렬이라 자릿수가 늘면 왼쪽으로만 자라 뒤의 %가 제자리에 남는다 */
 .kpi-card__value--accent .kpi-card__value-num {
   display: inline-block;
-  width: 9rem;
+  width: 6.5rem;
   text-align: right;
 }
 
 /* SVG: font-size=28.8, #5B5F63 */
 .kpi-card__unit {
-  font-size: 2.18rem;
+  font-size: 1.8686rem;
   color: #5b5f63;
   line-height: 1;
 }
 
 /* Process Status 값은 38.4px */
 .kpi-card__value--status {
-  font-size: 3.1rem;
+  font-size: 2.6571rem;
   font-weight: 700;
   color: #111827;
 }
 
 /* 값 등장 애니메이션 */
 @keyframes kpi-pop {
-  from { opacity: 0; transform: translateY(0.6rem); }
+  from { opacity: 0; transform: translateY(0.5143rem); }
   to   { opacity: 1; transform: translateY(0); }
 }
 

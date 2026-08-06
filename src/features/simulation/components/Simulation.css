@@ -1,5 +1,5 @@
 @keyframes kpi-pop {
-  from { opacity: 0; transform: translateY(0.6rem); }
+  from { opacity: 0; transform: translateY(0.5143rem); }
   to   { opacity: 1; transform: translateY(0); }
 }
 

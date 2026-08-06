@@ -16,6 +16,10 @@ export function useMeasuredWidth<T extends HTMLElement>() {
   useEffect(() => {
     const el = ref.current
     if (!el) return
+    /* ResizeObserver의 첫 콜백이 폰트 로딩 등으로 지연되면 그 사이 초기 CSS
+       폴백 폭이 그대로 노출된다. getBoundingClientRect()로 마운트 시점 폭을
+       동기적으로 한 번 먼저 채워 그 공백을 없앤다 */
+    setWidth(el.getBoundingClientRect().width)
     const observer = new ResizeObserver(([entry]) => setWidth(entry.contentRect.width))
     observer.observe(el)
     return () => observer.disconnect()

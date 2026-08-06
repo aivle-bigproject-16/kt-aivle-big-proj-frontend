@@ -6,14 +6,14 @@
   justify-content: center;
 }
 
-/* 패널 패딩(10rem×2) 적용 후 콘텐츠 폭 120rem → 카드가 꽉 채움 */
+/* 시뮬레이션 섹션(120rem×43rem) 안의 내부 카드 — 118rem×41rem */
 .pending-card {
   flex-shrink: 0;
-  width: 137rem;
-  height: 46rem;
+  width: 118rem;
+  height: 41rem;
   background: #f4f4f4;
-  border-radius: 2.8rem;
-  box-shadow: 0 3.2px 13.6px rgba(0, 0, 0, 0.25);
+  border-radius: 2.4rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -27,7 +27,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 3.2rem 5.6rem;
+  padding: 2.7429rem 4.8rem;
   box-sizing: border-box;
 }
 
@@ -40,8 +40,8 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  top: 10rem;
-  left: -3rem;
+  top: 8.5714rem;
+  left: -2.5714rem;
   pointer-events: none;
 }
 
@@ -73,20 +73,20 @@
 }
 
 .pending-info__title {
-  font-size: 3.2rem;
+  font-size: 2.7429rem;
   font-weight: 700;
   color: #111827;
   line-height: 1.2;
 }
 
 .pending-info__date {
-  font-size: 1.84rem;
+  font-size: 1.5771rem;
   color: #6b7280;
-  margin-top: 0.8rem;
+  margin-top: 0.6857rem;
 }
 
 .pending-info__bottom {
-  margin-bottom: 2.8rem;
+  margin-bottom: 2.4rem;
 }
 
 /* 내용 폭으로 줄여야 실측값이 카운터 자체의 폭이 된다 */
@@ -94,13 +94,13 @@
   width: fit-content;
   display: flex;
   align-items: baseline;
-  gap: 1.5rem;
-  margin-bottom: 0.8rem;
+  gap: 1.2857rem;
+  margin-bottom: 0.6857rem;
 }
 
 /* 모든 숫자 글리프 폭을 동일하게 — 폭이 자릿수에만 좌우된다 */
 .pending-info__number {
-  font-size: 7.68rem;
+  font-size: 6.5829rem;
   font-weight: 700;
   color: #191c1d;
   line-height: 1;
@@ -108,31 +108,31 @@
 }
 
 .pending-info__unit {
-  font-size: 3.84rem;
+  font-size: 3.2914rem;
   color: #5b5f63;
 }
 
 /* width는 실측값이 인라인으로 덮어쓴다. 여기 값은 측정 전 초기 폭 */
 .pending-info__bar {
-  width: 19.3rem;
-  height: 0.32rem;
+  width: 16.5429rem;
+  height: 0.2743rem;
   background: #cca6a6;
-  border-radius: 0.16rem;
-  margin-bottom: 8rem;
+  border-radius: 0.1371rem;
+  margin-bottom: 6.8571rem;
   transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ── 우측 배치 리스트 ── */
 .pending-batches {
   flex: none;
-  width: 42.7rem;
+  width: 36.6rem;
   height: 91%;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 2.2rem;
-  padding: 1rem 3.6rem 2rem;
-  margin: 0 -1rem;
+  gap: 1.8857rem;
+  padding: 0.8571rem 3.0857rem 1.7143rem;
+  margin: 0 -0.8571rem;
   box-sizing: border-box;
   scrollbar-width: none;
 }
@@ -146,8 +146,8 @@
 .pending-batch {
   flex-shrink: 0;
   background: #ffffff;
-  border-radius: 1.6rem;
-  box-shadow: 0 3.2px 13.6px rgba(0, 0, 0, 0.25);
+  border-radius: 1.3714rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   overflow: hidden;
 }
 
@@ -155,31 +155,31 @@
   display: flex;
   align-items: center;
   width: 100%;
-  height: 5rem;
-  padding: 0 2.4rem;
+  height: 4.2857rem;
+  padding: 0 2.0571rem;
   background: none;
   border: none;
   cursor: pointer;
   box-sizing: border-box;
-  gap: 1rem;
+  gap: 0.8571rem;
 }
 
 .pending-batch__title {
-  font-size: 1.92rem;
+  font-size: 1.6457rem;
   font-weight: 700;
   color: #000;
 }
 
 .pending-batch__count {
-  font-size: 1.92rem;
+  font-size: 1.6457rem;
   font-weight: 700;
   color: #000;
   margin-left: auto;
-  margin-right: 0.8rem;
+  margin-right: 0.6857rem;
 }
 
 .pending-batch__chevron {
-  font-size: 1rem;
+  font-size: 0.8571rem;
   color: #6b7280;
   margin-left: auto;
   flex-shrink: 0;
@@ -193,8 +193,8 @@
 .pending-batch__cells {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.8rem;
-  padding: 0 1.6rem;
+  gap: 0.6857rem;
+  padding: 0 1.3714rem;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.35s ease-in-out,
@@ -202,8 +202,8 @@
 }
 
 .pending-batch__cells--open {
-  max-height: 40rem;
-  padding: 0 1.6rem 1.6rem;
+  max-height: 34.2857rem;
+  padding: 0 1.3714rem 1.3714rem;
 }
 
 .pending-cell {
@@ -212,11 +212,25 @@
   aspect-ratio: 83 / 41;
 }
 
+/* 클릭 시 해당 배터리 상세 페이지로 이동 — 호버는 배터리 아이콘 자체에만(밝기) */
+.pending-cell--clickable {
+  cursor: pointer;
+}
+
+.pending-cell--clickable:active {
+  transform: scale(0.95);
+}
+
 .pending-cell svg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  transition: filter 0.15s ease;
+}
+
+.pending-cell--clickable:hover svg {
+  filter: brightness(1.3) drop-shadow(0 0 0.3rem rgba(46, 204, 113, 0.7));
 }
 
 .pending-cell__id {
@@ -225,16 +239,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: #fff;
   pointer-events: none;
-  padding-left: 0.6rem; /* 단자 너비만큼 오프셋 */
+  padding-left: 0.5143rem; /* 단자 너비만큼 오프셋 */
 }
 
 /* ── 빈 상태 ── */
 .pending-batch--empty {
-  height: 16rem;
+  height: 13.7143rem;
   cursor: default;
 }
 
@@ -243,9 +257,9 @@
 }
 
 .pending-batch__empty-text {
-  font-size: 4rem;
+  font-size: 3.4286rem;
   font-weight: 700;
   color: #111827;
   text-align: center;
-  padding-top: 1.6rem;
+  padding-top: 1.3714rem;
 }

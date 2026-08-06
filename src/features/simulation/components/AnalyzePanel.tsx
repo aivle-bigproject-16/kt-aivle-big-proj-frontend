@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { useSimulationStore } from '../store/useSimulationStore'
 import { useCountUp } from '../hooks/useCountUp'
 import { useProcessStatusLabel } from '../hooks/useProcessStatus'
@@ -9,12 +10,21 @@ export function AnalyzePanel() {
   const today = new Date().toISOString().slice(0, 10)
   const statusLabel = useProcessStatusLabel()
 
+  /* 분석 중인 셀이 없으면 배터리 충전 애니메이션도 멈춘다 */
+  const batteryRef = useRef<SVGSVGElement>(null)
+  useEffect(() => {
+    const svg = batteryRef.current
+    if (!svg) return
+    if (analyze) svg.unpauseAnimations()
+    else svg.pauseAnimations()
+  }, [analyze])
+
   /* Cell ID는 점진적 카운트업이 아니라 값이 바뀔 때 팝업으로 등장한다 */
   const cellIdDisplay = analyze?.batteryCellId ?? 0
   /* retryCount는 WS 모델에 추가 예정 — 내려오기 전까지는 0 */
   const retryDisplay = useCountUp(analyze?.retryCount ?? 0)
 
-  /* Cell ID 바만 행 폭에 맞춘다. Retry count 바는 171px(17.1rem) 고정 — CSS 참고 */
+  /* Cell ID 바만 행 폭에 맞춘다. Retry count 바는 171px(14.6571rem) 고정 — CSS 참고 */
   const [cellIdRef, cellIdBarWidth] = useMeasuredWidth<HTMLDivElement>()
 
 
@@ -32,7 +42,7 @@ export function AnalyzePanel() {
 
             <div className="analyze-metric analyze-metric--retry">
               <div className="analyze-metric__row">
-                <span className="analyze-metric__label analyze-metric__label--retry">Retry count</span>
+                <span className="analyze-metric__label analyze-metric__label--retry">Retry Count</span>
                 <span className="analyze-metric__value">{retryDisplay}</span>
               </div>
               <div className="analyze-metric__bar" />
@@ -55,7 +65,7 @@ export function AnalyzePanel() {
           </p>
 
           <div className="analyze-detail__battery">
-            <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <svg ref={batteryRef} width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
               {/* Battery Cap (Metallic Grey) */}
               <rect x="42" y="8" width="16" height="6" rx="2" fill="#94a3b8" />
               {/* Battery Body Outline (Emerald Green) */}

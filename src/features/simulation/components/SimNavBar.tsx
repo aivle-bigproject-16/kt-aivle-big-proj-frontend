@@ -2,7 +2,7 @@ import { useState } from 'react'
 import SimControlPanel from './SimControlPanel'
 import './SimNavBar.css'
 
-const TABS = ['대기', '촬영', '분석', '완료'] as const
+const TABS = ['전체', '대기', '촬영', '분석', '완료'] as const
 
 interface SimNavBarProps {
   activeTab: number
@@ -17,7 +17,7 @@ function SimNavBar({ activeTab, onTabChange }: SimNavBarProps) {
       <div className="sim-nav__track">
         <div
           className="sim-nav__indicator"
-          style={{ transform: `translateX(calc(${activeTab} * 9rem))` }}
+          style={{ transform: `translateX(calc(${activeTab} * 7.7143rem))` }}
         />
         {TABS.map((tab, i) => (
           <button

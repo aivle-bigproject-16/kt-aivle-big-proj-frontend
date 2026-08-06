@@ -8,11 +8,11 @@
 
 .analyze-card {
   flex-shrink: 0;
-  width: 137rem;
-  height: 46rem;
+  width: 118rem;
+  height: 41rem;
   background: #f4f4f4;
-  border-radius: 2.8rem;
-  box-shadow: 0 3.2px 13.6px rgba(0, 0, 0, 0.25);
+  border-radius: 2.4rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -25,7 +25,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 3.2rem 5.6rem 3.5rem;
+  padding: 2.7429rem 4.8rem 3rem;
   box-sizing: border-box;
 }
 
@@ -34,29 +34,29 @@
 }
 
 .analyze-info__title {
-  font-size: 3.2rem;
+  font-size: 2.7429rem;
   font-weight: 700;
   color: #111827;
   line-height: 1.2;
 }
 
 .analyze-info__date {
-  font-size: 1.84rem;
+  font-size: 1.5771rem;
   color: #6b7280;
-  margin-top: 0.8rem;
+  margin-top: 0.6857rem;
 }
 
 /* ── 지표 ── */
 /* 폭만 고정. 자식(.analyze-metric)은 블록이라 flex 없이도 세로로 쌓인다.
    높이는 capture-info__bottom 과 동일하게 margin 기반 흐름으로 결정된다 */
 .analyze-info__metrics {
-  width: 53.6rem;
+  width: 45.9429rem;
 }
 
 /* 지표별로 따로 손보려면 수식자를 앞에 붙인다:
      .analyze-metric--cell-id  (Cell ID)
      .analyze-metric--retry    (Retry count)
-   예) .analyze-metric--retry .analyze-metric__label { width: 24rem; } */
+   예) .analyze-metric--retry .analyze-metric__label { width: 20.5714rem; } */
 
 /* 내용 폭으로 줄여야 실측값이 행 자체의 폭이 된다.
    margin-bottom 으로 다음 지표와의 간격을 확보 — capture-info__counter 와 동일한 설계 */
@@ -64,30 +64,30 @@
   width: fit-content;
   display: flex;
   align-items: baseline;
-  gap: 2.5rem;
-  margin-bottom: 0.8rem;
+  gap: 2.1429rem;
+  margin-bottom: 0.6857rem;
 }
 
 /* 폭 고정 — 두 지표의 값 시작 위치를 맞춘다 (캡쳐 유닛과 동일).
    지표별로 다르게 하려면 아래 수식자에서 덮어쓴다 */
 .analyze-metric__label {
-  width: 21rem;
-  font-size: 3.84rem;
+  width: 18rem;
+  font-size: 3.2914rem;
   color: #5b5f63;
 }
 
 .analyze-metric__label--cell-id {
-  width: 11.8rem;
+  width: 10.1143rem;
 }
 
 .analyze-metric__label--retry {
-  width: 21rem;
+  width: 18.5rem;
 }
 
 /* tabular-nums — 카운트업 중 글리프 폭 차이로 값이 좌우로 흔들리는 것을 막는다 */
 .analyze-metric__value {
   flex-shrink: 0;
-  font-size: 7.68rem;
+  font-size: 6.5829rem;
   font-weight: 700;
   color: #191c1d;
   line-height: 1;
@@ -96,7 +96,7 @@
 
 /* Cell ID — 점진적 카운트업이 아니라 key 교체로 remount될 때마다 팝업 재생 */
 @keyframes analyze-value-pop {
-  from { opacity: 0; transform: translateY(0.6rem); }
+  from { opacity: 0; transform: translateY(0.5143rem); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -107,30 +107,30 @@
 /* width는 실측값이 인라인으로 덮어쓴다. 여기 값은 측정 전 초기 폭.
    margin-bottom 으로 다음 지표와의 간격을 확보 — capture-info__bar 와 동일한 설계 */
 .analyze-metric__bar {
-  width: 30.5rem;
-  height: 0.3rem;
+  width: 26.1429rem;
+  height: 0.2571rem;
   background: #cca6a6;
-  border-radius: 0.15rem;
-  margin-bottom: 1.6rem;
+  border-radius: 0.1286rem;
+  margin-bottom: 1.3714rem;
   transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Retry count 바는 171px 고정 — 실측 폭으로 덮어쓰지 않고 애니메이션도 없음 */
 .analyze-metric--retry .analyze-metric__bar {
-  width: 28.5rem;
+  width: 24.4286rem;
   transition: none;
 }
 
 /* ── 우측 상세 카드 ── */
 .analyze-detail {
   flex: none;
-  width: 67.5rem;
-  height: 39rem;
-  margin-right: 3rem;
+  width: 57.8571rem;
+  height: 35rem;
+  margin-right: 2.5714rem;
   background: #ffffff;
-  border-radius: 2.8rem;
-  box-shadow: 0 3.2px 13.6px rgba(0, 0, 0, 0.25);
-  padding: 3.2rem 4.2rem;
+  border-radius: 2.4rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  padding: 2.7429rem 3.6rem;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -138,20 +138,20 @@
 /* 분석 중 표시 — 카드 중앙에 배치 */
 .analyze-detail__battery {
   width: 100%;
-  height: calc(100% - 1.92rem);
+  height: calc(100% - 1.6457rem);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .analyze-detail__battery svg {
-  width: 50rem;
-  height: 50rem;
+  width: 42.8571rem;
+  height: 42.8571rem;
   transform: rotate(-90deg);
 }
 
 .analyze-detail__title {
-  font-size: 1.92rem;
+  font-size: 1.6457rem;
   font-weight: 700;
   color: #000;
 }

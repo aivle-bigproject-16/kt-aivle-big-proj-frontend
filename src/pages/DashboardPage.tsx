@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Simulation, KpiCards, ResultSummary, SimNavBar, PendingPanel, CapturePanel, AnalyzePanel, CompletePanel, useSimulationSocket } from '@/features/simulation'
+import { OverviewPanel, KpiCards, ResultSummary, SimNavBar, PendingPanel, CapturePanel, AnalyzePanel, CompletePanel, useSimulationSocket } from '@/features/simulation'
 import './DashboardPage.css'
 
 function DashboardPage() {
@@ -15,10 +15,11 @@ function DashboardPage() {
       <div className="dashboard__simulation">
         <div
           className="dashboard__panels"
-          style={{ transform: `translateX(calc(${activeTab} * -140rem))` }}
+          style={{ transform: `translateX(calc(${activeTab} * -120rem))` }}
         >
-          <div className="dashboard__panel"><PendingPanel active={activeTab === 0} /></div>
-          <div className="dashboard__panel"><CapturePanel active={activeTab === 1} /></div>
+          <div className="dashboard__panel"><OverviewPanel onNavigate={setActiveTab} /></div>
+          <div className="dashboard__panel"><PendingPanel active={activeTab === 1} /></div>
+          <div className="dashboard__panel"><CapturePanel active={activeTab === 2} /></div>
           <div className="dashboard__panel"><AnalyzePanel /></div>
           <div className="dashboard__panel"><CompletePanel /></div>
         </div>
