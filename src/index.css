@@ -1,14 +1,21 @@
-/* 기준 해상도: 1920×920 | 1rem = 10px */
+/* 기준 해상도: 1920×920 | 1920px에서 1rem = 8.7px.
+   모든 컴포넌트 rem 값은 1200px 폭 col-main 기준으로 설계됨(px÷10=rem).
+   4K 이상(vw≥2206.9px)에서는 상한 10px에 고정 — px÷10=rem 환산이 "정확히" 맞는
+   기준 해상도는 4K이고, FHD(1920px)는 그보다 작은 8.7px/rem로 축소되어 보인다.
+
+   하한 4px — 레이아웃 총 폭(col-side×2+col-main=164.5714rem)이 하한에서
+   164.5714×4≈658px가 되어, 뷰포트가 그보다 좁아지기 전까지는 잘리지 않고
+   계속 비례해서 줄어든다. (하한이 7px일 때는 1152px부터 잘렸다) */
 :root {
   --base-w: 1920px;
   --base-h: 920px;
 
-  --col-side: 26rem;   /* 260px */
-  --col-main: 140rem;  /* 1400px */
+  --col-side: 22.2857rem;   /* 222.857px */
+  --col-main: 120rem;  /* 1200px */
 
   --bg: #ededed;
 
-  font-size: clamp(6px, calc(100vw / 224), 9.3px);
+  font-size: clamp(4px, calc(100vw / 195), 20px);
   font-family: 'Inter', system-ui, 'Pretendard', sans-serif;
   line-height: 1.5;
   color: #191c1d;

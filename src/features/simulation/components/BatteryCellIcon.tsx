@@ -4,7 +4,7 @@ interface BatteryCellIconProps {
   color?: string
 }
 
-export function BatteryCellIcon({ width = '8.3rem', height = '4.1rem', color = '#2ECC71' }: BatteryCellIconProps) {
+export function BatteryCellIcon({ width = '7.1143rem', height = '3.5143rem', color = '#2ECC71' }: BatteryCellIconProps) {
   return (
     <svg
       width={width}

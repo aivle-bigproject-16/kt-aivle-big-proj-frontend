@@ -1,0 +1,475 @@
+/* "전체" 탭 — 4개 섹션을 한 화면에 그리드로 보여주는 개요 */
+.overview-panel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* pending·capture·complete 3열, analyze는 좌+중 폭을 합쳐 하단에, complete는 우측 전체 높이 */
+.overview-grid {
+  position: relative;
+  width: 118rem;
+  height: 41rem;
+  display: grid;
+  grid-template-columns: 38rem 38rem 38rem;
+  grid-template-rows: 19.5rem 19.5rem;
+  gap: 2rem;
+  grid-template-areas:
+    'pending capture complete'
+    'analyze analyze complete';
+}
+
+/* ── 미니 카드 공통 — 기존 패널과 같은 배경/모서리/그림자 ── */
+.overview-mini {
+  background: #f4f4f4;
+  border-radius: 2.4rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  padding: 2rem 2.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  position: relative;
+}
+
+.overview-mini--pending { grid-area: pending; }
+.overview-mini--capture { grid-area: capture; }
+
+/* 클릭하면 해당 섹션 탭으로 이동 — hover 시 살짝 떠오르는 느낌, 레이아웃엔 영향 없음 */
+.overview-mini--clickable {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* NEXT/CURRENT 배지는 pending/capture 미니 카드 위에 겹쳐 있는 별개 요소라,
+   호버가 한쪽에만 걸리면 "같은 영역"처럼 안 보인다. 양방향으로 서로의 호버를 전파한다:
+   미니 카드 호버 → 뒤 형제인 배지(~)에도 적용 / 배지 호버 → :has()로 앞에 있는 미니 카드에도 적용.
+   그림자는 오프셋/블러 크기(2px 8px)는 그대로 두고 알파값만 올려 "진해지기만" 하게 한다 */
+/* complete 카드 안의 배터리 셀을 호버할 때는 카드 자체의 호버 효과를 끈다 —
+   그래야 카드 전체가 아니라 셀 자체의 호버(확대+아이콘 밝기)만 보인다 */
+.overview-mini--clickable:hover:not(.overview-mini--complete:has(.overview-cell:hover)),
+.overview-mini--pending:hover ~ .overview-badge-slot--next .overview-badge--next,
+.overview-mini--capture:hover ~ .overview-badge-slot--current .overview-badge--current,
+.overview-grid:has(.overview-badge--next:hover) .overview-mini--pending,
+.overview-grid:has(.overview-badge--current:hover) .overview-mini--capture {
+  transform: translateY(-0.3rem);
+}
+
+.overview-mini--pending:hover,
+.overview-mini--capture:hover,
+.overview-analyze:hover,
+.overview-mini--complete:hover:not(:has(.overview-cell:hover)),
+.overview-grid:has(.overview-badge--next:hover) .overview-mini--pending,
+.overview-grid:has(.overview-badge--current:hover) .overview-mini--capture {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.overview-mini--clickable:active {
+  transform: scale(0.98);
+}
+
+/* PASS/REJECT/FAIL 행이 아래에서 위로 쌓이지 않고 제목 아래부터 채워지도록 */
+.overview-mini--complete {
+  grid-area: complete;
+  justify-content: flex-start;
+}
+
+.overview-mini__header {
+  margin-bottom: auto;
+}
+
+.overview-mini__bottom {
+  margin-top: auto;
+}
+
+.overview-mini__title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.overview-mini__date {
+  font-size: 1.3rem;
+  color: #6b7280;
+  margin-top: 0.4rem;
+}
+
+/* 내용 폭으로 줄여야 실측값이 카운터 자체의 폭이 된다 (기존 패널과 동일 패턴) */
+.overview-mini__counter {
+  width: fit-content;
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+}
+
+/* overview-mini__date 와 동일 크기 */
+.overview-mini__unit {
+  font-size: 2rem;
+  color: #5b5f63;
+}
+
+/* overview-mini__title 과 동일 크기 */
+.overview-mini__number {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #191c1d;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* width는 실측값이 인라인으로 덮어쓴다. 여기 값은 측정 전 초기 폭 — 기존 언더바와 동일한 동작 */
+.overview-mini__bar {
+  width: 8.8rem;
+  height: 0.28rem;
+  background: #cca6a6;
+  border-radius: 0.14rem;
+  margin-top: 0.5rem;
+  transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── 배치 배지 — PENDING/CAPTURE 카드 위에 떠 있는 미니 카드 ──
+   슬롯(위치 고정, overflow:hidden 창)과 그 안의 배지 박스(내용, 슬라이드 대상)를 분리한다.
+   배치가 바뀌면 이전 박스 전체가 위로 슬라이드 아웃되고 새 박스가 아래에서 슬라이드 인된다 */
+/* overflow:hidden은 슬라이드 중인 박스를 가리는 데 필요하지만, 정지해 있는
+   배지의 box-shadow까지 함께 잘라버린다. 슬롯을 그림자만큼(1rem) 사방으로
+   키우고, 배지는 inset:1rem으로 안쪽에 배치해 시각적 위치/크기는 그대로 유지한다 */
+.overview-badge-slot {
+  position: absolute;
+  width: calc(11.8rem + 2rem);
+  height: calc(10.3rem + 2rem);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.overview-badge-slot--next { top: calc(7.3rem - 1rem); left: calc(23.3rem - 1rem); }
+.overview-badge-slot--current { top: calc(7.3rem - 1rem); left: calc(63rem - 1rem); }
+
+.overview-badge {
+  position: absolute;
+  /* 상하 여백을 좌우보다 크게 줘서 교체 애니메이션 중 위/아래 박스끼리 붙어 보이지 않게 한다 */
+  inset: 1.6rem 1rem;
+  background: #ffffff;
+  border-radius: 2.088rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  padding: 1.2rem 1.4rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+/* 두 박스가 하나의 띠처럼 함께 올라가는 것처럼 보이려면 이동 속도(easing/지속시간)가
+   완전히 같아야 한다 — enter/exit에 서로 다른 easing을 쓰면 속도가 어긋나 보인다 */
+.overview-badge--enter {
+  animation: overview-badge-enter 0.35s linear both;
+}
+
+.overview-badge--exit {
+  pointer-events: none;
+  animation: overview-badge-exit 0.35s linear both;
+}
+
+@keyframes overview-badge-enter {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes overview-badge-exit {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-100%); }
+}
+
+.overview-badge__status {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ff0000;
+}
+
+.overview-badge__title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.overview-badge__cell {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.overview-badge--empty {
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* ── ANALYZE 미니 카드 — 좌: 정보+지표 2개, 우: 상세 카드 ── */
+.overview-analyze {
+  grid-area: analyze;
+  background: #f4f4f4;
+  border-radius: 2.4rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  padding: 1.5rem 2.4rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* PENDING/CAPTURE/ANALYZE(원본)와 같은 패턴 — 제목은 위에, 지표는 카드 맨 아래에 고정 */
+.overview-analyze__info {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.overview-analyze__header {
+  margin-bottom: auto;
+}
+
+/* Cell ID / Retry Count를 세로로 배치 — 각 metric이 이미 고정폭(19rem)이라
+   flex/grid 없이 일반 블록 흐름만으로 위아래로 쌓인다 */
+.overview-analyze__metrics {
+  display: block;
+}
+
+/* 디자인 컴포넌트 — 고정 19rem. value-row/bar 크기와 무관하게 이 칸 자체는 고정폭 */
+.overview-analyze__metric {
+  display: block;
+  width: 19rem;
+}
+
+.overview-analyze__metric + .overview-analyze__metric {
+  margin-top: 1rem;
+}
+
+/* value-row + bar 를 함께 감싸는 콘텐츠 폭 래퍼.
+   metric은 고정폭(13rem)이라 바의 width:100%가 거기 묶이면 안 되므로,
+   이 래퍼를 fit-content로 따로 둬서 바가 metric이 아니라 value-row 폭을 따르게 한다 */
+.overview-analyze__value-wrap {
+  width: fit-content;
+}
+
+/* 라벨+값을 한 행에 가로로 배치 — 실제 AnalyzePanel과 동일한 패턴 */
+.overview-analyze__value-row {
+  width: fit-content;
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+}
+
+.overview-analyze__label {
+  font-size: 2rem;
+  color: #5b5f63;
+}
+
+.overview-analyze__value {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #191c1d;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Cell ID 변경 팝업 — AnalyzePanel의 analyze-value-pop과 동일 */
+@keyframes overview-analyze-value-pop {
+  from { opacity: 0; transform: translateY(0.5143rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.overview-analyze__value--pop {
+  animation: overview-analyze-value-pop 4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* width:100% — 부모(.overview-analyze__metric, grid 트랙 폭=콘텐츠 폭)를 그대로 따라간다.
+   JS 측정 없이 순수 CSS로 value-row 폭에 종속된다 */
+.overview-analyze__bar {
+  width: 100%;
+  height: 0.26rem;
+  background: #cca6a6;
+  border-radius: 0.13rem;
+  margin-top: 0.4rem;
+  transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 우측 상세 카드 — 33.3×16.4rem. 제목은 위, 배터리 애니메이션은 남은 공간에 */
+.overview-analyze__detail {
+  flex-shrink: 0;
+  width: 33.3rem;
+  height: 16.4rem;
+  margin-left: 1.4rem;
+  background: #ffffff;
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  padding: 1.4rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+/* AnalyzePanel의 .analyze-detail__battery 와 동일한 충전 애니메이션.
+   박스 높이(16.4rem)에 맞춰 크기만 축소 */
+.overview-analyze__battery {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overview-analyze__battery svg {
+  width: 20rem;
+  height: 20rem;
+  transform: rotate(-90deg);
+}
+
+.overview-analyze__detail-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000;
+}
+
+/* ── COMPLETE 미니 카드 — 색상 탭 + 셀 그리드 행 3개 ── */
+.overview-complete__title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+.overview-complete__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* 높이를 cells 영역(10rem)에 맞춰 고정 — flex:1 + min-height:0 이면 부모가
+   눌러서 cells의 실제 콘텐츠보다 낮아져 그리드가 잘린다 */
+.overview-complete__row {
+  flex-shrink: 0;
+  height: 10rem;
+  display: flex;
+  align-items: stretch;
+  background: #ffffff;
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+/* 7rem — cells(26rem 고정) + tab 이 카드 콘텐츠 폭(33.2rem) 안에 들어가도록.
+   8rem이면 34rem이 되어 33.2rem을 0.8rem 초과해 cells 우측이 잘렸다 */
+.overview-complete__tab {
+  flex-shrink: 0;
+  width: 7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.overview-complete__tab-label {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: white;
+}
+
+.overview-complete__tab-count {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* 디자인 컴포넌트 — 고정 260×100 */
+.overview-complete__cells {
+  flex-shrink: 0;
+  width: 26rem;
+  height: 10rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+  scrollbar-width: none;
+  display: grid;
+  grid-template-columns: repeat(3, 7.3rem);
+  gap: 0.5rem;
+  /* center로 두면 셀이 넘칠 때 스크롤 시작 위치(0)가 이미 중간이라
+     첫 행이 위로 잘려나간 채 보인다. 넘칠 때는 항상 첫 행부터 보이도록 상단 정렬 */
+  align-content: start;
+  padding: 0.6rem 0.8rem;
+}
+
+.overview-complete__cells::-webkit-scrollbar {
+  display: none;
+}
+
+/* CompletePanel의 complete-cell-enter 와 동일한 등장 애니메이션 */
+@keyframes overview-cell-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 배터리 셀 아이콘 — 73×34.8 고정 */
+.overview-cell {
+  position: relative;
+  flex-shrink: 0;
+  width: 7.3rem;
+  height: 3.48rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  animation: overview-cell-enter 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* 클릭 시 해당 배터리 상세 페이지로 이동 — 컨테이너 확대 + 내부 아이콘 밝기, 함께 적용 */
+.overview-cell--clickable {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.overview-cell--clickable:hover {
+  transform: scale(1.08);
+}
+
+.overview-cell--clickable:active {
+  transform: scale(0.95);
+}
+
+.overview-cell svg {
+  transition: filter 0.15s ease;
+}
+
+.overview-cell--clickable:hover svg {
+  filter: brightness(1.3) drop-shadow(0 0 0.3rem rgba(255, 255, 255, 0.7));
+}
+
+.overview-cell__id {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  pointer-events: none;
+  padding-left: 0.3rem;
+}

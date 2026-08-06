@@ -174,22 +174,25 @@ const { fetchList } = useBatteryListStore(s => s.actions)
 
 ### rem 스케일링
 
-피그마 1920px 기준 디자인. `:root`에 아래를 설정한다:
+**4K 해상도 기준으로 1rem = 10px** — 피그마 px÷10=rem 환산이 정확히 맞는 지점은 4K다. FHD(1920px)는 그보다 작은 `8.7px/rem`로 축소되어 보인다. `:root`에 아래를 설정한다:
 
 ```css
 :root {
-  font-size: clamp(6px, calc(100vw / 224), 9.3px);
-  --col-main: 140rem;
-  --col-side: 26rem;
+  font-size: clamp(4px, calc(100vw / 220.6897), 10px);
+  --col-main: 120rem;
+  --col-side: 22.2857rem;
 }
 ```
 
-| 해상도 | 1rem |
+| 뷰포트 폭 | 1rem |
 |---|---|
-| FHD 1920px | ≈ 8.571px |
-| 4K ≥ 2083px | 9.3px (상한 고정) |
+| `< 882.8px` | 하한 `4px`에 고정 |
+| `882.8px ~ 2206.9px` | `100vw / 220.6897`로 연속 변화 (FHD 1920px → `8.7px`) |
+| `≥ 2206.9px` (4K 이상) | 상한 `10px`에 고정 (정확히) |
 
-**피그마 px → rem 변환**: px ÷ 10 = rem
+**레이아웃 총 폭**은 `col-side×2 + col-main = 164.5714rem`이다. 하한(`4px`)에서 실제 픽셀 폭은 `164.5714 × 4 ≈ 658px` — 뷰포트가 이보다 좁아지기 전까지는 `.root-layout`의 `overflow:hidden`에 잘리지 않고 계속 비례해서 줄어든다. 하한을 더 낮추면 이 잘림 시작점도 그만큼 더 좁은 화면까지 미뤄진다.
+
+**모든 컴포넌트의 rem 값은 col-main = 1200px(120rem) 기준으로 설계됐다.** 피그마 프레임 자체는 1920px(col-main 1400px)로 그려지므로, 컴포넌트별 rem 값을 작성할 때는 **피그마 px ÷ 10 × 6/7 = rem**이다. `6/7`은 `1200/1400`에서 나온 축소 비율이다 — 이건 각 컴포넌트의 rem 수치를 정하는 규칙이고, 위 `clamp()`의 하한/분모/상한은 반응형 스케일 자체를 조정한 것이라 서로 독립적이다.
 
 ### CSS 값 입력 규칙
 
@@ -197,15 +200,21 @@ const { fetchList } = useBatteryListStore(s => s.actions)
 |---|---|---|
 | 크기 / 간격 / 둥근 모서리 | 피그마 px ÷ 10 → rem | rem 스케일에 따라 자동 조정 |
 | `border` 두께 | px 고정 | 선은 뷰포트 크기와 무관하게 항상 얇아야 함 |
-| `box-shadow` 값 | px 고정 | 시각적 디테일 — 비례 축소 불필요, 레이아웃에도 영향 없음 |
+| `box-shadow` 값 | px 고정, **모든 디자인 컴포넌트 공통 고정값** | 시각적 디테일 — 비례 축소 불필요, 레이아웃에도 영향 없음. 컴포넌트마다 다르게 만들지 않는다 |
+
+**카드형 디자인 컴포넌트(패널/카드/서브카드 등)의 표준 그림자**는 아래 값으로 고정한다. 새 컴포넌트를 만들 때도 이 값을 그대로 쓴다 — 크기와 무관하게 전부 동일.
 
 ```css
-/* 올바른 예 */
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+```
+
+```css
+/* 올바른 예 — 피그마 430px 요소, 6/7 축소 반영 */
 .card {
-  width: 43rem;                              /* 430px ÷ 10 */
-  border-radius: 2.8rem;                     /* 28px ÷ 10 */
-  border: 1px solid #e9ecef;                 /* px 고정 */
-  box-shadow: 0 3.2px 13.6px rgba(0,0,0,0.25); /* px 고정 */
+  width: 36.8571rem;                        /* 430px ÷ 10 × 6/7 */
+  border-radius: 2.4rem;                    /* 28px ÷ 10 × 6/7 */
+  border: 1px solid #e9ecef;                /* px 고정 — 축소 대상 아님 */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); /* px 고정, 표준값 그대로 */
 }
 ```
 
@@ -215,9 +224,9 @@ const { fetchList } = useBatteryListStore(s => s.actions)
 
 ```
 root-layout  (justify-content: center)
-├── .root-layout__left   — 26rem
-├── .root-layout__center — 140rem  (--col-main)
-└── .root-layout__right  — 26rem
+├── .root-layout__left   — 22.2857rem
+├── .root-layout__center — 120rem  (--col-main)
+└── .root-layout__right  — 22.2857rem
 ```
 
 ### 섹션(section)과 디자인 컴포넌트 구분
@@ -234,18 +243,18 @@ root-layout  (justify-content: center)
 
 | 섹션 | 클래스 | 크기 |
 |---|---|---|
-| 시뮬레이션 네비 | `.dashboard__sim-nav` | `140rem × 5rem` |
-| 시뮬레이션 패널 | `.dashboard__simulation` | `140rem × 50rem` |
-| KPI | `.dashboard__kpi` | `140rem × 20rem` |
-| 결과 요약 | `.dashboard__result` | `140rem × 30rem` |
+| 시뮬레이션 네비 | `.dashboard__sim-nav` | `120rem × 4.2857rem` |
+| 시뮬레이션 패널 | `.dashboard__simulation` | `120rem × 42.8571rem` |
+| KPI | `.dashboard__kpi` | `120rem × 17.1429rem` |
+| 결과 요약 | `.dashboard__result` | `120rem × 25.7143rem` |
 
 ```css
 /* 섹션 — 영역만 확보 */
 .dashboard__kpi {
   flex-shrink: 0;
-  width: 140rem;
-  height: 20rem;
-  padding: 0 10rem;
+  width: 120rem;
+  height: 17.1429rem;
+  padding: 0 8.5714rem;
   box-sizing: border-box;
 }
 
@@ -256,15 +265,15 @@ root-layout  (justify-content: center)
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 1.7143rem;
 }
 
 /* 디자인 컴포넌트 — rem 고정 */
 .kpi-card {
   flex-shrink: 0;
-  width: 43rem;
-  height: 16rem;
-  box-shadow: 0 3.2px 13.6px rgba(0, 0, 0, 0.25);
+  width: 36.8571rem;
+  height: 13.7143rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 ```
 

@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { ROUTES } from '@/core/navigation/routes'
 import { useSimulationStore } from '../store/useSimulationStore'
 import type { CellProgress } from '../types'
 import { BatteryCellIcon } from './BatteryCellIcon'
@@ -67,8 +69,9 @@ const LASER_SWEEP = sweep(x => `${x + SCAN_W / 2}`)
 
 function CaptureBatchCard({ batchId, cells, isCaptured }: BatchGroup) {
   const [open, setOpen] = useState(!isCaptured)
-  const [animStyle, setAnimStyle] = useState<React.CSSProperties>({ maxHeight: 0, overflow: 'hidden', opacity: 0, marginBottom: '-2.2rem' })
+  const [animStyle, setAnimStyle] = useState<React.CSSProperties>({ maxHeight: 0, overflow: 'hidden', opacity: 0, marginBottom: '-1.8857rem' })
   const cardRef = useRef<HTMLDivElement>(null)
+  const navigate = useNavigate()
 
   /* 목록에서 빠진 셀을 퇴장 애니메이션 동안 DOM에 유지한다 */
   const [exitingCells, setExitingCells] = useState<CellProgress[]>([])
@@ -129,7 +132,11 @@ function CaptureBatchCard({ batchId, cells, isCaptured }: BatchGroup) {
       </button>
       <div className={`capture-batch__cells${open ? ' capture-batch__cells--open' : ''}`}>
         {renderedCells.map(({ cell, exiting }) => (
-          <div key={cell.batteryCellId} className={`capture-cell${exiting ? ' capture-cell--exit' : ''}`}>
+          <div
+            key={cell.batteryCellId}
+            className={`capture-cell capture-cell--clickable${exiting ? ' capture-cell--exit' : ''}`}
+            onClick={() => navigate(ROUTES.BATTERY_DETAIL(cell.batteryCellId))}
+          >
             <BatteryCellIcon width="100%" height="100%" />
             <span className="capture-cell__id">{cell.batteryCellId}</span>
           </div>
@@ -143,7 +150,11 @@ function CaptureBatchCard({ batchId, cells, isCaptured }: BatchGroup) {
 export function CapturePanel({ active = true }: { active?: boolean }) {
   const capture = useSimulationStore(s => s.capture)
   const today = new Date().toISOString().slice(0, 10)
-  const runScanner = useLingeringActive(active)
+  const capturingCount = capture.filter(c => c.status === 'CAPTURING').length
+  const capturedCount = capture.filter(c => c.status === 'CAPTURED').length
+
+  /* 촬영 중인 셀이 없으면 스캐너도 멈춘다 */
+  const runScanner = useLingeringActive(active) && capturingCount > 0
   const scannerRef = useRef<SVGSVGElement>(null)
 
   /* 스캐너는 언마운트하지 않고 SMIL 타임라인만 멈춘다.
@@ -155,9 +166,6 @@ export function CapturePanel({ active = true }: { active?: boolean }) {
     if (runScanner) svg.unpauseAnimations()
     else svg.pauseAnimations()
   }, [runScanner])
-
-  const capturingCount = capture.filter(c => c.status === 'CAPTURING').length
-  const capturedCount = capture.filter(c => c.status === 'CAPTURED').length
   const statusLabel = useProcessStatusLabel()
   const capturingDisplay = useCountUp(capturingCount)
   const capturedDisplay = useCountUp(capturedCount)

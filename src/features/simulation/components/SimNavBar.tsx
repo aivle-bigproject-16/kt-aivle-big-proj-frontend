@@ -17,7 +17,7 @@ function SimNavBar({ activeTab, onTabChange }: SimNavBarProps) {
       <div className="sim-nav__track">
         <div
           className="sim-nav__indicator"
-          style={{ transform: `translateX(calc(${activeTab} * 9rem))` }}
+          style={{ transform: `translateX(calc(${activeTab} * 7.7143rem))` }}
         />
         {TABS.map((tab, i) => (
           <button

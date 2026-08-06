@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { ROUTES } from '@/core/navigation/routes'
 import { useSimulationStore } from '../store/useSimulationStore'
 import type { CellProgress } from '../types'
 import { BatteryCellIcon } from './BatteryCellIcon'
@@ -18,6 +20,7 @@ interface BatchGroup {
 function BatchCard({ batch, exiting = false, isTop = false }: { batch: BatchGroup; exiting?: boolean; isTop?: boolean }) {
   const [open, setOpen] = useState(isTop)
   const ref = useRef<HTMLDivElement>(null)
+  const navigate = useNavigate()
   const [exitStyle, setExitStyle] = useState<Record<string, string | number>>({})
 
   useEffect(() => {
@@ -36,7 +39,7 @@ function BatchCard({ batch, exiting = false, isTop = false }: { batch: BatchGrou
           height: 0,
           overflow: 'hidden',
           opacity: 0,
-          marginBottom: '-2.2rem',
+          marginBottom: '-1.8857rem',
           transition: `height ${EXIT_DURATION}ms ease-out, opacity 150ms ease-out ${EXIT_DURATION - 150}ms, margin-bottom ${EXIT_DURATION}ms ease-out`,
         })
       })
@@ -58,7 +61,11 @@ function BatchCard({ batch, exiting = false, isTop = false }: { batch: BatchGrou
       </button>
       <div className={`pending-batch__cells${open ? ' pending-batch__cells--open' : ''}`}>
         {batch.cells.map(cell => (
-          <div key={cell.batteryCellId} className="pending-cell">
+          <div
+            key={cell.batteryCellId}
+            className="pending-cell pending-cell--clickable"
+            onClick={() => navigate(ROUTES.BATTERY_DETAIL(cell.batteryCellId))}
+          >
             <BatteryCellIcon width="100%" height="100%" />
             <span className="pending-cell__id">{cell.batteryCellId}</span>
           </div>
@@ -74,7 +81,8 @@ export function PendingPanel({ active = true }: { active?: boolean }) {
   const today = new Date().toISOString().slice(0, 10)
   const registeredDisplay = useCountUp(registered.length)
   const statusLabel = useProcessStatusLabel()
-  const showConveyor = useLingeringActive(active)
+  /* 대기 중인 셀이 없으면 컨베이어도 멈춘다 */
+  const showConveyor = useLingeringActive(active) && registered.length > 0
 
   /* 바를 카운터 폭에 맞춘다. 숫자가 tabular-nums라 폭은 자릿수가 바뀔 때만 변한다 */
   const [counterRef, barWidth] = useMeasuredWidth<HTMLDivElement>()

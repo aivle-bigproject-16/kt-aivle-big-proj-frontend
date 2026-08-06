@@ -2,24 +2,24 @@
 .sim-settings-card {
   position: relative;
   flex-shrink: 0;
-  width: 18rem;
-  height: 13.95rem;
+  width: 15.4286rem;
+  height: 11.9571rem;
   background: #ffffff;
-  border-radius: 0.907rem;
+  border-radius: 0.7774rem;
   box-shadow: 0 1.45px 6.17px rgba(0, 0, 0, 0.25);
 }
 
-/* 행 — 값 박스는 세 행 모두 같은 x(10.5rem)에 위치, top만 행마다 다르다 */
+/* 행 — 값 박스는 세 행 모두 같은 x(9rem)에 위치, top만 행마다 다르다 */
 .sim-settings-row {
   position: absolute;
   left: 0;
   width: 100%;
-  height: 2.376rem;
+  height: 2.0366rem;
 }
 
-.sim-settings-row--batch { top: 1.425rem; }
-.sim-settings-row--photo { top: 4.725rem; }
-.sim-settings-row--speed { top: 8.125rem; }
+.sim-settings-row--batch { top: 1.2214rem; }
+.sim-settings-row--photo { top: 4.05rem; }
+.sim-settings-row--speed { top: 6.9643rem; }
 
 /* 라벨 — 피그마 좌표 그대로 (행마다 x가 다름) */
 .sim-settings-label {
@@ -28,24 +28,24 @@
   height: 100%;
   display: flex;
   align-items: center;
-  font-size: 1.45rem;
+  font-size: 1.2429rem;
   font-weight: 700;
   color: #000;
   white-space: nowrap;
 }
 
-.sim-settings-label--batch { left: 1.2rem; }
-.sim-settings-label--photo { left: 3.87rem; }
-.sim-settings-label--speed { left: 2.54rem; }
+.sim-settings-label--batch { left: 1.0286rem; }
+.sim-settings-label--photo { left: 3.3171rem; }
+.sim-settings-label--speed { left: 2.1771rem; }
 
 /* 값 박스 — SVG: 60×23.7584, rx=6.04, #EDEDED */
 .sim-settings-box {
   position: absolute;
   top: 0;
-  left: 10.5rem;
-  width: 6rem;
+  left: 9rem;
+  width: 5.1429rem;
   height: 100%;
-  border-radius: 0.604rem;
+  border-radius: 0.5177rem;
   background: #ededed;
   box-shadow: 0 1.29px 5.48px rgba(0, 0, 0, 0.25);
   display: flex;
@@ -60,7 +60,7 @@
   background: transparent;
   text-align: center;
   font-family: inherit;
-  font-size: 1.45rem;
+  font-size: 1.2429rem;
   font-weight: 700;
   color: #000;
   -moz-appearance: textfield;
@@ -79,21 +79,21 @@
 /* 버튼 — SVG: 42.3×15.3, rx=4.5. 카드 내부 하단에 절대 배치 */
 .sim-settings-actions {
   position: absolute;
-  top: 11.61rem;
+  top: 9.9514rem;
   left: 0;
   width: 100%;
-  height: 1.53rem;
+  height: 1.3114rem;
 }
 
 .sim-settings-actions button {
   position: absolute;
   top: 0;
-  width: 4.23rem;
+  width: 3.6257rem;
   height: 100%;
   border: none;
-  border-radius: 0.45rem;
+  border-radius: 0.3857rem;
   box-shadow: 0 1.45px 6.17px rgba(0, 0, 0, 0.25);
-  font-size: 0.9rem;
+  font-size: 0.7714rem;
   font-weight: 700;
   color: #000;
   cursor: pointer;
@@ -101,18 +101,18 @@
 }
 
 .sim-settings-actions button[type='button'] {
-  left: 7.47rem;
+  left: 6.4029rem;
   background: #d9d9d9;
 }
 
 .sim-settings-actions button[type='submit'] {
-  left: 12.42rem;
+  left: 10.6457rem;
   background: #2ecc71;
 }
 
 /* 위치 지정 없음 — 카드 아래 여백에 표시 */
 .sim-settings-error {
-  margin: 0.6rem 0 0;
-  font-size: 1.1rem;
+  margin: 0.5143rem 0 0;
+  font-size: 0.9429rem;
   color: #e03636;
 }

@@ -1,18 +1,18 @@
 .sim-nav {
   display: flex;
   align-items: center;
-  gap: 1.6rem;
+  gap: 1.3714rem;
   width: 100%;
   height: 100%;
 }
 
-/* 탭 트랙 — SVG: w=450 h=50 rx=25 fill=#DCDCDC (5탭 × 9rem) */
+/* 탭 트랙 — SVG: w=450 h=50 rx=25 fill=#DCDCDC (5탭 × 7.7143rem) */
 .sim-nav__track {
   position: relative;
-  width: 45rem;
-  height: 5rem;
+  width: 38.5714rem;
+  height: 4.2857rem;
   background: #dcdcdc;
-  border-radius: 2.5rem;
+  border-radius: 2.1429rem;
   display: flex;
   align-items: center;
   flex-shrink: 0;
@@ -22,27 +22,27 @@
    shadow: feMorphology erode r=1, feGaussianBlur stdDev=3.5, alpha=0.25 */
 .sim-nav__indicator {
   position: absolute;
-  left: 0.5rem;
-  top: 0.5rem;
-  width: 8rem;
-  height: 4rem;
+  left: 0.4286rem;
+  top: 0.4286rem;
+  width: 6.8571rem;
+  height: 3.4286rem;
   background: #ffffff;
-  border-radius: 2rem;
+  border-radius: 1.7143rem;
   box-shadow: 0 0 7px -1px rgba(0, 0, 0, 0.25);
   transition: transform 0.3s ease;
   pointer-events: none;
 }
 
-/* 탭 버튼 — 5개, 각 9rem(90px) */
+/* 탭 버튼 — 5개, 각 7.7143rem(90px) */
 .sim-nav__tab {
   position: relative;
   z-index: 1;
-  width: 9rem;
+  width: 7.7143rem;
   height: 100%;
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 1.7143rem;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.5);
   transition: color 0.3s;
@@ -61,8 +61,8 @@
 
 /* SVG: x=388 w=50 h=50 rx=25 fill=#D9D9D9 */
 .sim-nav__control {
-  width: 5rem;
-  height: 5rem;
+  width: 4.2857rem;
+  height: 4.2857rem;
   border-radius: 50%;
   background: #d9d9d9;
   border: none;
@@ -77,7 +77,7 @@
 /* 팝오버 — 버튼 아래 좌측 정렬 */
 .sim-nav__control-popover {
   position: absolute;
-  top: calc(100% + 0.8rem);
+  top: calc(100% + 0.6857rem);
   left: 0;
   z-index: 100;
 }

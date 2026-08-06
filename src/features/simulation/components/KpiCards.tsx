@@ -33,7 +33,7 @@ function KpiCards() {
         subtitle="양품률"
         value={yieldRate}
         decimals={1}
-        format={(n) => n.toFixed(1)}
+        format={(n) => (n === 100 ? '100' : n.toFixed(1))}
         suffix="%"
         unit="target 99%"
         accent

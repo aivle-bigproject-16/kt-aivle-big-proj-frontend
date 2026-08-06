@@ -1,4 +1,5 @@
 export { Simulation } from './components/Simulation'
+export { OverviewPanel } from './components/OverviewPanel'
 export { PendingPanel } from './components/PendingPanel'
 export { CapturePanel } from './components/CapturePanel'
 export { AnalyzePanel } from './components/AnalyzePanel'

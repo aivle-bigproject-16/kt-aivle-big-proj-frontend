@@ -15,7 +15,7 @@
 .root-layout__center {
   flex: none;
   width: var(--col-main);
-  padding-top: 2rem;
+  padding-top: 1.7143rem;
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -29,6 +29,6 @@
 
 .root-layout__content {
   flex: 1;
-  overflow: hidden;
+  overflow: visible;
   min-height: 0;
 }
