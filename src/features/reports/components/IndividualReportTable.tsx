@@ -74,7 +74,7 @@ function IndividualReportTable() {
           <colgroup>
             <col style={{ width: '16rem' }} />
             <col />
-            <col style={{ width: '24rem' }} />
+            <col style={{ width: '22rem' }} />
             <col style={{ width: '26rem' }} />
           </colgroup>
           <thead>
