@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1646 1060" width="1646" height="1060" font-family="Inter, system-ui, 'Pretendard', sans-serif">
+  <title>일일 리포트 상세</title>
+  <desc>summary 필드를 직접 읽는다. 결함 분포는 도넛 대신 가로 막대. SVG 1단위 = 디자인 1px = 0.1rem</desc>
+
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+    <clipPath id="ref"><rect x="0" y="0" width="372" height="200" rx="12"/></clipPath>
+  </defs>
+
+  <rect width="1646" height="1060" fill="#ededed"/>
+
+  <!-- ================= 사이드바 ================= -->
+  <g>
+    <rect x="68.6" y="30" width="85.7" height="85.7" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <text x="111.4" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#0C5795">LOGO</text>
+    <text x="111.4" y="140" text-anchor="middle" font-size="12" fill="#5b5f63">슬로건 자리</text>
+
+    <rect x="16.5" y="176" width="190" height="240" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="32.5" y="196" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="212" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="229" font-size="14" font-weight="500" fill="#5b5f63">대시보드</text>
+    <rect x="32.5" y="268" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="284" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="301" font-size="14" font-weight="500" fill="#5b5f63">배터리 목록</text>
+    <rect x="32.5" y="340" width="158" height="56" rx="15" fill="#EEF6FE"/>
+    <rect x="52" y="356" width="24" height="24" rx="8" fill="#0C5795"/>
+    <text x="88" y="373" font-size="14" font-weight="600" fill="#0C5795">리포트 목록</text>
+  </g>
+
+  <!-- ================= 우측 사용자 ================= -->
+  <g>
+    <rect x="1439.5" y="30" width="190" height="42" fill="#ffffff" filter="url(#sh)"/>
+    <circle cx="1462" cy="51" r="16" fill="#dfe3e7"/>
+    <text x="1462" y="56" text-anchor="middle" font-size="12" font-weight="600" fill="#5b5f63">김</text>
+    <text x="1487" y="56" font-size="14" fill="#191c1d">김경순</text>
+    <path d="M1604 48 l5 5 l5 -5" stroke="#9ca3af" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- ================= 슬롯 1 — 뒤로가기 ================= -->
+  <g>
+    <path d="M249 41 l-6 6 l6 6" stroke="#5b5f63" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="264" y="52" font-size="13.5" fill="#5b5f63">일일 리포트 목록으로</text>
+  </g>
+
+  <!-- ================= 슬롯 2 — 리포트 헤더 ================= -->
+  <g>
+    <rect x="243" y="70" width="1160" height="120" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <rect x="267" y="94" width="102" height="24" fill="#f3f4f6"/>
+    <text x="318" y="110" text-anchor="middle" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-06</text>
+    <text x="381" y="112" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+
+    <text x="267" y="146" font-size="24" font-weight="700" fill="#191c1d">2026-08-06 일일 검사 요약 — 수율 94.0%</text>
+
+    <text x="1379" y="110" text-anchor="end" font-size="13" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">RPT-14</text>
+
+    <text x="1080" y="152" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">생성일시</text>
+    <text x="1140" y="152" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-06 23:59</text>
+    <text x="1264" y="152" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">수정일시</text>
+    <text x="1324" y="152" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">—</text>
+  </g>
+
+  <!-- ================= 상단 — KPI 4장 ================= -->
+  <g>
+    <!-- 총 검사 수 -->
+    <rect x="243" y="206" width="275" height="110" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <text x="267" y="240" font-size="11" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">총 검사 수</text>
+    <text x="267" y="288" font-size="34" font-weight="700" fill="#191c1d" letter-spacing="-1" font-family="ui-monospace, Consolas, monospace">1,240</text>
+    <text x="494" y="288" text-anchor="end" font-size="13" fill="#9ca3af">건</text>
+
+    <!-- 정상 -->
+    <rect x="538" y="206" width="275" height="110" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="538" y="206" width="4" height="110" fill="#1e7e34"/>
+    <text x="562" y="240" font-size="11" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">정상 PASS</text>
+    <text x="562" y="288" font-size="34" font-weight="700" fill="#1e7e34" letter-spacing="-1" font-family="ui-monospace, Consolas, monospace">1,166</text>
+    <text x="789" y="288" text-anchor="end" font-size="15" fill="#1e7e34" font-family="ui-monospace, Consolas, monospace">94.0%</text>
+
+    <!-- 불량 -->
+    <rect x="833" y="206" width="275" height="110" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="833" y="206" width="4" height="110" fill="#d97706"/>
+    <text x="857" y="240" font-size="11" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">불량 REJECT</text>
+    <text x="857" y="288" font-size="34" font-weight="700" fill="#d97706" letter-spacing="-1" font-family="ui-monospace, Consolas, monospace">62</text>
+    <text x="1084" y="288" text-anchor="end" font-size="15" fill="#d97706" font-family="ui-monospace, Consolas, monospace">5.0%</text>
+
+    <!-- 검사 실패 -->
+    <rect x="1128" y="206" width="275" height="110" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="1128" y="206" width="4" height="110" fill="#dc2626"/>
+    <text x="1152" y="240" font-size="11" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">검사 실패 FAIL</text>
+    <text x="1152" y="288" font-size="34" font-weight="700" fill="#dc2626" letter-spacing="-1" font-family="ui-monospace, Consolas, monospace">12</text>
+    <text x="1379" y="288" text-anchor="end" font-size="15" fill="#dc2626" font-family="ui-monospace, Consolas, monospace">1.0%</text>
+  </g>
+
+  <!-- ================= 중단 좌 — 결함 유형 분포 ================= -->
+  <g>
+    <rect x="243" y="332" width="720" height="360" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <text x="267" y="370" font-size="14" font-weight="600" fill="#5b5f63">결함 유형 분포</text>
+    <text x="371" y="369" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">DEFECT TYPES</text>
+    <text x="939" y="369" text-anchor="end" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">총 62건</text>
+
+    <line x1="267" y1="386" x2="939" y2="386" stroke="#eceef0" stroke-width="1"/>
+
+    <!-- 미세결함 -->
+    <g>
+      <text x="267" y="428" font-size="13.5" font-weight="600" fill="#191c1d">미세결함</text>
+      <text x="337" y="427" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">MICRO_DEFECT</text>
+      <text x="880" y="428" text-anchor="end" font-size="16" font-weight="700" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">34</text>
+      <text x="939" y="428" text-anchor="end" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">54.8%</text>
+      <rect x="267" y="440" width="672" height="16" rx="4" fill="#f1f3f4"/>
+      <rect x="267" y="440" width="368" height="16" rx="4" fill="#3F7A8C"/>
+      <text x="647" y="453" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">CT 모델 출력</text>
+    </g>
+
+    <!-- 갈라짐 -->
+    <g>
+      <text x="267" y="504" font-size="13.5" font-weight="600" fill="#191c1d">갈라짐</text>
+      <text x="323" y="503" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">CRACK</text>
+      <text x="880" y="504" text-anchor="end" font-size="16" font-weight="700" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">19</text>
+      <text x="939" y="504" text-anchor="end" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">30.6%</text>
+      <rect x="267" y="516" width="672" height="16" rx="4" fill="#f1f3f4"/>
+      <rect x="267" y="516" width="206" height="16" rx="4" fill="#7C4DBF"/>
+      <text x="485" y="529" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">RGB 모델 출력</text>
+    </g>
+
+    <!-- 오점 -->
+    <g>
+      <text x="267" y="580" font-size="13.5" font-weight="600" fill="#191c1d">오점</text>
+      <text x="309" y="579" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">SPOT</text>
+      <text x="880" y="580" text-anchor="end" font-size="16" font-weight="700" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">9</text>
+      <text x="939" y="580" text-anchor="end" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">14.5%</text>
+      <rect x="267" y="592" width="672" height="16" rx="4" fill="#f1f3f4"/>
+      <rect x="267" y="592" width="98" height="16" rx="4" fill="#B5453E"/>
+      <text x="377" y="605" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">RGB 모델 출력</text>
+    </g>
+
+    <line x1="267" y1="636" x2="939" y2="636" stroke="#eceef0" stroke-width="1"/>
+    <text x="267" y="662" font-size="11.5" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">SWELLING(부풀음)은 이를 출력하는 모델이 없어 항상 0이다 — 값이 0이면 목록에서 제외한다 (Core §6.5)</text>
+  </g>
+
+  <!-- ================= 중단 우 — 참조 이미지 ================= -->
+  <g>
+    <rect x="983" y="332" width="420" height="360" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <text x="1007" y="370" font-size="14" font-weight="600" fill="#5b5f63">참조 이미지</text>
+    <text x="1091" y="369" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">REFERENCE</text>
+
+    <g transform="translate(1007,392)">
+      <g clip-path="url(#ref)">
+        <rect width="372" height="200" fill="#7c8894"/>
+        <rect y="124" width="372" height="76" fill="#93a3ad"/>
+        <rect x="12" y="12" width="348" height="106" fill="#8b96a1"/>
+      </g>
+      <rect x="128" y="70" width="64" height="48" fill="none" stroke="#d97706" stroke-width="2"/>
+      <rect x="10" y="10" width="30" height="18" rx="2" fill="#00000099"/>
+      <text x="25" y="23" text-anchor="middle" font-size="10" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">CT</text>
+    </g>
+
+    <text x="1007" y="618" font-size="12.5" fill="#191c1d">CT · 당일 첫 REJECT 검사 이미지</text>
+    <text x="1007" y="642" font-size="11.5" fill="#9ca3af">이 이미지가 대표로 선정되는 규칙이다 (Core B-7)</text>
+
+    <text x="1007" y="672" font-size="11" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">현행 캡션은 "CT 이미지"뿐이라 선정 근거가 없었다</text>
+  </g>
+
+  <!-- ================= 하단 — 일일 총평 ================= -->
+  <g>
+    <rect x="243" y="708" width="1160" height="292" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <text x="267" y="746" font-size="14" font-weight="600" fill="#5b5f63">일일 총평</text>
+    <rect x="343" y="732" width="66" height="20" fill="#f3f4f6"/>
+    <text x="376" y="746" text-anchor="middle" font-size="10.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">LLM 생성</text>
+
+    <line x1="267" y1="764" x2="1379" y2="764" stroke="#eceef0" stroke-width="1"/>
+
+    <text x="267" y="796" font-size="13.5" fill="#191c1d">2026-08-06 총 1,240건을 검사해 수율 94.0%를 기록했다. 전일 대비 1.2%p 하락했으며, 하락분의 대부분은</text>
+    <text x="267" y="822" font-size="13.5" fill="#191c1d">오후 3시 이후 투입된 배치에서 발생했다.</text>
+
+    <text x="267" y="862" font-size="13.5" fill="#191c1d">결함 유형은 미세결함이 34건(54.8%)으로 가장 많았고, 갈라짐 19건, 오점 9건이 뒤를 이었다. 미세결함 비중이</text>
+    <text x="267" y="888" font-size="13.5" fill="#191c1d">전주 평균(38%) 대비 크게 높아 CT 공정 측 원인 점검이 필요하다.</text>
+
+    <text x="267" y="928" font-size="13.5" fill="#191c1d">검사 실패 12건은 전량 VLM 타임아웃에 기인하며 셀 품질과는 무관하다. 재검사 대상으로 분류했다.</text>
+
+    <text x="267" y="972" font-size="11" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">content 원문 그대로 · 파싱하지 않는다 · 최대 폭 68ch</text>
+  </g>
+
+  <!-- 주석 -->
+  <text x="243" y="1036" font-size="11.5" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">KPI 4장과 결함 분포는 summary 필드를 직접 읽는다. 개별 리포트와 달리 일일은 구조화되어 있어 파싱이 필요 없다 (§0.3)</text>
+</svg>

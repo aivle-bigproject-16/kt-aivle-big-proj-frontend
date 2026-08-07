@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1646 940" width="1646" height="940" font-family="Inter, system-ui, 'Pretendard', sans-serif">
+  <title>완료 탭 — COMPLETE</title>
+  <desc>서브카드 3장 병렬을 필터 1축으로 전환. SVG 1단위 = 디자인 1px = 0.1rem</desc>
+
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <rect width="1646" height="940" fill="#ededed"/>
+
+  <!-- ================= 사이드바 ================= -->
+  <g>
+    <rect x="68.6" y="30" width="85.7" height="85.7" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <text x="111.4" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#0C5795">LOGO</text>
+    <text x="111.4" y="140" text-anchor="middle" font-size="12" fill="#5b5f63">슬로건 자리 · 한글 12~16자</text>
+    <rect x="16.5" y="128" width="190" height="17" rx="4" fill="none" stroke="#c3c8cd" stroke-width="1" stroke-dasharray="3 3"/>
+
+    <rect x="16.5" y="176" width="190" height="240" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="32.5" y="196" width="158" height="56" rx="15" fill="#EEF6FE"/>
+    <rect x="52" y="212" width="24" height="24" rx="8" fill="#0C5795" opacity="0.9"/>
+    <text x="88" y="229" font-size="14" font-weight="600" fill="#0C5795">대시보드</text>
+    <rect x="32.5" y="268" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="284" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="301" font-size="14" font-weight="500" fill="#5b5f63">배터리 목록</text>
+    <rect x="32.5" y="340" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="356" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="373" font-size="14" font-weight="500" fill="#5b5f63">리포트 목록</text>
+  </g>
+
+  <!-- ================= 우측 사용자 블록 ================= -->
+  <g>
+    <rect x="1439.5" y="30" width="190" height="42" fill="#ffffff" filter="url(#sh)"/>
+    <circle cx="1462" cy="51" r="16" fill="#dfe3e7"/>
+    <text x="1462" y="56" text-anchor="middle" font-size="12" font-weight="600" fill="#5b5f63">김</text>
+    <text x="1487" y="56" font-size="14" fill="#191c1d">김경순</text>
+    <path d="M1604 48 l5 5 l5 -5" stroke="#9ca3af" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- ================= 탭바 — '완료' 활성 ================= -->
+  <g>
+    <rect x="243" y="17" width="385.7" height="42.9" fill="#dcdcdc"/>
+    <rect x="555.7" y="21.3" width="68.6" height="34.3" fill="#ffffff" filter="url(#sh)"/>
+    <text x="281.6" y="43.5" text-anchor="middle" font-size="17" font-weight="600" fill="#00000080">전체</text>
+    <text x="358.7" y="43.5" text-anchor="middle" font-size="17" font-weight="600" fill="#00000080">대기</text>
+    <text x="435.8" y="43.5" text-anchor="middle" font-size="17" font-weight="600" fill="#00000080">촬영</text>
+    <text x="512.9" y="43.5" text-anchor="middle" font-size="17" font-weight="600" fill="#00000080">분석</text>
+    <text x="590.0" y="43.5" text-anchor="middle" font-size="17" font-weight="600" fill="#000000">완료</text>
+  </g>
+
+  <!-- ================= 요약 바 (고정) ================= -->
+  <g>
+    <rect x="243" y="76" width="1160" height="80" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <circle cx="273" cy="116" r="5" fill="#1e7e34"/>
+    <text x="288" y="112" font-size="16" font-weight="600" fill="#5b5f63">완료</text>
+    <text x="288" y="132" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">COMPLETE</text>
+
+    <line x1="392" y1="94" x2="392" y2="138" stroke="#e4e7ea" stroke-width="1"/>
+
+    <text x="416" y="99" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">완료 셀</text>
+    <text x="416" y="127" font-size="32" font-weight="700" fill="#191c1d" letter-spacing="-1">12</text>
+    <text x="456" y="127" font-size="15" fill="#5b5f63">/ 120</text>
+
+    <line x1="540" y1="94" x2="540" y2="138" stroke="#e4e7ea" stroke-width="1"/>
+
+    <text x="564" y="99" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">양품률</text>
+    <text x="564" y="127" font-size="32" font-weight="700" fill="#1e7e34" letter-spacing="-1" font-family="ui-monospace, Consolas, monospace">91.7%</text>
+
+    <!-- 필터 축 (서브카드 3장 병렬을 대체) -->
+    <g>
+      <rect x="760" y="100" width="110" height="32" fill="#191c1d"/>
+      <text x="800" y="120" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">전체</text>
+      <text x="845" y="120" text-anchor="middle" font-size="12" fill="#ffffff" opacity="0.7" font-family="ui-monospace, Consolas, monospace">12</text>
+    </g>
+    <g>
+      <rect x="880" y="100" width="110" height="32" fill="#ecfdf3"/>
+      <circle cx="900" cy="116" r="4" fill="#1e7e34"/>
+      <text x="928" y="120" text-anchor="middle" font-size="13" font-weight="600" fill="#1e7e34">PASS</text>
+      <text x="968" y="120" text-anchor="middle" font-size="12" fill="#1e7e34" opacity="0.7" font-family="ui-monospace, Consolas, monospace">11</text>
+    </g>
+    <g>
+      <rect x="1000" y="100" width="110" height="32" fill="#fffbeb"/>
+      <circle cx="1020" cy="116" r="4" fill="#d97706"/>
+      <text x="1053" y="120" text-anchor="middle" font-size="13" font-weight="600" fill="#d97706">REJECT</text>
+      <text x="1092" y="120" text-anchor="middle" font-size="12" fill="#d97706" opacity="0.7" font-family="ui-monospace, Consolas, monospace">1</text>
+    </g>
+    <g>
+      <rect x="1120" y="100" width="110" height="32" fill="#fef2f2"/>
+      <circle cx="1140" cy="116" r="4" fill="#dc2626"/>
+      <text x="1170" y="120" text-anchor="middle" font-size="13" font-weight="600" fill="#dc2626">FAIL</text>
+      <text x="1210" y="120" text-anchor="middle" font-size="12" fill="#dc2626" opacity="0.7" font-family="ui-monospace, Consolas, monospace">0</text>
+    </g>
+
+    <rect x="1269" y="103" width="110" height="26" fill="#ecfdf3" stroke="#bfe3c9" stroke-width="1"/>
+    <circle cx="1284" cy="116" r="3" fill="#1e7e34"/>
+    <text x="1294" y="120" font-size="11" letter-spacing="0.7" fill="#1e7e34" font-family="ui-monospace, Consolas, monospace">LIVE · 연결됨</text>
+  </g>
+
+  <!-- ================= 목록 영역 (내부 스크롤) ================= -->
+  <g>
+    <rect x="243" y="172" width="1160" height="712" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <text x="267" y="210" font-size="11.5" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">전체탭 결과 범례에서 진입하면 해당 필터가 선택된 상태로 열린다 (§8.2)</text>
+
+    <!-- 행 1 — REJECT -->
+    <g>
+      <rect x="267" y="226" width="1112" height="56" rx="8" fill="#fffbeb"/>
+      <rect x="267" y="226" width="4" height="56" fill="#d97706"/>
+      <rect x="295" y="243" width="16" height="22" rx="4" fill="#d97706"/>
+      <text x="331" y="260" font-size="14" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1027</text>
+      <rect x="455" y="244" width="66" height="20" rx="999" fill="#d97706"/>
+      <text x="488" y="258" text-anchor="middle" font-size="10.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">REJECT</text>
+      <text x="553" y="260" font-size="13" fill="#5b5f63">갈라짐</text>
+      <text x="700" y="260" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">CT · 신뢰도 87%</text>
+      <text x="1300" y="260" text-anchor="end" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">Batch #2</text>
+      <path d="M1345 252 l6 6 l-6 6" stroke="#9ca3af" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <!-- 행 2~7 — PASS -->
+    <g>
+      <rect x="267" y="292" width="1112" height="56" rx="8" fill="#fafbfc"/>
+      <rect x="295" y="309" width="16" height="22" rx="4" fill="#1e7e34"/>
+      <text x="331" y="326" font-size="14" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1026</text>
+      <rect x="455" y="310" width="52" height="20" rx="999" fill="#1e7e34"/>
+      <text x="481" y="324" text-anchor="middle" font-size="10.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">PASS</text>
+      <text x="553" y="326" font-size="13" fill="#9ca3af">결함 없음</text>
+      <text x="700" y="326" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">RGB · 신뢰도 96%</text>
+      <text x="1300" y="326" text-anchor="end" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">Batch #2</text>
+      <path d="M1345 318 l6 6 l-6 6" stroke="#9ca3af" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+    <g>
+      <rect x="267" y="358" width="1112" height="56" rx="8" fill="#fafbfc"/>
+      <rect x="295" y="375" width="16" height="22" rx="4" fill="#1e7e34"/>
+      <text x="331" y="392" font-size="14" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1025</text>
+      <rect x="455" y="376" width="52" height="20" rx="999" fill="#1e7e34"/>
+      <text x="481" y="390" text-anchor="middle" font-size="10.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">PASS</text>
+      <text x="553" y="392" font-size="13" fill="#9ca3af">결함 없음</text>
+      <text x="700" y="392" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">CT · 신뢰도 93%</text>
+      <text x="1300" y="392" text-anchor="end" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">Batch #2</text>
+      <path d="M1345 384 l6 6 l-6 6" stroke="#9ca3af" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+    <g>
+      <rect x="267" y="424" width="1112" height="56" rx="8" fill="#fafbfc"/>
+      <rect x="295" y="441" width="16" height="22" rx="4" fill="#1e7e34"/>
+      <text x="331" y="458" font-size="14" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1024</text>
+      <rect x="455" y="442" width="52" height="20" rx="999" fill="#1e7e34"/>
+      <text x="481" y="456" text-anchor="middle" font-size="10.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">PASS</text>
+      <text x="553" y="458" font-size="13" fill="#9ca3af">결함 없음</text>
+      <text x="700" y="458" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">RGB · 신뢰도 89%</text>
+      <text x="1300" y="458" text-anchor="end" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">Batch #1</text>
+      <path d="M1345 450 l6 6 l-6 6" stroke="#9ca3af" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+    <g>
+      <rect x="267" y="490" width="1112" height="56" rx="8" fill="#fafbfc"/>
+      <rect x="295" y="507" width="16" height="22" rx="4" fill="#1e7e34"/>
+      <text x="331" y="524" font-size="14" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1023</text>
+      <rect x="455" y="508" width="52" height="20" rx="999" fill="#1e7e34"/>
+      <text x="481" y="522" text-anchor="middle" font-size="10.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">PASS</text>
+      <text x="553" y="524" font-size="13" fill="#9ca3af">결함 없음</text>
+      <text x="700" y="524" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">CT · 신뢰도 94%</text>
+      <text x="1300" y="524" text-anchor="end" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">Batch #1</text>
+      <path d="M1345 516 l6 6 l-6 6" stroke="#9ca3af" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+    <g>
+      <rect x="267" y="556" width="1112" height="56" rx="8" fill="#fafbfc"/>
+      <rect x="295" y="573" width="16" height="22" rx="4" fill="#1e7e34"/>
+      <text x="331" y="590" font-size="14" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1022</text>
+      <rect x="455" y="574" width="52" height="20" rx="999" fill="#1e7e34"/>
+      <text x="481" y="588" text-anchor="middle" font-size="10.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">PASS</text>
+      <text x="553" y="590" font-size="13" fill="#9ca3af">결함 없음</text>
+      <text x="700" y="590" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">RGB · 신뢰도 91%</text>
+      <text x="1300" y="590" text-anchor="end" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">Batch #1</text>
+      <path d="M1345 582 l6 6 l-6 6" stroke="#9ca3af" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+    <g opacity="0.45">
+      <rect x="267" y="622" width="1112" height="56" rx="8" fill="#fafbfc"/>
+      <rect x="295" y="639" width="16" height="22" rx="4" fill="#1e7e34"/>
+      <text x="331" y="656" font-size="14" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1021</text>
+    </g>
+
+    <rect x="1387" y="226" width="6" height="240" rx="4" fill="#d0d4d8"/>
+  </g>
+</svg>

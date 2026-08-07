@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1300" width="1600" height="1300" font-family="Inter, system-ui, 'Pretendard', sans-serif">
+  <title>리포트 상세 컴포넌트 규격 시트</title>
+  <desc>지표 카드 · 서술 블록 · 결함 분포 막대 · 이미지 탭 · 결함 유형 팔레트 · 라운드 스케일. 치수 단위 = 디자인 px</desc>
+
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+    <marker id="ar" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 1 L7 4 L0 7 z" fill="#9ca3af"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="1300" fill="#f7f8f9"/>
+
+  <text x="60" y="58" font-size="26" font-weight="700" fill="#191c1d">리포트 상세 컴포넌트 규격 시트</text>
+  <text x="60" y="84" font-size="13" fill="#5b5f63">치수 단위는 디자인 px 이다. rem 환산은 px ÷ 10. 색 값의 원 소유자는 BRAND_COLOR.md 이며 이 시트는 인용만 한다.</text>
+  <line x1="60" y1="102" x2="1540" y2="102" stroke="#e1e5ea" stroke-width="1"/>
+
+  <!-- ============ A. 라운드 스케일 ============ -->
+  <text x="60" y="142" font-size="11" letter-spacing="1.1" fill="#0C5795" font-family="ui-monospace, Consolas, monospace">A</text>
+  <text x="84" y="142" font-size="17" font-weight="650" fill="#191c1d">라운드 스케일 — 상한 15px</text>
+  <text x="60" y="164" font-size="12.5" fill="#5b5f63">중첩 라운드 규칙에 따라 안쪽 요소는 바깥보다 작아야 동심으로 보인다. pill 은 캡슐이 의도이므로 상한 적용 대상이 아니다.</text>
+
+  <g transform="translate(60,182)">
+    <rect x="0" y="0" width="1480" height="150" rx="15" fill="#ffffff"/>
+
+    <g transform="translate(24,24)">
+      <rect x="0" y="0" width="120" height="60" rx="2" fill="#EEF6FE"/>
+      <text x="60" y="36" text-anchor="middle" font-size="13" font-weight="600" fill="#0C5795">2</text>
+      <text x="0" y="80" font-size="11.5" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">--r-xs</text>
+      <text x="0" y="98" font-size="11" fill="#5b5f63">셀 타일 · 진행바 (h ≤ 6)</text>
+    </g>
+    <g transform="translate(168,24)">
+      <rect x="0" y="0" width="120" height="60" rx="4" fill="#EEF6FE"/>
+      <text x="60" y="36" text-anchor="middle" font-size="13" font-weight="600" fill="#0C5795">4</text>
+      <text x="0" y="80" font-size="11.5" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">--r-sm</text>
+      <text x="0" y="98" font-size="11" fill="#5b5f63">누적 바 · 스켈레톤 바</text>
+    </g>
+    <g transform="translate(312,24)">
+      <rect x="0" y="0" width="120" height="60" rx="8" fill="#EEF6FE"/>
+      <text x="60" y="36" text-anchor="middle" font-size="13" font-weight="600" fill="#0C5795">8</text>
+      <text x="0" y="80" font-size="11.5" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">--r-md</text>
+      <text x="0" y="98" font-size="11" fill="#5b5f63">버튼 · 목록 행 · 썸네일</text>
+    </g>
+    <g transform="translate(456,24)">
+      <rect x="0" y="0" width="120" height="60" rx="12" fill="#EEF6FE"/>
+      <text x="60" y="36" text-anchor="middle" font-size="13" font-weight="600" fill="#0C5795">12</text>
+      <text x="0" y="80" font-size="11.5" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">--r-lg</text>
+      <text x="0" y="98" font-size="11" fill="#5b5f63">탐지 카드 · 캔버스 영역</text>
+    </g>
+    <g transform="translate(600,24)">
+      <rect x="0" y="0" width="120" height="60" rx="15" fill="#0C5795"/>
+      <text x="60" y="36" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">15</text>
+      <text x="0" y="80" font-size="11.5" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">--r-xl</text>
+      <text x="0" y="98" font-size="11" fill="#0C5795" font-weight="600">최상위 카드 · 상한</text>
+    </g>
+    <g transform="translate(744,24)">
+      <rect x="0" y="0" width="120" height="60" rx="2" fill="#EBF8F9"/>
+      <text x="60" y="36" text-anchor="middle" font-size="13" font-weight="600" fill="#13777C">2</text>
+      <text x="0" y="80" font-size="11.5" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">--r-pill</text>
+      <text x="0" y="98" font-size="11" fill="#5b5f63">칩 · 배지 · 토글 (상한 미적용)</text>
+    </g>
+
+    <line x1="900" y1="24" x2="900" y2="126" stroke="#eceef0" stroke-width="1"/>
+    <text x="924" y="42" font-size="12.5" font-weight="600" fill="#191c1d">폐기된 값</text>
+    <text x="924" y="64" font-size="11.5" fill="#dc2626" font-family="ui-monospace, Consolas, monospace">24 → 15 · 23.4 → 15 · 18.8 → 15</text>
+    <text x="924" y="84" font-size="11.5" fill="#dc2626" font-family="ui-monospace, Consolas, monospace">21.4 · 17.1 · 21 · 16 · 13 → pill(999)</text>
+    <text x="924" y="104" font-size="11.5" fill="#dc2626" font-family="ui-monospace, Consolas, monospace">10 → 8 · 16.4 → 15</text>
+    <text x="924" y="126" font-size="11" fill="#9ca3af">판정 기준은 값이 아니라 높이 대비 비율이다. rx ≥ h/2 이면 캡슐 의도이므로 pill, 아니면 5단계 스케일에 상한 15 를 적용한다.</text>
+  </g>
+
+  <!-- ============ B. 지표 카드 ============ -->
+  <text x="60" y="392" font-size="11" letter-spacing="1.1" fill="#0C5795" font-family="ui-monospace, Consolas, monospace">B</text>
+  <text x="84" y="392" font-size="17" font-weight="650" fill="#191c1d">결함 지표 카드 — 구조화 필드만</text>
+  <text x="60" y="414" font-size="12.5" fill="#5b5f63">CellDefectView 의 cloud.metrics 와 annotation 을 직접 읽는다. content 파싱 없음.</text>
+
+  <g transform="translate(60,432)">
+    <rect x="0" y="0" width="420" height="360" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <text x="24" y="38" font-size="14" font-weight="600" fill="#5b5f63">결함 지표</text>
+    <rect x="24" y="56" width="96" height="26" fill="#fef2f2"/>
+    <path d="M38 65 l5 8 h-10 z" fill="#dc2626"/>
+    <text x="80" y="73" text-anchor="middle" font-size="11.5" font-weight="600" fill="#dc2626">위험도 높음</text>
+    <rect x="130" y="56" width="106" height="26" fill="#f3f4f6"/>
+    <text x="183" y="73" text-anchor="middle" font-size="11.5" fill="#5b5f63">국부 군집형</text>
+
+    <line x1="24" y1="102" x2="396" y2="102" stroke="#eceef0" stroke-width="1"/>
+
+    <text x="24" y="130" font-size="11" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">DVF</text>
+    <text x="24" y="168" font-size="30" font-weight="700" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">1,240</text>
+    <text x="120" y="168" font-size="14" fill="#5b5f63">ppm</text>
+    <text x="232" y="130" font-size="11" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">결함 수</text>
+    <text x="232" y="168" font-size="30" font-weight="700" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">14</text>
+    <text x="276" y="168" font-size="14" fill="#5b5f63">개</text>
+    <text x="24" y="208" font-size="11" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">양성 슬라이스율</text>
+    <text x="24" y="246" font-size="30" font-weight="700" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">18.4</text>
+    <text x="92" y="246" font-size="14" fill="#5b5f63">%</text>
+
+    <line x1="24" y1="272" x2="396" y2="272" stroke="#eceef0" stroke-width="1"/>
+    <rect x="24" y="288" width="372" height="38" rx="8" fill="#fafbfc"/>
+    <rect x="24" y="288" width="3" height="38" fill="#dc2626"/>
+    <text x="40" y="305" font-size="12.5" font-weight="600" fill="#191c1d">상단 중앙부</text>
+    <text x="40" y="321" font-size="11.5" fill="#5b5f63">군집 밀도가 가장 높은 구간</text>
+  </g>
+
+  <g font-size="11.5" font-family="ui-monospace, Consolas, monospace" fill="#5b5f63">
+    <line x1="480" y1="486" x2="516" y2="486" stroke="#cfd4d9" stroke-width="1"/>
+    <text x="524" y="490">annotation.severity → 배지. HIGH #dc2626 · MEDIUM #d97706 · LOW #1e7e34</text>
+    <line x1="480" y1="510" x2="516" y2="510" stroke="#cfd4d9" stroke-width="1"/>
+    <text x="524" y="514">annotation.pattern → 뉴트럴 배지. LOCAL_CLUSTER=국부 군집형 · AXIAL_PENETRATING=축 관통형</text>
+    <text x="524" y="534">VOLUMETRIC=체적 분산형 · NONE=패턴 없음</text>
+    <line x1="480" y1="596" x2="516" y2="596" stroke="#cfd4d9" stroke-width="1"/>
+    <text x="524" y="600">cloud.metrics.dvfPpm · defectCount · posSliceRate(×100, 소수 1자리)</text>
+    <line x1="480" y1="716" x2="516" y2="716" stroke="#cfd4d9" stroke-width="1"/>
+    <text x="524" y="720">annotation.highlights[] → zone + note 목록. 좌측 3px 스트라이프는 severity 색</text>
+  </g>
+  <text x="524" y="756" font-size="11.5" fill="#dc2626" font-family="ui-monospace, Consolas, monospace">annotation 이 null 이면 위험도·패턴·구역·캡션을 숨기고 지표 3종만 남긴다. 빈 배지를 두지 않는다.</text>
+  <text x="524" y="778" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">현행 Cell3DView 는 이 값들을 3D 카드 하단에 작게 붙여 존재감이 없다. pattern 은 아예 화면에 안 나온다.</text>
+
+  <!-- ============ C. 서술 블록 ============ -->
+  <text x="60" y="852" font-size="11" letter-spacing="1.1" fill="#0C5795" font-family="ui-monospace, Consolas, monospace">C</text>
+  <text x="84" y="852" font-size="17" font-weight="650" fill="#191c1d">서술 블록 — LLM content 원문</text>
+  <text x="60" y="874" font-size="12.5" fill="#5b5f63">파싱하지 않는다. LLM 이 무엇을 어떤 형식으로 썼든 화면이 깨지지 않는다.</text>
+
+  <g transform="translate(60,892)">
+    <rect x="0" y="0" width="700" height="230" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <text x="24" y="38" font-size="14" font-weight="600" fill="#5b5f63">AI 분석 소견</text>
+    <rect x="114" y="24" width="66" height="20" fill="#f3f4f6"/>
+    <text x="147" y="38" text-anchor="middle" font-size="10.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">LLM 생성</text>
+    <line x1="24" y1="56" x2="676" y2="56" stroke="#eceef0" stroke-width="1"/>
+    <text x="24" y="86" font-size="13" fill="#191c1d">CT 영상에서 미세결함(MICRO_DEFECT) 3건이 검출되었다. 결함은 셀 상단</text>
+    <text x="24" y="108" font-size="13" fill="#191c1d">중앙부에 반경 2mm 이내로 밀집해 있으며, 축 방향 관통 양상은 관찰되지</text>
+    <text x="24" y="130" font-size="13" fill="#191c1d">않았다.</text>
+    <text x="24" y="170" font-size="13" fill="#191c1d">DVF 1,240ppm 은 동일 모델 평균 대비 약 3.2배 높은 수치다.</text>
+    <text x="24" y="206" font-size="11" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">최대 폭 68ch · white-space: pre-wrap</text>
+  </g>
+
+  <g transform="translate(790,892)">
+    <rect x="0" y="0" width="750" height="230" rx="15" fill="#fef2f2"/>
+    <rect x="0" y="0" width="4" height="230" fill="#dc2626"/>
+    <text x="24" y="38" font-size="13" font-weight="600" fill="#dc2626">이렇게 하면 안 된다 — 현행 파싱 방식</text>
+    <text x="24" y="66" font-size="12" fill="#5b5f63">content 를 정규식으로 쪼개 섹션을 만들면 LLM 이 템플릿을 못 채웠을 때</text>
+    <text x="24" y="86" font-size="12" fill="#5b5f63">대괄호 placeholder 가 그대로 사용자에게 노출된다.</text>
+
+    <rect x="24" y="104" width="702" height="100" rx="8" fill="#ffffff"/>
+    <text x="40" y="128" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">분석 코멘트: [결함의 위치적 데이터를 사용해 결함의 위치적 특성</text>
+    <text x="40" y="148" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">             (군집형/분산형, 특정 좌표계 편중 여부)과 내·외부 결함의</text>
+    <text x="40" y="168" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">             연관성 1~2 줄로 핵심만 간단히 요약]</text>
+    <text x="40" y="192" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">[결함타입명]: 0 건</text>
+  </g>
+
+  <!-- ============ D. 결함 분포 막대 ============ -->
+  <text x="60" y="1182" font-size="11" letter-spacing="1.1" fill="#0C5795" font-family="ui-monospace, Consolas, monospace">D</text>
+  <text x="84" y="1182" font-size="17" font-weight="650" fill="#191c1d">결함 유형 분포 · 팔레트</text>
+  <text x="60" y="1204" font-size="12.5" fill="#5b5f63">도넛 대신 가로 막대. 항목이 3종뿐이고 값 차이가 커서 도넛은 작은 조각 비교가 어렵다.</text>
+
+  <g transform="translate(60,1218)">
+    <rect x="0" y="0" width="700" height="62" rx="15" fill="#ffffff"/>
+    <text x="24" y="26" font-size="12.5" font-weight="600" fill="#191c1d">미세결함</text>
+    <text x="94" y="25" font-size="10" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">MICRO_DEFECT</text>
+    <text x="676" y="26" text-anchor="end" font-size="13" font-weight="700" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">34</text>
+    <rect x="24" y="34" width="652" height="16" rx="4" fill="#f1f3f4"/>
+    <rect x="24" y="34" width="357" height="16" rx="4" fill="#3F7A8C"/>
+  </g>
+
+  <g transform="translate(790,1218)">
+    <rect x="0" y="0" width="750" height="62" rx="15" fill="#ffffff"/>
+    <rect x="24" y="18" width="26" height="26" rx="8" fill="#7C4DBF"/>
+    <text x="58" y="36" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#7C4DBF 갈라짐</text>
+    <rect x="204" y="18" width="26" height="26" rx="8" fill="#B5453E"/>
+    <text x="238" y="36" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#B5453E 오점</text>
+    <rect x="364" y="18" width="26" height="26" rx="8" fill="#3F7A8C"/>
+    <text x="398" y="36" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#3F7A8C 미세결함</text>
+    <text x="726" y="36" text-anchor="end" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">상태 5색 · 브랜드 램프와 분리</text>
+  </g>
+</svg>

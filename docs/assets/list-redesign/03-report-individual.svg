@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1646 940" width="1646" height="940" font-family="Inter, system-ui, 'Pretendard', sans-serif">
+  <title>개별 리포트 목록</title>
+  <desc>대상 셀·회차 컬럼은 BE 협의 대상. 헤더 우측 액션 없음 — 생성은 배터리 상세 소관. SVG 1단위 = 디자인 1px = 0.1rem</desc>
+
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <rect width="1646" height="940" fill="#ededed"/>
+
+  <!-- ================= 사이드바 ================= -->
+  <g>
+    <rect x="68.6" y="30" width="85.7" height="85.7" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <text x="111.4" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#0C5795">LOGO</text>
+    <text x="111.4" y="140" text-anchor="middle" font-size="12" fill="#5b5f63">슬로건 자리 · 한글 12~16자</text>
+    <rect x="16.5" y="128" width="190" height="17" rx="4" fill="none" stroke="#c3c8cd" stroke-width="1" stroke-dasharray="3 3"/>
+
+    <rect x="16.5" y="176" width="190" height="240" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="32.5" y="196" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="212" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="229" font-size="14" font-weight="500" fill="#5b5f63">대시보드</text>
+
+    <rect x="32.5" y="268" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="284" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="301" font-size="14" font-weight="500" fill="#5b5f63">배터리 목록</text>
+
+    <rect x="32.5" y="340" width="158" height="56" rx="15" fill="#EEF6FE"/>
+    <rect x="52" y="356" width="24" height="24" rx="8" fill="#0C5795"/>
+    <text x="88" y="373" font-size="14" font-weight="600" fill="#0C5795">리포트 목록</text>
+  </g>
+
+  <!-- ================= 우측 사용자 블록 ================= -->
+  <g>
+    <rect x="1439.5" y="30" width="190" height="42" fill="#ffffff" filter="url(#sh)"/>
+    <circle cx="1462" cy="51" r="16" fill="#dfe3e7"/>
+    <text x="1462" y="56" text-anchor="middle" font-size="12" font-weight="600" fill="#5b5f63">김</text>
+    <text x="1487" y="56" font-size="14" fill="#191c1d">김경순</text>
+    <path d="M1604 48 l5 5 l5 -5" stroke="#9ca3af" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- ================= 슬롯 1 — 헤더 (우측 액션 없음) ================= -->
+  <g>
+    <text x="243" y="70" font-size="24" font-weight="700" fill="#191c1d">개별 리포트</text>
+    <text x="1403" y="66" text-anchor="end" font-size="11" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">생성 진입점 없음 — 배터리 상세 소관 (§5.5)</text>
+  </g>
+
+  <!-- ================= 슬롯 2 — 툴바 ================= -->
+  <g>
+    <rect x="243" y="110" width="180" height="32" fill="#dcdcdc"/>
+    <rect x="333" y="113" width="87" height="26" rx="999" fill="#ffffff" filter="url(#sh)"/>
+    <text x="289" y="131" text-anchor="middle" font-size="13" font-weight="500" fill="#00000080">일일</text>
+    <text x="377" y="131" text-anchor="middle" font-size="13" font-weight="600" fill="#191c1d">개별</text>
+
+    <line x1="443" y1="112" x2="443" y2="140" stroke="#d8dbde" stroke-width="1"/>
+
+    <rect x="463" y="110" width="86" height="32" fill="#0C5795"/>
+    <text x="492" y="130" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">전체</text>
+    <text x="528" y="130" text-anchor="middle" font-size="12" fill="#ffffff" opacity="0.75" font-family="ui-monospace, Consolas, monospace">32</text>
+
+    <rect x="557" y="110" width="90" height="32" fill="#ffffff"/>
+    <text x="588" y="130" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">완료</text>
+    <text x="624" y="130" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">29</text>
+
+    <rect x="655" y="110" width="104" height="32" fill="#ffffff"/>
+    <circle cx="674" cy="126" r="4" fill="#13777C"/>
+    <text x="708" y="130" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">대기중</text>
+    <text x="742" y="130" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">2</text>
+
+    <rect x="767" y="110" width="90" height="32" fill="#ffffff"/>
+    <path d="M786 122 l5 8 h-10 z" fill="#dc2626"/>
+    <text x="818" y="130" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">실패</text>
+    <text x="844" y="130" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">1</text>
+
+    <rect x="1000" y="110" width="146" height="32" fill="#ffffff"/>
+    <path d="M1019 120 v12 M1015 128 l4 4 l4 -4" stroke="#5b5f63" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <text x="1085" y="130" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">최신순</text>
+    <path d="M1128 124 l5 5 l5 -5" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+    <rect x="1163" y="110" width="240" height="32" fill="#ffffff"/>
+    <circle cx="1184" cy="126" r="5.5" fill="none" stroke="#9ca3af" stroke-width="1.6"/>
+    <path d="M1188 130 l4 4" stroke="#9ca3af" stroke-width="1.6" stroke-linecap="round"/>
+    <text x="1200" y="131" font-size="13" fill="#9ca3af">제목 검색</text>
+  </g>
+
+  <!-- ================= 슬롯 3 — 테이블 카드 ================= -->
+  <g>
+    <rect x="243" y="166" width="1160" height="654" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <text x="267" y="216" font-size="13" font-weight="600" fill="#5b5f63">상태</text>
+    <text x="427" y="216" font-size="13" font-weight="600" fill="#5b5f63">제목</text>
+    <text x="799" y="216" font-size="13" font-weight="600" fill="#0C5795">대상 셀</text>
+    <text x="979" y="216" font-size="13" font-weight="600" fill="#0C5795">회차</text>
+    <text x="1099" y="216" font-size="13" font-weight="600" fill="#5b5f63">생성일시</text>
+    <line x1="267" y1="230" x2="1379" y2="230" stroke="#eceef0" stroke-width="1"/>
+
+    <!-- 협의 대상 컬럼 표식 -->
+    <rect x="791" y="200" width="296" height="22" rx="8" fill="none" stroke="#0C5795" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
+
+    <!-- 행 1 — 같은 셀 3회차 (hover) -->
+    <g>
+      <rect x="255" y="234" width="1136" height="56" rx="8" fill="#EEF6FE"/>
+      <text x="267" y="267" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+      <text x="427" y="267" font-size="14" fill="#191c1d">CT 미세결함 3건 — 재검 권고</text>
+      <text x="799" y="267" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1027</text>
+      <rect x="979" y="252" width="52" height="24" fill="#f3f4f6"/>
+      <text x="1005" y="268" text-anchor="middle" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">3회차</text>
+      <text x="1099" y="267" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:51</text>
+      <path d="M1361 258 l6 6 l-6 6" stroke="#0C5795" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <!-- 행 2 — 같은 셀 2회차 -->
+    <g>
+      <text x="267" y="323" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+      <text x="427" y="323" font-size="14" fill="#191c1d">CT 미세결함 2건 — 경계 판정</text>
+      <text x="799" y="323" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1027</text>
+      <rect x="979" y="308" width="52" height="24" fill="#f3f4f6"/>
+      <text x="1005" y="324" text-anchor="middle" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2회차</text>
+      <text x="1099" y="323" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:44</text>
+      <line x1="255" y1="346" x2="1391" y2="346" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+
+    <!-- 행 3 — 같은 셀 1회차 -->
+    <g>
+      <text x="267" y="379" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+      <text x="427" y="379" font-size="14" fill="#191c1d">CT 미세결함 2건 — 초기 판정</text>
+      <text x="799" y="379" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1027</text>
+      <rect x="979" y="364" width="52" height="24" fill="#f3f4f6"/>
+      <text x="1005" y="380" text-anchor="middle" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">1회차</text>
+      <text x="1099" y="379" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:40</text>
+      <line x1="255" y1="402" x2="1391" y2="402" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+
+    <!-- 행 4 — PENDING -->
+    <g>
+      <rect x="267" y="418" width="82" height="24" fill="#EBF8F9"/>
+      <circle cx="280" cy="430" r="4" fill="#13777C"/>
+      <text x="313" y="434" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#13777C" font-family="ui-monospace, Consolas, monospace">PENDING</text>
+      <text x="427" y="435" font-size="14" fill="#9ca3af">생성 중…</text>
+      <text x="799" y="435" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1026</text>
+      <rect x="979" y="420" width="52" height="24" fill="#f3f4f6"/>
+      <text x="1005" y="436" text-anchor="middle" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">1회차</text>
+      <text x="1099" y="435" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:39</text>
+      <line x1="255" y1="458" x2="1391" y2="458" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+
+    <!-- 행 5 — FAILED -->
+    <g>
+      <rect x="267" y="474" width="74" height="24" fill="none" stroke="#dc2626" stroke-width="1"/>
+      <path d="M280 482 l5 8 h-10 z" fill="#dc2626"/>
+      <text x="310" y="490" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#dc2626" font-family="ui-monospace, Consolas, monospace">FAILED</text>
+      <text x="427" y="491" font-size="14" fill="#191c1d">리포트 #28</text>
+      <text x="799" y="491" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1022</text>
+      <rect x="979" y="476" width="52" height="24" fill="#f3f4f6"/>
+      <text x="1005" y="492" text-anchor="middle" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">1회차</text>
+      <text x="1099" y="491" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:21</text>
+      <line x1="255" y1="514" x2="1391" y2="514" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+
+    <!-- 행 6~7 -->
+    <g>
+      <text x="267" y="547" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+      <text x="427" y="547" font-size="14" fill="#191c1d">RGB 갈라짐 1건 — 외관 불량</text>
+      <text x="799" y="547" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1019</text>
+      <rect x="979" y="532" width="52" height="24" fill="#f3f4f6"/>
+      <text x="1005" y="548" text-anchor="middle" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">1회차</text>
+      <text x="1099" y="547" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 08:57</text>
+      <line x1="255" y1="570" x2="1391" y2="570" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+    <g>
+      <text x="267" y="603" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+      <text x="427" y="603" font-size="14" fill="#191c1d">RGB 오점 2건 — 표면 오염 의심</text>
+      <text x="799" y="603" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1015</text>
+      <rect x="979" y="588" width="52" height="24" fill="#f3f4f6"/>
+      <text x="1005" y="604" text-anchor="middle" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2회차</text>
+      <text x="1099" y="603" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 08:32</text>
+      <line x1="255" y1="626" x2="1391" y2="626" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+    <g opacity="0.4">
+      <text x="267" y="659" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+      <text x="427" y="659" font-size="14" fill="#191c1d">RGB 오점 1건 — 초기 판정</text>
+      <text x="799" y="659" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1015</text>
+      <rect x="979" y="644" width="52" height="24" fill="#f3f4f6"/>
+      <text x="1005" y="660" text-anchor="middle" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">1회차</text>
+      <text x="1099" y="659" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 08:28</text>
+    </g>
+
+    <!-- 슬롯 4 — 푸터 -->
+    <line x1="267" y1="740" x2="1379" y2="740" stroke="#eceef0" stroke-width="1"/>
+    <text x="267" y="782" font-size="12.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">32건 중 1–20</text>
+
+    <g>
+      <rect x="1209" y="762" width="32" height="32" fill="#f3f4f6"/>
+      <path d="M1228 772 l-5 6 l5 6" stroke="#c3c8cd" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <rect x="1249" y="762" width="32" height="32" fill="#0C5795"/>
+      <text x="1265" y="784" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">1</text>
+      <rect x="1289" y="762" width="32" height="32" fill="#ffffff"/>
+      <text x="1305" y="784" text-anchor="middle" font-size="13" fill="#5b5f63">2</text>
+      <rect x="1329" y="762" width="32" height="32" fill="#f3f4f6"/>
+      <path d="M1342 772 l5 6 l-5 6" stroke="#5b5f63" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- 협의 대상 안내 -->
+  <g>
+    <rect x="243" y="838" width="1160" height="62" rx="12" fill="#EEF6FE"/>
+    <rect x="243" y="838" width="4" height="62" fill="#0C5795"/>
+    <text x="267" y="864" font-size="12.5" font-weight="600" fill="#0C5795">BE 협의 대상 — 파선 표시된 두 컬럼</text>
+    <text x="267" y="886" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">IndividualReportListItem 에 batteryCellId 가 없다 (Core §10.5 등재 갭). 회차는 셀별 createdAt 순번이라 셀을 모르면 계산 불가.</text>
+    <text x="1379" y="875" text-anchor="end" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">폴백 → 두 컬럼을 수정일시 1개로 대체</text>
+  </g>
+</svg>

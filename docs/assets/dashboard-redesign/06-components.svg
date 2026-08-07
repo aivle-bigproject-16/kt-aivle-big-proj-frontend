@@ -1,0 +1,298 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1280" width="1600" height="1280" font-family="Inter, system-ui, 'Pretendard', sans-serif">
+  <title>컴포넌트 규격 시트</title>
+  <desc>노드 카드 · 탐지 카드 · 상태 5색 · 타이포 위계 · 전역 프레임 요소. 치수 단위 = 디자인 px (px ÷ 10 = rem)</desc>
+
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+    <marker id="ar" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 1 L7 4 L0 7 z" fill="#9ca3af"/>
+    </marker>
+    <clipPath id="tc"><rect x="0" y="0" width="208" height="86" rx="8"/></clipPath>
+  </defs>
+
+  <rect width="1600" height="1280" fill="#f7f8f9"/>
+
+  <!-- 제목 -->
+  <text x="80" y="62" font-size="26" font-weight="700" fill="#191c1d">컴포넌트 규격 시트</text>
+  <text x="80" y="88" font-size="13" fill="#5b5f63">치수 단위는 디자인 px 이다. rem 환산은 px ÷ 10. 테두리 두께와 box-shadow만 px 고정으로 유지한다.</text>
+  <line x1="80" y1="106" x2="1520" y2="106" stroke="#e1e5ea" stroke-width="1"/>
+
+  <!-- ================= A. flow 노드 카드 ================= -->
+  <text x="80" y="146" font-size="11" letter-spacing="1.1" fill="#13777C" font-family="ui-monospace, Consolas, monospace">A</text>
+  <text x="104" y="146" font-size="17" font-weight="650" fill="#191c1d">flow 노드 카드 — 3개 노드 공통 껍데기</text>
+  <text x="80" y="168" font-size="12.5" fill="#5b5f63">슬롯의 위치·높이·정렬은 고정이고, 채워지는 값만 단계별로 다르다. 분석 노드처럼 스트립이 필요 없는 경우에도 슬롯 자리는 비우지 않는다.</text>
+
+  <!-- 카드 실물 (360 x 200) -->
+  <g transform="translate(140,200)">
+    <rect x="0" y="0" width="360" height="200" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <!-- slot 1 -->
+    <rect x="18" y="16" width="324" height="20" fill="#EBF8F9" opacity="0.6"/>
+    <circle cx="23" cy="26" r="4.5" fill="#13777C"/>
+    <text x="34" y="31" font-size="14" font-weight="600" fill="#5b5f63">촬영</text>
+    <text x="69" y="30" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">CAPTURING</text>
+    <rect x="318" y="18" width="20" height="15" rx="4" fill="none" stroke="#13777C" stroke-width="1.4"/>
+
+    <!-- slot 2 -->
+    <rect x="18" y="52" width="324" height="36" fill="#EBF8F9" opacity="0.6"/>
+    <text x="18" y="80" font-size="32" font-weight="700" fill="#191c1d" letter-spacing="-1">6</text>
+    <text x="40" y="80" font-size="15" fill="#5b5f63">active</text>
+    <text x="342" y="79" text-anchor="end" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">배치 6셀</text>
+
+    <!-- slot 3 -->
+    <rect x="18" y="96" width="324" height="4" rx="999" fill="#D3EEEF"/>
+    <rect x="18" y="96" width="198" height="4" rx="999" fill="#13777C"/>
+
+    <!-- slot 4 -->
+    <rect x="18" y="112" width="324" height="16" fill="#EBF8F9" opacity="0.6"/>
+    <rect x="18" y="112" width="6" height="16" rx="2" fill="#85C4C8"/>
+    <rect x="27" y="112" width="6" height="16" rx="2" fill="#85C4C8"/>
+    <rect x="36" y="112" width="6" height="16" rx="2" fill="#85C4C8"/>
+    <rect x="45" y="112" width="6" height="16" rx="2" fill="#85C4C8"/>
+    <rect x="54" y="112" width="6" height="16" rx="2" fill="#13777C"/>
+    <rect x="63" y="112" width="6" height="16" rx="2" fill="#d6dade"/>
+
+    <!-- slot 5 -->
+    <rect x="18" y="166" width="324" height="14" fill="#EBF8F9" opacity="0.6"/>
+    <text x="18" y="178" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">촬영 속도 5.0s / 배치</text>
+    <text x="342" y="178" text-anchor="end" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">Batch #3</text>
+  </g>
+
+  <!-- 치수선 : 폭 -->
+  <line x1="140" y1="418" x2="500" y2="418" stroke="#9ca3af" stroke-width="1" marker-start="url(#ar)" marker-end="url(#ar)"/>
+  <text x="320" y="434" text-anchor="middle" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">360 (36rem)</text>
+  <!-- 치수선 : 높이 -->
+  <line x1="122" y1="200" x2="122" y2="400" stroke="#9ca3af" stroke-width="1" marker-start="url(#ar)" marker-end="url(#ar)"/>
+  <text x="112" y="304" text-anchor="end" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">200</text>
+
+  <!-- 슬롯 주석 -->
+  <g font-size="11.5" font-family="ui-monospace, Consolas, monospace" fill="#5b5f63">
+    <line x1="500" y1="226" x2="536" y2="226" stroke="#cfd4d9" stroke-width="1"/>
+    <text x="544" y="230">1 헤더 · h20 — 상태 점 + 단계명 + 영문 코드 + 아이콘</text>
+    <line x1="500" y1="270" x2="536" y2="270" stroke="#cfd4d9" stroke-width="1"/>
+    <text x="544" y="274">2 대표 수치 · h36 — 32/700 + 단위 15 + 우측 보조</text>
+    <line x1="500" y1="298" x2="536" y2="298" stroke="#cfd4d9" stroke-width="1"/>
+    <text x="544" y="302">3 진행바 · h4 · radius 999</text>
+    <line x1="500" y1="320" x2="536" y2="320" stroke="#cfd4d9" stroke-width="1"/>
+    <text x="544" y="324">4 셀 타일 스트립 · h16 — 타일 6×16, gap 3, 최대 36개</text>
+    <line x1="500" y1="373" x2="536" y2="373" stroke="#cfd4d9" stroke-width="1"/>
+    <text x="544" y="377">5 푸터 · h14 — 좌측 보조 + 우측 배치 정보</text>
+  </g>
+  <text x="544" y="410" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">내부 패딩 18 · 스트립 가용 폭 324 · 타일 피치 9 → 36개</text>
+  <text x="544" y="430" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">타일 크기는 고정, 개수만 자른다. 초과분은 +196 형식으로 표기</text>
+
+  <!-- 레인 배치 -->
+  <text x="80" y="480" font-size="12.5" fill="#5b5f63">레인 배치 검산 — 노드 360 × 3 + 커넥터 40 × 2 = 1160 = 콘텐츠 가용 폭(1200 − 좌우 패딩 20 × 2). 정확히 일치한다.</text>
+  <g transform="translate(80,496)">
+    <rect x="0" y="0" width="216" height="26" rx="8" fill="#ffffff" stroke="#e1e5ea"/>
+    <text x="108" y="17" text-anchor="middle" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">360</text>
+    <path d="M220 13 H236" stroke="#13777C" stroke-width="1.2" stroke-dasharray="4 4"/>
+    <polygon points="236,9 244,13 236,17" fill="#13777C"/>
+    <rect x="248" y="0" width="216" height="26" rx="8" fill="#ffffff" stroke="#e1e5ea"/>
+    <text x="356" y="17" text-anchor="middle" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">360</text>
+    <path d="M468 13 H484" stroke="#13777C" stroke-width="1.2" stroke-dasharray="4 4"/>
+    <polygon points="484,9 492,13 484,17" fill="#13777C"/>
+    <rect x="496" y="0" width="216" height="26" rx="8" fill="#ffffff" stroke="#e1e5ea"/>
+    <text x="604" y="17" text-anchor="middle" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">360</text>
+  </g>
+
+  <!-- ================= B. 탐지 카드 ================= -->
+  <text x="80" y="588" font-size="11" letter-spacing="1.1" fill="#13777C" font-family="ui-monospace, Consolas, monospace">B</text>
+  <text x="104" y="588" font-size="17" font-weight="650" fill="#191c1d">탐지 카드 — 결과 블록 하단 스트립</text>
+  <text x="80" y="610" font-size="12.5" fill="#5b5f63">기존 검사 결과 테이블을 대체한다. 4~6장을 가로로 나열하고, 클릭 시 해당 셀의 배터리 상세로 이동한다.</text>
+
+  <g transform="translate(140,632)">
+    <rect x="0" y="0" width="208" height="140" rx="12" fill="#ffffff" filter="url(#sh)"/>
+    <g clip-path="url(#tc)">
+      <rect x="0" y="0" width="208" height="86" fill="#3c4147"/>
+      <ellipse cx="104" cy="43" rx="46" ry="30" fill="#5a6068"/>
+      <rect x="86" y="30" width="34" height="24" fill="none" stroke="#d97706" stroke-width="2"/>
+    </g>
+    <rect x="8" y="8" width="30" height="16" rx="999" fill="#00000099"/>
+    <text x="23" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">CT</text>
+    <rect x="146" y="8" width="54" height="16" rx="999" fill="#d97706"/>
+    <text x="173" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">REJECT</text>
+    <text x="12" y="108" font-size="13" font-weight="600" fill="#191c1d">갈라짐</text>
+    <text x="12" y="126" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">신뢰도 87%</text>
+    <text x="196" y="126" text-anchor="end" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">#1027</text>
+  </g>
+
+  <line x1="140" y1="790" x2="348" y2="790" stroke="#9ca3af" stroke-width="1" marker-start="url(#ar)" marker-end="url(#ar)"/>
+  <text x="244" y="806" text-anchor="middle" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">208 × 140, gap 18</text>
+
+  <g font-size="11.5" font-family="ui-monospace, Consolas, monospace" fill="#5b5f63">
+    <line x1="348" y1="646" x2="384" y2="646" stroke="#cfd4d9" stroke-width="1"/>
+    <text x="392" y="650">타입 배지 CT / RGB</text>
+    <line x1="348" y1="672" x2="384" y2="672" stroke="#cfd4d9" stroke-width="1"/>
+    <text x="392" y="676">썸네일 h86 + bbox 오버레이 (stroke 2px, 판정 색)</text>
+    <line x1="348" y1="698" x2="384" y2="698" stroke="#cfd4d9" stroke-width="1"/>
+    <text x="392" y="702">판정 배지 PASS / REJECT / FAIL</text>
+    <line x1="348" y1="724" x2="384" y2="724" stroke="#cfd4d9" stroke-width="1"/>
+    <text x="392" y="728">결함 유형 13/600</text>
+    <line x1="348" y1="750" x2="384" y2="750" stroke="#cfd4d9" stroke-width="1"/>
+    <text x="392" y="754">신뢰도 11 mono + 우측 셀 ID</text>
+  </g>
+  <text x="392" y="782" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">폴백 — N+1 조회가 부담되면 결함 유형·신뢰도를 생략한다 (§10.1)</text>
+
+  <!-- ================= E. 전역 프레임 요소 ================= -->
+  <text x="80" y="860" font-size="11" letter-spacing="1.1" fill="#13777C" font-family="ui-monospace, Consolas, monospace">E</text>
+  <text x="104" y="860" font-size="17" font-weight="650" fill="#191c1d">전역 프레임 요소</text>
+
+  <!-- 사이드바 탭 -->
+  <text x="80" y="892" font-size="12.5" font-weight="600" fill="#5b5f63">사이드바 탭 — 아이콘 + 라벨 가로 배치</text>
+  <g transform="translate(140,906)">
+    <rect x="0" y="0" width="158" height="56" rx="15" fill="#EEF6FE"/>
+    <rect x="19.5" y="16" width="24" height="24" rx="8" fill="#0C5795" opacity="0.9"/>
+    <text x="55.5" y="33" font-size="14" font-weight="600" fill="#0C5795">대시보드</text>
+  </g>
+  <g transform="translate(140,974)">
+    <rect x="0" y="0" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="19.5" y="16" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="55.5" y="33" font-size="14" font-weight="500" fill="#5b5f63">배터리 목록</text>
+  </g>
+  <g font-size="11.5" font-family="ui-monospace, Consolas, monospace" fill="#9ca3af">
+    <text x="320" y="930">pill 폭 190 (19rem) — 기존 86에서 확대</text>
+    <text x="320" y="950">좌측 패딩 16 · 아이콘 24 · 간격 12 · 라벨 · 우측 패딩 16</text>
+    <text x="320" y="998">활성: 아이콘 + 라벨 모두 #0C5795, weight 600</text>
+    <text x="320" y="1018">비활성: #5b5f63, weight 500</text>
+  </g>
+
+  <!-- 사용자 칩 -->
+  <text x="80" y="1074" font-size="12.5" font-weight="600" fill="#5b5f63">우측 사용자 칩 — sticky, 가로 바 금지</text>
+  <g transform="translate(140,1088)">
+    <rect x="0" y="0" width="190" height="42" fill="#ffffff" filter="url(#sh)"/>
+    <circle cx="22" cy="21" r="16" fill="#dfe3e7"/>
+    <text x="22" y="26" text-anchor="middle" font-size="12" font-weight="600" fill="#5b5f63">김</text>
+    <text x="47" y="26" font-size="14" fill="#191c1d">김경순</text>
+    <path d="M164 18 l5 5 l5 -5" stroke="#9ca3af" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(140,1140)">
+    <rect x="0" y="0" width="190" height="86" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <text x="18" y="26" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">ROLE</text>
+    <text x="18" y="46" font-size="13" fill="#5b5f63">검사담당자</text>
+    <line x1="18" y1="58" x2="172" y2="58" stroke="#eceef0" stroke-width="1"/>
+    <text x="18" y="76" font-size="13" font-weight="600" fill="#0C5795">로그아웃</text>
+  </g>
+  <g font-size="11.5" font-family="ui-monospace, Consolas, monospace" fill="#9ca3af">
+    <text x="352" y="1114">칩 190 × 42 · 아바타 32 · 상단 여백 30 (로고 카드와 수직 정렬)</text>
+    <text x="352" y="1134">클릭 시 아래로 드롭다운. 역할 + 로그아웃</text>
+    <text x="352" y="1166">TopAppBar 는 마운트하지 않는다 — 상단 바를 하나 더 만들면</text>
+    <text x="352" y="1186">코치 지적 F5("상단바도 있고 밑에도 있고 겹친다")를 재생산한다</text>
+  </g>
+
+  <!-- ================= C. 상태 5색 ================= -->
+  <text x="880" y="146" font-size="11" letter-spacing="1.1" fill="#13777C" font-family="ui-monospace, Consolas, monospace">C</text>
+  <text x="904" y="146" font-size="17" font-weight="650" fill="#191c1d">상태 토큰 5색</text>
+  <text x="880" y="168" font-size="12.5" fill="#5b5f63">브랜드 블루는 상태 표현에 일절 쓰지 않는다. 결함 유형 팔레트는 이 5색과 분리 선언한다.</text>
+
+  <g transform="translate(880,188)">
+    <g>
+      <rect x="0" y="0" width="640" height="52" rx="8" fill="#ffffff"/>
+      <rect x="14" y="12" width="28" height="28" rx="8" fill="#6b7280"/>
+      <rect x="50" y="12" width="28" height="28" rx="8" fill="#f3f4f6"/>
+      <text x="96" y="26" font-size="13" font-weight="600" fill="#191c1d">대기</text>
+      <text x="128" y="26" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">PENDING</text>
+      <text x="96" y="42" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#6b7280 / #f3f4f6</text>
+      <text x="624" y="34" text-anchor="end" font-size="11" fill="#9ca3af">대기 노드 · 뉴트럴 셀 타일</text>
+    </g>
+    <g transform="translate(0,62)">
+      <rect x="0" y="0" width="640" height="52" rx="8" fill="#ffffff"/>
+      <rect x="14" y="12" width="28" height="28" rx="8" fill="#13777C"/>
+      <rect x="50" y="12" width="28" height="28" rx="8" fill="#EBF8F9"/>
+      <text x="96" y="26" font-size="13" font-weight="600" fill="#191c1d">진행</text>
+      <text x="128" y="26" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">PROCESS</text>
+      <text x="96" y="42" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#13777C / #EBF8F9</text>
+      <text x="624" y="34" text-anchor="end" font-size="11" fill="#9ca3af">활성 노드 · 커넥터 · 포커스 링</text>
+    </g>
+    <g transform="translate(0,124)">
+      <rect x="0" y="0" width="640" height="52" rx="8" fill="#ffffff"/>
+      <rect x="14" y="12" width="28" height="28" rx="8" fill="#1e7e34"/>
+      <rect x="50" y="12" width="28" height="28" rx="8" fill="#ecfdf3"/>
+      <text x="96" y="26" font-size="13" font-weight="600" fill="#191c1d">정상</text>
+      <text x="128" y="26" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">PASS</text>
+      <text x="96" y="42" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#1e7e34 / #ecfdf3</text>
+      <text x="624" y="34" text-anchor="end" font-size="11" fill="#9ca3af">누적 바 1구간 · 범례 · 연결 정상</text>
+    </g>
+    <g transform="translate(0,186)">
+      <rect x="0" y="0" width="640" height="52" rx="8" fill="#ffffff"/>
+      <rect x="14" y="12" width="28" height="28" rx="8" fill="#d97706"/>
+      <rect x="50" y="12" width="28" height="28" rx="8" fill="#fffbeb"/>
+      <text x="96" y="26" font-size="13" font-weight="600" fill="#191c1d">불량</text>
+      <text x="128" y="26" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">REJECT</text>
+      <text x="96" y="42" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#d97706 / #fffbeb</text>
+      <text x="624" y="34" text-anchor="end" font-size="11" fill="#9ca3af">누적 바 2구간 · 재연결 배지</text>
+    </g>
+    <g transform="translate(0,248)">
+      <rect x="0" y="0" width="640" height="52" rx="8" fill="#ffffff"/>
+      <rect x="14" y="12" width="28" height="28" rx="8" fill="#dc2626"/>
+      <rect x="50" y="12" width="28" height="28" rx="8" fill="#fef2f2"/>
+      <text x="96" y="26" font-size="13" font-weight="600" fill="#191c1d">검사 실패</text>
+      <text x="152" y="26" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">FAIL</text>
+      <text x="96" y="42" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#dc2626 / #fef2f2</text>
+      <text x="624" y="34" text-anchor="end" font-size="11" fill="#9ca3af">누적 바 3구간</text>
+    </g>
+    <g transform="translate(0,310)">
+      <rect x="0" y="0" width="640" height="52" rx="8" fill="#fbfcfd" stroke="#e1e5ea" stroke-width="1" stroke-dasharray="4 4"/>
+      <rect x="14" y="12" width="28" height="28" rx="8" fill="#85C4C8"/>
+      <text x="96" y="26" font-size="13" font-weight="600" fill="#191c1d">촬영 완료 타일</text>
+      <text x="96" y="42" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#85C4C8 — 진행 청록의 흐린 값 (teal-300)</text>
+      <text x="624" y="34" text-anchor="end" font-size="11" fill="#9ca3af">유일한 파생색. 명도로만 구분</text>
+    </g>
+    <g transform="translate(0,372)">
+      <rect x="0" y="0" width="640" height="72" rx="12" fill="#EEF6FE"/>
+      <rect x="14" y="14" width="28" height="28" rx="8" fill="#0C5795"/>
+      <rect x="50" y="14" width="28" height="28" rx="8" fill="#EEF6FE" stroke="#B6D6F8" stroke-width="1"/>
+      <text x="96" y="30" font-size="13" font-weight="600" fill="#191c1d">브랜드 — 격리</text>
+      <text x="96" y="48" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#0C5795 (brand-700) 사이드바 활성 · CTA · 활성 칩</text>
+      <text x="96" y="64" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#EEF6FE (brand-50) 활성 탭 배경 · 행 hover 배경</text>
+    </g>
+  </g>
+
+  <!-- 폐기 색 -->
+  <text x="880" y="678" font-size="12.5" font-weight="600" fill="#5b5f63">폐기 대상 — 현행 불일치</text>
+  <g transform="translate(880,692)" font-size="11" font-family="ui-monospace, Consolas, monospace">
+    <rect x="0" y="0" width="640" height="86" rx="12" fill="#ffffff"/>
+    <rect x="16" y="14" width="20" height="20" rx="4" fill="#2ecc71"/>
+    <rect x="42" y="14" width="20" height="20" rx="4" fill="#2a78d6"/>
+    <text x="74" y="28" fill="#5b5f63">PASS 가 초록과 파랑 두 값으로 갈려 있었다 → #1e7e34 로 통일</text>
+    <rect x="16" y="42" width="20" height="20" rx="4" fill="#f15353"/>
+    <rect x="42" y="42" width="20" height="20" rx="4" fill="#873c3e"/>
+    <text x="74" y="56" fill="#5b5f63">REJECT #F15353 과 FAIL #873C3E 는 색상환에서 가까워</text>
+    <text x="74" y="72" fill="#dc2626">6×16 타일 크기에서 구분되지 않는다 — 반드시 교체</text>
+  </g>
+
+  <!-- ================= D. 타이포 위계 ================= -->
+  <text x="880" y="826" font-size="11" letter-spacing="1.1" fill="#13777C" font-family="ui-monospace, Consolas, monospace">D</text>
+  <text x="904" y="826" font-size="17" font-weight="650" fill="#191c1d">타이포 위계</text>
+  <text x="880" y="848" font-size="12.5" fill="#5b5f63">숫자에는 font-variant-numeric: tabular-nums 를 적용해 값이 바뀔 때 자릿수가 흔들리지 않게 한다.</text>
+
+  <g transform="translate(880,866)">
+    <rect x="0" y="0" width="640" height="300" rx="12" fill="#ffffff"/>
+
+    <text x="20" y="34" font-size="18" font-weight="700" fill="#191c1d">패널 타이틀</text>
+    <text x="620" y="34" text-anchor="end" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">18 / 700 · #191c1d</text>
+
+    <text x="20" y="82" font-size="32" font-weight="700" fill="#191c1d" letter-spacing="-1">102</text>
+    <text x="620" y="82" text-anchor="end" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">32 / 700 · tracking -0.03em</text>
+
+    <text x="20" y="118" font-size="15" fill="#5b5f63">units</text>
+    <text x="620" y="118" text-anchor="end" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">15 / 400 · #5b5f63</text>
+
+    <text x="20" y="152" font-size="14" font-weight="600" fill="#5b5f63">단계 라벨 (한글)</text>
+    <text x="620" y="152" text-anchor="end" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">14 / 600 · #5b5f63</text>
+
+    <text x="20" y="186" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">CAPTURING</text>
+    <text x="620" y="186" text-anchor="end" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">10.5 mono · tracking 0.09em</text>
+
+    <text x="20" y="220" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">Batch #3 · 보조 정보</text>
+    <text x="620" y="220" text-anchor="end" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">11.5 mono · #9ca3af, 값만 #5b5f63</text>
+
+    <text x="20" y="254" font-size="14" font-weight="500" fill="#5b5f63">사이드바 탭 라벨</text>
+    <text x="620" y="254" text-anchor="end" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">14 / 500 (활성 600)</text>
+
+    <line x1="20" y1="272" x2="620" y2="272" stroke="#eceef0" stroke-width="1"/>
+    <text x="20" y="290" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">Batch ID 가 라벨보다 크던 현행 역전을 뒤집는다</text>
+  </g>
+</svg>

@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1646 940" width="1646" height="940" font-family="Inter, system-ui, 'Pretendard', sans-serif">
+  <title>일일 리포트 목록</title>
+  <desc>툴바에 타입 토글 + 상태 칩 + 검색. 헤더 우측에 리포트 생성 CTA. SVG 1단위 = 디자인 1px = 0.1rem</desc>
+
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <rect width="1646" height="940" fill="#ededed"/>
+
+  <!-- ================= 사이드바 ================= -->
+  <g>
+    <rect x="68.6" y="30" width="85.7" height="85.7" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <text x="111.4" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#0C5795">LOGO</text>
+    <text x="111.4" y="140" text-anchor="middle" font-size="12" fill="#5b5f63">슬로건 자리 · 한글 12~16자</text>
+    <rect x="16.5" y="128" width="190" height="17" rx="4" fill="none" stroke="#c3c8cd" stroke-width="1" stroke-dasharray="3 3"/>
+
+    <rect x="16.5" y="176" width="190" height="240" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="32.5" y="196" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="212" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="229" font-size="14" font-weight="500" fill="#5b5f63">대시보드</text>
+
+    <rect x="32.5" y="268" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="284" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="301" font-size="14" font-weight="500" fill="#5b5f63">배터리 목록</text>
+
+    <rect x="32.5" y="340" width="158" height="56" rx="15" fill="#EEF6FE"/>
+    <rect x="52" y="356" width="24" height="24" rx="8" fill="#0C5795"/>
+    <text x="88" y="373" font-size="14" font-weight="600" fill="#0C5795">리포트 목록</text>
+  </g>
+
+  <!-- ================= 우측 사용자 블록 ================= -->
+  <g>
+    <rect x="1439.5" y="30" width="190" height="42" fill="#ffffff" filter="url(#sh)"/>
+    <circle cx="1462" cy="51" r="16" fill="#dfe3e7"/>
+    <text x="1462" y="56" text-anchor="middle" font-size="12" font-weight="600" fill="#5b5f63">김</text>
+    <text x="1487" y="56" font-size="14" fill="#191c1d">김경순</text>
+    <path d="M1604 48 l5 5 l5 -5" stroke="#9ca3af" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- ================= 슬롯 1 — 헤더 ================= -->
+  <g>
+    <text x="243" y="70" font-size="24" font-weight="700" fill="#191c1d">일일 리포트</text>
+
+    <rect x="1273" y="40" width="130" height="36" rx="8" fill="#0C5795"/>
+    <path d="M1297 58 h12 M1303 52 v12" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+    <text x="1319" y="63" font-size="13.5" font-weight="600" fill="#ffffff">리포트 생성</text>
+  </g>
+
+  <!-- ================= 슬롯 2 — 툴바 ================= -->
+  <g>
+    <!-- 타입 토글 -->
+    <rect x="243" y="110" width="180" height="32" fill="#dcdcdc"/>
+    <rect x="246" y="113" width="87" height="26" rx="999" fill="#ffffff" filter="url(#sh)"/>
+    <text x="289" y="131" text-anchor="middle" font-size="13" font-weight="600" fill="#191c1d">일일</text>
+    <text x="377" y="131" text-anchor="middle" font-size="13" font-weight="500" fill="#00000080">개별</text>
+
+    <line x1="443" y1="112" x2="443" y2="140" stroke="#d8dbde" stroke-width="1"/>
+
+    <!-- 상태 칩 -->
+    <rect x="463" y="110" width="86" height="32" fill="#0C5795"/>
+    <text x="492" y="130" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">전체</text>
+    <text x="528" y="130" text-anchor="middle" font-size="12" fill="#ffffff" opacity="0.75" font-family="ui-monospace, Consolas, monospace">14</text>
+
+    <rect x="557" y="110" width="90" height="32" fill="#ffffff"/>
+    <text x="588" y="130" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">완료</text>
+    <text x="624" y="130" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">11</text>
+
+    <rect x="655" y="110" width="104" height="32" fill="#ffffff"/>
+    <circle cx="674" cy="126" r="4" fill="#13777C"/>
+    <text x="708" y="130" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">대기중</text>
+    <text x="742" y="130" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">2</text>
+
+    <rect x="767" y="110" width="90" height="32" fill="#ffffff"/>
+    <path d="M786 122 l5 8 h-10 z" fill="#dc2626"/>
+    <text x="818" y="130" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">실패</text>
+    <text x="844" y="130" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">1</text>
+
+    <!-- 정렬 토글 -->
+    <rect x="1000" y="110" width="146" height="32" fill="#ffffff"/>
+    <path d="M1019 120 v12 M1015 128 l4 4 l4 -4" stroke="#5b5f63" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <text x="1085" y="130" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">최신순</text>
+    <path d="M1128 124 l5 5 l5 -5" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+    <!-- 검색 -->
+    <rect x="1163" y="110" width="240" height="32" fill="#ffffff"/>
+    <circle cx="1184" cy="126" r="5.5" fill="none" stroke="#9ca3af" stroke-width="1.6"/>
+    <path d="M1188 130 l4 4" stroke="#9ca3af" stroke-width="1.6" stroke-linecap="round"/>
+    <text x="1200" y="131" font-size="13" fill="#9ca3af">제목 검색</text>
+  </g>
+
+  <!-- ================= 슬롯 3 — 테이블 카드 ================= -->
+  <g>
+    <rect x="243" y="166" width="1160" height="654" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <text x="267" y="216" font-size="13" font-weight="600" fill="#5b5f63">상태</text>
+    <text x="427" y="216" font-size="13" font-weight="600" fill="#5b5f63">제목</text>
+    <text x="899" y="216" font-size="13" font-weight="600" fill="#5b5f63">판정일자</text>
+    <text x="1119" y="216" font-size="13" font-weight="600" fill="#5b5f63">생성일시</text>
+    <line x1="267" y1="230" x2="1379" y2="230" stroke="#eceef0" stroke-width="1"/>
+
+    <!-- 행 1 — PENDING (hover) -->
+    <g>
+      <rect x="255" y="234" width="1136" height="56" rx="8" fill="#EEF6FE"/>
+      <rect x="267" y="250" width="82" height="24" fill="#EBF8F9"/>
+      <circle cx="280" cy="262" r="4" fill="#13777C"/>
+      <text x="313" y="266" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#13777C" font-family="ui-monospace, Consolas, monospace">PENDING</text>
+      <text x="427" y="267" font-size="14" fill="#191c1d">2026-08-07 일일 검사 요약 — 수율 91.7%</text>
+      <text x="899" y="267" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07</text>
+      <text x="1119" y="267" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 10:02</text>
+      <path d="M1361 258 l6 6 l-6 6" stroke="#0C5795" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <!-- 행 2 — FAILED -->
+    <g>
+      <rect x="267" y="306" width="74" height="24" fill="none" stroke="#dc2626" stroke-width="1"/>
+      <path d="M280 314 l5 8 h-10 z" fill="#dc2626"/>
+      <text x="310" y="322" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#dc2626" font-family="ui-monospace, Consolas, monospace">FAILED</text>
+      <text x="427" y="323" font-size="14" fill="#191c1d">리포트 #13</text>
+      <text x="899" y="323" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-06</text>
+      <text x="1119" y="323" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-06 23:58</text>
+      <line x1="255" y1="346" x2="1391" y2="346" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+
+    <!-- 행 3~7 — COMPLETED (뉴트럴) -->
+    <g>
+      <text x="267" y="379" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+      <text x="427" y="379" font-size="14" fill="#191c1d">2026-08-05 일일 검사 요약 — 수율 94.2%</text>
+      <text x="899" y="379" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-05</text>
+      <text x="1119" y="379" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-05 23:59</text>
+      <line x1="255" y1="402" x2="1391" y2="402" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+    <g>
+      <text x="267" y="435" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+      <text x="427" y="435" font-size="14" fill="#191c1d">2026-08-04 일일 검사 요약 — 수율 96.0%</text>
+      <text x="899" y="435" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-04</text>
+      <text x="1119" y="435" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-04 23:59</text>
+      <line x1="255" y1="458" x2="1391" y2="458" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+    <g>
+      <text x="267" y="491" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+      <text x="427" y="491" font-size="14" fill="#191c1d">2026-08-03 일일 검사 요약 — 수율 93.1%</text>
+      <text x="899" y="491" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-03</text>
+      <text x="1119" y="491" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-03 23:59</text>
+      <line x1="255" y1="514" x2="1391" y2="514" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+    <g>
+      <text x="267" y="547" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+      <text x="427" y="547" font-size="14" fill="#191c1d">2026-08-02 일일 검사 요약 — 수율 95.5%</text>
+      <text x="899" y="547" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-02</text>
+      <text x="1119" y="547" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-02 23:59</text>
+      <line x1="255" y1="570" x2="1391" y2="570" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+    <g>
+      <text x="267" y="603" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+      <text x="427" y="603" font-size="14" fill="#191c1d">2026-08-01 일일 검사 요약 — 수율 92.8%</text>
+      <text x="899" y="603" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-01</text>
+      <text x="1119" y="603" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-01 23:59</text>
+      <line x1="255" y1="626" x2="1391" y2="626" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+    <g opacity="0.4">
+      <text x="267" y="659" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+      <text x="427" y="659" font-size="14" fill="#191c1d">2026-07-31 일일 검사 요약 — 수율 90.4%</text>
+      <text x="899" y="659" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-07-31</text>
+      <text x="1119" y="659" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-07-31 23:59</text>
+    </g>
+
+    <!-- 슬롯 4 — 푸터 -->
+    <line x1="267" y1="740" x2="1379" y2="740" stroke="#eceef0" stroke-width="1"/>
+    <text x="267" y="782" font-size="12.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">14건 중 1–14</text>
+
+    <g>
+      <rect x="1249" y="762" width="32" height="32" fill="#f3f4f6"/>
+      <path d="M1268 772 l-5 6 l5 6" stroke="#c3c8cd" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <rect x="1289" y="762" width="32" height="32" fill="#0C5795"/>
+      <text x="1305" y="784" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">1</text>
+      <rect x="1329" y="762" width="32" height="32" fill="#f3f4f6"/>
+      <path d="M1342 772 l5 6 l-5 6" stroke="#c3c8cd" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <text x="243" y="860" font-size="11" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">COMPLETED 는 뉴트럴 — 다수 행이라 색을 칠하면 색이 정보가 아니라 배경이 된다 (§6.2)</text>
+  <text x="243" y="880" font-size="11" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">+ 리포트 생성 클릭 → 날짜 피커 팝오버 → POST /reports/daily { reportDate }</text>
+</svg>
