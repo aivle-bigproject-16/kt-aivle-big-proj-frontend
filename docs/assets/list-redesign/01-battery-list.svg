@@ -1,0 +1,214 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1646 940" width="1646" height="940" font-family="Inter, system-ui, 'Pretendard', sans-serif">
+  <title>배터리 목록</title>
+  <desc>공통 골격 4슬롯: 헤더 · 툴바 · 테이블 카드 · 푸터. 브랜드 블루 #0C5795 적용. SVG 1단위 = 디자인 1px = 0.1rem</desc>
+
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <rect width="1646" height="940" fill="#ededed"/>
+
+  <!-- ================= 사이드바 ================= -->
+  <g>
+    <rect x="68.6" y="30" width="85.7" height="85.7" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <text x="111.4" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#0C5795">LOGO</text>
+    <text x="111.4" y="140" text-anchor="middle" font-size="12" fill="#5b5f63">슬로건 자리 · 한글 12~16자</text>
+    <rect x="16.5" y="128" width="190" height="17" rx="4" fill="none" stroke="#c3c8cd" stroke-width="1" stroke-dasharray="3 3"/>
+
+    <rect x="16.5" y="176" width="190" height="240" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="32.5" y="196" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="212" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="229" font-size="14" font-weight="500" fill="#5b5f63">대시보드</text>
+
+    <rect x="32.5" y="268" width="158" height="56" rx="15" fill="#EEF6FE"/>
+    <rect x="52" y="284" width="24" height="24" rx="8" fill="#0C5795"/>
+    <text x="88" y="301" font-size="14" font-weight="600" fill="#0C5795">배터리 목록</text>
+
+    <rect x="32.5" y="340" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="356" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="373" font-size="14" font-weight="500" fill="#5b5f63">리포트 목록</text>
+  </g>
+
+  <!-- ================= 우측 사용자 블록 ================= -->
+  <g>
+    <rect x="1439.5" y="30" width="190" height="42" fill="#ffffff" filter="url(#sh)" rx="12"/>
+    <circle cx="1462" cy="51" r="16" fill="#dfe3e7"/>
+    <text x="1462" y="56" text-anchor="middle" font-size="12" font-weight="600" fill="#5b5f63">김</text>
+    <text x="1487" y="56" font-size="14" fill="#191c1d">김경순</text>
+    <path d="M1604 48 l5 5 l5 -5" stroke="#9ca3af" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- ================= 슬롯 1 — 페이지 헤더 (y 30..86) ================= -->
+  <g>
+    <text x="243" y="70" font-size="24" font-weight="700" fill="#191c1d">배터리 목록</text>
+  </g>
+
+  <!-- ================= 슬롯 2 — 툴바 (y 102..150) ================= -->
+  <g>
+    <!-- 판정 칩 -->
+    <rect x="243" y="110" width="86" height="32" fill="#0C5795"/>
+    <text x="272" y="130" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">전체</text>
+    <text x="308" y="130" text-anchor="middle" font-size="12" fill="#ffffff" opacity="0.75" font-family="ui-monospace, Consolas, monospace">47</text>
+
+    <rect x="337" y="110" width="94" height="32" fill="#ffffff"/>
+    <circle cx="356" cy="126" r="4" fill="#1e7e34"/>
+    <text x="386" y="130" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">PASS</text>
+    <text x="416" y="130" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">39</text>
+
+    <rect x="439" y="110" width="108" height="32" fill="#ffffff"/>
+    <circle cx="458" cy="126" r="4" fill="#d97706"/>
+    <text x="495" y="130" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">REJECT</text>
+    <text x="532" y="130" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">6</text>
+
+    <rect x="555" y="110" width="90" height="32" fill="#ffffff"/>
+    <path d="M574 122 l5 8 h-10 z" fill="#dc2626"/>
+    <text x="604" y="130" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">FAIL</text>
+    <text x="632" y="130" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">2</text>
+
+    <!-- 결함 유형 칩 축은 데이터 부재로 숨김 (§4.1) -->
+    <text x="661" y="130" font-size="10.5" fill="#c3c8cd" font-family="ui-monospace, Consolas, monospace">결함 유형 축 — 데이터 확정 전까지 숨김 (§4.1)</text>
+
+    <!-- 검색 -->
+    <rect x="1163" y="110" width="240" height="32" fill="#ffffff"/>
+    <circle cx="1184" cy="126" r="5.5" fill="none" stroke="#9ca3af" stroke-width="1.6"/>
+    <path d="M1188 130 l4 4" stroke="#9ca3af" stroke-width="1.6" stroke-linecap="round"/>
+    <text x="1200" y="131" font-size="13" fill="#9ca3af">셀 시리얼 검색</text>
+  </g>
+
+  <!-- ================= 슬롯 3 — 테이블 카드 (y 166..820) ================= -->
+  <g>
+    <rect x="243" y="166" width="1160" height="654" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <!-- 헤더 행 -->
+    <text x="267" y="216" font-size="13" font-weight="600" fill="#5b5f63">셀 시리얼</text>
+    <text x="547" y="216" font-size="13" font-weight="600" fill="#5b5f63">모델</text>
+    <text x="767" y="216" font-size="13" font-weight="600" fill="#5b5f63">셀 유형</text>
+    <text x="927" y="216" font-size="13" font-weight="600" fill="#5b5f63">최근 검사</text>
+    <text x="1187" y="216" font-size="13" font-weight="600" fill="#5b5f63">판정</text>
+    <line x1="267" y1="230" x2="1379" y2="230" stroke="#eceef0" stroke-width="1"/>
+
+    <!-- 행 1 — REJECT (hover 상태) -->
+    <g>
+      <rect x="255" y="234" width="1136" height="56" rx="8" fill="#EEF6FE"/>
+      <text x="267" y="267" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1027-A</text>
+      <text x="547" y="267" font-size="14" fill="#191c1d">KT-B-2400</text>
+      <rect x="767" y="252" width="72" height="24" fill="#f3f4f6"/>
+      <text x="803" y="268" text-anchor="middle" font-size="11.5" fill="#5b5f63">파우치</text>
+      <text x="927" y="267" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:42</text>
+      <rect x="1187" y="252" width="82" height="24" fill="#fffbeb"/>
+      <circle cx="1200" cy="264" r="4" fill="#d97706"/>
+      <text x="1234" y="268" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#d97706" font-family="ui-monospace, Consolas, monospace">REJECT</text>
+      <path d="M1361 258 l6 6 l-6 6" stroke="#0C5795" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <!-- 행 2 — FAIL (테두리 배지 + 삼각 마커) -->
+    <g>
+      <text x="267" y="323" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1026-A</text>
+      <text x="547" y="323" font-size="14" fill="#191c1d">KT-B-2400</text>
+      <rect x="767" y="308" width="72" height="24" fill="#f3f4f6"/>
+      <text x="803" y="324" text-anchor="middle" font-size="11.5" fill="#5b5f63">파우치</text>
+      <text x="927" y="323" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:38</text>
+      <rect x="1187" y="308" width="70" height="24" fill="none" stroke="#dc2626" stroke-width="1"/>
+      <path d="M1200 316 l5 8 h-10 z" fill="#dc2626"/>
+      <text x="1228" y="324" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#dc2626" font-family="ui-monospace, Consolas, monospace">FAIL</text>
+      <line x1="255" y1="346" x2="1391" y2="346" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+
+    <!-- 행 3 — PASS -->
+    <g>
+      <text x="267" y="379" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1025-C</text>
+      <text x="547" y="379" font-size="14" fill="#191c1d">KT-C-1800</text>
+      <rect x="767" y="364" width="72" height="24" fill="#f3f4f6"/>
+      <text x="803" y="380" text-anchor="middle" font-size="11.5" fill="#5b5f63">원통형</text>
+      <text x="927" y="379" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:33</text>
+      <rect x="1187" y="364" width="70" height="24" fill="#ecfdf3"/>
+      <text x="1222" y="380" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#1e7e34" font-family="ui-monospace, Consolas, monospace">PASS</text>
+      <line x1="255" y1="402" x2="1391" y2="402" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+
+    <!-- 행 4 -->
+    <g>
+      <text x="267" y="435" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1024-C</text>
+      <text x="547" y="435" font-size="14" fill="#191c1d">KT-C-1800</text>
+      <rect x="767" y="420" width="72" height="24" fill="#f3f4f6"/>
+      <text x="803" y="436" text-anchor="middle" font-size="11.5" fill="#5b5f63">원통형</text>
+      <text x="927" y="435" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:28</text>
+      <rect x="1187" y="420" width="70" height="24" fill="#ecfdf3"/>
+      <text x="1222" y="436" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#1e7e34" font-family="ui-monospace, Consolas, monospace">PASS</text>
+      <line x1="255" y1="458" x2="1391" y2="458" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+
+    <!-- 행 5 -->
+    <g>
+      <text x="267" y="491" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1023-A</text>
+      <text x="547" y="491" font-size="14" fill="#191c1d">KT-B-2400</text>
+      <rect x="767" y="476" width="72" height="24" fill="#f3f4f6"/>
+      <text x="803" y="492" text-anchor="middle" font-size="11.5" fill="#5b5f63">파우치</text>
+      <text x="927" y="491" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:24</text>
+      <rect x="1187" y="476" width="70" height="24" fill="#ecfdf3"/>
+      <text x="1222" y="492" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#1e7e34" font-family="ui-monospace, Consolas, monospace">PASS</text>
+      <line x1="255" y1="514" x2="1391" y2="514" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+
+    <!-- 행 6 -->
+    <g>
+      <text x="267" y="547" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1022-C</text>
+      <text x="547" y="547" font-size="14" fill="#191c1d">KT-C-1800</text>
+      <rect x="767" y="532" width="72" height="24" fill="#f3f4f6"/>
+      <text x="803" y="548" text-anchor="middle" font-size="11.5" fill="#5b5f63">원통형</text>
+      <text x="927" y="547" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:19</text>
+      <rect x="1187" y="532" width="82" height="24" fill="#fffbeb"/>
+      <circle cx="1200" cy="544" r="4" fill="#d97706"/>
+      <text x="1234" y="548" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#d97706" font-family="ui-monospace, Consolas, monospace">REJECT</text>
+      <line x1="255" y1="570" x2="1391" y2="570" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+
+    <!-- 행 7 -->
+    <g>
+      <text x="267" y="603" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1021-A</text>
+      <text x="547" y="603" font-size="14" fill="#191c1d">KT-B-2400</text>
+      <rect x="767" y="588" width="72" height="24" fill="#f3f4f6"/>
+      <text x="803" y="604" text-anchor="middle" font-size="11.5" fill="#5b5f63">파우치</text>
+      <text x="927" y="603" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:15</text>
+      <rect x="1187" y="588" width="70" height="24" fill="#ecfdf3"/>
+      <text x="1222" y="604" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#1e7e34" font-family="ui-monospace, Consolas, monospace">PASS</text>
+      <line x1="255" y1="626" x2="1391" y2="626" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+
+    <!-- 행 8 (페이드) -->
+    <g opacity="0.4">
+      <text x="267" y="659" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1020-C</text>
+      <text x="547" y="659" font-size="14" fill="#191c1d">KT-C-1800</text>
+      <rect x="767" y="644" width="72" height="24" fill="#f3f4f6"/>
+      <text x="803" y="660" text-anchor="middle" font-size="11.5" fill="#5b5f63">원통형</text>
+      <text x="927" y="659" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:11</text>
+      <rect x="1187" y="644" width="70" height="24" fill="#ecfdf3"/>
+      <text x="1222" y="660" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#1e7e34" font-family="ui-monospace, Consolas, monospace">PASS</text>
+    </g>
+
+    <!-- ============ 슬롯 4 — 푸터 (카드 내부 하단) ============ -->
+    <line x1="267" y1="740" x2="1379" y2="740" stroke="#eceef0" stroke-width="1"/>
+    <text x="267" y="782" font-size="12.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">47건 중 1–20</text>
+
+    <g>
+      <rect x="1129" y="762" width="32" height="32" fill="#f3f4f6"/>
+      <path d="M1148 772 l-5 6 l5 6" stroke="#c3c8cd" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <rect x="1169" y="762" width="32" height="32" fill="#0C5795"/>
+      <text x="1185" y="784" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">1</text>
+      <rect x="1209" y="762" width="32" height="32" fill="#ffffff"/>
+      <text x="1225" y="784" text-anchor="middle" font-size="13" fill="#5b5f63">2</text>
+      <rect x="1249" y="762" width="32" height="32" fill="#ffffff"/>
+      <text x="1265" y="784" text-anchor="middle" font-size="13" fill="#5b5f63">3</text>
+      <rect x="1289" y="762" width="32" height="32" fill="#ffffff"/>
+      <text x="1305" y="784" text-anchor="middle" font-size="13" fill="#5b5f63">4</text>
+      <rect x="1329" y="762" width="32" height="32" fill="#f3f4f6"/>
+      <path d="M1342 772 l5 6 l-5 6" stroke="#5b5f63" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- 주석 -->
+  <text x="243" y="860" font-size="11" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">행 클릭이 상세 진입을 전담한다 (FR-LIST-005). 별도 상세 컬럼·# 컬럼 없음. hover 시 배경 brand-50 + 우측 chevron</text>
+  <text x="243" y="880" font-size="11" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">REJECT = 채운 배지 + 원형 마커 / FAIL = 테두리 배지 + 삼각 마커 — 색상각 31도 이격 보완 (§6.3)</text>
+</svg>

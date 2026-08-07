@@ -1,0 +1,255 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1240" width="1600" height="1240" font-family="Inter, system-ui, 'Pretendard', sans-serif">
+  <title>목록 컴포넌트 규격 시트</title>
+  <desc>배지(이중 부호화) · 필터 칩 · 행 규격 · 페이지네이션 · 브랜드 스와치. 치수 단위 = 디자인 px (px ÷ 10 = rem)</desc>
+
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+    <marker id="ar" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 1 L7 4 L0 7 z" fill="#9ca3af"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="1240" fill="#f7f8f9"/>
+
+  <text x="60" y="58" font-size="26" font-weight="700" fill="#191c1d">목록 컴포넌트 규격 시트</text>
+  <text x="60" y="84" font-size="13" fill="#5b5f63">치수 단위는 디자인 px 이다. rem 환산은 px ÷ 10. 색 값의 원 소유자는 BRAND_COLOR.md 이며 이 시트는 인용만 한다.</text>
+  <line x1="60" y1="102" x2="1540" y2="102" stroke="#e1e5ea" stroke-width="1"/>
+
+  <!-- ============ A. 판정 배지 — 이중 부호화 ============ -->
+  <text x="60" y="142" font-size="11" letter-spacing="1.1" fill="#0C5795" font-family="ui-monospace, Consolas, monospace">A</text>
+  <text x="84" y="142" font-size="17" font-weight="650" fill="#191c1d">배터리 판정 배지 — 색 + 형태 이중 부호화</text>
+  <text x="60" y="164" font-size="12.5" fill="#5b5f63">REJECT 와 FAIL 은 색상각이 31도밖에 떨어져 있지 않고, 목록에서는 위아래로 인접해 같은 위치에 놓인다. 색에만 의존하지 않는다.</text>
+
+  <g transform="translate(60,182)">
+    <rect x="0" y="0" width="700" height="188" rx="12" fill="#ffffff"/>
+
+    <!-- PASS -->
+    <rect x="24" y="26" width="70" height="24" fill="#ecfdf3"/>
+    <text x="59" y="42" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#1e7e34" font-family="ui-monospace, Consolas, monospace">PASS</text>
+    <text x="120" y="36" font-size="13" font-weight="600" fill="#191c1d">채운 배지</text>
+    <text x="120" y="52" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#1e7e34 / #ecfdf3 · 마커 없음</text>
+    <text x="676" y="44" text-anchor="end" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">대비 5.14</text>
+
+    <!-- REJECT -->
+    <rect x="24" y="80" width="82" height="24" fill="#fffbeb"/>
+    <circle cx="37" cy="92" r="4" fill="#d97706"/>
+    <text x="71" y="96" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#d97706" font-family="ui-monospace, Consolas, monospace">REJECT</text>
+    <text x="132" y="90" font-size="13" font-weight="600" fill="#191c1d">채운 배지 + 원형 마커</text>
+    <text x="132" y="106" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#d97706 / #fffbeb · ● 채운 원</text>
+    <text x="676" y="98" text-anchor="end" font-size="11" fill="#dc2626" font-family="ui-monospace, Consolas, monospace">대비 3.19 — AA 미달</text>
+
+    <!-- FAIL -->
+    <rect x="24" y="134" width="70" height="24" fill="none" stroke="#dc2626" stroke-width="1"/>
+    <path d="M37 142 l5 8 h-10 z" fill="#dc2626"/>
+    <text x="65" y="150" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#dc2626" font-family="ui-monospace, Consolas, monospace">FAIL</text>
+    <text x="120" y="144" font-size="13" font-weight="600" fill="#191c1d">테두리 배지 + 삼각 마커</text>
+    <text x="120" y="160" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#dc2626 · 배경 없음 · ▲ 경고 삼각</text>
+    <text x="676" y="152" text-anchor="end" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">대비 4.83</text>
+  </g>
+
+  <line x1="60" y1="386" x2="220" y2="386" stroke="#9ca3af" stroke-width="1" marker-start="url(#ar)" marker-end="url(#ar)"/>
+  <text x="230" y="390" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">배지 h24 · 좌우 패딩 10 · radius 12 · 1.15rem mono · tracking 0.05em</text>
+
+  <!-- ============ B. 리포트 상태 배지 ============ -->
+  <text x="840" y="142" font-size="11" letter-spacing="1.1" fill="#0C5795" font-family="ui-monospace, Consolas, monospace">B</text>
+  <text x="864" y="142" font-size="17" font-weight="650" fill="#191c1d">리포트 상태 배지 — 다른 의미 축</text>
+  <text x="840" y="164" font-size="12.5" fill="#5b5f63">배터리는 검사 판정, 리포트는 문서 생성 진행이다. COMPLETED 는 초록이 아니라 뉴트럴이다.</text>
+
+  <g transform="translate(840,182)">
+    <rect x="0" y="0" width="700" height="188" rx="12" fill="#ffffff"/>
+
+    <rect x="24" y="26" width="82" height="24" fill="#EBF8F9"/>
+    <circle cx="37" cy="38" r="4" fill="#13777C"/>
+    <text x="70" y="42" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#13777C" font-family="ui-monospace, Consolas, monospace">PENDING</text>
+    <text x="132" y="36" font-size="13" font-weight="600" fill="#191c1d">진행 PROCESS 청록</text>
+    <text x="132" y="52" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#13777C / #EBF8F9 · LLM 처리 중</text>
+
+    <text x="24" y="96" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+    <text x="132" y="90" font-size="13" font-weight="600" fill="#191c1d">뉴트럴 · 배경 없음</text>
+    <text x="132" y="106" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#5b5f63 · 다수 행이므로 강조하지 않는다</text>
+
+    <rect x="24" y="134" width="74" height="24" fill="none" stroke="#dc2626" stroke-width="1"/>
+    <path d="M37 142 l5 8 h-10 z" fill="#dc2626"/>
+    <text x="67" y="150" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#dc2626" font-family="ui-monospace, Consolas, monospace">FAILED</text>
+    <text x="132" y="144" font-size="13" font-weight="600" fill="#191c1d">테두리 배지 + 삼각 마커</text>
+    <text x="132" y="160" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#dc2626 · 생성 실패, 재시도 필요</text>
+  </g>
+
+  <g transform="translate(840,386)">
+    <rect x="0" y="0" width="700" height="52" rx="8" fill="#fffbeb"/>
+    <rect x="0" y="0" width="4" height="52" fill="#d97706"/>
+    <text x="20" y="22" font-size="12" font-weight="600" fill="#d97706">COMPLETED 를 초록으로 칠하면 안 되는 이유</text>
+    <text x="20" y="40" font-size="11.5" fill="#5b5f63">개별 리포트는 REJECT 또는 FAIL 검사에만 생성된다 (Core §4.8). 초록 배지가 붙은 행의 대상은 전부 불량 셀이다.</text>
+  </g>
+
+  <!-- ============ C. 셀 유형 배지 ============ -->
+  <text x="60" y="470" font-size="11" letter-spacing="1.1" fill="#0C5795" font-family="ui-monospace, Consolas, monospace">C</text>
+  <text x="84" y="470" font-size="17" font-weight="650" fill="#191c1d">셀 유형 배지 — 뉴트럴</text>
+  <text x="60" y="492" font-size="12.5" fill="#5b5f63">판정·상태와 구별되어야 하므로 상태 5색을 쓰지 않는다. PRISMATIC 은 존재하지 않는 셀 타입이다 (Core §10.3).</text>
+
+  <g transform="translate(60,510)">
+    <rect x="0" y="0" width="700" height="76" rx="12" fill="#ffffff"/>
+    <rect x="24" y="26" width="72" height="24" fill="#f3f4f6"/>
+    <text x="60" y="42" text-anchor="middle" font-size="11.5" fill="#5b5f63">파우치</text>
+    <text x="112" y="42" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">POUCH</text>
+
+    <rect x="204" y="26" width="72" height="24" fill="#f3f4f6"/>
+    <text x="240" y="42" text-anchor="middle" font-size="11.5" fill="#5b5f63">원통형</text>
+    <text x="292" y="42" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">CYLINDRICAL</text>
+
+    <rect x="424" y="26" width="72" height="24" fill="#fef2f2"/>
+    <text x="460" y="42" text-anchor="middle" font-size="11.5" fill="#dc2626" text-decoration="line-through">각형</text>
+    <text x="512" y="42" font-size="11.5" fill="#dc2626" font-family="ui-monospace, Consolas, monospace">PRISMATIC — 제거 대상</text>
+  </g>
+
+  <!-- ============ D. 필터 칩 ============ -->
+  <text x="840" y="470" font-size="11" letter-spacing="1.1" fill="#0C5795" font-family="ui-monospace, Consolas, monospace">D</text>
+  <text x="864" y="470" font-size="17" font-weight="650" fill="#191c1d">필터 칩</text>
+  <text x="840" y="492" font-size="12.5" fill="#5b5f63">단일 선택(라디오 방식). 칩 안에 해당 그룹 건수를 표기한다. 활성 칩은 브랜드 블루다.</text>
+
+  <g transform="translate(840,510)">
+    <rect x="0" y="0" width="700" height="76" rx="12" fill="#ffffff"/>
+
+    <rect x="24" y="22" width="86" height="32" fill="#0C5795"/>
+    <text x="53" y="42" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">전체</text>
+    <text x="89" y="42" text-anchor="middle" font-size="12" fill="#ffffff" opacity="0.75" font-family="ui-monospace, Consolas, monospace">47</text>
+
+    <rect x="122" y="22" width="94" height="32" fill="#f7f8f9"/>
+    <circle cx="141" cy="38" r="4" fill="#1e7e34"/>
+    <text x="171" y="42" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">PASS</text>
+    <text x="201" y="42" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">39</text>
+
+    <text x="240" y="34" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">활성 — #0C5795 배경 + 흰 텍스트 · weight 600</text>
+    <text x="240" y="50" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">비활성 — 흰 배경 · #5b5f63 · weight 500</text>
+
+    <text x="676" y="42" text-anchor="end" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">h32 · 좌우 패딩 14 · radius 16</text>
+  </g>
+
+  <!-- ============ E. 테이블 행 ============ -->
+  <text x="60" y="646" font-size="11" letter-spacing="1.1" fill="#0C5795" font-family="ui-monospace, Consolas, monospace">E</text>
+  <text x="84" y="646" font-size="17" font-weight="650" fill="#191c1d">테이블 행 — 단일 클릭 타깃</text>
+  <text x="60" y="668" font-size="12.5" fill="#5b5f63">행 전체가 상세 진입을 전담한다 (FR-LIST-005). 행 안에 별도 버튼을 두지 않으며, chevron 은 컬럼이 아니라 hover 시 힌트다.</text>
+
+  <g transform="translate(60,686)">
+    <rect x="0" y="0" width="1480" height="188" rx="12" fill="#ffffff"/>
+
+    <!-- 기본 행 -->
+    <text x="24" y="34" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">DEFAULT</text>
+    <g transform="translate(24,44)">
+      <text x="12" y="26" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1025-C</text>
+      <text x="292" y="26" font-size="14" fill="#191c1d">KT-C-1800</text>
+      <rect x="512" y="11" width="72" height="24" fill="#f3f4f6"/>
+      <text x="548" y="27" text-anchor="middle" font-size="11.5" fill="#5b5f63">원통형</text>
+      <text x="672" y="26" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:33</text>
+      <rect x="932" y="11" width="70" height="24" fill="#ecfdf3"/>
+      <text x="967" y="27" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#1e7e34" font-family="ui-monospace, Consolas, monospace">PASS</text>
+    </g>
+    <line x1="24" y1="100" x2="1456" y2="100" stroke="#f4f5f6" stroke-width="1"/>
+
+    <!-- hover 행 -->
+    <text x="24" y="126" font-size="11" fill="#0C5795" font-family="ui-monospace, Consolas, monospace">HOVER</text>
+    <g transform="translate(12,136)">
+      <rect x="0" y="0" width="1456" height="44" rx="8" fill="#EEF6FE"/>
+      <text x="24" y="28" font-size="13.5" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1024-C</text>
+      <text x="304" y="28" font-size="14" fill="#191c1d">KT-C-1800</text>
+      <rect x="524" y="10" width="72" height="24" fill="#f3f4f6"/>
+      <text x="560" y="26" text-anchor="middle" font-size="11.5" fill="#5b5f63">원통형</text>
+      <text x="684" y="28" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:28</text>
+      <rect x="944" y="10" width="70" height="24" fill="#ecfdf3"/>
+      <text x="979" y="26" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#1e7e34" font-family="ui-monospace, Consolas, monospace">PASS</text>
+      <path d="M1414 16 l6 6 l-6 6" stroke="#0C5795" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <text x="60" y="898" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">행 h56 · 헤더 행 h44 · 구분선 #f4f5f6 1px · hover 배경 #EEF6FE (brand-50) · hover chevron #0C5795</text>
+
+  <!-- ============ F. 페이지네이션 · 푸터 ============ -->
+  <text x="60" y="946" font-size="11" letter-spacing="1.1" fill="#0C5795" font-family="ui-monospace, Consolas, monospace">F</text>
+  <text x="84" y="946" font-size="17" font-weight="650" fill="#191c1d">푸터 — 건수 표기와 페이지네이션</text>
+  <text x="60" y="968" font-size="12.5" fill="#5b5f63">건수는 로드분 기준임이 드러나게 적는다. 서버 페이지네이션이 붙으면 같은 문구가 총계 의미로 승격된다.</text>
+
+  <g transform="translate(60,986)">
+    <rect x="0" y="0" width="700" height="112" rx="12" fill="#ffffff"/>
+    <text x="24" y="42" font-size="12.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">47건 중 1–20</text>
+    <text x="24" y="66" font-size="11.5" fill="#dc2626" font-family="ui-monospace, Consolas, monospace" text-decoration="line-through">Showing 1 to 20 of 47 entries</text>
+    <text x="260" y="66" font-size="11.5" fill="#5b5f63">← 총계처럼 읽히지만 실제로는 로드분이다</text>
+    <text x="24" y="90" font-size="11.5" fill="#5b5f63">결과 0건이면 <tspan font-weight="600">0건</tspan> 으로만 적고 범위(1–20)는 생략한다</text>
+
+    <g transform="translate(380,26)">
+      <rect x="0" y="0" width="32" height="32" fill="#f3f4f6"/>
+      <path d="M19 10 l-5 6 l5 6" stroke="#c3c8cd" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <rect x="40" y="0" width="32" height="32" fill="#0C5795"/>
+      <text x="56" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">1</text>
+      <rect x="80" y="0" width="32" height="32" fill="#f7f8f9"/>
+      <text x="96" y="22" text-anchor="middle" font-size="13" fill="#5b5f63">2</text>
+      <rect x="120" y="0" width="32" height="32" fill="#f7f8f9"/>
+      <text x="136" y="22" text-anchor="middle" font-size="13" fill="#5b5f63">3</text>
+      <rect x="160" y="0" width="32" height="32" fill="#f3f4f6"/>
+      <path d="M173 10 l5 6 l-5 6" stroke="#5b5f63" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <text x="96" y="52" text-anchor="middle" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">버튼 32 · gap 8 · radius 8</text>
+    </g>
+  </g>
+
+  <!-- ============ G. 브랜드 사용 범위 ============ -->
+  <text x="840" y="646" font-size="11" letter-spacing="1.1" fill="#0C5795" font-family="ui-monospace, Consolas, monospace">G</text>
+  <text x="864" y="646" font-size="17" font-weight="650" fill="#191c1d">브랜드 사용 범위</text>
+  <text x="840" y="668" font-size="12.5" fill="#5b5f63">브랜드 컬러는 판정·상태 표현에 쓰지 않는다 (BRAND_COLOR.md §8).</text>
+
+  <g transform="translate(840,686)">
+    <rect x="0" y="0" width="700" height="412" rx="12" fill="#ffffff"/>
+
+    <g>
+      <rect x="24" y="24" width="36" height="36" rx="8" fill="#0C5795"/>
+      <text x="76" y="40" font-size="13" font-weight="600" fill="#191c1d">brand-700</text>
+      <text x="76" y="56" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#0C5795 · 사이드바 활성 · 주요 CTA · 활성 칩</text>
+    </g>
+    <g>
+      <rect x="24" y="76" width="36" height="36" rx="8" fill="#236CAE"/>
+      <text x="76" y="92" font-size="13" font-weight="600" fill="#191c1d">brand-600</text>
+      <text x="76" y="108" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#236CAE · CTA 호버</text>
+    </g>
+    <g>
+      <rect x="24" y="128" width="36" height="36" rx="8" fill="#054477"/>
+      <text x="76" y="144" font-size="13" font-weight="600" fill="#191c1d">brand-800</text>
+      <text x="76" y="160" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#054477 · CTA 프레스</text>
+    </g>
+    <g>
+      <rect x="24" y="180" width="36" height="36" rx="8" fill="#EEF6FE" stroke="#e1e5ea" stroke-width="1"/>
+      <text x="76" y="196" font-size="13" font-weight="600" fill="#191c1d">brand-50</text>
+      <text x="76" y="212" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#EEF6FE · 행 hover 배경 · 사이드바 활성 배경</text>
+    </g>
+
+    <line x1="24" y1="244" x2="676" y2="244" stroke="#eceef0" stroke-width="1"/>
+
+    <text x="24" y="272" font-size="13" font-weight="600" fill="#191c1d">상태 5색 — 판정과 진행에만</text>
+    <g transform="translate(24,286)">
+      <rect x="0" y="0" width="28" height="28" rx="8" fill="#6b7280"/>
+      <rect x="40" y="0" width="28" height="28" rx="8" fill="#13777C"/>
+      <rect x="80" y="0" width="28" height="28" rx="8" fill="#1e7e34"/>
+      <rect x="120" y="0" width="28" height="28" rx="8" fill="#d97706"/>
+      <rect x="160" y="0" width="28" height="28" rx="8" fill="#dc2626"/>
+      <text x="0" y="46" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">PENDING · PROCESS · PASS · REJECT · FAIL</text>
+    </g>
+
+    <g transform="translate(24,350)">
+      <rect x="0" y="0" width="652" height="46" rx="8" fill="#fef2f2"/>
+      <rect x="0" y="0" width="4" height="46" fill="#dc2626"/>
+      <text x="20" y="20" font-size="12" font-weight="600" fill="#dc2626">폐기 — 옛 브랜드 레드</text>
+      <rect x="160" y="8" width="20" height="20" rx="4" fill="#e60012"/>
+      <rect x="188" y="8" width="20" height="20" rx="4" fill="#d94730"/>
+      <text x="220" y="23" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#e60012 · #d94730 — #ededed 위 대비 3.66 으로 AA 미달이었다</text>
+      <text x="20" y="38" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">옛 PROCESS 파랑 #2563eb 도 폐기 — 브랜드가 블루가 되어 계열이 충돌한다</text>
+    </g>
+  </g>
+
+  <!-- 하단 메모 -->
+  <g transform="translate(60,1122)">
+    <rect x="0" y="0" width="1480" height="82" rx="12" fill="#EEF6FE"/>
+    <rect x="0" y="0" width="4" height="82" fill="#0C5795"/>
+    <text x="24" y="28" font-size="13" font-weight="600" fill="#0C5795">브랜드 문서에 피드백할 것</text>
+    <text x="24" y="50" font-size="12" fill="#5b5f63">REJECT #d97706 과 FAIL #dc2626 은 목록에서 위아래로 인접 배치되므로 BRAND_COLOR.md §9 의 "REJECT 색 자체" 미결은 우선순위가 높다.</text>
+    <text x="24" y="70" font-size="12" fill="#5b5f63">이 시트의 이중 부호화는 색 결정을 기다리지 않는 임시책이 아니라, 색이 바뀌어도 유지되는 접근성 규칙이다.</text>
+  </g>
+</svg>

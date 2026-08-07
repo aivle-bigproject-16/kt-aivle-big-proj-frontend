@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1646 940" width="1646" height="940" font-family="Inter, system-ui, 'Pretendard', sans-serif">
+  <title>촬영 탭 — CAPTURING</title>
+  <desc>공통 골격: 요약 바(고정) + 목록 영역(내부 스크롤). SVG 1단위 = 디자인 1px = 0.1rem</desc>
+
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <rect width="1646" height="940" fill="#ededed"/>
+
+  <!-- ================= 사이드바 ================= -->
+  <g>
+    <rect x="68.6" y="30" width="85.7" height="85.7" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <text x="111.4" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#0C5795">LOGO</text>
+    <text x="111.4" y="140" text-anchor="middle" font-size="12" fill="#5b5f63">슬로건 자리 · 한글 12~16자</text>
+    <rect x="16.5" y="128" width="190" height="17" rx="4" fill="none" stroke="#c3c8cd" stroke-width="1" stroke-dasharray="3 3"/>
+
+    <rect x="16.5" y="176" width="190" height="240" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="32.5" y="196" width="158" height="56" rx="15" fill="#EEF6FE"/>
+    <rect x="52" y="212" width="24" height="24" rx="8" fill="#0C5795" opacity="0.9"/>
+    <text x="88" y="229" font-size="14" font-weight="600" fill="#0C5795">대시보드</text>
+    <rect x="32.5" y="268" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="284" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="301" font-size="14" font-weight="500" fill="#5b5f63">배터리 목록</text>
+    <rect x="32.5" y="340" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="356" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="373" font-size="14" font-weight="500" fill="#5b5f63">리포트 목록</text>
+  </g>
+
+  <!-- ================= 우측 사용자 블록 ================= -->
+  <g>
+    <rect x="1439.5" y="30" width="190" height="42" fill="#ffffff" filter="url(#sh)" rx="12"/>
+    <circle cx="1462" cy="51" r="16" fill="#dfe3e7"/>
+    <text x="1462" y="56" text-anchor="middle" font-size="12" font-weight="600" fill="#5b5f63">김</text>
+    <text x="1487" y="56" font-size="14" fill="#191c1d">김경순</text>
+    <path d="M1604 48 l5 5 l5 -5" stroke="#9ca3af" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- ================= 탭바 — '촬영' 활성 ================= -->
+  <g>
+    <rect x="243" y="17" width="385.7" height="42.9" fill="#dcdcdc" rx="12"/>
+    <rect x="401.5" y="21.3" width="68.6" height="34.3" fill="#ffffff" filter="url(#sh)" rx="12"/>
+    <text x="281.6" y="43.5" text-anchor="middle" font-size="17" font-weight="600" fill="#00000080">전체</text>
+    <text x="358.7" y="43.5" text-anchor="middle" font-size="17" font-weight="600" fill="#00000080">대기</text>
+    <text x="435.8" y="43.5" text-anchor="middle" font-size="17" font-weight="600" fill="#000000">촬영</text>
+    <text x="512.9" y="43.5" text-anchor="middle" font-size="17" font-weight="600" fill="#00000080">분석</text>
+    <text x="590.0" y="43.5" text-anchor="middle" font-size="17" font-weight="600" fill="#00000080">완료</text>
+  </g>
+
+  <!-- ================= 요약 바 (고정) ================= -->
+  <g>
+    <rect x="243" y="76" width="1160" height="80" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <circle cx="273" cy="116" r="5" fill="#13777C"/>
+    <text x="288" y="112" font-size="16" font-weight="600" fill="#5b5f63">촬영</text>
+    <text x="288" y="132" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">CAPTURING</text>
+
+    <line x1="392" y1="94" x2="392" y2="138" stroke="#e4e7ea" stroke-width="1"/>
+
+    <text x="416" y="99" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">현재 배치</text>
+    <text x="416" y="127" font-size="32" font-weight="700" fill="#191c1d" letter-spacing="-1">6</text>
+    <text x="438" y="127" font-size="15" fill="#5b5f63">active</text>
+
+    <line x1="530" y1="94" x2="530" y2="138" stroke="#e4e7ea" stroke-width="1"/>
+
+    <text x="554" y="99" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">촬영 완료</text>
+    <text x="554" y="127" font-size="20" font-weight="700" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">4</text>
+
+    <text x="650" y="99" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">촬영 속도</text>
+    <text x="650" y="127" font-size="20" font-weight="700" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">5.0s</text>
+
+    <text x="762" y="99" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">현재 배치</text>
+    <text x="762" y="127" font-size="20" font-weight="700" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#3</text>
+
+    <!-- 장식: 스캐너 (탭당 1개) -->
+    <g>
+      <rect x="900" y="98" width="240" height="44" rx="8" fill="#EBF8F9"/>
+      <rect x="1004" y="106" width="20" height="28" rx="4" fill="none" stroke="#13777C" stroke-width="1.8"/>
+      <rect x="1009" y="102" width="10" height="4" rx="999" fill="#13777C"/>
+      <line x1="912" y1="120" x2="1128" y2="120" stroke="#13777C" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.55"/>
+      <rect x="960" y="98" width="3" height="44" fill="#13777C" opacity="0.85"/>
+      <text x="1020" y="92" text-anchor="middle" font-size="10" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">SCANNER · 촬영 탭 전용 장식</text>
+    </g>
+
+    <rect x="1269" y="103" width="110" height="26" fill="#ecfdf3" stroke="#bfe3c9" stroke-width="1" rx="8"/>
+    <circle cx="1284" cy="116" r="3" fill="#1e7e34"/>
+    <text x="1294" y="120" font-size="11" letter-spacing="0.7" fill="#1e7e34" font-family="ui-monospace, Consolas, monospace">LIVE · 연결됨</text>
+  </g>
+
+  <!-- ================= 목록 영역 (내부 스크롤) ================= -->
+  <g>
+    <rect x="243" y="172" width="1160" height="712" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <!-- 현재 배치 — 펼침 -->
+    <rect x="267" y="196" width="1112" height="48" rx="8" fill="#EBF8F9"/>
+    <rect x="267" y="196" width="4" height="48" fill="#13777C"/>
+    <path d="M291 214 l7 7 l7 -7" stroke="#13777C" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <text x="316" y="226" font-size="14" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">Batch #3</text>
+    <text x="408" y="226" font-size="12" fill="#5b5f63">6 cells · 촬영 중</text>
+    <text x="1359" y="226" text-anchor="end" font-size="11.5" fill="#13777C" font-family="ui-monospace, Consolas, monospace">진행 4 / 6</text>
+
+    <!-- 촬영 진행바 -->
+    <rect x="267" y="256" width="1112" height="4" rx="999" fill="#D3EEEF"/>
+    <rect x="267" y="256" width="741" height="4" rx="999" fill="#13777C"/>
+
+    <!-- 셀 칩: CAPTURED 4 · CAPTURING 1 · 대기 1 -->
+    <g>
+      <rect x="267" y="276" width="172" height="40" rx="8" fill="#EBF8F9"/>
+      <rect x="283" y="286" width="14" height="20" rx="4" fill="#85C4C8"/>
+      <text x="309" y="301" font-size="13" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1033</text>
+      <text x="423" y="301" text-anchor="end" font-size="10" fill="#5BAAAE" font-family="ui-monospace, Consolas, monospace">DONE</text>
+    </g>
+    <g>
+      <rect x="455" y="276" width="172" height="40" rx="8" fill="#EBF8F9"/>
+      <rect x="471" y="286" width="14" height="20" rx="4" fill="#85C4C8"/>
+      <text x="497" y="301" font-size="13" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1034</text>
+      <text x="611" y="301" text-anchor="end" font-size="10" fill="#5BAAAE" font-family="ui-monospace, Consolas, monospace">DONE</text>
+    </g>
+    <g>
+      <rect x="643" y="276" width="172" height="40" rx="8" fill="#EBF8F9"/>
+      <rect x="659" y="286" width="14" height="20" rx="4" fill="#85C4C8"/>
+      <text x="685" y="301" font-size="13" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1035</text>
+      <text x="799" y="301" text-anchor="end" font-size="10" fill="#5BAAAE" font-family="ui-monospace, Consolas, monospace">DONE</text>
+    </g>
+    <g>
+      <rect x="831" y="276" width="172" height="40" rx="8" fill="#EBF8F9"/>
+      <rect x="847" y="286" width="14" height="20" rx="4" fill="#85C4C8"/>
+      <text x="873" y="301" font-size="13" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1036</text>
+      <text x="987" y="301" text-anchor="end" font-size="10" fill="#5BAAAE" font-family="ui-monospace, Consolas, monospace">DONE</text>
+    </g>
+    <g>
+      <rect x="1019" y="276" width="172" height="40" rx="8" fill="#D3EEEF"/>
+      <rect x="1019" y="276" width="3" height="40" fill="#13777C"/>
+      <rect x="1035" y="286" width="14" height="20" rx="4" fill="#13777C"/>
+      <text x="1061" y="301" font-size="13" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1037</text>
+      <text x="1175" y="301" text-anchor="end" font-size="10" fill="#13777C" font-family="ui-monospace, Consolas, monospace">LIVE</text>
+    </g>
+    <g>
+      <rect x="1207" y="276" width="172" height="40" rx="8" fill="#fafbfc"/>
+      <rect x="1223" y="286" width="14" height="20" rx="4" fill="#d6dade"/>
+      <text x="1249" y="301" font-size="13" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">CELL-1038</text>
+    </g>
+
+    <!-- 직전 배치 — 접힘 -->
+    <g>
+      <rect x="267" y="344" width="1112" height="48" rx="8" fill="#fafbfc"/>
+      <path d="M287 364 l7 -7 l7 7" stroke="#9ca3af" stroke-width="1.8" fill="none" stroke-linecap="round" transform="rotate(90 294 364)"/>
+      <text x="312" y="374" font-size="14" font-weight="600" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">Batch #2</text>
+      <text x="404" y="374" font-size="12" fill="#9ca3af">6 cells · 촬영 완료</text>
+    </g>
+    <g>
+      <rect x="267" y="404" width="1112" height="48" rx="8" fill="#fafbfc"/>
+      <path d="M287 424 l7 -7 l7 7" stroke="#9ca3af" stroke-width="1.8" fill="none" stroke-linecap="round" transform="rotate(90 294 424)"/>
+      <text x="312" y="434" font-size="14" font-weight="600" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">Batch #1</text>
+      <text x="404" y="434" font-size="12" fill="#9ca3af">6 cells · 촬영 완료</text>
+    </g>
+
+    <text x="267" y="500" font-size="11.5" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">촬영 완료(CAPTURED) 셀은 흐린 청록 #85C4C8, 촬영 중(CAPTURING)은 진한 청록 #13777C — 명도로만 구분한다</text>
+
+    <rect x="1387" y="196" width="6" height="200" rx="4" fill="#d0d4d8"/>
+  </g>
+</svg>

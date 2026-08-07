@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1646 940" width="1646" height="940" font-family="Inter, system-ui, 'Pretendard', sans-serif">
+  <title>대기 탭 — PENDING</title>
+  <desc>공통 골격: 요약 바(고정) + 목록 영역(내부 스크롤). SVG 1단위 = 디자인 1px = 0.1rem</desc>
+
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <rect width="1646" height="940" fill="#ededed"/>
+
+  <!-- ================= 사이드바 ================= -->
+  <g>
+    <rect x="68.6" y="30" width="85.7" height="85.7" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <text x="111.4" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#0C5795">LOGO</text>
+    <text x="111.4" y="140" text-anchor="middle" font-size="12" fill="#5b5f63">슬로건 자리 · 한글 12~16자</text>
+    <rect x="16.5" y="128" width="190" height="17" rx="4" fill="none" stroke="#c3c8cd" stroke-width="1" stroke-dasharray="3 3"/>
+
+    <rect x="16.5" y="176" width="190" height="240" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="32.5" y="196" width="158" height="56" rx="15" fill="#EEF6FE"/>
+    <rect x="52" y="212" width="24" height="24" rx="8" fill="#0C5795" opacity="0.9"/>
+    <text x="88" y="229" font-size="14" font-weight="600" fill="#0C5795">대시보드</text>
+    <rect x="32.5" y="268" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="284" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="301" font-size="14" font-weight="500" fill="#5b5f63">배터리 목록</text>
+    <rect x="32.5" y="340" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="356" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="373" font-size="14" font-weight="500" fill="#5b5f63">리포트 목록</text>
+  </g>
+
+  <!-- ================= 우측 사용자 블록 ================= -->
+  <g>
+    <rect x="1439.5" y="30" width="190" height="42" fill="#ffffff" filter="url(#sh)" rx="12"/>
+    <circle cx="1462" cy="51" r="16" fill="#dfe3e7"/>
+    <text x="1462" y="56" text-anchor="middle" font-size="12" font-weight="600" fill="#5b5f63">김</text>
+    <text x="1487" y="56" font-size="14" fill="#191c1d">김경순</text>
+    <path d="M1604 48 l5 5 l5 -5" stroke="#9ca3af" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- ================= 탭바 — '대기' 활성 ================= -->
+  <g>
+    <rect x="243" y="17" width="385.7" height="42.9" fill="#dcdcdc" rx="12"/>
+    <rect x="324.4" y="21.3" width="68.6" height="34.3" fill="#ffffff" filter="url(#sh)" rx="12"/>
+    <text x="281.6" y="43.5" text-anchor="middle" font-size="17" font-weight="600" fill="#00000080">전체</text>
+    <text x="358.7" y="43.5" text-anchor="middle" font-size="17" font-weight="600" fill="#000000">대기</text>
+    <text x="435.8" y="43.5" text-anchor="middle" font-size="17" font-weight="600" fill="#00000080">촬영</text>
+    <text x="512.9" y="43.5" text-anchor="middle" font-size="17" font-weight="600" fill="#00000080">분석</text>
+    <text x="590.0" y="43.5" text-anchor="middle" font-size="17" font-weight="600" fill="#00000080">완료</text>
+  </g>
+
+  <!-- ================= 요약 바 (고정, y 76..156) ================= -->
+  <g>
+    <rect x="243" y="76" width="1160" height="80" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <circle cx="273" cy="116" r="5" fill="#6b7280"/>
+    <text x="288" y="112" font-size="16" font-weight="600" fill="#5b5f63">대기</text>
+    <text x="288" y="132" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">PENDING</text>
+
+    <line x1="372" y1="94" x2="372" y2="138" stroke="#e4e7ea" stroke-width="1"/>
+
+    <text x="396" y="127" font-size="32" font-weight="700" fill="#191c1d" letter-spacing="-1">102</text>
+    <text x="452" y="127" font-size="15" fill="#5b5f63">units</text>
+    <text x="396" y="99" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">대기 셀</text>
+
+    <line x1="520" y1="94" x2="520" y2="138" stroke="#e4e7ea" stroke-width="1"/>
+
+    <text x="544" y="99" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">총 셀</text>
+    <text x="544" y="127" font-size="20" font-weight="700" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">120</text>
+
+    <text x="640" y="99" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">대기 배치</text>
+    <text x="640" y="127" font-size="20" font-weight="700" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">17</text>
+
+    <text x="748" y="99" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">다음 배치</text>
+    <text x="748" y="127" font-size="20" font-weight="700" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">#4</text>
+
+    <!-- 장식: 컨베이어 (탭당 1개) -->
+    <g opacity="0.9">
+      <rect x="900" y="104" width="240" height="24" rx="4" fill="#f3f4f6"/>
+      <circle cx="916" cy="136" r="7" fill="none" stroke="#c9ced3" stroke-width="2"/>
+      <circle cx="956" cy="136" r="7" fill="none" stroke="#c9ced3" stroke-width="2"/>
+      <circle cx="996" cy="136" r="7" fill="none" stroke="#c9ced3" stroke-width="2"/>
+      <circle cx="1036" cy="136" r="7" fill="none" stroke="#c9ced3" stroke-width="2"/>
+      <circle cx="1076" cy="136" r="7" fill="none" stroke="#c9ced3" stroke-width="2"/>
+      <circle cx="1116" cy="136" r="7" fill="none" stroke="#c9ced3" stroke-width="2"/>
+      <rect x="924" y="108" width="18" height="16" rx="4" fill="#d6dade"/>
+      <rect x="978" y="108" width="18" height="16" rx="4" fill="#d6dade"/>
+      <rect x="1032" y="108" width="18" height="16" rx="4" fill="#d6dade"/>
+      <rect x="1086" y="108" width="18" height="16" rx="4" fill="#d6dade"/>
+      <text x="1020" y="98" text-anchor="middle" font-size="10" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">CONVEYOR · 대기 탭 전용 장식</text>
+    </g>
+
+    <!-- 상태 배지 -->
+    <rect x="1269" y="103" width="110" height="26" fill="#ecfdf3" stroke="#bfe3c9" stroke-width="1" rx="8"/>
+    <circle cx="1284" cy="116" r="3" fill="#1e7e34"/>
+    <text x="1294" y="120" font-size="11" letter-spacing="0.7" fill="#1e7e34" font-family="ui-monospace, Consolas, monospace">LIVE · 연결됨</text>
+  </g>
+
+  <!-- ================= 목록 영역 (내부 스크롤, y 172..884) ================= -->
+  <g>
+    <rect x="243" y="172" width="1160" height="712" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <!-- 배치 그룹 1 — 펼침 -->
+    <rect x="267" y="196" width="1112" height="48" rx="8" fill="#f3f4f6"/>
+    <path d="M287 214 l7 7 l7 -7" stroke="#5b5f63" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <text x="312" y="226" font-size="14" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">Batch #4</text>
+    <text x="404" y="226" font-size="12" fill="#5b5f63">6 cells</text>
+    <text x="1359" y="226" text-anchor="end" font-size="11.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">다음 촬영 대상</text>
+
+    <g>
+      <rect x="267" y="256" width="172" height="40" rx="8" fill="#fafbfc"/>
+      <rect x="283" y="266" width="14" height="20" rx="4" fill="none" stroke="#6b7280" stroke-width="1.6"/>
+      <rect x="286" y="263" width="8" height="3" rx="999" fill="#6b7280"/>
+      <text x="309" y="281" font-size="13" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1039</text>
+    </g>
+    <g>
+      <rect x="455" y="256" width="172" height="40" rx="8" fill="#fafbfc"/>
+      <rect x="471" y="266" width="14" height="20" rx="4" fill="none" stroke="#6b7280" stroke-width="1.6"/>
+      <rect x="474" y="263" width="8" height="3" rx="999" fill="#6b7280"/>
+      <text x="497" y="281" font-size="13" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1040</text>
+    </g>
+    <g>
+      <rect x="643" y="256" width="172" height="40" rx="8" fill="#fafbfc"/>
+      <rect x="659" y="266" width="14" height="20" rx="4" fill="none" stroke="#6b7280" stroke-width="1.6"/>
+      <rect x="662" y="263" width="8" height="3" rx="999" fill="#6b7280"/>
+      <text x="685" y="281" font-size="13" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1041</text>
+    </g>
+    <g>
+      <rect x="831" y="256" width="172" height="40" rx="8" fill="#fafbfc"/>
+      <rect x="847" y="266" width="14" height="20" rx="4" fill="none" stroke="#6b7280" stroke-width="1.6"/>
+      <rect x="850" y="263" width="8" height="3" rx="999" fill="#6b7280"/>
+      <text x="873" y="281" font-size="13" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1042</text>
+    </g>
+    <g>
+      <rect x="1019" y="256" width="172" height="40" rx="8" fill="#fafbfc"/>
+      <rect x="1035" y="266" width="14" height="20" rx="4" fill="none" stroke="#6b7280" stroke-width="1.6"/>
+      <rect x="1038" y="263" width="8" height="3" rx="999" fill="#6b7280"/>
+      <text x="1061" y="281" font-size="13" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1043</text>
+    </g>
+    <g>
+      <rect x="1207" y="256" width="172" height="40" rx="8" fill="#fafbfc"/>
+      <rect x="1223" y="266" width="14" height="20" rx="4" fill="none" stroke="#6b7280" stroke-width="1.6"/>
+      <rect x="1226" y="263" width="8" height="3" rx="999" fill="#6b7280"/>
+      <text x="1249" y="281" font-size="13" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1044</text>
+    </g>
+
+    <!-- 배치 그룹 2~6 — 접힘 -->
+    <g>
+      <rect x="267" y="320" width="1112" height="48" rx="8" fill="#fafbfc"/>
+      <path d="M287 340 l7 -7 l7 7" stroke="#9ca3af" stroke-width="1.8" fill="none" stroke-linecap="round" transform="rotate(90 294 340)"/>
+      <text x="312" y="350" font-size="14" font-weight="600" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">Batch #5</text>
+      <text x="404" y="350" font-size="12" fill="#9ca3af">6 cells</text>
+    </g>
+    <g>
+      <rect x="267" y="380" width="1112" height="48" rx="8" fill="#fafbfc"/>
+      <path d="M287 400 l7 -7 l7 7" stroke="#9ca3af" stroke-width="1.8" fill="none" stroke-linecap="round" transform="rotate(90 294 400)"/>
+      <text x="312" y="410" font-size="14" font-weight="600" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">Batch #6</text>
+      <text x="404" y="410" font-size="12" fill="#9ca3af">6 cells</text>
+    </g>
+    <g>
+      <rect x="267" y="440" width="1112" height="48" rx="8" fill="#fafbfc"/>
+      <path d="M287 460 l7 -7 l7 7" stroke="#9ca3af" stroke-width="1.8" fill="none" stroke-linecap="round" transform="rotate(90 294 460)"/>
+      <text x="312" y="470" font-size="14" font-weight="600" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">Batch #7</text>
+      <text x="404" y="470" font-size="12" fill="#9ca3af">6 cells</text>
+    </g>
+    <g>
+      <rect x="267" y="500" width="1112" height="48" rx="8" fill="#fafbfc"/>
+      <path d="M287 520 l7 -7 l7 7" stroke="#9ca3af" stroke-width="1.8" fill="none" stroke-linecap="round" transform="rotate(90 294 520)"/>
+      <text x="312" y="530" font-size="14" font-weight="600" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">Batch #8</text>
+      <text x="404" y="530" font-size="12" fill="#9ca3af">6 cells</text>
+    </g>
+    <g>
+      <rect x="267" y="560" width="1112" height="48" rx="8" fill="#fafbfc"/>
+      <path d="M287 580 l7 -7 l7 7" stroke="#9ca3af" stroke-width="1.8" fill="none" stroke-linecap="round" transform="rotate(90 294 580)"/>
+      <text x="312" y="590" font-size="14" font-weight="600" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">Batch #9</text>
+      <text x="404" y="590" font-size="12" fill="#9ca3af">6 cells</text>
+    </g>
+    <g opacity="0.5">
+      <rect x="267" y="620" width="1112" height="48" rx="8" fill="#fafbfc"/>
+      <text x="312" y="650" font-size="14" font-weight="600" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">Batch #10</text>
+    </g>
+
+    <!-- 스크롤바 (scrollbar-gutter: stable) -->
+    <rect x="1387" y="196" width="6" height="300" rx="4" fill="#d0d4d8"/>
+  </g>
+</svg>

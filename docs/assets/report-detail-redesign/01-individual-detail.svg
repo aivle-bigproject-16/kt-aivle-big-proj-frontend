@@ -1,0 +1,253 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1646 1120" width="1646" height="1120" font-family="Inter, system-ui, 'Pretendard', sans-serif">
+  <title>개별 리포트 상세</title>
+  <desc>사실(구조화 필드)과 서술(LLM content)을 분리한다. content 는 파싱하지 않는다. SVG 1단위 = 디자인 1px = 0.1rem</desc>
+
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+    <clipPath id="thumb"><rect x="0" y="0" width="160" height="160" rx="12"/></clipPath>
+  </defs>
+
+  <rect width="1646" height="1120" fill="#ededed"/>
+
+  <!-- ================= 사이드바 ================= -->
+  <g>
+    <rect x="68.6" y="30" width="85.7" height="85.7" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <text x="111.4" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#0C5795">LOGO</text>
+    <text x="111.4" y="140" text-anchor="middle" font-size="12" fill="#5b5f63">슬로건 자리</text>
+
+    <rect x="16.5" y="176" width="190" height="240" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="32.5" y="196" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="212" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="229" font-size="14" font-weight="500" fill="#5b5f63">대시보드</text>
+    <rect x="32.5" y="268" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="284" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="301" font-size="14" font-weight="500" fill="#5b5f63">배터리 목록</text>
+    <rect x="32.5" y="340" width="158" height="56" rx="15" fill="#EEF6FE"/>
+    <rect x="52" y="356" width="24" height="24" rx="8" fill="#0C5795"/>
+    <text x="88" y="373" font-size="14" font-weight="600" fill="#0C5795">리포트 목록</text>
+  </g>
+
+  <!-- ================= 우측 사용자 ================= -->
+  <g>
+    <rect x="1439.5" y="30" width="190" height="42" fill="#ffffff" filter="url(#sh)" rx="12"/>
+    <circle cx="1462" cy="51" r="16" fill="#dfe3e7"/>
+    <text x="1462" y="56" text-anchor="middle" font-size="12" font-weight="600" fill="#5b5f63">김</text>
+    <text x="1487" y="56" font-size="14" fill="#191c1d">김경순</text>
+    <path d="M1604 48 l5 5 l5 -5" stroke="#9ca3af" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- ================= 슬롯 1 — 뒤로가기 ================= -->
+  <g>
+    <path d="M249 41 l-6 6 l6 6" stroke="#5b5f63" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="264" y="52" font-size="13.5" fill="#5b5f63">개별 리포트 목록으로</text>
+  </g>
+
+  <!-- ================= 슬롯 2 — 리포트 헤더 ================= -->
+  <g>
+    <rect x="243" y="70" width="1160" height="120" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <rect x="267" y="94" width="118" height="24" fill="#f3f4f6"/>
+    <text x="326" y="110" text-anchor="middle" font-size="11.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">CELL-1027-A</text>
+    <text x="397" y="112" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+
+    <text x="267" y="146" font-size="24" font-weight="700" fill="#191c1d">CT 미세결함 3건 — 재검 권고</text>
+
+    <text x="1379" y="110" text-anchor="end" font-size="13" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">RPT-31</text>
+
+    <text x="1080" y="152" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">생성일시</text>
+    <text x="1140" y="152" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:51</text>
+    <text x="1264" y="152" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">수정일시</text>
+    <text x="1324" y="152" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">—</text>
+  </g>
+
+  <!-- ================= 상단 — 3D 결함 뷰 (좌 720) ================= -->
+  <g>
+    <rect x="243" y="206" width="720" height="466" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <text x="267" y="244" font-size="14" font-weight="600" fill="#5b5f63">셀 3D 결함 뷰</text>
+    <text x="360" y="243" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">CELL DEFECT VIEW</text>
+    <text x="939" y="243" text-anchor="end" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">드래그로 회전 · 휠로 확대</text>
+
+    <!-- 캔버스만 어둡게 — 카드는 흰색 -->
+    <rect x="267" y="258" width="672" height="360" rx="12" fill="#1b2027"/>
+
+    <!-- 셀 와이어프레임 -->
+    <g stroke="#4a525c" stroke-width="1.4" fill="none">
+      <path d="M380 400 L640 330 L860 388 L600 462 Z"/>
+      <path d="M380 400 L380 470 L600 532 L600 462"/>
+      <path d="M600 532 L860 458 L860 388"/>
+      <path d="M640 330 L640 400" stroke-dasharray="3 4" opacity="0.5"/>
+      <path d="M380 470 L640 400 L860 458" stroke-dasharray="3 4" opacity="0.5"/>
+    </g>
+
+    <!-- 점군 — area 임계 3단계 -->
+    <g>
+      <circle cx="612" cy="392" r="3.4" fill="#dc2626"/>
+      <circle cx="628" cy="399" r="3.4" fill="#dc2626"/>
+      <circle cx="620" cy="408" r="3.4" fill="#dc2626"/>
+      <circle cx="636" cy="386" r="3" fill="#dc2626"/>
+      <circle cx="604" cy="402" r="3" fill="#d97706"/>
+      <circle cx="646" cy="404" r="3" fill="#d97706"/>
+      <circle cx="592" cy="414" r="2.6" fill="#d97706"/>
+      <circle cx="660" cy="394" r="2.6" fill="#d97706"/>
+      <circle cx="520" cy="420" r="2.4" fill="#1e7e34"/>
+      <circle cx="742" cy="418" r="2.4" fill="#1e7e34"/>
+      <circle cx="470" cy="437" r="2.2" fill="#1e7e34"/>
+      <circle cx="800" cy="430" r="2.2" fill="#1e7e34"/>
+      <circle cx="560" cy="446" r="2.2" fill="#1e7e34"/>
+      <circle cx="694" cy="440" r="2.2" fill="#1e7e34"/>
+    </g>
+
+    <!-- 점군 범례 -->
+    <g>
+      <circle cx="291" cy="592" r="4" fill="#dc2626"/>
+      <text x="302" y="596" font-size="11" fill="#98a3ae" font-family="ui-monospace, Consolas, monospace">area ≥ 0.8</text>
+      <circle cx="391" cy="592" r="4" fill="#d97706"/>
+      <text x="402" y="596" font-size="11" fill="#98a3ae" font-family="ui-monospace, Consolas, monospace">0.5 ~ 0.8</text>
+      <circle cx="486" cy="592" r="4" fill="#1e7e34"/>
+      <text x="497" y="596" font-size="11" fill="#98a3ae" font-family="ui-monospace, Consolas, monospace">&lt; 0.5</text>
+      <text x="915" y="596" text-anchor="end" font-size="11" fill="#6d7883" font-family="ui-monospace, Consolas, monospace">cellId 1027 · 점군 14개</text>
+    </g>
+
+    <text x="267" y="650" font-size="11.5" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">초기 카메라 각도는 annotation.recommendedView (azimuth · elevation) 를 따른다</text>
+  </g>
+
+  <!-- ================= 상단 — 결함 지표 카드 (우 420) ================= -->
+  <g>
+    <rect x="983" y="206" width="420" height="466" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <text x="1007" y="244" font-size="14" font-weight="600" fill="#5b5f63">결함 지표</text>
+    <text x="1077" y="243" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">METRICS</text>
+
+    <!-- 위험도 · 패턴 배지 -->
+    <rect x="1007" y="262" width="96" height="26" fill="#fef2f2"/>
+    <path d="M1021 271 l5 8 h-10 z" fill="#dc2626"/>
+    <text x="1063" y="279" text-anchor="middle" font-size="11.5" font-weight="600" fill="#dc2626">위험도 높음</text>
+
+    <rect x="1113" y="262" width="106" height="26" fill="#f3f4f6"/>
+    <text x="1166" y="279" text-anchor="middle" font-size="11.5" fill="#5b5f63">국부 군집형</text>
+
+    <!-- 지표 3종 -->
+    <line x1="1007" y1="308" x2="1379" y2="308" stroke="#eceef0" stroke-width="1"/>
+
+    <text x="1007" y="336" font-size="11" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">DVF</text>
+    <text x="1007" y="374" font-size="30" font-weight="700" fill="#191c1d" letter-spacing="-1" font-family="ui-monospace, Consolas, monospace">1,240</text>
+    <text x="1103" y="374" font-size="14" fill="#5b5f63">ppm</text>
+
+    <text x="1215" y="336" font-size="11" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">결함 수</text>
+    <text x="1215" y="374" font-size="30" font-weight="700" fill="#191c1d" letter-spacing="-1" font-family="ui-monospace, Consolas, monospace">14</text>
+    <text x="1259" y="374" font-size="14" fill="#5b5f63">개</text>
+
+    <text x="1007" y="414" font-size="11" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">양성 슬라이스율</text>
+    <text x="1007" y="452" font-size="30" font-weight="700" fill="#191c1d" letter-spacing="-1" font-family="ui-monospace, Consolas, monospace">18.4</text>
+    <text x="1075" y="452" font-size="14" fill="#5b5f63">%</text>
+
+    <!-- 주요 구역 -->
+    <line x1="1007" y1="478" x2="1379" y2="478" stroke="#eceef0" stroke-width="1"/>
+    <text x="1007" y="504" font-size="11" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">주요 구역</text>
+
+    <g>
+      <rect x="1007" y="516" width="372" height="38" rx="8" fill="#fafbfc"/>
+      <rect x="1007" y="516" width="3" height="38" fill="#dc2626"/>
+      <text x="1023" y="533" font-size="12.5" font-weight="600" fill="#191c1d">상단 중앙부</text>
+      <text x="1023" y="549" font-size="11.5" fill="#5b5f63">군집 밀도가 가장 높은 구간</text>
+    </g>
+    <g>
+      <rect x="1007" y="562" width="372" height="38" rx="8" fill="#fafbfc"/>
+      <rect x="1007" y="562" width="3" height="38" fill="#d97706"/>
+      <text x="1023" y="579" font-size="12.5" font-weight="600" fill="#191c1d">좌측 하단</text>
+      <text x="1023" y="595" font-size="11.5" fill="#5b5f63">산발적 저신뢰 검출</text>
+    </g>
+
+    <text x="1007" y="632" font-size="12" fill="#5b5f63">중앙부에 집중된 군집형 결함으로 압연 공정</text>
+    <text x="1007" y="650" font-size="12" fill="#5b5f63">이상이 의심된다.</text>
+  </g>
+
+  <!-- ================= 하단 — 이미지 (좌 720) ================= -->
+  <g>
+    <rect x="243" y="692" width="720" height="360" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <text x="267" y="730" font-size="14" font-weight="600" fill="#5b5f63">검사 이미지</text>
+    <text x="352" y="729" font-size="10.5" letter-spacing="0.9" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">INSPECTION IMAGES</text>
+
+    <!-- 타입 탭 -->
+    <rect x="267" y="746" width="180" height="32" fill="#dcdcdc"/>
+    <rect x="270" y="749" width="87" height="26" rx="2" fill="#ffffff" filter="url(#sh)"/>
+    <text x="313" y="767" text-anchor="middle" font-size="13" font-weight="600" fill="#191c1d">CT (3)</text>
+    <text x="401" y="767" text-anchor="middle" font-size="13" font-weight="500" fill="#00000080">RGB (0)</text>
+
+    <text x="939" y="767" text-anchor="end" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">클릭 시 확대 · bbox 좌표는 모달에서 표시</text>
+
+    <!-- 썸네일 3장 -->
+    <g transform="translate(267,796)">
+      <g clip-path="url(#thumb)">
+        <rect width="160" height="160" fill="#7c8894"/>
+        <rect y="96" width="160" height="64" fill="#93a3ad"/>
+        <rect x="8" y="8" width="144" height="80" fill="#8b96a1"/>
+      </g>
+      <rect x="46" y="52" width="38" height="30" fill="none" stroke="#d97706" stroke-width="2"/>
+      <rect x="8" y="8" width="28" height="16" rx="2" fill="#00000099"/>
+      <text x="22" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">CT</text>
+      <text x="0" y="182" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">imageId 4102</text>
+    </g>
+    <g transform="translate(447,796)">
+      <g clip-path="url(#thumb)">
+        <rect width="160" height="160" fill="#78848f"/>
+        <rect y="102" width="160" height="58" fill="#8e9aa4"/>
+        <rect x="8" y="8" width="144" height="86" fill="#868f99"/>
+      </g>
+      <rect x="86" y="40" width="30" height="26" fill="none" stroke="#d97706" stroke-width="2"/>
+      <rect x="8" y="8" width="28" height="16" rx="2" fill="#00000099"/>
+      <text x="22" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">CT</text>
+      <text x="0" y="182" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">imageId 4103</text>
+    </g>
+    <g transform="translate(627,796)">
+      <g clip-path="url(#thumb)">
+        <rect width="160" height="160" fill="#7c8894"/>
+        <rect y="98" width="160" height="62" fill="#909ca6"/>
+        <rect x="8" y="8" width="144" height="82" fill="#8a949e"/>
+      </g>
+      <rect x="34" y="66" width="26" height="22" fill="none" stroke="#d97706" stroke-width="2"/>
+      <rect x="8" y="8" width="28" height="16" rx="2" fill="#00000099"/>
+      <text x="22" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">CT</text>
+      <text x="0" y="182" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">imageId 4104</text>
+    </g>
+
+    <!-- 결함 유형 카드 자리 — 데이터 없어 만들지 않는다 -->
+    <rect x="807" y="796" width="132" height="160" rx="12" fill="none" stroke="#d8dbde" stroke-width="1" stroke-dasharray="5 4"/>
+    <text x="873" y="862" text-anchor="middle" font-size="11" fill="#b4b9be">결함 유형 분포</text>
+    <text x="873" y="880" text-anchor="middle" font-size="10.5" fill="#c3c8cd" font-family="ui-monospace, Consolas, monospace">필드 없음 · §3.5</text>
+  </g>
+
+  <!-- ================= 하단 — AI 분석 소견 (우 420) ================= -->
+  <g>
+    <rect x="983" y="692" width="420" height="360" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <text x="1007" y="730" font-size="14" font-weight="600" fill="#5b5f63">AI 분석 소견</text>
+    <rect x="1097" y="716" width="66" height="20" fill="#f3f4f6"/>
+    <text x="1130" y="730" text-anchor="middle" font-size="10.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">LLM 생성</text>
+
+    <line x1="1007" y1="748" x2="1379" y2="748" stroke="#eceef0" stroke-width="1"/>
+
+    <!-- content 원문 — 파싱하지 않는다 -->
+    <text x="1007" y="778" font-size="13" fill="#191c1d">CT 영상에서 미세결함(MICRO_DEFECT) 3건이</text>
+    <text x="1007" y="800" font-size="13" fill="#191c1d">검출되었다. 결함은 셀 상단 중앙부에 반경</text>
+    <text x="1007" y="822" font-size="13" fill="#191c1d">2mm 이내로 밀집해 있으며, 축 방향 관통</text>
+    <text x="1007" y="844" font-size="13" fill="#191c1d">양상은 관찰되지 않았다.</text>
+
+    <text x="1007" y="884" font-size="13" fill="#191c1d">DVF 1,240ppm 은 동일 모델 평균 대비 약</text>
+    <text x="1007" y="906" font-size="13" fill="#191c1d">3.2배 높은 수치로, 압연 공정의 롤 정렬</text>
+    <text x="1007" y="928" font-size="13" fill="#191c1d">이상을 우선 점검할 것을 권고한다.</text>
+
+    <text x="1007" y="968" font-size="13" fill="#191c1d">RGB 영상이 확보되지 않아 외관 결함 동반</text>
+    <text x="1007" y="990" font-size="13" fill="#191c1d">여부는 판단할 수 없다.</text>
+
+    <text x="1007" y="1030" font-size="11" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">content 원문 그대로 · 파싱하지 않는다</text>
+  </g>
+
+  <!-- 주석 -->
+  <text x="243" y="1082" font-size="11.5" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">사실(좌·우상단 카드) = 구조화 필드에서 직접 읽는다 · 서술(우하단) = LLM content 원문. 두 영역을 섞지 않는다 (§1.1)</text>
+  <text x="243" y="1102" font-size="11.5" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">현행의 대괄호 placeholder 노출은 content 를 정규식으로 쪼개 섹션을 만들었기 때문이다. 파싱을 없애면 구조적으로 재발하지 않는다</text>
+</svg>

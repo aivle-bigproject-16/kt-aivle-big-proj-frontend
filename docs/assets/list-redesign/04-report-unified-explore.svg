@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1646 940" width="1646" height="940" font-family="Inter, system-ui, 'Pretendard', sans-serif">
+  <title>탐색용 — 리포트 목록 단일 라우트 안</title>
+  <desc>채택하지 않은 대안. /reports 1개 라우트 + 타입을 필터 축으로 흡수. 비교 검토용. SVG 1단위 = 디자인 1px = 0.1rem</desc>
+
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+    <pattern id="hatch" width="8" height="8" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#ededed"/>
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#e0e3e6" stroke-width="3"/>
+    </pattern>
+  </defs>
+
+  <rect width="1646" height="940" fill="url(#hatch)"/>
+
+  <!-- 미채택 배너 -->
+  <g>
+    <rect x="0" y="0" width="1646" height="34" fill="#5b5f63"/>
+    <text x="243" y="22" font-size="12.5" font-weight="600" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">탐색용 · 채택하지 않음 — /reports 단일 라우트 + 타입 필터 축 (LIST_REDESIGN.md §5.1, §12-8)</text>
+    <text x="1403" y="22" text-anchor="end" font-size="11.5" fill="#c3c8cd" font-family="ui-monospace, Consolas, monospace">현행 채택안 = 02 · 03</text>
+  </g>
+
+  <!-- ================= 사이드바 ================= -->
+  <g>
+    <rect x="68.6" y="64" width="85.7" height="85.7" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <text x="111.4" y="112" text-anchor="middle" font-size="13" font-weight="700" fill="#0C5795">LOGO</text>
+    <text x="111.4" y="174" text-anchor="middle" font-size="12" fill="#5b5f63">슬로건 자리</text>
+
+    <rect x="16.5" y="210" width="190" height="240" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="32.5" y="230" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="246" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="263" font-size="14" font-weight="500" fill="#5b5f63">대시보드</text>
+    <rect x="32.5" y="302" width="158" height="56" rx="15" fill="#ededed"/>
+    <rect x="52" y="318" width="24" height="24" rx="8" fill="#5b5f63" opacity="0.75"/>
+    <text x="88" y="335" font-size="14" font-weight="500" fill="#5b5f63">배터리 목록</text>
+    <rect x="32.5" y="374" width="158" height="56" rx="15" fill="#EEF6FE"/>
+    <rect x="52" y="390" width="24" height="24" rx="8" fill="#0C5795"/>
+    <text x="88" y="407" font-size="14" font-weight="600" fill="#0C5795">리포트 목록</text>
+  </g>
+
+  <!-- ================= 우측 사용자 ================= -->
+  <g>
+    <rect x="1439.5" y="64" width="190" height="42" fill="#ffffff" filter="url(#sh)" rx="12"/>
+    <circle cx="1462" cy="85" r="16" fill="#dfe3e7"/>
+    <text x="1462" y="90" text-anchor="middle" font-size="12" font-weight="600" fill="#5b5f63">김</text>
+    <text x="1487" y="90" font-size="14" fill="#191c1d">김경순</text>
+  </g>
+
+  <!-- ================= 헤더 ================= -->
+  <g>
+    <text x="243" y="104" font-size="24" font-weight="700" fill="#191c1d">리포트 목록</text>
+    <rect x="1273" y="74" width="130" height="36" rx="8" fill="#0C5795"/>
+    <path d="M1297 92 h12 M1303 86 v12" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+    <text x="1319" y="97" font-size="13.5" font-weight="600" fill="#ffffff">리포트 생성</text>
+  </g>
+
+  <!-- ================= 툴바 — 타입이 필터 축이 된다 ================= -->
+  <g>
+    <!-- 타입 칩 축 (토글 대신) -->
+    <rect x="243" y="144" width="86" height="32" fill="#0C5795"/>
+    <text x="272" y="164" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">전체</text>
+    <text x="308" y="164" text-anchor="middle" font-size="12" fill="#ffffff" opacity="0.75" font-family="ui-monospace, Consolas, monospace">46</text>
+
+    <rect x="337" y="144" width="94" height="32" fill="#ffffff"/>
+    <text x="374" y="164" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">일일</text>
+    <text x="410" y="164" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">14</text>
+
+    <rect x="439" y="144" width="94" height="32" fill="#ffffff"/>
+    <text x="476" y="164" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">개별</text>
+    <text x="512" y="164" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">32</text>
+
+    <line x1="553" y1="146" x2="553" y2="174" stroke="#d8dbde" stroke-width="1"/>
+
+    <!-- 상태 칩 축 -->
+    <rect x="573" y="144" width="86" height="32" fill="#ffffff"/>
+    <text x="602" y="164" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">전체</text>
+    <text x="638" y="164" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">46</text>
+
+    <rect x="667" y="144" width="90" height="32" fill="#ffffff"/>
+    <text x="698" y="164" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">완료</text>
+    <text x="734" y="164" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">40</text>
+
+    <rect x="765" y="144" width="104" height="32" fill="#ffffff"/>
+    <circle cx="784" cy="160" r="4" fill="#13777C"/>
+    <text x="818" y="164" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">대기중</text>
+    <text x="852" y="164" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">4</text>
+
+    <rect x="877" y="144" width="90" height="32" fill="#ffffff"/>
+    <path d="M896 156 l5 8 h-10 z" fill="#dc2626"/>
+    <text x="928" y="164" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">실패</text>
+    <text x="954" y="164" text-anchor="middle" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">2</text>
+
+    <rect x="1163" y="144" width="240" height="32" fill="#ffffff"/>
+    <circle cx="1184" cy="160" r="5.5" fill="none" stroke="#9ca3af" stroke-width="1.6"/>
+    <path d="M1188 164 l4 4" stroke="#9ca3af" stroke-width="1.6" stroke-linecap="round"/>
+    <text x="1200" y="165" font-size="13" fill="#9ca3af">제목 검색</text>
+  </g>
+
+  <!-- ================= 테이블 — 타입 컬럼이 추가된다 ================= -->
+  <g>
+    <rect x="243" y="200" width="1160" height="560" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <text x="267" y="250" font-size="13" font-weight="600" fill="#5b5f63">타입</text>
+    <text x="387" y="250" font-size="13" font-weight="600" fill="#5b5f63">상태</text>
+    <text x="547" y="250" font-size="13" font-weight="600" fill="#5b5f63">제목</text>
+    <text x="1019" y="250" font-size="13" font-weight="600" fill="#d97706">기준일 · 대상</text>
+    <text x="1219" y="250" font-size="13" font-weight="600" fill="#5b5f63">생성일시</text>
+    <line x1="267" y1="264" x2="1379" y2="264" stroke="#eceef0" stroke-width="1"/>
+
+    <!-- 행 1 — 일일 -->
+    <g>
+      <rect x="267" y="284" width="56" height="24" fill="#f3f4f6"/>
+      <text x="295" y="300" text-anchor="middle" font-size="11.5" fill="#5b5f63">일일</text>
+      <rect x="387" y="284" width="82" height="24" fill="#EBF8F9"/>
+      <circle cx="400" cy="296" r="4" fill="#13777C"/>
+      <text x="433" y="300" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#13777C" font-family="ui-monospace, Consolas, monospace">PENDING</text>
+      <text x="547" y="301" font-size="14" fill="#191c1d">2026-08-07 일일 검사 요약 — 수율 91.7%</text>
+      <text x="1019" y="301" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07</text>
+      <text x="1219" y="301" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 10:02</text>
+      <line x1="255" y1="324" x2="1391" y2="324" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+
+    <!-- 행 2 — 개별 -->
+    <g>
+      <rect x="267" y="340" width="56" height="24" fill="#f3f4f6"/>
+      <text x="295" y="356" text-anchor="middle" font-size="11.5" fill="#5b5f63">개별</text>
+      <text x="387" y="357" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+      <text x="547" y="357" font-size="14" fill="#191c1d">CT 미세결함 3건 — 재검 권고</text>
+      <text x="1019" y="357" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">CELL-1027 · 3회차</text>
+      <text x="1219" y="357" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:51</text>
+      <line x1="255" y1="380" x2="1391" y2="380" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+
+    <!-- 행 3 — 개별 -->
+    <g>
+      <rect x="267" y="396" width="56" height="24" fill="#f3f4f6"/>
+      <text x="295" y="412" text-anchor="middle" font-size="11.5" fill="#5b5f63">개별</text>
+      <text x="387" y="413" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+      <text x="547" y="413" font-size="14" fill="#191c1d">RGB 갈라짐 1건 — 외관 불량</text>
+      <text x="1019" y="413" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">CELL-1019 · 1회차</text>
+      <text x="1219" y="413" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 08:57</text>
+      <line x1="255" y1="436" x2="1391" y2="436" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+
+    <!-- 행 4 — 일일 -->
+    <g>
+      <rect x="267" y="452" width="56" height="24" fill="#f3f4f6"/>
+      <text x="295" y="468" text-anchor="middle" font-size="11.5" fill="#5b5f63">일일</text>
+      <text x="387" y="469" font-size="11.5" letter-spacing="0.6" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">COMPLETED</text>
+      <text x="547" y="469" font-size="14" fill="#191c1d">2026-08-05 일일 검사 요약 — 수율 94.2%</text>
+      <text x="1019" y="469" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-05</text>
+      <text x="1219" y="469" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-05 23:59</text>
+      <line x1="255" y1="492" x2="1391" y2="492" stroke="#f4f5f6" stroke-width="1"/>
+    </g>
+
+    <!-- 행 5 — 개별 FAILED -->
+    <g opacity="0.55">
+      <rect x="267" y="508" width="56" height="24" fill="#f3f4f6"/>
+      <text x="295" y="524" text-anchor="middle" font-size="11.5" fill="#5b5f63">개별</text>
+      <rect x="387" y="508" width="74" height="24" fill="none" stroke="#dc2626" stroke-width="1"/>
+      <path d="M400 516 l5 8 h-10 z" fill="#dc2626"/>
+      <text x="430" y="524" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#dc2626" font-family="ui-monospace, Consolas, monospace">FAILED</text>
+      <text x="547" y="525" font-size="14" fill="#191c1d">리포트 #28</text>
+      <text x="1019" y="525" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">CELL-1022 · 1회차</text>
+      <text x="1219" y="525" font-size="13.5" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">2026-08-07 09:21</text>
+    </g>
+
+    <line x1="267" y1="680" x2="1379" y2="680" stroke="#eceef0" stroke-width="1"/>
+    <text x="267" y="722" font-size="12.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">46건 중 1–20</text>
+    <g>
+      <rect x="1249" y="702" width="32" height="32" fill="#f3f4f6"/>
+      <path d="M1268 712 l-5 6 l5 6" stroke="#c3c8cd" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <rect x="1289" y="702" width="32" height="32" fill="#0C5795"/>
+      <text x="1305" y="724" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">1</text>
+      <rect x="1329" y="702" width="32" height="32" fill="#f3f4f6"/>
+      <path d="M1342 712 l5 6 l-5 6" stroke="#5b5f63" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- 비교 메모 -->
+  <g>
+    <rect x="243" y="778" width="568" height="130" rx="12" fill="#ffffff"/>
+    <rect x="243" y="778" width="4" height="130" fill="#1e7e34"/>
+    <text x="267" y="804" font-size="13" font-weight="600" fill="#1e7e34">이 안의 이점</text>
+    <text x="267" y="828" font-size="12" fill="#5b5f63">두 테이블의 복붙 구조가 구조적으로 사라진다 (§1.4 유령 컬럼 사고 방지)</text>
+    <text x="267" y="850" font-size="12" fill="#5b5f63">스토어가 하나로 합쳐지고 필터·검색·정렬 로직이 한 벌만 존재한다</text>
+    <text x="267" y="872" font-size="12" fill="#5b5f63">사이드바가 이미 하나로 묶어 보여주는 인지 모델과 일치한다</text>
+    <text x="267" y="894" font-size="12" fill="#5b5f63">대시보드 완료탭의 "병렬 → 필터 1축" 전환과 같은 패턴이다</text>
+  </g>
+
+  <g>
+    <rect x="835" y="778" width="568" height="130" rx="12" fill="#ffffff"/>
+    <rect x="835" y="778" width="4" height="130" fill="#d97706"/>
+    <text x="859" y="804" font-size="13" font-weight="600" fill="#d97706">이 안의 대가</text>
+    <text x="859" y="828" font-size="12" fill="#5b5f63">타입마다 필드가 달라 한 컬럼이 의미를 갈아탄다 (기준일 ↔ 대상 셀·회차)</text>
+    <text x="859" y="850" font-size="12" fill="#5b5f63">"타입" 컬럼이 추가되어 제목 컬럼 폭이 줄어든다</text>
+    <text x="859" y="872" font-size="12" fill="#5b5f63">라우트가 바뀌므로 사이드바 matchPrefix·기존 링크를 함께 정리해야 한다</text>
+    <text x="859" y="894" font-size="12" fill="#5b5f63">일일 · 개별의 sort 기준이 달라 정렬 토글 의미가 흐려질 수 있다</text>
+  </g>
+</svg>

@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>배터리 품질 프로젝트 · 차트 색상 시스템</title>
+  <style>
+    /* ============================================================
+       색상 토큰 (light 기본)
+       - 모든 색은 HEX 폴백 → OKLCH 순으로 선언한다.
+         OKLCH 미지원 브라우저에서도 스와치가 반드시 렌더된다.
+       ============================================================ */
+    :root {
+      color-scheme: light;
+
+      /* 브랜드 램프 (hue 250) */
+      --brand-50:  #EEF6FE;
+      --brand-100: #D9EAFC;
+      --brand-200: #B6D6F8;
+      --brand-300: #8EBCEC;
+      --brand-400: #64A0DD;
+      --brand-500: #3981C6;
+      --brand-600: #236CAE;
+      --brand-700: #0C5795;
+      --brand-800: #054477;
+      --brand-900: #033259;
+      --brand-950: #03203B;
+
+      /* 카테고리 (계열 식별) — 순서 고정, 순환 금지 */
+      --series-1: #2A78D6;
+      --series-2: #EB6834;
+      --series-3: #1BAF7A;
+      --series-4: #EDA100;
+      --series-5: #E87BA4;
+      --series-6: #008300;
+      --series-7: #4A3AA7;
+      --series-8: #E34948;
+
+      /* 발산 (극성) */
+      --div-neg-4: #972527;
+      --div-neg-3: #CF4946;
+      --div-neg-2: #EA726B;
+      --div-neg-1: #F89A92;
+      --div-neg-0: #F9C4BE;
+      --div-mid:   #E6E8EA;
+      --div-pos-0: #B6D6F8;
+      --div-pos-1: #8EBCEC;
+      --div-pos-2: #64A0DD;
+      --div-pos-3: #3981C6;
+      --div-pos-4: #0C5795;
+
+      /* 상태 (고정 — 테마 무관, 계열색으로 재사용 금지) */
+      --status-good:     #0CA30C;
+      --status-warning:  #FAB219;
+      --status-serious:  #EC835A;
+      --status-critical: #D03B3B;
+
+      /* 차트 크롬 & 잉크 */
+      --page:      #F8FAFC;
+      --surface:   #FFFFFF;
+      --ink-1:     #0F172A;
+      --ink-2:     #475569;
+      --ink-muted: #898781;
+      --grid:      #E2E8F0;
+      --axis:      #C3C2B7;
+      --hairline:  rgba(15,23,42,0.10);
+      --shadow:    0 4px 20px rgba(15,23,42,0.08);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --series-1: #3987E5;
+        --series-2: #D95926;
+        --series-3: #199E70;
+        --series-4: #C98500;
+        --series-5: #D55181;
+        --series-6: #008300;
+        --series-7: #9085E9;
+        --series-8: #E66767;
+        --div-mid:  #2C2E31;
+        --page:     #0D0F12;
+        --surface:  #15181D;
+        --ink-1:    #F1F5F9;
+        --ink-2:    #C3C2B7;
+        --grid:     #232830;
+        --axis:     #383835;
+        --hairline: rgba(255,255,255,0.12);
+        --shadow:   0 4px 20px rgba(0,0,0,0.45);
+      }
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --series-1: #3987E5;
+      --series-2: #D95926;
+      --series-3: #199E70;
+      --series-4: #C98500;
+      --series-5: #D55181;
+      --series-6: #008300;
+      --series-7: #9085E9;
+      --series-8: #E66767;
+      --div-mid:  #2C2E31;
+      --page:     #0D0F12;
+      --surface:  #15181D;
+      --ink-1:    #F1F5F9;
+      --ink-2:    #C3C2B7;
+      --grid:     #232830;
+      --axis:     #383835;
+      --hairline: rgba(255,255,255,0.12);
+      --shadow:   0 4px 20px rgba(0,0,0,0.45);
+    }
+
+    /* OKLCH 지원 브라우저에서만 브랜드 램프를 광색역 값으로 승격 */
+    @supports (color: oklch(0.5 0.1 250)) {
+      :root {
+        --brand-50:  oklch(0.970 0.014 250);
+        --brand-100: oklch(0.930 0.030 250);
+        --brand-200: oklch(0.865 0.058 250);
+        --brand-300: oklch(0.780 0.085 250);
+        --brand-400: oklch(0.690 0.110 250);
+        --brand-500: oklch(0.590 0.128 250);
+        --brand-600: oklch(0.520 0.126 250);
+        --brand-700: oklch(0.450 0.121 250);
+        --brand-800: oklch(0.380 0.104 250);
+        --brand-900: oklch(0.310 0.084 250);
+        --brand-950: oklch(0.240 0.062 250);
+      }
+    }
+
+    /* ============================================================
+       레이아웃
+       ============================================================ */
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--page);
+      color: var(--ink-1);
+      margin: 0;
+      padding: 32px 20px 80px;
+    }
+
+    .container { max-width: 1120px; margin: 0 auto; }
+
+    header.page-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    h1 { font-size: 22px; margin: 0 0 4px; letter-spacing: -0.01em; }
+    .subtitle { color: var(--ink-2); font-size: 13px; margin: 0 0 28px; line-height: 1.6; }
+
+    .theme-toggle {
+      flex: none;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-2);
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-radius: 999px;
+      padding: 7px 14px;
+      cursor: pointer;
+    }
+    .theme-toggle:hover { color: var(--ink-1); }
+
+    section { margin-bottom: 36px; }
+
+    h2 {
+      font-size: 15px;
+      margin: 0 0 4px;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    h2 .job {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .note {
+      font-size: 12px;
+      color: var(--ink-2);
+      margin: 0 0 14px;
+      line-height: 1.6;
+      max-width: 76ch;
+    }
+    .note code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+      background: var(--grid);
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    /* ---- 스와치 그리드 ---- */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--hairline);
+      background: var(--surface);
+      cursor: pointer;
+      text-align: left;
+      font: inherit;
+      color: inherit;
+      padding: 0;
+      transition: transform 0.15s ease;
+    }
+    .card:hover { transform: translateY(-3px); }
+    .card:focus-visible { outline: 2px solid var(--series-1); outline-offset: 2px; }
+
+    .swatch { height: 84px; width: 100%; display: block; }
+    .swatch.tall { height: 108px; }
+
+    .meta {
+      padding: 10px 9px 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-size: 11px;
+      line-height: 1.35;
+    }
+    .meta .name { font-weight: 700; font-size: 13px; color: var(--ink-1); }
+    .meta .hex {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-weight: 600;
+      color: var(--ink-2);
+      letter-spacing: 0.01em;
+    }
+    .meta .rgb {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--ink-muted);
+      font-size: 10px;
+      font-variant-numeric: tabular-nums;
+    }
+    .meta .sub { color: var(--ink-muted); font-size: 10px; word-break: break-all; }
+    .meta .contrast {
+      color: var(--ink-muted);
+      font-size: 10px;
+      margin-top: 3px;
+      padding-top: 4px;
+      border-top: 1px solid var(--grid);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ---- 연속 램프 바 ---- */
+    .ramp {
+      display: flex;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--hairline);
+    }
+    .ramp > div {
+      flex: 1;
+      height: 52px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 5px;
+      font-size: 9px;
+      font-weight: 700;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .ramp-axis {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--ink-muted);
+      margin-top: 6px;
+    }
+
+    /* ---- 차트 미리보기 ---- */
+    .charts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    .chart-card {
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-radius: 16px;
+      padding: 18px 18px 14px;
+      box-shadow: var(--shadow);
+    }
+    .chart-title { font-size: 13px; font-weight: 700; margin: 0 0 2px; }
+    .chart-sub { font-size: 11px; color: var(--ink-muted); margin: 0 0 14px; }
+    .chart-card svg { width: 100%; height: auto; display: block; }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 14px;
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--ink-2);
+    }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .legend i {
+      width: 10px; height: 10px; border-radius: 3px; display: inline-block; flex: none;
+    }
+
+    /* ---- 복사 토스트 ---- */
+    #toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translateX(-50%) translateY(12px);
+      background: var(--ink-1);
+      color: var(--surface);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 9px 16px;
+      border-radius: 999px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      z-index: 10;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card, #toast { transition: none; }
+      .card:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header class="page-head">
+    <div>
+      <h1>배터리 품질 프로젝트 · 차트 색상 시스템</h1>
+    </div>
+    <button class="theme-toggle" id="themeToggle" type="button">다크 모드</button>
+  </header>
+  <p class="subtitle">
+    스와치를 클릭하면 HEX, RGB 줄을 클릭하면 <code>rgb()</code> 문자열이 복사된다. 카테고리 팔레트는 라이트/다크 두 모드 모두
+    명도 밴드·채도 하한·CVD 분리(ΔE)·정상시각 하한 검증을 통과한 값이다.
+  </p>
+
+  <!-- ========== 1. 브랜드 램프 ========== -->
+  <section>
+    <h2>브랜드 램프 <span class="job">hue 250 · 기준 스케일</span></h2>
+    <p class="note">
+      단일 색상 스케일. UI 표면·강조·순차 인코딩의 원천이다.
+      각 값은 <code>HEX</code> 폴백 뒤에 <code>oklch()</code>를 <code>@supports</code>로 얹어
+      OKLCH 미지원 브라우저에서도 색이 반드시 표시된다.
+    </p>
+    <div class="panel"><div class="grid" id="brandGrid"></div></div>
+  </section>
+
+  <!-- ========== 2. 카테고리 ========== -->
+  <section>
+    <h2>카테고리 팔레트 <span class="job">identity · 계열 식별</span></h2>
+    <p class="note">
+      불량 클래스처럼 <strong>정체성</strong>을 구분할 때만 쓴다. 슬롯 순서는 고정이며 순환시키지 않는다.
+      9번째 계열은 새 색을 만들지 말고 "기타"로 접거나 스몰 멀티플로 분리한다.
+      산점도·버블처럼 모든 쌍이 동시에 보이는 형태는 <strong>앞 3슬롯까지</strong>만 쓴다.
+      라이트 모드의 aqua·yellow·magenta는 표면 대비 3:1 미만이므로 직접 라벨 또는 표 뷰를 함께 제공한다.
+    </p>
+    <div class="panel"><div class="grid" id="seriesGrid"></div></div>
+  </section>
+
+  <!-- ========== 3. 순차 ========== -->
+  <section>
+    <h2>순차 스케일 <span class="job">magnitude · 크기</span></h2>
+    <p class="note">
+      히트맵·코로플레스 등 연속 크기용. 한 가지 색상만 쓰고 밝음→어두움으로 단조 증가한다.
+      순서형(단계·티어)으로 쓸 때는 표면 대비 2:1을 지켜야 하므로 라이트 모드에서 <code>400</code>보다 밝은 단계로 시작하지 않는다.
+      두 번째 순차 축이 필요하면 카테고리 슬롯 2(orange)를 같은 방식의 단일 색상 램프로 만든다.
+    </p>
+    <div class="panel">
+      <div class="ramp" id="seqRamp"></div>
+      <div class="ramp-axis"><span>낮음 (0)</span><span>높음 (max)</span></div>
+    </div>
+  </section>
+
+  <!-- ========== 4. 발산 ========== -->
+  <section>
+    <h2>발산 스케일 <span class="job">polarity · 극성</span></h2>
+    <p class="note">
+      기준선 대비 증감(예: PNG↔JPEG A/B의 mAP 변화)처럼 <strong>0을 기준으로 방향이 있는</strong> 값에 쓴다.
+      두 색상 + 중립 회색 중간점, 양팔 단계 수 동일. 중간점에 색을 넣지 않는다.
+    </p>
+    <div class="panel">
+      <div class="ramp" id="divRamp"></div>
+      <div class="ramp-axis"><span>−(악화)</span><span>0</span><span>+(개선)</span></div>
+    </div>
+  </section>
+
+  <!-- ========== 5. 상태 ========== -->
+  <section>
+    <h2>상태 팔레트 <span class="job">state · 예약됨</span></h2>
+    <p class="note">
+      good / warning / serious / critical 전용. 테마와 무관하게 고정이고,
+      계열색으로 절대 재사용하지 않는다. 색만으로 의미를 전달하지 않도록 항상 아이콘 + 라벨과 함께 쓴다.
+    </p>
+    <div class="panel"><div class="grid" id="statusGrid"></div></div>
+  </section>
+
+  <!-- ========== 6. 차트 크롬 ========== -->
+  <section>
+    <h2>차트 크롬 &amp; 잉크 <span class="job">chrome</span></h2>
+    <p class="note">
+      값·라벨·범례 텍스트는 항상 잉크 토큰을 쓴다. 텍스트에 계열색을 입히지 않는다 —
+      정체성은 텍스트 옆 색 마크가 담당한다. 격자·축은 뒤로 물러나야 한다.
+    </p>
+    <div class="panel"><div class="grid" id="chromeGrid"></div></div>
+  </section>
+
+  <!-- ========== 7. 적용 예시 ========== -->
+  <section>
+    <h2>적용 예시 <span class="job">preview</span></h2>
+    <p class="note">아래 차트는 위 토큰만으로 그려졌다. 테마를 전환하면 색이 함께 바뀐다.</p>
+    <div class="charts">
+
+      <!-- 막대: 카테고리 -->
+      <div class="chart-card">
+        <p class="chart-title">불량 클래스별 검출 건수</p>
+        <p class="chart-sub">battery_v42 · 카테고리 팔레트</p>
+        <svg viewBox="0 0 320 168" role="img" aria-label="불량 클래스별 검출 건수 막대 차트">
+          <g stroke="var(--grid)" stroke-width="1">
+            <line x1="34" y1="132" x2="312" y2="132"/>
+            <line x1="34" y1="99"  x2="312" y2="99"/>
+            <line x1="34" y1="66"  x2="312" y2="66"/>
+            <line x1="34" y1="33"  x2="312" y2="33"/>
+          </g>
+          <g fill="var(--ink-muted)" font-size="8" text-anchor="end" font-family="system-ui, sans-serif">
+            <text x="28" y="135">0</text>
+            <text x="28" y="102">40</text>
+            <text x="28" y="69">80</text>
+            <text x="28" y="36">120</text>
+          </g>
+          <line x1="34" y1="132" x2="312" y2="132" stroke="var(--axis)" stroke-width="1"/>
+          <g>
+            <rect x="42"  y="41"  width="42" height="91" rx="4" fill="var(--series-1)"/>
+            <rect x="42"  y="128" width="42" height="4"        fill="var(--series-1)"/>
+            <rect x="98"  y="63"  width="42" height="69" rx="4" fill="var(--series-2)"/>
+            <rect x="98"  y="128" width="42" height="4"        fill="var(--series-2)"/>
+            <rect x="154" y="83"  width="42" height="49" rx="4" fill="var(--series-3)"/>
+            <rect x="154" y="128" width="42" height="4"        fill="var(--series-3)"/>
+            <rect x="210" y="104" width="42" height="28" rx="4" fill="var(--series-4)"/>
+            <rect x="210" y="128" width="42" height="4"        fill="var(--series-4)"/>
+            <rect x="266" y="117" width="42" height="15" rx="4" fill="var(--series-5)"/>
+            <rect x="266" y="128" width="42" height="4"        fill="var(--series-5)"/>
+          </g>
+          <g fill="var(--ink-1)" font-size="9" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">
+            <text x="63"  y="36">110</text>
+            <text x="119" y="58">84</text>
+            <text x="175" y="78">59</text>
+            <text x="231" y="99">34</text>
+            <text x="287" y="112">18</text>
+          </g>
+          <g fill="var(--ink-2)" font-size="8" text-anchor="middle" font-family="system-ui, sans-serif">
+            <text x="63"  y="146">스크래치</text>
+            <text x="119" y="146">덴트</text>
+            <text x="175" y="146">이물</text>
+            <text x="231" y="146">변색</text>
+            <text x="287" y="146">누액</text>
+          </g>
+        </svg>
+        <div class="legend">
+          <span><i style="background:var(--series-1)"></i>스크래치</span>
+          <span><i style="background:var(--series-2)"></i>덴트</span>
+          <span><i style="background:var(--series-3)"></i>이물</span>
+          <span><i style="background:var(--series-4)"></i>변색</span>
+          <span><i style="background:var(--series-5)"></i>누액</span>
+        </div>
+      </div>
+
+      <!-- 히트맵: 순차 -->
+      <div class="chart-card">
+        <p class="chart-title">라인 × 요일 불량률</p>
+        <p class="chart-sub">순차 스케일 · 낮음→높음</p>
+        <svg viewBox="0 0 320 168" role="img" aria-label="라인별 요일별 불량률 히트맵">
+          <g font-size="8" fill="var(--ink-2)" font-family="system-ui, sans-serif" text-anchor="end">
+            <text x="40" y="35">A라인</text>
+            <text x="40" y="66">B라인</text>
+            <text x="40" y="97">C라인</text>
+            <text x="40" y="128">D라인</text>
+          </g>
+          <g>
+            <rect x="46"  y="20" width="50" height="24" rx="3" fill="var(--brand-100)"/>
+            <rect x="100" y="20" width="50" height="24" rx="3" fill="var(--brand-300)"/>
+            <rect x="154" y="20" width="50" height="24" rx="3" fill="var(--brand-200)"/>
+            <rect x="208" y="20" width="50" height="24" rx="3" fill="var(--brand-500)"/>
+            <rect x="262" y="20" width="50" height="24" rx="3" fill="var(--brand-400)"/>
+
+            <rect x="46"  y="51" width="50" height="24" rx="3" fill="var(--brand-300)"/>
+            <rect x="100" y="51" width="50" height="24" rx="3" fill="var(--brand-500)"/>
+            <rect x="154" y="51" width="50" height="24" rx="3" fill="var(--brand-700)"/>
+            <rect x="208" y="51" width="50" height="24" rx="3" fill="var(--brand-600)"/>
+            <rect x="262" y="51" width="50" height="24" rx="3" fill="var(--brand-400)"/>
+
+            <rect x="46"  y="82" width="50" height="24" rx="3" fill="var(--brand-50)"/>
+            <rect x="100" y="82" width="50" height="24" rx="3" fill="var(--brand-200)"/>
+            <rect x="154" y="82" width="50" height="24" rx="3" fill="var(--brand-300)"/>
+            <rect x="208" y="82" width="50" height="24" rx="3" fill="var(--brand-200)"/>
+            <rect x="262" y="82" width="50" height="24" rx="3" fill="var(--brand-100)"/>
+
+            <rect x="46"  y="113" width="50" height="24" rx="3" fill="var(--brand-400)"/>
+            <rect x="100" y="113" width="50" height="24" rx="3" fill="var(--brand-600)"/>
+            <rect x="154" y="113" width="50" height="24" rx="3" fill="var(--brand-800)"/>
+            <rect x="208" y="113" width="50" height="24" rx="3" fill="var(--brand-700)"/>
+            <rect x="262" y="113" width="50" height="24" rx="3" fill="var(--brand-500)"/>
+          </g>
+          <g font-size="8" fill="var(--ink-2)" font-family="system-ui, sans-serif" text-anchor="middle">
+            <text x="71"  y="152">월</text>
+            <text x="125" y="152">화</text>
+            <text x="179" y="152">수</text>
+            <text x="233" y="152">목</text>
+            <text x="287" y="152">금</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- 발산: 극성 -->
+      <div class="chart-card">
+        <p class="chart-title">기준 대비 mAP 변화</p>
+        <p class="chart-sub">jpeg_ab_test · 발산 스케일</p>
+        <svg viewBox="0 0 320 168" role="img" aria-label="기준 대비 mAP 변화 발산 막대 차트">
+          <line x1="160" y1="16" x2="160" y2="140" stroke="var(--axis)" stroke-width="1"/>
+          <g>
+            <rect x="160" y="22"  width="86" height="18" rx="4" fill="var(--div-pos-4)"/>
+            <rect x="160" y="22"  width="4"  height="18"        fill="var(--div-pos-4)"/>
+            <rect x="160" y="48"  width="52" height="18" rx="4" fill="var(--div-pos-2)"/>
+            <rect x="160" y="48"  width="4"  height="18"        fill="var(--div-pos-2)"/>
+            <rect x="160" y="74"  width="14" height="18" rx="4" fill="var(--div-pos-1)"/>
+            <rect x="160" y="74"  width="4"  height="18"        fill="var(--div-pos-1)"/>
+            <rect x="126" y="100" width="34" height="18" rx="4" fill="var(--div-neg-2)"/>
+            <rect x="156" y="100" width="4"  height="18"        fill="var(--div-neg-2)"/>
+            <rect x="92"  y="126" width="68" height="18" rx="4" fill="var(--div-neg-3)"/>
+            <rect x="156" y="126" width="4"  height="18"        fill="var(--div-neg-3)"/>
+          </g>
+          <g font-size="8" fill="var(--ink-2)" font-family="system-ui, sans-serif">
+            <text x="252" y="35">+4.2</text>
+            <text x="218" y="61">+2.5</text>
+            <text x="180" y="87">+0.7</text>
+            <text x="96"  y="113" text-anchor="end">−1.6</text>
+            <text x="62"  y="139" text-anchor="end">−3.3</text>
+          </g>
+          <g font-size="8" fill="var(--ink-muted)" font-family="system-ui, sans-serif" text-anchor="middle">
+            <text x="160" y="158">0 기준 · 단위 mAP@50 (%p)</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- 상태 -->
+      <div class="chart-card">
+        <p class="chart-title">파이프라인 상태</p>
+        <p class="chart-sub">상태 팔레트 · 아이콘 + 라벨 동반</p>
+        <svg viewBox="0 0 320 168" role="img" aria-label="파이프라인 단계별 상태">
+          <g font-family="system-ui, sans-serif" font-size="10">
+            <circle cx="24" cy="24" r="7" fill="var(--status-good)"/>
+            <path d="M20.5 24 L23 26.5 L27.5 21.5" stroke="var(--surface)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="42" y="27" fill="var(--ink-1)" font-weight="600">전처리</text>
+            <text x="312" y="27" fill="var(--ink-2)" text-anchor="end">정상 · 12,480장</text>
+
+            <circle cx="24" cy="60" r="7" fill="var(--status-warning)"/>
+            <text x="24" y="64" fill="#1a1a19" font-size="10" font-weight="700" text-anchor="middle">!</text>
+            <text x="42" y="63" fill="var(--ink-1)" font-weight="600">라벨 검수</text>
+            <text x="312" y="63" fill="var(--ink-2)" text-anchor="end">경고 · 미검수 214건</text>
+
+            <circle cx="24" cy="96" r="7" fill="var(--status-serious)"/>
+            <text x="24" y="100" fill="#1a1a19" font-size="10" font-weight="700" text-anchor="middle">!</text>
+            <text x="42" y="99" fill="var(--ink-1)" font-weight="600">학습</text>
+            <text x="312" y="99" fill="var(--ink-2)" text-anchor="end">지연 · 재시도 2회</text>
+
+            <circle cx="24" cy="132" r="7" fill="var(--status-critical)"/>
+            <path d="M20.5 128.5 L27.5 135.5 M27.5 128.5 L20.5 135.5" stroke="var(--surface)" stroke-width="2" stroke-linecap="round"/>
+            <text x="42" y="135" fill="var(--ink-1)" font-weight="600">배포</text>
+            <text x="312" y="135" fill="var(--ink-2)" text-anchor="end">실패 · quality gate</text>
+          </g>
+        </svg>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- 테마 토글 ---------- */
+  var root = document.documentElement;
+  var toggle = document.getElementById("themeToggle");
+
+  function prefersDark() {
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function isDark() {
+    var t = root.getAttribute("data-theme");
+    return t ? t === "dark" : prefersDark();
+  }
+  function syncLabel() {
+    toggle.textContent = isDark() ? "라이트 모드" : "다크 모드";
+  }
+  toggle.addEventListener("click", function () {
+    root.setAttribute("data-theme", isDark() ? "light" : "dark");
+    syncLabel();
+    render();
+  });
+  syncLabel();
+
+  /* ---------- 데이터 ---------- */
+  var BRAND = [
+    ["50",  "#EEF6FE", "oklch(0.970 0.014 250)"],
+    ["100", "#D9EAFC", "oklch(0.930 0.030 250)"],
+    ["200", "#B6D6F8", "oklch(0.865 0.058 250)"],
+    ["300", "#8EBCEC", "oklch(0.780 0.085 250)"],
+    ["400", "#64A0DD", "oklch(0.690 0.110 250)"],
+    ["500", "#3981C6", "oklch(0.590 0.128 250)"],
+    ["600", "#236CAE", "oklch(0.520 0.126 250)"],
+    ["700", "#0C5795", "oklch(0.450 0.121 250)"],
+    ["800", "#054477", "oklch(0.380 0.104 250)"],
+    ["900", "#033259", "oklch(0.310 0.084 250)"],
+    ["950", "#03203B", "oklch(0.240 0.062 250)"]
+  ];
+
+  // 슬롯: [번호, 색상명, light, dark]
+  var SERIES = [
+    ["1", "blue",    "#2A78D6", "#3987E5"],
+    ["2", "orange",  "#EB6834", "#D95926"],
+    ["3", "aqua",    "#1BAF7A", "#199E70"],
+    ["4", "yellow",  "#EDA100", "#C98500"],
+    ["5", "magenta", "#E87BA4", "#D55181"],
+    ["6", "green",   "#008300", "#008300"],
+    ["7", "violet",  "#4A3AA7", "#9085E9"],
+    ["8", "red",     "#E34948", "#E66767"]
+  ];
+
+  var STATUS = [
+    ["good",     "정상",  "#0CA30C"],
+    ["warning",  "경고",  "#FAB219"],
+    ["serious",  "심각",  "#EC835A"],
+    ["critical", "치명",  "#D03B3B"]
+  ];
+
+  // [역할, light, dark]
+  var CHROME = [
+    ["표면 surface", "#FFFFFF", "#15181D"],
+    ["페이지 page",  "#F8FAFC", "#0D0F12"],
+    ["본문 잉크",     "#0F172A", "#F1F5F9"],
+    ["보조 잉크",     "#475569", "#C3C2B7"],
+    ["흐린 잉크",     "#898781", "#898781"],
+    ["격자선",       "#E2E8F0", "#232830"],
+    ["축/기준선",     "#C3C2B7", "#383835"]
+  ];
+
+  var SEQ  = ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900"];
+  var DIV  = ["--div-neg-4", "--div-neg-3", "--div-neg-2", "--div-neg-1", "--div-neg-0",
+              "--div-mid",
+              "--div-pos-0", "--div-pos-1", "--div-pos-2", "--div-pos-3", "--div-pos-4"];
+  var DIV_LABEL = ["−4", "−3", "−2", "−1", "−0", "0", "+0", "+1", "+2", "+3", "+4"];
+
+  /* ---------- 대비 계산 ---------- */
+  function lum(hex) {
+    var c = [1, 3, 5].map(function (i) {
+      var v = parseInt(hex.substr(i, 2), 16) / 255;
+      return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  }
+  function rgbTriplet(hex) {
+    return [1, 3, 5].map(function (i) { return parseInt(hex.substr(i, 2), 16); });
+  }
+  function rgbText(hex) {
+    return "rgb(" + rgbTriplet(hex).join(", ") + ")";
+  }
+  function ratio(a, b) {
+    var la = lum(a), lb = lum(b);
+    var hi = Math.max(la, lb), lo = Math.min(la, lb);
+    return (hi + 0.05) / (lo + 0.05);
+  }
+  function surfaceHex() { return isDark() ? "#15181D" : "#FFFFFF"; }
+
+  /* ---------- 스와치 생성 ---------- */
+  function card(opts) {
+    var el = document.createElement("button");
+    el.type = "button";
+    el.className = "card";
+    el.setAttribute("data-hex", opts.hex);
+    el.setAttribute("data-rgb", rgbText(opts.hex));
+    el.title = "클릭 → " + opts.hex + " 복사 (RGB 줄 클릭 시 " + rgbText(opts.hex) + ")";
+
+    var sw = document.createElement("div");
+    sw.className = "swatch" + (opts.tall ? " tall" : "");
+    sw.style.backgroundColor = opts.hex;          // HEX 폴백 — 항상 렌더
+    if (opts.cssColor) sw.style.backgroundColor = opts.cssColor; // 지원 시 승격
+    el.appendChild(sw);
+
+    var meta = document.createElement("div");
+    meta.className = "meta";
+
+    var n = document.createElement("span");
+    n.className = "name";
+    n.textContent = opts.name;
+    meta.appendChild(n);
+
+    var h = document.createElement("span");
+    h.className = "hex";
+    h.textContent = opts.hex;
+    meta.appendChild(h);
+
+    var rgb = document.createElement("span");
+    rgb.className = "rgb";
+    rgb.textContent = rgbText(opts.hex);
+    meta.appendChild(rgb);
+
+    if (opts.sub) {
+      var s = document.createElement("span");
+      s.className = "sub";
+      s.textContent = opts.sub;
+      meta.appendChild(s);
+    }
+    if (opts.contrast) {
+      var c = document.createElement("span");
+      c.className = "contrast";
+      c.textContent = opts.contrast;
+      meta.appendChild(c);
+    }
+
+    el.appendChild(meta);
+    return el;
+  }
+
+  function fill(id, cards) {
+    var host = document.getElementById(id);
+    host.textContent = "";
+    cards.forEach(function (c) { host.appendChild(c); });
+  }
+
+  function render() {
+    var surf = surfaceHex();
+
+    fill("brandGrid", BRAND.map(function (row) {
+      var hex = row[1];
+      return card({
+        name: row[0],
+        hex: hex,
+        cssColor: "var(--brand-" + row[0] + ")",
+        sub: row[2],
+        contrast: "흰 " + ratio(hex, "#FFFFFF").toFixed(2) +
+                  " · 검 " + ratio(hex, "#000000").toFixed(2)
+      });
+    }));
+
+    fill("seriesGrid", SERIES.map(function (row) {
+      var hex = isDark() ? row[3] : row[2];
+      var r = ratio(hex, surf);
+      return card({
+        name: "슬롯 " + row[0],
+        hex: hex,
+        cssColor: "var(--series-" + row[0] + ")",
+        sub: row[1],
+        contrast: "표면 대비 " + r.toFixed(2) + (r < 3 ? " · 라벨 필요" : "")
+      });
+    }));
+
+    fill("statusGrid", STATUS.map(function (row) {
+      var hex = row[2];
+      return card({
+        name: row[1],
+        hex: hex,
+        cssColor: "var(--status-" + row[0] + ")",
+        sub: row[0],
+        contrast: "표면 대비 " + ratio(hex, surf).toFixed(2)
+      });
+    }));
+
+    fill("chromeGrid", CHROME.map(function (row) {
+      var hex = isDark() ? row[2] : row[1];
+      return card({ name: row[0], hex: hex, sub: isDark() ? "dark" : "light", tall: false });
+    }));
+
+    // 순차 램프
+    var seqHost = document.getElementById("seqRamp");
+    seqHost.textContent = "";
+    SEQ.forEach(function (step, i) {
+      var d = document.createElement("div");
+      d.style.backgroundColor = BRAND[i][1];
+      d.style.backgroundColor = "var(--brand-" + step + ")";
+      d.style.color = i >= 5 ? "#FFFFFF" : "#0F172A";
+      d.textContent = step;
+      d.title = BRAND[i][1] + " · " + rgbText(BRAND[i][1]);
+      seqHost.appendChild(d);
+    });
+
+    // 발산 램프
+    var divHost = document.getElementById("divRamp");
+    divHost.textContent = "";
+    DIV.forEach(function (v, i) {
+      var d = document.createElement("div");
+      d.style.backgroundColor = "var(" + v + ")";
+      d.style.color = (i === 0 || i === 1 || i === 9 || i === 10) ? "#FFFFFF" : "#0F172A";
+      d.textContent = DIV_LABEL[i];
+      divHost.appendChild(d);
+    });
+  }
+
+  /* ---------- 클릭 복사 ---------- */
+  var toast = document.getElementById("toast");
+  var toastTimer;
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 1400);
+  }
+
+  function copy(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(
+        function () { showToast(text + " 복사됨"); },
+        function () { legacyCopy(text); }
+      );
+    } else {
+      legacyCopy(text);
+    }
+  }
+
+  // file:// 로 열면 clipboard API가 막히므로 폴백을 둔다
+  function legacyCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    showToast(ok ? text + " 복사됨" : text);
+  }
+
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest) return;
+    var el = e.target.closest(".card");
+    if (!el) return;
+    var wantRgb = !!e.target.closest(".rgb");
+    var value = wantRgb ? el.getAttribute("data-rgb") : el.getAttribute("data-hex");
+    if (value) copy(value);
+  });
+
+  // OS 테마 변경 시 (수동 토글 전이라면) 대비 수치 갱신
+  if (window.matchMedia) {
+    var mq = window.matchMedia("(prefers-color-scheme: dark)");
+    var onChange = function () { if (!root.getAttribute("data-theme")) { syncLabel(); render(); } };
+    if (mq.addEventListener) mq.addEventListener("change", onChange);
+    else if (mq.addListener) mq.addListener(onChange);
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
