@@ -1,20 +1,18 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './ReportTable.css'
-import './DailyReportTable.css'
 import { ROUTES } from '@/core/navigation/routes'
-import { DetailLinkButton } from '@/shared/ui/DetailLinkButton'
 import { Pagination } from '@/shared/ui/Pagination'
 import { useDailyReportListStore } from '../store/useDailyReportListStore'
+import { useDailyReportDetailStore } from '../store/useDailyReportDetailStore'
+import { ReportStatusBadge } from './ReportStatusBadge'
+import { ReportListToolbar } from './ReportListToolbar'
+import { ReportListSkeletonRows, ReportListEmptyRow, ReportListErrorRow } from './ReportListStates'
+import { DailyReportCreatePopover } from './DailyReportCreatePopover'
+import type { ReportStatus } from '../types'
 
 const PAGE_SIZE = 20
-
-const STATUS_LABEL: Record<string, string> = {
-  PENDING: '대기중',
-  COMPLETED: '완료',
-  FAILED: '실패',
-}
-
+const COLUMN_COUNT = 4
 
 function formatDateTime(value: string | null): string {
   if (!value) return '-'
@@ -25,53 +23,131 @@ function formatDateTime(value: string | null): string {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`
 }
 
-interface DailyReportTableProps {
-  headerActions?: ReactNode
+function ChevronIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
 }
 
-function DailyReportTable({ headerActions }: DailyReportTableProps) {
+function DailyReportTable() {
   const navigate = useNavigate()
   const list = useDailyReportListStore((s) => s.list)
   const isLoading = useDailyReportListStore((s) => s.isLoading)
   const error = useDailyReportListStore((s) => s.error)
   const { fetchList } = useDailyReportListStore((s) => s.actions)
+  const { create } = useDailyReportDetailStore((s) => s.actions)
 
+  const [statusFilter, setStatusFilter] = useState<ReportStatus | null>(null)
+  const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc')
+  const [search, setSearch] = useState('')
+  const [debouncedSearch, setDebouncedSearch] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
+  const [creatorOpen, setCreatorOpen] = useState(false)
+  const [creating, setCreating] = useState(false)
 
   useEffect(() => {
-    fetchList(0, 100)
-  }, [fetchList])
+    fetchList(0, 100, sortOrder === 'desc' ? 'createdAt,desc' : 'createdAt,asc')
+  }, [fetchList, sortOrder])
 
-  const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE))
-  const pagedList = list.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
-  const rangeStart = list.length === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1
-  const rangeEnd = Math.min(currentPage * PAGE_SIZE, list.length)
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(search), 300)
+    return () => clearTimeout(timer)
+  }, [search])
+
+  // 필터·검색어가 바뀌면 1페이지로 리셋한다. 렌더 도중 이전 값과 비교해 바로 조정 —
+  // useEffect를 쓰면 한 번 더 렌더가 도는 것을 피한다 (React 공식 권장 패턴).
+  const filterKey = `${statusFilter ?? ''}|${debouncedSearch}`
+  const [prevFilterKey, setPrevFilterKey] = useState(filterKey)
+  if (filterKey !== prevFilterKey) {
+    setPrevFilterKey(filterKey)
+    setCurrentPage(1)
+  }
+
+  const counts = useMemo(
+    () => ({
+      total: list.length,
+      completed: list.filter((r) => r.status === 'COMPLETED').length,
+      pending: list.filter((r) => r.status === 'PENDING').length,
+      failed: list.filter((r) => r.status === 'FAILED').length,
+    }),
+    [list],
+  )
+
+  const filtered = useMemo(() => {
+    const keyword = debouncedSearch.trim().toLowerCase()
+    return list.filter((item) => {
+      if (statusFilter && item.status !== statusFilter) return false
+      if (keyword) {
+        const title = (item.title ?? `리포트 #${item.reportId}`).toLowerCase()
+        if (!title.includes(keyword)) return false
+      }
+      return true
+    })
+  }, [list, statusFilter, debouncedSearch])
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const pagedList = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
+  const rangeStart = filtered.length === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1
+  const rangeEnd = Math.min(currentPage * PAGE_SIZE, filtered.length)
+  const isFiltered = statusFilter !== null || debouncedSearch !== ''
+
+  const handleResetFilters = () => {
+    setStatusFilter(null)
+    setSearch('')
+  }
+
+  const handleRetry = () => {
+    fetchList(0, 100, sortOrder === 'desc' ? 'createdAt,desc' : 'createdAt,asc')
+  }
+
+  const handleCreate = async (reportDate: string) => {
+    setCreating(true)
+    try {
+      const reportId = await create({ reportDate })
+      setCreatorOpen(false)
+      navigate(ROUTES.REPORT_DAILY_DETAIL(reportId))
+    } catch {
+      setCreating(false)
+    }
+  }
 
   return (
-    <section>
+    <section className="report-table">
       <div className="report-table__header">
-        <div>
-          <h1 className="report-table__title">
-            일일 리포트 <span className="report-table__title-en">(Daily Report)</span>
-          </h1>
-          <p className="report-table__subtitle">
-            Review daily inspection summaries and defect trends across all production lines.
-          </p>
+        <h1 className="report-table__title">일일 리포트</h1>
+        <div style={{ position: 'relative' }}>
+          <button type="button" className="report-table__create-btn" onClick={() => setCreatorOpen((v) => !v)}>
+            + 리포트 생성
+          </button>
+          {creatorOpen && (
+            <DailyReportCreatePopover
+              onClose={() => setCreatorOpen(false)}
+              onSubmit={handleCreate}
+              submitting={creating}
+            />
+          )}
         </div>
-        {headerActions}
       </div>
 
-      <div className="report-table__card">
-        {isLoading && <p className="report-table__status">로딩 중...</p>}
-        {error && <p className="report-table__status report-table__status--error">{error}</p>}
+      <ReportListToolbar
+        statusFilter={statusFilter}
+        onStatusFilterChange={setStatusFilter}
+        counts={counts}
+        sortOrder={sortOrder}
+        onSortOrderChange={setSortOrder}
+        search={search}
+        onSearchChange={setSearch}
+      />
 
+      <div className="report-table__card">
         <table className="report-table__table">
           <colgroup>
-            <col className="daily-report-table__col-status" />
-            <col className="daily-report-table__col-title" />
-            <col className="daily-report-table__col-date" />
-            <col className="daily-report-table__col-created" />
-            <col className="daily-report-table__col-detail" />
+            <col style={{ width: '16rem' }} />
+            <col />
+            <col style={{ width: '22rem' }} />
+            <col style={{ width: '26rem' }} />
           </colgroup>
           <thead>
             <tr>
@@ -79,51 +155,68 @@ function DailyReportTable({ headerActions }: DailyReportTableProps) {
               <th>제목</th>
               <th>판정일자</th>
               <th>생성일시</th>
-              <th>상세</th>
             </tr>
           </thead>
           <tbody>
-            {!isLoading && list.length === 0 && (
-              <tr>
-                <td colSpan={5} className="report-table__empty">
-                  등록된 리포트가 없습니다.
-                </td>
-              </tr>
+            {isLoading && <ReportListSkeletonRows colSpan={COLUMN_COUNT} />}
+
+            {!isLoading && error && (
+              <ReportListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={handleRetry} />
             )}
-            {pagedList.map((item) => (
-              <tr key={item.reportId} onClick={() => navigate(ROUTES.REPORT_DAILY_DETAIL(item.reportId))} style={{ cursor: 'pointer' }}>
-                <td>
-                  <span className="report-table__status-cell">
-                    <span className="report-table__status-icon">
-                      {item.status === 'FAILED' && (
-                        <span className="report-table__dot report-table__dot--failed" />
-                      )}
-                      {item.status === 'COMPLETED' && (
-                        <span className="report-table__dot report-table__dot--completed" />
-                      )}
-                      {item.status === 'PENDING' && (
-                        <span className="report-table__dot report-table__dot--pending" />
-                      )}
+
+            {!isLoading && !error && list.length === 0 && (
+              <ReportListEmptyRow
+                colSpan={COLUMN_COUNT}
+                variant="no-data"
+                title="생성된 리포트가 없습니다"
+                subtitle="기준일을 선택해 리포트를 생성해 보세요"
+                actionLabel="+ 리포트 생성"
+                onAction={() => setCreatorOpen(true)}
+              />
+            )}
+
+            {!isLoading && !error && list.length > 0 && filtered.length === 0 && (
+              <ReportListEmptyRow
+                colSpan={COLUMN_COUNT}
+                variant="no-results"
+                title="조건에 맞는 항목이 없습니다"
+                subtitle="필터 또는 검색어를 조정해 보세요"
+                actionLabel="필터 초기화"
+                onAction={handleResetFilters}
+              />
+            )}
+
+            {!isLoading &&
+              !error &&
+              pagedList.map((item) => (
+                <tr key={item.reportId} onClick={() => navigate(ROUTES.REPORT_DAILY_DETAIL(item.reportId))}>
+                  <td>
+                    <ReportStatusBadge status={item.status} />
+                  </td>
+                  <td>{item.title ?? `리포트 #${item.reportId}`}</td>
+                  <td className="report-table__secondary report-table__mono">{item.reportDate}</td>
+                  <td className="report-table__secondary report-table__mono">
+                    {formatDateTime(item.createdAt)}
+                    <span className="report-table__chevron">
+                      <ChevronIcon />
                     </span>
-                    {STATUS_LABEL[item.status] ?? item.status}
-                  </span>
-                </td>
-                <td>{item.title ?? `리포트 #${item.reportId}`}</td>
-                <td>{item.reportDate}</td>
-                <td className="report-table__created">{formatDateTime(item.createdAt)}</td>
-                <td>
-                  <DetailLinkButton to={ROUTES.REPORT_DAILY_DETAIL(item.reportId)} />
-                </td>
-              </tr>
-            ))}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
 
         <div className="report-table__footer">
-          <span className="report-table__footer-text">
-            Showing {rangeStart} to {rangeEnd} of {list.length} entries
+          <span className="report-table__count">
+            {filtered.length === 0
+              ? isFiltered
+                ? '0건'
+                : '0건'
+              : `${filtered.length}건 중 ${rangeStart}–${rangeEnd}`}
           </span>
-          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+          {filtered.length > 0 && (
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+          )}
         </div>
       </div>
     </section>

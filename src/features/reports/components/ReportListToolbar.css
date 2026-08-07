@@ -1,0 +1,136 @@
+.report-list-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  height: 4.8rem;
+}
+
+.report-list-toolbar__filters {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  min-width: 0;
+}
+
+.report-list-toolbar__divider {
+  width: 1px;
+  height: 2.8rem;
+  background: #d8dbde;
+  flex-shrink: 0;
+}
+
+.report-list-toolbar__chips {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.report-list-toolbar__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 3.2rem;
+  padding: 0 1.4rem;
+  border: none;
+  border-radius: var(--r-pill);
+  background: #ffffff;
+  color: #5b5f63;
+  font-size: 1.3rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.report-list-toolbar__chip--active {
+  background: #0c5795;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.report-list-toolbar__chip-count {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 1.2rem;
+  color: #9ca3af;
+}
+
+.report-list-toolbar__chip--active .report-list-toolbar__chip-count {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.report-list-toolbar__chip-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: #13777c;
+  flex-shrink: 0;
+}
+
+.report-list-toolbar__chip-triangle {
+  width: 0;
+  height: 0;
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+  border-bottom: 0.8rem solid #dc2626;
+  flex-shrink: 0;
+}
+
+.report-list-toolbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-shrink: 0;
+}
+
+.report-list-toolbar__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 3.2rem;
+  padding: 0 1.4rem;
+  border: none;
+  border-radius: var(--r-md);
+  background: #ffffff;
+  color: #5b5f63;
+  font-size: 1.3rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.report-list-toolbar__search {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: 24rem;
+  height: 3.2rem;
+  padding: 0 1.2rem;
+  border-radius: var(--r-md);
+  background: #ffffff;
+  flex-shrink: 0;
+}
+
+.report-list-toolbar__search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.3rem;
+  color: #191c1d;
+}
+
+.report-list-toolbar__search input::placeholder {
+  color: #9ca3af;
+}
+
+.report-list-toolbar__search-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+}

@@ -12,7 +12,7 @@ interface DailyReportListState extends AsyncState {
 
 interface DailyReportListActions {
   actions: {
-    fetchList: (page: number, size: number) => Promise<void>
+    fetchList: (page: number, size: number, sort?: string) => Promise<void>
     reset: () => void
   }
 }
@@ -28,10 +28,10 @@ export const useDailyReportListStore = create<DailyReportListState & DailyReport
   (set) => ({
     ...initialState,
     actions: {
-      fetchList: async (page, size) => {
+      fetchList: async (page, size, sort) => {
         set({ isLoading: true, error: null })
         try {
-          const res = await dailyReportService.getDailyReportList({ page, size })
+          const res = await dailyReportService.getDailyReportList({ page, size, sort })
           const { content, pageable } = normalizeListResponse(res.data)
           set({ list: content, pageable, isLoading: false })
         } catch {

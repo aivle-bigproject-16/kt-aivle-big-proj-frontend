@@ -32,6 +32,13 @@ function wrap(data) {
   return { success: true, message: 'ok', data }
 }
 
+// sort=createdAt,desc|asc 형식을 해석해 정렬한다. 파라미터가 없으면 desc(최신순) 기본값.
+function sortByCreatedAt(items, sortParam) {
+  const order = sortParam?.split(',')[1] === 'asc' ? 'asc' : 'desc'
+  const sorted = [...items].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+  return order === 'desc' ? sorted.reverse() : sorted
+}
+
 async function fetchWithRetry(url, options, retries = 20) {
   for (let i = 0; i < retries; i++) {
     try {
@@ -182,6 +189,41 @@ const server = http.createServer(async (req, res) => {
     }
     res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
     res.end(JSON.stringify(wrap(item)))
+    return
+  }
+
+  // GET /api/reports/individual, GET /api/reports/daily — 목록 조회.
+  // json-server는 이 경로를 reports 컬렉션의 id="individual"/id="daily" 레코드 조회로 해석해버리므로
+  // (해당 문서 자체를 반환) 직접 가로채 list-item 형태로 매핑하고 sort 파라미터를 적용한다.
+  if (req.method === 'GET' && url.pathname === '/api/reports/individual') {
+    const db = await readDb()
+    const content = db.reports?.find((r) => r.id === 'individual')?.content ?? []
+    const sorted = sortByCreatedAt(content, url.searchParams.get('sort'))
+    const listItems = sorted.map((r) => ({
+      reportId: r.reportId,
+      status: r.status,
+      title: r.title,
+      createdAt: r.createdAt,
+      updatedAt: r.updatedAt,
+    }))
+    res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
+    res.end(JSON.stringify(wrap(listItems)))
+    return
+  }
+
+  if (req.method === 'GET' && url.pathname === '/api/reports/daily') {
+    const db = await readDb()
+    const content = db.reports?.find((r) => r.id === 'daily')?.content ?? []
+    const sorted = sortByCreatedAt(content, url.searchParams.get('sort'))
+    const listItems = sorted.map((r) => ({
+      reportId: r.reportId,
+      reportDate: r.reportDate,
+      status: r.status,
+      title: r.title,
+      createdAt: r.createdAt,
+    }))
+    res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
+    res.end(JSON.stringify(wrap(listItems)))
     return
   }
 
