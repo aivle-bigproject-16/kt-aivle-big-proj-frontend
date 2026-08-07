@@ -26,20 +26,3 @@
   padding: 0;
   color: #5b5f63;
 }
-
-.report-status-badge__dot {
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 50%;
-  background: #13777c;
-  flex-shrink: 0;
-}
-
-.report-status-badge__triangle {
-  width: 0;
-  height: 0;
-  border-left: 0.5rem solid transparent;
-  border-right: 0.5rem solid transparent;
-  border-bottom: 0.8rem solid #dc2626;
-  flex-shrink: 0;
-}

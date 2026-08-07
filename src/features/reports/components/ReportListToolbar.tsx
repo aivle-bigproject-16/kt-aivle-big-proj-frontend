@@ -1,4 +1,5 @@
 import './ReportListToolbar.css'
+import './StatusMarkers.css'
 import { ReportTypeToggle } from './ReportTypeToggle'
 import type { ReportStatus } from '../types'
 
@@ -71,8 +72,8 @@ function StatusChip({
       className={active ? 'report-list-toolbar__chip report-list-toolbar__chip--active' : 'report-list-toolbar__chip'}
       onClick={onClick}
     >
-      {marker === 'pending' && <span className="report-list-toolbar__chip-dot" />}
-      {marker === 'failed' && <span className="report-list-toolbar__chip-triangle" />}
+      {marker === 'pending' && <span className="status-marker-dot" />}
+      {marker === 'failed' && <span className="status-marker-triangle" />}
       <span>{label}</span>
       <span className="report-list-toolbar__chip-count">{count}</span>
     </button>

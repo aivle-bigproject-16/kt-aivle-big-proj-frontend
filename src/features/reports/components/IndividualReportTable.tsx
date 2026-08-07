@@ -1,15 +1,13 @@
-import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './ReportTable.css'
 import { ROUTES } from '@/core/navigation/routes'
 import { Pagination } from '@/shared/ui/Pagination'
 import { useIndividualReportListStore } from '../store/useIndividualReportListStore'
+import { useReportListFilters } from '../hooks/useReportListFilters'
 import { ReportStatusBadge } from './ReportStatusBadge'
 import { ReportListToolbar } from './ReportListToolbar'
 import { ReportListSkeletonRows, ReportListEmptyRow, ReportListErrorRow } from './ReportListStates'
-import type { ReportStatus } from '../types'
 
-const PAGE_SIZE = 20
 const COLUMN_COUNT = 4
 
 function formatDateTime(value: string | null): string {
@@ -36,65 +34,24 @@ function IndividualReportTable() {
   const error = useIndividualReportListStore((s) => s.error)
   const { fetchList } = useIndividualReportListStore((s) => s.actions)
 
-  const [statusFilter, setStatusFilter] = useState<ReportStatus | null>(null)
-  const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc')
-  const [search, setSearch] = useState('')
-  const [debouncedSearch, setDebouncedSearch] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
-
-  useEffect(() => {
-    fetchList(0, 100, sortOrder === 'desc' ? 'createdAt,desc' : 'createdAt,asc')
-  }, [fetchList, sortOrder])
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedSearch(search), 300)
-    return () => clearTimeout(timer)
-  }, [search])
-
-  // 필터·검색어가 바뀌면 1페이지로 리셋한다. 렌더 도중 이전 값과 비교해 바로 조정 —
-  // useEffect를 쓰면 한 번 더 렌더가 도는 것을 피한다 (React 공식 권장 패턴).
-  const filterKey = `${statusFilter ?? ''}|${debouncedSearch}`
-  const [prevFilterKey, setPrevFilterKey] = useState(filterKey)
-  if (filterKey !== prevFilterKey) {
-    setPrevFilterKey(filterKey)
-    setCurrentPage(1)
-  }
-
-  const counts = useMemo(
-    () => ({
-      total: list.length,
-      completed: list.filter((r) => r.status === 'COMPLETED').length,
-      pending: list.filter((r) => r.status === 'PENDING').length,
-      failed: list.filter((r) => r.status === 'FAILED').length,
-    }),
-    [list],
-  )
-
-  const filtered = useMemo(() => {
-    const keyword = debouncedSearch.trim().toLowerCase()
-    return list.filter((item) => {
-      if (statusFilter && item.status !== statusFilter) return false
-      if (keyword) {
-        const title = (item.title ?? `리포트 #${item.reportId}`).toLowerCase()
-        if (!title.includes(keyword)) return false
-      }
-      return true
-    })
-  }, [list, statusFilter, debouncedSearch])
-
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
-  const pagedList = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
-  const rangeStart = filtered.length === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1
-  const rangeEnd = Math.min(currentPage * PAGE_SIZE, filtered.length)
-
-  const handleResetFilters = () => {
-    setStatusFilter(null)
-    setSearch('')
-  }
-
-  const handleRetry = () => {
-    fetchList(0, 100, sortOrder === 'desc' ? 'createdAt,desc' : 'createdAt,asc')
-  }
+  const {
+    statusFilter,
+    setStatusFilter,
+    sortOrder,
+    setSortOrder,
+    search,
+    setSearch,
+    currentPage,
+    setCurrentPage,
+    counts,
+    filtered,
+    pagedList,
+    totalPages,
+    rangeStart,
+    rangeEnd,
+    resetFilters,
+    retry,
+  } = useReportListFilters(list, fetchList)
 
   return (
     <section className="report-table">
@@ -131,9 +88,7 @@ function IndividualReportTable() {
           <tbody>
             {isLoading && <ReportListSkeletonRows colSpan={COLUMN_COUNT} />}
 
-            {!isLoading && error && (
-              <ReportListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={handleRetry} />
-            )}
+            {!isLoading && error && <ReportListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={retry} />}
 
             {!isLoading && !error && list.length === 0 && (
               <ReportListEmptyRow
@@ -151,7 +106,7 @@ function IndividualReportTable() {
                 title="조건에 맞는 항목이 없습니다"
                 subtitle="필터 또는 검색어를 조정해 보세요"
                 actionLabel="필터 초기화"
-                onAction={handleResetFilters}
+                onAction={resetFilters}
               />
             )}
 

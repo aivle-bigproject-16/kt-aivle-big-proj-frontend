@@ -1,4 +1,5 @@
 import './ReportStatusBadge.css'
+import './StatusMarkers.css'
 import type { ReportStatus } from '../types'
 
 interface ReportStatusBadgeProps {
@@ -13,7 +14,7 @@ function ReportStatusBadge({ status }: ReportStatusBadgeProps) {
   if (status === 'PENDING') {
     return (
       <span className="report-status-badge report-status-badge--pending">
-        <span className="report-status-badge__dot" />
+        <span className="status-marker-dot" />
         PENDING
       </span>
     )
@@ -21,7 +22,7 @@ function ReportStatusBadge({ status }: ReportStatusBadgeProps) {
 
   return (
     <span className="report-status-badge report-status-badge--failed">
-      <span className="report-status-badge__triangle" />
+      <span className="status-marker-triangle" />
       FAILED
     </span>
   )
