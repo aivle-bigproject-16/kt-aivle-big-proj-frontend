@@ -5,7 +5,7 @@
   height: 2.4rem;
   padding: 0 1rem;
   font-size: 1.15rem;
-  font-family: ui-monospace, Consolas, monospace;
+  font-family: 'Inter', system-ui, sans-serif;
   letter-spacing: 0.05em;
   white-space: nowrap;
 }
