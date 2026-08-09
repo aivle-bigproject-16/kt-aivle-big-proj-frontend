@@ -15,7 +15,6 @@
 .root-layout__center {
   flex: none;
   width: var(--col-main);
-  padding-top: 1.7143rem;
   display: flex;
   flex-direction: column;
   min-height: 0;

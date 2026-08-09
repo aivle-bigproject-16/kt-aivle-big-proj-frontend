@@ -1,0 +1,263 @@
+/* 섹션 — 1400×700 고정, 곡률 1.81rem (피그마 px÷10=rem, 1400 기준 정책) */
+.complete-body {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 140rem;
+  height: 70rem;
+  margin-top: 2rem;
+  border-radius: 1rem;
+  box-sizing: border-box;
+  padding: 2.9rem 3rem;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+/* 필터 칩 행 — 전체/PASS/REJECT/FAIL 카운트. 칩 4개, 사이 갭 1.207rem */
+.complete-body__chips {
+  display: flex;
+  gap: 1.207rem;
+  flex-shrink: 0;
+}
+
+.complete-body__chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-shrink: 0;
+  width: 13.276rem;
+  height: 3.862rem;
+  border: 0.15rem solid transparent;
+  border-radius: 0.6rem;
+  box-sizing: border-box;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.complete-body__chip:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.complete-body__chip:active {
+  transform: scale(0.98);
+}
+
+.complete-body__chip--all.complete-body__chip--active {
+  border-color: #6b7280;
+}
+
+.complete-body__chip--pass.complete-body__chip--active {
+  border-color: #1e7e34;
+}
+
+.complete-body__chip--reject.complete-body__chip--active {
+  border-color: #d97706;
+}
+
+.complete-body__chip--fail.complete-body__chip--active {
+  border-color: #dc2626;
+}
+
+.complete-body__chip--all {
+  background-color: #191c1d;
+}
+
+.complete-body__chip--all .complete-body__chip-label {
+  color: #ffffff;
+}
+
+.complete-body__chip--all .complete-body__chip-count {
+  color: #ffffff;
+}
+
+.complete-body__chip--pass {
+  background-color: #ecfdf3;
+}
+
+.complete-body__chip--pass .complete-body__chip-dot {
+  background-color: #1e7e34;
+}
+
+.complete-body__chip--pass .complete-body__chip-label,
+.complete-body__chip--pass .complete-body__chip-count {
+  color: #1e7e34;
+}
+
+.complete-body__chip--reject {
+  background-color: #fffbeb;
+}
+
+.complete-body__chip--reject .complete-body__chip-dot {
+  background-color: #d97706;
+}
+
+.complete-body__chip--reject .complete-body__chip-label,
+.complete-body__chip--reject .complete-body__chip-count {
+  color: #d97706;
+}
+
+.complete-body__chip--fail {
+  background-color: #fef2f2;
+}
+
+.complete-body__chip--fail .complete-body__chip-dot {
+  background-color: #dc2626;
+}
+
+.complete-body__chip--fail .complete-body__chip-label,
+.complete-body__chip--fail .complete-body__chip-count {
+  color: #dc2626;
+}
+
+.complete-body__chip-dot {
+  flex-shrink: 0;
+  width: 0.966rem;
+  height: 0.966rem;
+  border-radius: 50%;
+}
+
+.complete-body__chip-label {
+  flex-shrink: 0;
+  font-size: 1.569rem;
+  font-weight: 700;
+}
+
+.complete-body__chip-count {
+  flex-shrink: 0;
+  font-size: 1.448rem;
+  font-weight: 400;
+}
+
+/* 셀 목록 — 넘치면 세로 스크롤, 하단은 은은하게 페이드 */
+.complete-body__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.207rem;
+  flex: 1;
+  min-height: 0;
+  margin-top: 2.9rem;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: #d0d4d8 transparent;
+  mask-image: linear-gradient(to bottom, #000 92%, transparent 100%);
+}
+
+.complete-body__list::-webkit-scrollbar {
+  width: 0.7rem;
+}
+
+.complete-body__list::-webkit-scrollbar-thumb {
+  border-radius: 0.35rem;
+  background-color: #d0d4d8;
+}
+
+.complete-body__list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 셀 행 — 134.207×6.76 고정, 곡률 0.9rem. button이라 기본 스타일 리셋 */
+.complete-body__row {
+  display: flex;
+  align-items: center;
+  gap: 2.41rem;
+  flex-shrink: 0;
+  width: 100%;
+  height: 6.76rem;
+  padding: 0 3rem 0 3.38rem;
+  border: none;
+  border-radius: 0.9rem;
+  box-sizing: border-box;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.complete-body__row:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.complete-body__row:active {
+  transform: scale(0.99);
+}
+
+.complete-body__row--neutral {
+  background-color: #fafbfc;
+}
+
+.complete-body__row--pass {
+  background-color: #fafbfc;
+}
+
+.complete-body__row--reject {
+  background-color: #fffbeb;
+}
+
+.complete-body__row--fail {
+  background-color: #fef2f2;
+}
+
+.complete-body__row-swatch {
+  flex-shrink: 0;
+  width: 1.931rem;
+  height: 2.655rem;
+  border-radius: 0.5rem;
+}
+
+.complete-body__row--pass .complete-body__row-swatch {
+  background-color: #1e7e34;
+}
+
+.complete-body__row--reject .complete-body__row-swatch {
+  background-color: #d97706;
+}
+
+.complete-body__row--fail .complete-body__row-swatch {
+  background-color: #dc2626;
+}
+
+.complete-body__row--neutral .complete-body__row-swatch {
+  background-color: #9ca3af;
+}
+
+.complete-body__row-id {
+  flex-shrink: 0;
+  font-size: 1.69rem;
+  font-weight: 700;
+  color: #191c1d;
+}
+
+.complete-body__row-status {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-size: 1.267rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.complete-body__row--pass .complete-body__row-status {
+  color: #1e7e34;
+}
+
+.complete-body__row--reject .complete-body__row-status {
+  color: #d97706;
+}
+
+.complete-body__row--fail .complete-body__row-status {
+  color: #dc2626;
+}
+
+.complete-body__row-batch {
+  flex-shrink: 0;
+  font-size: 1.388rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.complete-body__row-arrow {
+  flex-shrink: 0;
+}

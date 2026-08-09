@@ -1,6 +1,6 @@
 import { ImageBboxGrid } from '@/shared/ui/ImageBboxGrid'
 import type { ImageBboxGridItem } from '@/shared/ui/ImageBboxGrid'
-import './InspectionImageSection.css'
+// 1200 기준 구 CSS는 history/InspectionImageSection.css로 이동됨 — 1400 기준으로 새로 만들 것
 import type { Inspection } from '../types'
 
 const LABEL_TONE: Record<string, 'reject' | 'fail' | 'pass'> = {

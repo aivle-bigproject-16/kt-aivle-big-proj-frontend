@@ -1,0 +1,232 @@
+/* 섹션 — 카드 행 하단, 1400×220 고정, 흰 배경 (피그마 px÷10=rem, 1400 기준 정책).
+   내부 3개 영역(헤더/스테이터스바/리절트)은 세로로 정렬만 담당 — 크기는 이후 지정 */
+.overview-result {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  flex-shrink: 0;
+  width: 140rem;
+  height: 22rem;
+  margin-top: 2rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 1rem;
+}
+
+/* 리절트 — 1343×55 고정 (피그마 px÷10=rem). PASS/REJECT/FAIL 스탯 카드 3개, 가로 배치 */
+.overview-result__result {
+  display: flex;
+  align-items: center;
+  gap: 2.41rem;
+  flex-shrink: 0;
+  width: 134.3rem;
+  height: 5.49rem;
+  margin: 1.6rem 2.4rem 0;
+  box-sizing: border-box;
+}
+
+/* 스탯 카드 하나 — 43.1×5.49 고정, 곡률 1rem. 왼쪽 끝 색 띠는 overflow:hidden으로
+   카드 곡률에 맞춰 자연스럽게 잘린다 */
+.overview-result__stat-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  width: 43.1rem;
+  height: 5.49rem;
+  padding: 0 2.4rem 0 2.9rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.overview-result__stat-card--pass {
+  background-color: #ecfdf3;
+}
+
+.overview-result__stat-card--reject {
+  background-color: #fffbeb;
+}
+
+.overview-result__stat-card--fail {
+  background-color: #fef2f2;
+}
+
+.overview-result__stat-card-accent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0.48rem;
+  height: 100%;
+}
+
+.overview-result__stat-card--pass .overview-result__stat-card-accent {
+  background-color: #1e7e34;
+}
+
+.overview-result__stat-card--reject .overview-result__stat-card-accent {
+  background-color: #d97706;
+}
+
+.overview-result__stat-card--fail .overview-result__stat-card-accent {
+  background-color: #dc2626;
+}
+
+.overview-result__stat-card-left {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.overview-result__stat-card-title {
+  flex-shrink: 0;
+  font-size: 1.569rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.overview-result__stat-card-subtitle {
+  flex-shrink: 0;
+  font-size: 1.207rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.overview-result__stat-card-right {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.overview-result__stat-card-count {
+  flex-shrink: 0;
+  font-size: 2.414rem;
+  font-weight: 700;
+}
+
+.overview-result__stat-card--pass .overview-result__stat-card-count {
+  color: #1e7e34;
+}
+
+.overview-result__stat-card--reject .overview-result__stat-card-count {
+  color: #d97706;
+}
+
+.overview-result__stat-card--fail .overview-result__stat-card-count {
+  color: #dc2626;
+}
+
+.overview-result__stat-card-pct {
+  flex-shrink: 0;
+  font-size: 1.328rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+/* 스테이터스바 — 1347×17 고정 (피그마 px÷10=rem). PASS/REJECT/FAIL 비율만큼
+   3구간으로 나뉜다. 컨테이너에 곡률+overflow:hidden을 줘서 양 끝만 둥글게 잘리게 한다 */
+.overview-result__status-bar {
+  display: flex;
+  flex-shrink: 0;
+  width: 134.7rem;
+  height: 1.7rem;
+  margin: 1.2rem 2.4rem 0;
+  border-radius: 0.48rem;
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: #e5e7eb;
+}
+
+.overview-result__status-bar-pass {
+  flex-shrink: 0;
+  height: 100%;
+  background-color: #1e7e34;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.overview-result__status-bar-reject {
+  flex-shrink: 0;
+  height: 100%;
+  background-color: #d97706;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.overview-result__status-bar-fail {
+  flex-shrink: 0;
+  height: 100%;
+  background-color: #dc2626;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 헤더 — 1352×26 고정 (피그마 px÷10=rem). 좌: 타이틀, 우: 완료/양품률 스탯 */
+.overview-result__header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 135.2rem;
+  height: 2.6rem;
+  margin: 2rem 2.4rem 0;
+  box-sizing: border-box;
+}
+
+.overview-result__title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.overview-result__title {
+  flex-shrink: 0;
+  font-size: 1.69rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.overview-result__subtitle {
+  flex-shrink: 0;
+  font-size: 1.267rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.overview-result__stats {
+  display: flex;
+  align-items: baseline;
+  gap: 3rem;
+  flex-shrink: 0;
+}
+
+.overview-result__stat {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.overview-result__stat-label {
+  flex-shrink: 0;
+  font-size: 1.569rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+.overview-result__stat-value {
+  flex-shrink: 0;
+  width: 9ch;
+  font-size: 2.052rem;
+  font-weight: 700;
+  color: #191c1d;
+  text-align: left;
+}
+
+.overview-result__stat-value--pass {
+  color: #1e7e34;
+}

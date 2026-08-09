@@ -1,0 +1,28 @@
+/* 섹션 — 개별 리포트 페이지 전체 영역. 폭은 다른 섹션과 동일하게 140rem.
+   nav 아래 헤더/본문1/본문2가 세로로 정렬되고 사이 갭은 2rem */
+.individual-report {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex-shrink: 0;
+  width: 140rem;
+  box-sizing: border-box;
+}
+
+/* 본문1 — 좌우 두 카드(셀 3D 뷰 / 결함 지표)를 가로로 배치, 사이 갭 2.4rem */
+.individual-report__body-1 {
+  display: flex;
+  gap: 2.4rem;
+  flex-shrink: 0;
+  width: 140rem;
+  height: 40.3rem;
+}
+
+/* 본문2 — 좌우 두 카드(검사 이미지 / AI 분석 소견)를 가로로 배치, 사이 갭 2.4rem */
+.individual-report__body-2 {
+  display: flex;
+  gap: 2.4rem;
+  flex-shrink: 0;
+  width: 140rem;
+  height: 34.5rem;
+}

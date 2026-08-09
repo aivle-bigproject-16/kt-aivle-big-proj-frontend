@@ -1,0 +1,195 @@
+/* 디자인 컴포넌트 — 오버뷰 카드, 420×230 고정, 곡률 20px (피그마 px÷10=rem, 1400 기준 정책) */
+.overview-capture {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 42rem;
+  height: 23rem;
+  border-radius: 1.2rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+
+/* 헤더 — 372×25 고정 (피그마 px÷10=rem). 좌: 상태 점+라벨, 우: 메뉴 버튼 */
+.overview-capture__header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 37.2rem;
+  height: 2.5rem;
+  margin: 2.4rem 2.4rem 0;
+  box-sizing: border-box;
+}
+
+.overview-capture__header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.76rem;
+  flex-shrink: 0;
+  height: 2.5rem;
+}
+
+.overview-capture__dot {
+  flex-shrink: 0;
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 50%;
+  background-color: #6b7280;
+}
+
+.overview-capture__label {
+  flex-shrink: 0;
+  font-size: 1.633rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.overview-capture__sublabel {
+  flex-shrink: 0;
+  font-size: 1.225rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+/* 로고 — 카메라 아이콘(26×20) 자체가 SVG stroke로 테두리를 그리므로
+   컨테이너에는 별도 border를 주지 않는다 */
+.overview-capture__logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2rem;
+  box-sizing: border-box;
+}
+
+/* 스테이터스 — 379×45 고정 (피그마 px÷10=rem). 좌: 숫자+단위, 우: 총량 */
+.overview-capture__status {
+  flex-shrink: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 37.9rem;
+  height: 4.5rem;
+  margin: 0.8rem 2.4rem 0;
+  box-sizing: border-box;
+}
+
+.overview-capture__status-left {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7155rem;
+  flex-shrink: 0;
+}
+
+.overview-capture__count {
+  flex-shrink: 0;
+  font-size: 3.733rem;
+  font-weight: 700;
+  color: #191c1d;
+  line-height: 1;
+}
+
+.overview-capture__unit {
+  flex-shrink: 0;
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+.overview-capture__total {
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+/* 스테이터스 바 — 380×5 고정 (피그마 px÷10=rem). 연한 색(전체) 위에 진한 색(현재)이
+   비율만큼 겹쳐진다. round cap이라 border-radius를 높이의 절반으로 준다 */
+.overview-capture__status-bar {
+  position: relative;
+  flex-shrink: 0;
+  width: 38rem;
+  height: 0.5rem;
+  margin: 1.2rem 2.4rem 0;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  background-color: #d3eeef;
+}
+
+.overview-capture__status-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0.5rem;
+  border-radius: 0.25rem;
+  background-color: #13777c;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 프로그레스 — 60×19 고정 (피그마 px÷10=rem). 세그먼트 6개, 캡슐 모양 */
+.overview-capture__progress {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: 6rem;
+  height: 1.9rem;
+  margin: 1.6rem 2.4rem 0;
+  box-sizing: border-box;
+}
+
+/* 진한 색이 좌→우로 순차 재생되며 오른쪽으로 흐르는 것처럼 보이게 한다.
+   각 세그먼트는 JS에서 준 animation-delay(0.15s 간격)만 다르고 애니메이션 자체는 공유 */
+.overview-capture__progress-segment {
+  flex-shrink: 0;
+  width: 0.7rem;
+  height: 1.9rem;
+  border-radius: 0.35rem;
+  background-color: #85c4c8;
+  animation: overview-capture-progress-flow 1.8s ease-in-out infinite;
+}
+
+/* 촬영 중인 셀/배치가 없으면 애니메이션을 멈추는 대신 전부 회색으로 표시한다 */
+.overview-capture__progress-segment--idle {
+  animation: none;
+  background-color: #d6dade;
+}
+
+@keyframes overview-capture-progress-flow {
+  0%, 100% {
+    background-color: #85c4c8;
+  }
+  50% {
+    background-color: #13777c;
+  }
+}
+
+/* 푸터 — 378×16 고정 (피그마 px÷10=rem). 좌: 촬영 속도, 우: 배치 번호 */
+.overview-capture__footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 37.8rem;
+  height: 1.6rem;
+  margin: auto 2.4rem 2rem;
+  box-sizing: border-box;
+}
+
+.overview-capture__footer-hint {
+  flex-shrink: 0;
+  font-size: 1.34rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.overview-capture__footer-batch {
+  flex-shrink: 0;
+  font-size: 1.34rem;
+  font-weight: 400;
+  color: #5b5f63;
+}

@@ -1,0 +1,184 @@
+/* 섹션 — 1400×100 고정, 곡률 1rem (피그마 px÷10=rem, 1400 기준 정책) */
+.pending-header {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 140rem;
+  height: 10rem;
+  border-radius: 1rem;
+  box-sizing: border-box;
+  padding: 0 2.9rem 0 3rem;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+/* status 배지와 Sim Control 버튼 사이 여백 */
+.pending-header .sim-control-wrap {
+  margin-left: 1.2rem;
+}
+
+/* 래퍼 — 나머지 자식 사이 공간을 채워 status를 오른쪽 끝에 붙인다 */
+.pending-header__spacer {
+  flex: 1;
+}
+
+/* 구분선 — px 고정 (선은 뷰포트 크기와 무관하게 항상 얇아야 함) */
+.pending-header__divider {
+  flex-shrink: 0;
+  width: 1px;
+  height: 5.5rem;
+  margin: 0 2rem;
+  background-color: #e4e7ea;
+}
+
+/* text 영역 — 15.569rem, 점 + 세로로 쌓인 라벨(대기/PENDING) */
+.pending-header__text {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+  flex-shrink: 0;
+  width: 15.569rem;
+  height: 100%;
+}
+
+.pending-header__dot {
+  flex-shrink: 0;
+  width: 1.207rem;
+  height: 1.207rem;
+  border-radius: 50%;
+  background-color: #6b7280;
+}
+
+.pending-header__text-labels {
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+  flex-shrink: 0;
+}
+
+.pending-header__label-main {
+  flex-shrink: 0;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #5b5f63;
+}
+
+.pending-header__label-sub {
+  flex-shrink: 0;
+  font-size: 1.267rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+/* units 영역 — 17.862rem, 위: 작은 라벨, 아래: 큰 숫자 + 단위 */
+.pending-header__units {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 17.862rem;
+  height: 100%;
+}
+
+.pending-header__field-label {
+  flex-shrink: 0;
+  font-size: 1.267rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.pending-header__units-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.pending-header__units-count {
+  flex-shrink: 0;
+  font-size: 3.862rem;
+  font-weight: 700;
+  color: #191c1d;
+  line-height: 1;
+}
+
+.pending-header__units-unit {
+  flex-shrink: 0;
+  font-size: 1.81rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+/* total / current-batch / next-batch — 동일 패턴: 위 작은 라벨, 아래 굵은 값 */
+.pending-header__total,
+.pending-header__current-batch,
+.pending-header__next-batch {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.pending-header__total {
+  width: 11.169rem;
+}
+
+.pending-header__current-batch {
+  width: 12.7rem;
+}
+
+.pending-header__next-batch {
+  width: 12.7rem;
+}
+
+.pending-header__field-value {
+  flex-shrink: 0;
+  font-size: 2.414rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+/* status 배지 — 132.75×32.5 고정 */
+.pending-header__status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  flex-shrink: 0;
+  width: 13.275rem;
+  height: 3.25rem;
+  border: 1px solid #bfe3c9;
+  border-radius: 0.65rem;
+  box-sizing: border-box;
+  background-color: #ecfdf3;
+}
+
+.pending-header__status-dot {
+  flex-shrink: 0;
+  width: 0.724rem;
+  height: 0.724rem;
+  border-radius: 50%;
+  background-color: #1e7e34;
+}
+
+.pending-header__status-text {
+  flex-shrink: 0;
+  font-size: 1.328rem;
+  font-weight: 400;
+  color: #1e7e34;
+}
+
+/* 시뮬레이션이 없을 때(OFF) — 초록 대신 회색 톤 */
+.pending-header__status--off {
+  border-color: #d1d5db;
+  background-color: #f3f4f6;
+}
+
+.pending-header__status--off .pending-header__status-dot {
+  background-color: #9ca3af;
+}
+
+.pending-header__status--off .pending-header__status-text {
+  color: #6b7280;
+}
