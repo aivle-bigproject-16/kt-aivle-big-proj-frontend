@@ -1,20 +1,14 @@
-import { useEffect, useState, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './ReportTable.css'
-import './IndividualReportTable.css'
 import { ROUTES } from '@/core/navigation/routes'
-import { DetailLinkButton } from '@/shared/ui/DetailLinkButton'
 import { Pagination } from '@/shared/ui/Pagination'
 import { useIndividualReportListStore } from '../store/useIndividualReportListStore'
+import { useReportListFilters } from '../hooks/useReportListFilters'
+import { ReportStatusBadge } from './ReportStatusBadge'
+import { ReportListToolbar } from './ReportListToolbar'
+import { ReportListSkeletonRows, ReportListEmptyRow, ReportListErrorRow } from './ReportListStates'
 
-const PAGE_SIZE = 20
-
-const STATUS_LABEL: Record<string, string> = {
-  PENDING: '대기중',
-  COMPLETED: '완료',
-  FAILED: '실패',
-}
-
+const COLUMN_COUNT = 4
 
 function formatDateTime(value: string | null): string {
   if (!value) return '-'
@@ -25,105 +19,124 @@ function formatDateTime(value: string | null): string {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`
 }
 
-interface IndividualReportTableProps {
-  headerActions?: ReactNode
+function ChevronIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
 }
 
-function IndividualReportTable({ headerActions }: IndividualReportTableProps) {
+function IndividualReportTable() {
   const navigate = useNavigate()
   const list = useIndividualReportListStore((s) => s.list)
   const isLoading = useIndividualReportListStore((s) => s.isLoading)
   const error = useIndividualReportListStore((s) => s.error)
   const { fetchList } = useIndividualReportListStore((s) => s.actions)
 
-  const [currentPage, setCurrentPage] = useState(1)
-
-  useEffect(() => {
-    fetchList(0, 100)
-  }, [fetchList])
-
-  const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE))
-  const pagedList = list.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
-  const rangeStart = list.length === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1
-  const rangeEnd = Math.min(currentPage * PAGE_SIZE, list.length)
+  const {
+    statusFilter,
+    setStatusFilter,
+    sortOrder,
+    setSortOrder,
+    search,
+    setSearch,
+    currentPage,
+    setCurrentPage,
+    counts,
+    filtered,
+    pagedList,
+    totalPages,
+    rangeStart,
+    rangeEnd,
+    resetFilters,
+    retry,
+  } = useReportListFilters(list, fetchList)
 
   return (
-    <section>
+    <section className="report-table">
       <div className="report-table__header">
-        <div>
-          <h1 className="report-table__title">
-            개별 리포트 <span className="report-table__title-en">(Individual Report)</span>
-          </h1>
-          <p className="report-table__subtitle">
-            Review detailed inspection reports for individual battery cells across all production lines.
-          </p>
-        </div>
-        {headerActions}
+        <h1 className="report-table__title">개별 리포트</h1>
       </div>
 
-      <div className="report-table__card">
-        {isLoading && <p className="report-table__status">로딩 중...</p>}
-        {error && <p className="report-table__status report-table__status--error">{error}</p>}
+      <ReportListToolbar
+        statusFilter={statusFilter}
+        onStatusFilterChange={setStatusFilter}
+        counts={counts}
+        sortOrder={sortOrder}
+        onSortOrderChange={setSortOrder}
+        search={search}
+        onSearchChange={setSearch}
+      />
 
+      <div className="report-table__card">
         <table className="report-table__table">
           <colgroup>
-            <col className="individual-report-table__col-status" />
-            <col className="individual-report-table__col-title" />
-            <col className="individual-report-table__col-date" />
-            <col className="individual-report-table__col-created" />
-            <col className="individual-report-table__col-detail" />
+            <col style={{ width: '16rem' }} />
+            <col />
+            <col style={{ width: '22rem' }} />
+            <col style={{ width: '26rem' }} />
           </colgroup>
           <thead>
             <tr>
               <th>상태</th>
               <th>제목</th>
-              <th></th>
+              <th>수정일시</th>
               <th>생성일시</th>
-              <th>상세</th>
             </tr>
           </thead>
           <tbody>
-            {!isLoading && list.length === 0 && (
-              <tr>
-                <td colSpan={5} className="report-table__empty">
-                  등록된 리포트가 없습니다.
-                </td>
-              </tr>
+            {isLoading && <ReportListSkeletonRows colSpan={COLUMN_COUNT} />}
+
+            {!isLoading && error && <ReportListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={retry} />}
+
+            {!isLoading && !error && list.length === 0 && (
+              <ReportListEmptyRow
+                colSpan={COLUMN_COUNT}
+                variant="no-data"
+                title="생성된 리포트가 없습니다"
+                subtitle="배터리 상세 화면에서 개별 리포트를 생성할 수 있습니다"
+              />
             )}
-            {pagedList.map((item) => (
-              <tr key={item.reportId} onClick={() => navigate(ROUTES.REPORT_INDIVIDUAL_DETAIL(item.reportId))} style={{ cursor: 'pointer' }}>
-                <td>
-                  <span className="report-table__status-cell">
-                    <span className="report-table__status-icon">
-                      {item.status === 'FAILED' && (
-                        <span className="report-table__dot report-table__dot--failed" />
-                      )}
-                      {item.status === 'COMPLETED' && (
-                        <span className="report-table__dot report-table__dot--completed" />
-                      )}
-                      {item.status === 'PENDING' && (
-                        <span className="report-table__dot report-table__dot--pending" />
-                      )}
+
+            {!isLoading && !error && list.length > 0 && filtered.length === 0 && (
+              <ReportListEmptyRow
+                colSpan={COLUMN_COUNT}
+                variant="no-results"
+                title="조건에 맞는 항목이 없습니다"
+                subtitle="필터 또는 검색어를 조정해 보세요"
+                actionLabel="필터 초기화"
+                onAction={resetFilters}
+              />
+            )}
+
+            {!isLoading &&
+              !error &&
+              pagedList.map((item) => (
+                <tr key={item.reportId} onClick={() => navigate(ROUTES.REPORT_INDIVIDUAL_DETAIL(item.reportId))}>
+                  <td>
+                    <ReportStatusBadge status={item.status} />
+                  </td>
+                  <td>{item.title ?? `리포트 #${item.reportId}`}</td>
+                  <td className="report-table__secondary report-table__mono">{formatDateTime(item.updatedAt)}</td>
+                  <td className="report-table__secondary report-table__mono">
+                    {formatDateTime(item.createdAt)}
+                    <span className="report-table__chevron">
+                      <ChevronIcon />
                     </span>
-                    {STATUS_LABEL[item.status] ?? item.status}
-                  </span>
-                </td>
-                <td>{item.title ?? `리포트 #${item.reportId}`}</td>
-                <td></td>
-                <td className="report-table__created">{formatDateTime(item.createdAt)}</td>
-                <td>
-                  <DetailLinkButton to={ROUTES.REPORT_INDIVIDUAL_DETAIL(item.reportId)} />
-                </td>
-              </tr>
-            ))}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
 
         <div className="report-table__footer">
-          <span className="report-table__footer-text">
-            Showing {rangeStart} to {rangeEnd} of {list.length} entries
+          <span className="report-table__count">
+            {filtered.length === 0 ? '0건' : `${filtered.length}건 중 ${rangeStart}–${rangeEnd}`}
           </span>
-          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+          {filtered.length > 0 && (
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+          )}
         </div>
       </div>
     </section>

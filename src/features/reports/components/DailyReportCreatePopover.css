@@ -1,0 +1,64 @@
+.daily-report-create-popover {
+  position: absolute;
+  top: calc(100% + 0.8rem);
+  right: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 24rem;
+  padding: 1.6rem;
+  background: #ffffff;
+  border-radius: var(--r-lg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.daily-report-create-popover__label {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #191c1d;
+}
+
+.daily-report-create-popover__input {
+  height: 3.4rem;
+  padding: 0 1rem;
+  border: 1px solid #e1e5ea;
+  border-radius: var(--r-md);
+  font-size: 1.3rem;
+  color: #191c1d;
+}
+
+.daily-report-create-popover__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+}
+
+.daily-report-create-popover__cancel {
+  height: 3.2rem;
+  padding: 0 1.4rem;
+  border: none;
+  border-radius: var(--r-md);
+  background: #f3f4f6;
+  color: #5b5f63;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.daily-report-create-popover__submit {
+  height: 3.2rem;
+  padding: 0 1.4rem;
+  border: none;
+  border-radius: var(--r-md);
+  background: #0c5795;
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.daily-report-create-popover__submit:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}

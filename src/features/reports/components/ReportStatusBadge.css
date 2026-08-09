@@ -1,0 +1,28 @@
+.report-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.4rem;
+  padding: 0 1rem;
+  font-size: 1.15rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.report-status-badge--pending {
+  border-radius: var(--r-pill);
+  background: #ebf8f9;
+  color: #13777c;
+}
+
+.report-status-badge--failed {
+  border-radius: var(--r-pill);
+  border: 1px solid #dc2626;
+  color: #dc2626;
+}
+
+.report-status-badge--completed {
+  padding: 0;
+  color: #5b5f63;
+}
