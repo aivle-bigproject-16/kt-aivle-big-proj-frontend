@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import './DefectAnalysisChart.css'
+// 1200 기준 구 CSS는 history/DefectAnalysisChart.css로 이동됨 — 1400 기준으로 새로 만들 것
 import { useDashboardStore } from '@/features/dashboard/store/useDashboardStore'
 import type { GraphDataItem, GraphType } from '@/features/dashboard/types'
 

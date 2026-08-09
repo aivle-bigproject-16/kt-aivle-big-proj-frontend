@@ -1,0 +1,162 @@
+/* 디자인 컴포넌트 — 오버뷰 카드, 420×230 고정, 곡률 20px (피그마 px÷10=rem, 1400 기준 정책) */
+.overview-pending {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 42rem;
+  height: 23rem;
+  border-radius: 1.2rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+/* 내부 5개 영역 — 세로로 정렬만 담당하는 상태. 아래 지정된 것 외 나머지는 크기 이후 지정 */
+.overview-pending__progress,
+.overview-pending__footer {
+  flex-shrink: 0;
+}
+
+/* 헤더 — 372×25 고정 (피그마 px÷10=rem). 좌: 상태 점+라벨, 우: 메뉴 버튼 */
+.overview-pending__header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 37.2rem;
+  height: 2.5rem;
+  margin: 2.4rem 2.4rem 0;
+  box-sizing: border-box;
+}
+
+.overview-pending__header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.76rem;
+  flex-shrink: 0;
+  height: 2.5rem;
+}
+
+.overview-pending__dot {
+  flex-shrink: 0;
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 50%;
+  background-color: #6b7280;
+}
+
+.overview-pending__label {
+  flex-shrink: 0;
+  font-size: 1.633rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.overview-pending__sublabel {
+  flex-shrink: 0;
+  font-size: 1.225rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.overview-pending__logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.333rem;
+  height: 2.333rem;
+  border: 1.6px solid #6b7280;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+}
+
+/* 스테이터스 — 379×45 고정 (피그마 px÷10=rem). 좌: 숫자+단위, 우: 총량 */
+.overview-pending__status {
+  flex-shrink: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 37.9rem;
+  height: 4.5rem;
+  margin: 0.8rem 2.4rem 0;
+  box-sizing: border-box;
+}
+
+.overview-pending__status-left {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7155rem;
+  flex-shrink: 0;
+}
+
+.overview-pending__count {
+  flex-shrink: 0;
+  font-size: 3.733rem;
+  font-weight: 700;
+  color: #191c1d;
+  line-height: 1;
+}
+
+.overview-pending__unit {
+  flex-shrink: 0;
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+.overview-pending__total {
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+/* 스테이터스 바 — 380×5 고정 (피그마 px÷10=rem). 연한 색(전체) 위에 진한 색(현재)이
+   비율만큼 겹쳐진다. round cap이라 border-radius를 높이의 절반으로 준다 */
+.overview-pending__status-bar {
+  position: relative;
+  flex-shrink: 0;
+  width: 38rem;
+  height: 0.5rem;
+  margin: 1.2rem 2.4rem 0;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  background-color: #d3eeef;
+}
+
+.overview-pending__status-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0.5rem;
+  border-radius: 0.25rem;
+  background-color: #13777c;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 푸터 — 378×17 고정 (피그마 px÷10=rem). 좌: 큐 힌트, 우: 배치 대기 */
+.overview-pending__footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 37.8rem;
+  height: 1.7rem;
+  margin: auto 2.4rem 2rem;
+  box-sizing: border-box;
+}
+
+.overview-pending__footer-hint {
+  flex-shrink: 0;
+  font-size: 1.34rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.overview-pending__footer-batch {
+  flex-shrink: 0;
+  font-size: 1.34rem;
+  font-weight: 400;
+  color: #5b5f63;
+}

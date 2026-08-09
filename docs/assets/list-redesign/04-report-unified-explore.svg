@@ -41,7 +41,7 @@
 
   <!-- ================= 우측 사용자 ================= -->
   <g>
-    <rect x="1439.5" y="64" width="190" height="42" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="1439.5" y="64" width="190" height="42" fill="#ffffff" filter="url(#sh)" rx="12"/>
     <circle cx="1462" cy="85" r="16" fill="#dfe3e7"/>
     <text x="1462" y="90" text-anchor="middle" font-size="12" font-weight="600" fill="#5b5f63">김</text>
     <text x="1487" y="90" font-size="14" fill="#191c1d">김경순</text>

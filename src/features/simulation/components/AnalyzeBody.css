@@ -1,0 +1,349 @@
+/* 래퍼 — 좌우 두 영역을 가로로 배치, 사이 갭 3rem */
+.analyze-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 3rem;
+  flex-shrink: 0;
+  width: 140rem;
+  margin-top: 2rem;
+}
+
+/* 좌측 영역 — 660×700 고정, 곡률 1rem, 헤더 + 민트 패널을 세로로 정렬 */
+.analyze-body__left {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 66rem;
+  height: 70rem;
+  padding: 3.3rem;
+  border-radius: 1rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.analyze-body__left-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  flex-shrink: 0;
+}
+
+.analyze-body__left-title {
+  flex-shrink: 0;
+  font-size: 1.69rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.analyze-body__left-subtitle {
+  flex-shrink: 0;
+  font-size: 1.267rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+/* 민트 패널 — 헤더 아래 남은 영역을 채운다. 좌측에 teal 액센트 바 */
+.analyze-body__panel {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  width: 100%;
+  margin-top: 2.3rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 1.8rem;
+  border-bottom-right-radius: 1.8rem;
+  box-sizing: border-box;
+  background-color: #ebf8f9;
+  overflow: hidden;
+}
+
+.analyze-body__panel-accent {
+  flex-shrink: 0;
+  width: 0.5rem;
+  align-self: stretch;
+  background-color: #13777c;
+}
+
+.analyze-body__panel-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  padding: 3.3rem 2.9rem 2rem 2.4rem;
+  box-sizing: border-box;
+}
+
+.analyze-body__panel-cell {
+  flex-shrink: 0;
+  font-size: 4.345rem;
+  font-weight: 700;
+  color: #191c1d;
+  line-height: 1;
+}
+
+.analyze-body__panel-meta {
+  flex-shrink: 0;
+  margin-top: 1.2rem;
+  font-size: 1.448rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+.analyze-body__panel-progress {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 1.6rem;
+}
+
+.analyze-body__panel-spinner {
+  flex-shrink: 0;
+  width: 1.96rem;
+  height: 1.96rem;
+  border: 0.3rem solid #d3eeef;
+  border-top-color: #13777c;
+  border-radius: 50%;
+  animation: analyze-body-spin 0.9s linear infinite;
+}
+
+.analyze-body__panel-spinner--paused {
+  animation: none;
+  border-top-color: #d3eeef;
+}
+
+@keyframes analyze-body-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.analyze-body__panel-progress-text {
+  flex-shrink: 0;
+  font-size: 1.569rem;
+  font-weight: 400;
+  color: #13777c;
+}
+
+/* 하단 CT/RGB 칩 — 패널 남는 공간을 채우고 아래쪽에 붙는다 */
+.analyze-body__panel-chips {
+  display: flex;
+  gap: 1.94rem;
+  flex-shrink: 0;
+  margin-top: auto;
+  padding-top: 2rem;
+}
+
+.analyze-body__panel-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-shrink: 0;
+  height: 4.1rem;
+  padding: 0 1.6rem;
+  border-radius: 2rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.analyze-body__panel-chip-label {
+  flex-shrink: 0;
+  font-size: 1.388rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+.analyze-body__panel-chip-dot {
+  flex-shrink: 0;
+  width: 0.83rem;
+  height: 0.83rem;
+  border-radius: 50%;
+}
+
+.analyze-body__panel-chip-dot--ct {
+  background-color: #1e7e34;
+}
+
+.analyze-body__panel-chip-dot--rgb {
+  background-color: #13777c;
+}
+
+.analyze-body__panel-chip-text {
+  flex-shrink: 0;
+  font-size: 1.388rem;
+  font-weight: 400;
+}
+
+.analyze-body__panel-chip-text--ct {
+  color: #1e7e34;
+}
+
+.analyze-body__panel-chip-text--rgb {
+  color: #13777c;
+}
+
+/* 우측 영역 — 710×700 고정, 곡률 1rem */
+.analyze-body__right {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 71rem;
+  height: 70rem;
+  padding: 3.3rem;
+  border-radius: 1rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.analyze-body__right-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.analyze-body__right-title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  flex-shrink: 0;
+}
+
+.analyze-body__right-title {
+  flex-shrink: 0;
+  font-size: 1.69rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.analyze-body__right-subtitle {
+  flex-shrink: 0;
+  font-size: 1.267rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.analyze-body__right-count {
+  flex-shrink: 0;
+  font-size: 1.569rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.analyze-body__right-hint {
+  flex-shrink: 0;
+  margin-top: 0.6rem;
+  font-size: 1.328rem;
+  font-weight: 400;
+  color: #b4b9be;
+}
+
+/* 셀 목록 — 넘치면 세로 스크롤 */
+.analyze-body__right-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.207rem;
+  flex: 1;
+  min-height: 0;
+  margin-top: 2rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #d0d4d8 transparent;
+}
+
+.analyze-body__right-list::-webkit-scrollbar {
+  width: 0.7rem;
+}
+
+.analyze-body__right-list::-webkit-scrollbar-thumb {
+  border-radius: 0.35rem;
+  background-color: #d0d4d8;
+}
+
+.analyze-body__right-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 셀 행 — 63.28×5.55 고정, 곡률 0.57rem. button이라 기본 스타일 리셋 */
+.analyze-body__row {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  flex-shrink: 0;
+  width: 100%;
+  height: 5.55rem;
+  padding: 0 3.4rem 0 2.4rem;
+  border: none;
+  border-radius: 0.57rem;
+  box-sizing: border-box;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.analyze-body__row:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.analyze-body__row:active {
+  transform: scale(0.99);
+}
+
+.analyze-body__row--neutral {
+  background-color: #fafbfc;
+}
+
+.analyze-body__row--pass {
+  background-color: #ecfdf3;
+}
+
+.analyze-body__row--reject {
+  background-color: #fffbeb;
+}
+
+.analyze-body__row--fail {
+  background-color: #fef2f2;
+}
+
+.analyze-body__row-index {
+  flex-shrink: 0;
+  width: 1.6rem;
+  font-size: 1.448rem;
+  font-weight: 400;
+  color: #9ca3af;
+  text-align: left;
+}
+
+.analyze-body__row-id {
+  flex-shrink: 0;
+  font-size: 1.569rem;
+  font-weight: 400;
+  color: #191c1d;
+}
+
+.analyze-body__row-status {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-size: 1.328rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.analyze-body__row--pass .analyze-body__row-status {
+  color: #1e7e34;
+}
+
+.analyze-body__row--reject .analyze-body__row-status {
+  color: #d97706;
+}
+
+.analyze-body__row--fail .analyze-body__row-status {
+  color: #dc2626;
+}

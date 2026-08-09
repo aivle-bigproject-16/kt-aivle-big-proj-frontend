@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import './BatteryList.css'
+// 1200 기준 구 CSS는 history/BatteryList.css로 이동됨 — 1400 기준으로 새로 만들 것
 import { DownloadIcon, CalendarIcon } from './BatteryListIcons'
 import { useBatteryListStore } from '../store/useBatteryListStore'
 import { ROUTES } from '@/core/navigation/routes'

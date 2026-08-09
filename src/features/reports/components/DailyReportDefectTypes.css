@@ -1,0 +1,130 @@
+/* 섹션 — 869 폭 고정, 곡률 1.44rem. 높이는 daily-report__row와 함께 33.872rem으로
+   조정(헤더 아래 세 섹션 합이 개별 리포트 본문1+본문2 합과 같아지도록) */
+.daily-report-defect-types {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 86.9rem;
+  height: 33.872rem;
+  border-radius: 1.44rem;
+  box-sizing: border-box;
+  padding: 2.9rem 3.1rem;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.daily-report-defect-types__header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  flex-shrink: 0;
+}
+
+.daily-report-defect-types__title {
+  flex-shrink: 0;
+  font-size: 1.69rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.daily-report-defect-types__subtitle {
+  flex-shrink: 0;
+  font-size: 1.267rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.daily-report-defect-types__total {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-size: 1.448rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+.daily-report-defect-types__divider {
+  flex-shrink: 0;
+  width: 100%;
+  height: 1px;
+  margin-top: 1.6rem;
+  background-color: #eceef0;
+}
+
+.daily-report-defect-types__empty {
+  flex-shrink: 0;
+  margin-top: 3rem;
+  font-size: 1.4rem;
+  color: #9ca3af;
+}
+
+.daily-report-defect-types__list {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  flex-shrink: 0;
+  margin-top: 2.8rem;
+  overflow-y: auto;
+}
+
+.daily-report-defect-types__row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  flex-shrink: 0;
+}
+
+.daily-report-defect-types__row-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  flex-shrink: 0;
+}
+
+.daily-report-defect-types__row-title {
+  flex-shrink: 0;
+  font-size: 1.629rem;
+  font-weight: 700;
+  color: #191c1d;
+}
+
+.daily-report-defect-types__row-code {
+  flex-shrink: 0;
+  font-size: 1.267rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.daily-report-defect-types__row-spacer {
+  flex: 1;
+}
+
+.daily-report-defect-types__row-count {
+  flex-shrink: 0;
+  font-size: 1.931rem;
+  font-weight: 700;
+  color: #191c1d;
+}
+
+.daily-report-defect-types__row-pct {
+  flex-shrink: 0;
+  font-size: 1.448rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+/* 비율 막대 — 806×19.3 고정, 곡률 1rem */
+.daily-report-defect-types__bar {
+  flex-shrink: 0;
+  width: 100%;
+  height: 1.93rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  background-color: #f1f3f4;
+}
+
+.daily-report-defect-types__bar-fill {
+  height: 100%;
+  border-radius: 1rem;
+  background-color: #3f7a8c;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}

@@ -162,7 +162,7 @@
   <!-- 사용자 칩 -->
   <text x="80" y="1074" font-size="12.5" font-weight="600" fill="#5b5f63">우측 사용자 칩 — sticky, 가로 바 금지</text>
   <g transform="translate(140,1088)">
-    <rect x="0" y="0" width="190" height="42" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="0" y="0" width="190" height="42" fill="#ffffff" filter="url(#sh)" rx="12"/>
     <circle cx="22" cy="21" r="16" fill="#dfe3e7"/>
     <text x="22" y="26" text-anchor="middle" font-size="12" font-weight="600" fill="#5b5f63">김</text>
     <text x="47" y="26" font-size="14" fill="#191c1d">김경순</text>

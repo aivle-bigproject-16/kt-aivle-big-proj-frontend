@@ -1,0 +1,80 @@
+/* 섹션 — 507 폭 고정, 곡률 1.44rem. 높이는 daily-report__row와 함께 33.872rem으로 조정 */
+.daily-report-reference {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 50.7rem;
+  height: 33.872rem;
+  border-radius: 1.44rem;
+  box-sizing: border-box;
+  padding: 2.9rem 3.1rem;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.daily-report-reference__header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  flex-shrink: 0;
+}
+
+.daily-report-reference__title {
+  flex-shrink: 0;
+  font-size: 1.69rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.daily-report-reference__subtitle {
+  flex-shrink: 0;
+  font-size: 1.267rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.daily-report-reference__empty {
+  flex-shrink: 0;
+  margin-top: 3rem;
+  font-size: 1.4rem;
+  color: #9ca3af;
+}
+
+/* 이미지 영역 — 449×241 고정, 곡률 0.8rem */
+.daily-report-reference__image {
+  position: relative;
+  flex-shrink: 0;
+  width: 44.9rem;
+  height: 24.14rem;
+  margin-top: 2.7rem;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  background-color: #8b96a1;
+}
+
+.daily-report-reference__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.daily-report-reference__badge {
+  position: absolute;
+  left: 1.2rem;
+  top: 1.2rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.3rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.daily-report-reference__caption {
+  flex-shrink: 0;
+  margin-top: 1.5rem;
+  font-size: 1.509rem;
+  font-weight: 400;
+  color: #191c1d;
+}

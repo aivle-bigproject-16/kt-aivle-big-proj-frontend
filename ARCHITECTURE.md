@@ -174,25 +174,27 @@ const { fetchList } = useBatteryListStore(s => s.actions)
 
 ### rem 스케일링
 
-**4K 해상도 기준으로 1rem = 10px** — 피그마 px÷10=rem 환산이 정확히 맞는 지점은 4K다. FHD(1920px)는 그보다 작은 `8.7px/rem`로 축소되어 보인다. `:root`에 아래를 설정한다:
+**정책 변경 (2026-08-07): col-main 기준을 1200px에서 1400px로 되돌림.** `:root`에 아래를 설정한다:
 
 ```css
 :root {
-  font-size: clamp(4px, calc(100vw / 220.6897), 10px);
-  --col-main: 120rem;
-  --col-side: 22.2857rem;
+  font-size: clamp(4px, calc(100vw / 192), 10px);
+  --col-main: 140rem;
+  --col-side: 26rem;
 }
 ```
 
+**레이아웃 총 폭**은 `col-side×2 + col-main = 192rem`이며, 이는 정확히 1920px 프레임과 같다. 그래서 뷰포트 1920px(=192rem×10px)에서 1rem이 정확히 `10px`이 되고, 사이드 여백 없이 레이아웃이 화면에 꽉 찬다.
+
 | 뷰포트 폭 | 1rem |
 |---|---|
-| `< 882.8px` | 하한 `4px`에 고정 |
-| `882.8px ~ 2206.9px` | `100vw / 220.6897`로 연속 변화 (FHD 1920px → `8.7px`) |
-| `≥ 2206.9px` (4K 이상) | 상한 `10px`에 고정 (정확히) |
+| `< 768px` | 하한 `4px`에 고정 (`192 × 4 = 768px`) |
+| `768px ~ 1920px` | `100vw / 192`로 연속 변화 |
+| `≥ 1920px` | 상한 `10px`에 고정 — 1920px보다 넓은 화면은 레이아웃이 더 커지지 않고 배경 여백만 늘어난다 |
 
-**레이아웃 총 폭**은 `col-side×2 + col-main = 164.5714rem`이다. 하한(`4px`)에서 실제 픽셀 폭은 `164.5714 × 4 ≈ 658px` — 뷰포트가 이보다 좁아지기 전까지는 `.root-layout`의 `overflow:hidden`에 잘리지 않고 계속 비례해서 줄어든다. 하한을 더 낮추면 이 잘림 시작점도 그만큼 더 좁은 화면까지 미뤄진다.
+**모든 컴포넌트의 rem 값은 이제 col-main = 1400px(140rem) 기준, 즉 피그마 프레임과 1:1이다.** 컴포넌트별 rem 값은 **피그마 px ÷ 10 = rem** 그대로 쓴다 — 더 이상 축소 계수(예전의 `6/7`)가 필요 없다.
 
-**모든 컴포넌트의 rem 값은 col-main = 1200px(120rem) 기준으로 설계됐다.** 피그마 프레임 자체는 1920px(col-main 1400px)로 그려지므로, 컴포넌트별 rem 값을 작성할 때는 **피그마 px ÷ 10 × 6/7 = rem**이다. `6/7`은 `1200/1400`에서 나온 축소 비율이다 — 이건 각 컴포넌트의 rem 수치를 정하는 규칙이고, 위 `clamp()`의 하한/분모/상한은 반응형 스케일 자체를 조정한 것이라 서로 독립적이다.
+**기존 1200 기준으로 만들어진 컴포넌트 CSS는 폐기한다.** 각 feature의 `components/history/` 폴더로 옮겨 참고용으로만 보관하고, import에서 제거한다. 새 CSS는 새 Figma 프레임(1400 기준)이 주어질 때 1400 기준으로 새로 작성한다 — 기존 값을 재계산해서 재사용하지 않는다.
 
 ### CSS 값 입력 규칙
 
@@ -202,19 +204,20 @@ const { fetchList } = useBatteryListStore(s => s.actions)
 | `border` 두께 | px 고정 | 선은 뷰포트 크기와 무관하게 항상 얇아야 함 |
 | `box-shadow` 값 | px 고정, **모든 디자인 컴포넌트 공통 고정값** | 시각적 디테일 — 비례 축소 불필요, 레이아웃에도 영향 없음. 컴포넌트마다 다르게 만들지 않는다 |
 
-**카드형 디자인 컴포넌트(패널/카드/서브카드 등)의 표준 그림자**는 아래 값으로 고정한다. 새 컴포넌트를 만들 때도 이 값을 그대로 쓴다 — 크기와 무관하게 전부 동일.
+**카드형 디자인 컴포넌트(패널/카드/서브카드 등)의 표준 그림자**는 `index.css`의 `:root`에 CSS 변수로 공통화되어 있다. 새 컴포넌트를 만들 때도 리터럴로 반복하지 말고 이 변수를 쓴다 — 크기와 무관하게 전부 동일.
 
 ```css
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+/* index.css :root */
+--shadow-card: 0 2px 8px rgba(0, 0, 0, 0.25);
 ```
 
 ```css
-/* 올바른 예 — 피그마 430px 요소, 6/7 축소 반영 */
+/* 올바른 예 — 피그마 430px 요소, 1400 기준 1:1 반영 */
 .card {
-  width: 36.8571rem;                        /* 430px ÷ 10 × 6/7 */
-  border-radius: 2.4rem;                    /* 28px ÷ 10 × 6/7 */
-  border: 1px solid #e9ecef;                /* px 고정 — 축소 대상 아님 */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); /* px 고정, 표준값 그대로 */
+  width: 43rem;                  /* 430px ÷ 10 */
+  border-radius: 2.8rem;         /* 28px ÷ 10 */
+  border: 1px solid #e9ecef;     /* px 고정 — 축소 대상 아님 */
+  box-shadow: var(--shadow-card); /* 공통 변수, 리터럴 반복 금지 */
 }
 ```
 
@@ -224,9 +227,9 @@ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 
 ```
 root-layout  (justify-content: center)
-├── .root-layout__left   — 22.2857rem
-├── .root-layout__center — 120rem  (--col-main)
-└── .root-layout__right  — 22.2857rem
+├── .root-layout__left   — 26rem
+├── .root-layout__center — 140rem  (--col-main)
+└── .root-layout__right  — 26rem
 ```
 
 ### 섹션(section)과 디자인 컴포넌트 구분
@@ -239,9 +242,31 @@ root-layout  (justify-content: center)
 
 래퍼에 `flex: 1` / `flex-grow` 사용은 허용. 섹션·디자인 컴포넌트에는 금지.
 
-**대시보드 섹션 크기**
+**정책 변경: 모든 영역은 값이 주어져야 한다 — 임의의 넓이를 갖는 영역은 없다.** 섹션과 디자인 컴포넌트는 `width`/`height`를 반드시 명시적 rem 값으로 지정한다. `width: auto`, `flex: 1`로 알아서 채워지는 크기, 퍼센트만으로 정해지는 크기(부모도 명시적 rem이 아니라면) 등 "정해지지 않은" 크기는 섹션·디자인 컴포넌트에 금지된다. 크기가 정해지지 않은 자식이 필요하면 그건 래퍼이지 섹션/디자인 컴포넌트가 아니다 — 역할을 다시 나눠라.
 
-| 섹션 | 클래스 | 크기 |
+**정책 변경 (재변경): `display: flex`가 기본 배치 방식이다.** 절대 위치(`position: absolute`)는 다른 요소 위에 겹쳐야 하는 오버레이/배지 등 특수한 경우에만 쓴다. 대신 **flex를 쓰더라도 모든 영역과 컴포넌트는 고정 크기를 가진다** — 자식은 항상 `flex-grow: 0` + `flex-shrink: 0` + 명시적 rem `width`/`height`를 유지한다. flex는 정렬/간격 계산만 대신할 뿐, 크기를 결정하게 두지 않는다. 컨테이너 크기·자식 크기·DOM 순서가 전부 고정이면, flex를 써도 각 자식의 렌더링 위치는 콘텐츠 변화와 무관하게 항상 동일하게 결정된다 — 절대 위치와 실질적으로 같은 안정성을 갖는다.
+
+```css
+/* 기본 배치 — flex, 자식은 항상 고정 크기 */
+.simulation-nav__tabs {
+  display: flex;
+  width: 45rem;
+  height: 5rem;
+}
+
+.simulation-nav__tab {
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 9rem;
+  height: 5rem;
+}
+```
+
+**대시보드 섹션 크기 (구 1200 기준 — 아직 1400 정책으로 마이그레이션 전)**
+
+대시보드/시뮬레이션 컴포넌트는 아직 옛 1200 기준 CSS를 그대로 쓰고 있다 (`history/`로 옮기지 않음). 아래 표와 예시 코드는 섹션/래퍼/디자인 컴포넌트 구분 패턴을 보여주기 위한 참고용이며, 수치 자체는 새로 이 영역을 작업할 때 1400 기준으로 다시 잡아야 한다.
+
+| 섹션 | 클래스 | 크기 (구) |
 |---|---|---|
 | 시뮬레이션 네비 | `.dashboard__sim-nav` | `120rem × 4.2857rem` |
 | 시뮬레이션 패널 | `.dashboard__simulation` | `120rem × 42.8571rem` |
@@ -249,7 +274,7 @@ root-layout  (justify-content: center)
 | 결과 요약 | `.dashboard__result` | `120rem × 25.7143rem` |
 
 ```css
-/* 섹션 — 영역만 확보 */
+/* 섹션/래퍼/디자인 컴포넌트 구분 패턴 예시 (수치는 구 1200 기준) */
 .dashboard__kpi {
   flex-shrink: 0;
   width: 120rem;
@@ -258,7 +283,6 @@ root-layout  (justify-content: center)
   box-sizing: border-box;
 }
 
-/* 래퍼 — 정렬만 */
 .kpi-cards {
   width: 100%;
   height: 100%;
@@ -268,7 +292,6 @@ root-layout  (justify-content: center)
   gap: 1.7143rem;
 }
 
-/* 디자인 컴포넌트 — rem 고정 */
 .kpi-card {
   flex-shrink: 0;
   width: 36.8571rem;

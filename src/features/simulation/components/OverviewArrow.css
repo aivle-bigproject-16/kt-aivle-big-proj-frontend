@@ -1,0 +1,27 @@
+/* 디자인 컴포넌트 — 카드 사이 갭(7rem)에서 양옆 0.5rem을 뺀 6rem으로 확대.
+   원본 비율(40:12) 유지 — 6rem × 12/40 = 1.8rem */
+.overview-arrow {
+  flex-shrink: 0;
+  width: 6rem;
+  height: 1.8rem;
+}
+
+/* stroke-dashoffset을 음수 방향으로 흘려서 점선이 화살촉(오른쪽) 방향으로
+   이동하는 것처럼 보이게 한다. 5.83+5.83=11.66이 패턴 한 주기 */
+.overview-arrow__dash {
+  animation: overview-arrow-flow 0.6s linear infinite;
+}
+
+@keyframes overview-arrow-flow {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -11.66;
+  }
+}
+
+/* 시뮬레이션이 러닝 중이 아니면 정지 */
+.overview-arrow__dash--paused {
+  animation-play-state: paused;
+}

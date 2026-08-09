@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import './BatteryDetailCard.css'
+// 1200 기준 구 CSS는 history/BatteryDetailCard.css로 이동됨 — 1400 기준으로 새로 만들 것
 import { useBatteryDetailStore } from '../store/useBatteryDetailStore'
 import { ImageSection } from './InspectionImageSection'
 import { ROUTES } from '@/core/navigation/routes'

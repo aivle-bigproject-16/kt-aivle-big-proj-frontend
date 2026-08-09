@@ -1,37 +1,10 @@
-import { useState } from 'react'
-import { OverviewPanel, KpiCards, ResultSummary, SimNavBar, PendingPanel, CapturePanel, AnalyzePanel, CompletePanel, useSimulationSocket } from '@/features/simulation'
-import './DashboardPage.css'
+import { Simulation } from '@/features/simulation'
+// 1200 기준 구 CSS는 history/DashboardPage.css로 이동됨 — 1400 기준으로 새로 만들 것
 
 function DashboardPage() {
-  useSimulationSocket()
-  const [activeTab, setActiveTab] = useState(0)
-
   return (
     <div className="dashboard">
-      <div className="dashboard__sim-nav">
-        <SimNavBar activeTab={activeTab} onTabChange={setActiveTab} />
-      </div>
-
-      <div className="dashboard__simulation">
-        <div
-          className="dashboard__panels"
-          style={{ transform: `translateX(calc(${activeTab} * -120rem))` }}
-        >
-          <div className="dashboard__panel"><OverviewPanel onNavigate={setActiveTab} /></div>
-          <div className="dashboard__panel"><PendingPanel active={activeTab === 1} /></div>
-          <div className="dashboard__panel"><CapturePanel active={activeTab === 2} /></div>
-          <div className="dashboard__panel"><AnalyzePanel /></div>
-          <div className="dashboard__panel"><CompletePanel /></div>
-        </div>
-      </div>
-
-      <div className="dashboard__kpi">
-        <KpiCards />
-      </div>
-
-      <div className="dashboard__result">
-        <ResultSummary />
-      </div>
+      <Simulation />
     </div>
   )
 }

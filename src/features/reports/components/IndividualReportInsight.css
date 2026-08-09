@@ -1,0 +1,68 @@
+/* 섹션 — 507×345 고정, 곡률 1.44rem (피그마 px÷10=rem, 1400 기준 정책) */
+.individual-report-insight {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 50.7rem;
+  height: 34.5rem;
+  border-radius: 1.44rem;
+  box-sizing: border-box;
+  padding: 2.1rem 2.7rem;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+  overflow-y: auto;
+}
+
+.individual-report-insight__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.individual-report-insight__title {
+  flex-shrink: 0;
+  font-size: 1.69rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.individual-report-insight__badge {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.414rem;
+  padding: 0 1.4rem;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  background-color: #f3f4f6;
+  font-size: 1.267rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+.individual-report-insight__divider {
+  flex-shrink: 0;
+  width: 100%;
+  height: 1px;
+  margin-top: 1.5rem;
+  background-color: #eceef0;
+}
+
+.individual-report-insight__body {
+  flex-shrink: 0;
+  margin: 2.2rem 0 0;
+  font-size: 1.569rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #191c1d;
+  white-space: pre-wrap;
+}
+
+.individual-report-insight__empty {
+  flex-shrink: 0;
+  margin: 2.2rem 0 0;
+  font-size: 1.4rem;
+  color: #9ca3af;
+}
