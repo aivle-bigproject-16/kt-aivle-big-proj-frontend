@@ -1,0 +1,169 @@
+/* 섹션 — 1400×700 고정, 곡률 1.81rem (피그마 px÷10=rem, 1400 기준 정책) */
+.pending-body {
+  flex-shrink: 0;
+  width: 140rem;
+  height: 70rem;
+  margin-top: 2rem;
+  border-radius: 1.2rem;
+  box-sizing: border-box;
+  padding: 1.8rem 3.1rem 1.8rem 2.9rem;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+/* 래퍼 — 배치 행들을 세로로 나열, 넘치면 스크롤 */
+.pending-body__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #d0d4d8 transparent;
+}
+
+.pending-body__list::-webkit-scrollbar {
+  width: 0.7rem;
+}
+
+.pending-body__list::-webkit-scrollbar-thumb {
+  border-radius: 0.35rem;
+  background-color: #d0d4d8;
+}
+
+.pending-body__list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 펼쳐진 배치 하나 — 헤더 + 셀 목록을 세로로 정렬만 담당 */
+.pending-body__batch {
+  display: flex;
+  flex-direction: column;
+  gap: 1.54rem;
+  flex-shrink: 0;
+}
+
+/* 배치 헤더 — 1320.72×68 고정, 곡률 0.53rem. button이라 기본 스타일 리셋 */
+.pending-body__batch-header {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-shrink: 0;
+  width: 132.072rem;
+  height: 6.8rem;
+  padding: 0 1.6rem;
+  border: none;
+  border-radius: 0.53rem;
+  box-sizing: border-box;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.pending-body__batch-header--expanded {
+  background-color: #e4edff;
+}
+
+.pending-body__batch-header--collapsed {
+  background-color: #f2f5f9;
+}
+
+/* 호버 — 그림자가 살짝 진해지며 떠오르는 느낌만 준다. opacity(접힘 단계)는 건드리지 않는다 */
+.pending-body__batch-header:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-0.15rem);
+}
+
+/* 셰브론 — 접혀 있을 때 위쪽을 향하고, 펼치면 아래로 회전한다.
+   원본 박스(17×9)가 가로로 넓어서 90도 회전하면 세로로 길어지는데, SVG는 기본적으로
+   자기 박스 밖을 잘라내므로(overflow:hidden과 동일) 회전한 오른쪽 끝이 잘린다.
+   overflow:visible로 박스 밖까지 그리게 해서 잘리지 않게 한다 */
+.pending-body__chevron {
+  flex-shrink: 0;
+  overflow: visible;
+  transform: rotate(-90deg);
+  transition: transform 0.2s ease;
+}
+
+.pending-body__chevron--expanded {
+  transform: rotate(0deg);
+}
+
+.pending-body__batch-title {
+  flex-shrink: 0;
+  font-size: 1.69rem;
+  font-weight: 700;
+  color: #191c1d;
+}
+
+.pending-body__batch-title--collapsed {
+  color: #5b5f63;
+}
+
+.pending-body__batch-count {
+  flex-shrink: 0;
+  font-size: 1.448rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.pending-body__batch-header--expanded .pending-body__batch-count {
+  color: #5b5f63;
+}
+
+.pending-body__batch-next-hint {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-size: 1.388rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+/* 셀 목록 — 132.074rem, 셀 6개 가로 배치. 6개를 넘으면 두 번째 줄로 줄바꿈된다.
+   줄 수가 가변이라 높이는 고정하지 않고 내용에 따라 늘어난다 (flex-wrap 예외 케이스) */
+.pending-body__cells {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.2rem 3.856rem;
+  flex-shrink: 0;
+  width: 132.074rem;
+  margin-bottom: 2rem;
+}
+
+/* 셀 칩 하나 — 18.799×4.82 고정, 곡률 0.53rem. button이라 기본 스타일 리셋 */
+.pending-body__cell {
+  display: flex;
+  padding-left: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.4rem;
+  flex-shrink: 0;
+  width: 18.799rem;
+  height: 4.82rem;
+  border: none;
+  border-radius: 0.53rem;
+  box-sizing: border-box;
+  background-color: #fafbfc;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pending-body__cell:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.pending-body__cell:active {
+  transform: scale(0.98);
+}
+
+.pending-body__cell-id {
+  flex-shrink: 0;
+  font-size: 1.567rem;
+  font-weight: 400;
+  color: #191c1d;
+}

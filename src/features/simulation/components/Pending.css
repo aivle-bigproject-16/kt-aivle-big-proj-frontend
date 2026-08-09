@@ -1,0 +1,8 @@
+/* 섹션 — 대기 탭 전체 영역. 폭은 다른 섹션과 동일하게 140rem, 높이는 아직 미지정 */
+.pending {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 140rem;
+  box-sizing: border-box;
+}

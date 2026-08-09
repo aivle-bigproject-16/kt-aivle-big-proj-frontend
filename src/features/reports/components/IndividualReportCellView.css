@@ -1,0 +1,62 @@
+/* 섹션 — 869×403 고정, 곡률 1.3rem (피그마 px÷10=rem, 1400 기준 정책) */
+.individual-report-cellview {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 86.9rem;
+  height: 40.3rem;
+  border-radius: 1.3rem;
+  box-sizing: border-box;
+  padding: 2.1rem 3.3rem 2rem;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.individual-report-cellview__header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  flex-shrink: 0;
+}
+
+.individual-report-cellview__title {
+  flex-shrink: 0;
+  font-size: 1.69rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.individual-report-cellview__subtitle {
+  flex-shrink: 0;
+  font-size: 1.267rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.individual-report-cellview__hint {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-size: 1.328rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+/* 검은 3D 캔버스 — 811×304 고정, 곡률 0.8rem */
+.individual-report-cellview__canvas {
+  flex-shrink: 0;
+  width: 81.1rem;
+  height: 30.4rem;
+  margin-top: 2rem;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  background-color: #1b2027;
+}
+
+.individual-report-cellview__caption {
+  flex-shrink: 0;
+  align-self: flex-end;
+  margin-top: 1rem;
+  font-size: 1.328rem;
+  font-weight: 400;
+  color: #6d7883;
+}

@@ -1,0 +1,112 @@
+/* 카드 4개 가로 배치, 사이 갭 2.414rem */
+.daily-report-stat-cards {
+  display: flex;
+  gap: 2.414rem;
+  flex-shrink: 0;
+  width: 140rem;
+}
+
+/* 카드 하나 — 331.9 폭 고정, 곡률 1.05rem. 좌측 액센트 바는 overflow:hidden으로 잘린다.
+   높이는 헤더 아래 세 섹션(통계/결함유형+참조/총평) 합이 개별 리포트의 본문1+본문2
+   합과 같아지도록 12.253rem으로 조정했다 */
+.daily-report-stat-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.2rem;
+  flex: 1;
+  height: 12.253rem;
+  padding: 0 2.9rem;
+  border-radius: 1.05rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.daily-report-stat-card--pass,
+.daily-report-stat-card--reject,
+.daily-report-stat-card--fail {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.daily-report-stat-card__accent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0.48rem;
+  height: 100%;
+}
+
+.daily-report-stat-card--pass .daily-report-stat-card__accent {
+  background-color: #1e7e34;
+}
+
+.daily-report-stat-card--reject .daily-report-stat-card__accent {
+  background-color: #d97706;
+}
+
+.daily-report-stat-card--fail .daily-report-stat-card__accent {
+  background-color: #dc2626;
+}
+
+.daily-report-stat-card__label {
+  flex-shrink: 0;
+  font-size: 1.328rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.daily-report-stat-card__value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  flex-shrink: 0;
+}
+
+.daily-report-stat-card__value {
+  flex-shrink: 0;
+  font-size: 4.103rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #191c1d;
+}
+
+.daily-report-stat-card--pass .daily-report-stat-card__value {
+  color: #1e7e34;
+}
+
+.daily-report-stat-card--reject .daily-report-stat-card__value {
+  color: #d97706;
+}
+
+.daily-report-stat-card--fail .daily-report-stat-card__value {
+  color: #dc2626;
+}
+
+.daily-report-stat-card__unit {
+  flex-shrink: 0;
+  font-size: 1.569rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.daily-report-stat-card__pct {
+  flex-shrink: 0;
+  font-size: 1.81rem;
+  font-weight: 400;
+}
+
+.daily-report-stat-card--pass .daily-report-stat-card__pct {
+  color: #1e7e34;
+}
+
+.daily-report-stat-card--reject .daily-report-stat-card__pct {
+  color: #d97706;
+}
+
+.daily-report-stat-card--fail .daily-report-stat-card__pct {
+  color: #dc2626;
+}

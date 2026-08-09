@@ -1,0 +1,135 @@
+/* 섹션 — 869×345 고정, 곡률 1.44rem (피그마 px÷10=rem, 1400 기준 정책) */
+.individual-report-images {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 86.9rem;
+  height: 34.5rem;
+  border-radius: 1.44rem;
+  box-sizing: border-box;
+  padding: 2rem 2.9rem;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.individual-report-images__header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  flex-shrink: 0;
+}
+
+.individual-report-images__title {
+  flex-shrink: 0;
+  font-size: 1.69rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.individual-report-images__subtitle {
+  flex-shrink: 0;
+  font-size: 1.267rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+/* CT/RGB 토글 — 21.724×3.862 고정, 곡률 0.6rem. 선택된 탭만 흰 배경 pill */
+.individual-report-images__toggle {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  width: 21.724rem;
+  height: 3.862rem;
+  margin-top: 1.7rem;
+  padding: 0.36rem;
+  border-radius: 0.6rem;
+  box-sizing: border-box;
+  background-color: #dcdcdc;
+}
+
+.individual-report-images__tab {
+  flex: 1;
+  border: none;
+  border-radius: 0.4rem;
+  box-sizing: border-box;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: 1.569rem;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.individual-report-images__tab--active {
+  background-color: #ffffff;
+  font-weight: 700;
+  color: #191c1d;
+}
+
+.individual-report-images__empty {
+  flex-shrink: 0;
+  margin-top: 3rem;
+  font-size: 1.4rem;
+  color: #9ca3af;
+}
+
+/* 썸네일 그리드 — 4열, 사이 갭 2.414rem */
+.individual-report-images__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.414rem;
+  flex-shrink: 0;
+  margin-top: 2rem;
+}
+
+.individual-report-images__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+/* 썸네일 — 193×194 고정, 곡률 0.8rem. 실제 이미지 URL이 아직 없어 색상 플레이스홀더.
+   button이라 기본 스타일 리셋 */
+.individual-report-images__thumb {
+  position: relative;
+  flex-shrink: 0;
+  width: 19.31rem;
+  height: 19.4rem;
+  padding: 0;
+  border: none;
+  border-radius: 0.8rem;
+  box-sizing: border-box;
+  background-color: #8b96a1;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.individual-report-images__thumb:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.individual-report-images__thumb:active {
+  transform: scale(0.98);
+}
+
+.individual-report-images__thumb-badge {
+  position: absolute;
+  left: 0.8rem;
+  top: 0.8rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.3rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  font-size: 1.146rem;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.individual-report-images__caption {
+  flex-shrink: 0;
+  font-size: 1.328rem;
+  font-weight: 400;
+  color: #9ca3af;
+}

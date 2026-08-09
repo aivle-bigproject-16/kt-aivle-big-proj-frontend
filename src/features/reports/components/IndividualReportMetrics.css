@@ -1,0 +1,188 @@
+/* 섹션 — 507×403 고정, 곡률 1.3rem (피그마 px÷10=rem, 1400 기준 정책) */
+.individual-report-metrics {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 50.7rem;
+  height: 40.3rem;
+  border-radius: 1.3rem;
+  box-sizing: border-box;
+  padding: 2.1rem 3.3rem 2.6rem;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.individual-report-metrics__header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  flex-shrink: 0;
+}
+
+.individual-report-metrics__title {
+  flex-shrink: 0;
+  font-size: 1.69rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.individual-report-metrics__subtitle {
+  flex-shrink: 0;
+  font-size: 1.267rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+/* 위험도/패턴 칩 */
+.individual-report-metrics__chips {
+  display: flex;
+  gap: 1.207rem;
+  flex-shrink: 0;
+  margin-top: 1.9rem;
+}
+
+.individual-report-metrics__chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 3.138rem;
+  border-radius: 0.6rem;
+  box-sizing: border-box;
+  font-size: 1.388rem;
+  font-weight: 700;
+}
+
+.individual-report-metrics__chip--risk {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+
+.individual-report-metrics__chip--pattern {
+  background-color: #f3f4f6;
+  color: #5b5f63;
+  font-weight: 400;
+}
+
+.individual-report-metrics__divider {
+  flex-shrink: 0;
+  width: 100%;
+  height: 1px;
+  margin-top: 2.4rem;
+  background-color: #eceef0;
+}
+
+/* 불량 이미지 비율 / 결함 수 */
+.individual-report-metrics__stats {
+  display: flex;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  margin-top: 2rem;
+}
+
+.individual-report-metrics__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  flex-shrink: 0;
+  width: 50%;
+  margin-left: 0.5rem;
+}
+
+.individual-report-metrics__stat--right {
+  align-items: flex-start;
+}
+
+.individual-report-metrics__stat-label {
+  flex-shrink: 0;
+  font-size: 1.328rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.individual-report-metrics__stat-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.individual-report-metrics__stat-value {
+  flex-shrink: 0;
+  font-size: 3.621rem;
+  font-weight: 700;
+  color: #191c1d;
+  line-height: 1;
+}
+
+.individual-report-metrics__stat-unit {
+  flex-shrink: 0;
+  font-size: 1.69rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+
+.individual-report-metrics__zones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.966rem;
+  flex-shrink: 0;
+  margin-top: 1.2rem;
+}
+
+/* 구역 행 — 44.9×4.59 고정, 곡률 0.53rem. 좌측 액센트 바는 overflow:hidden으로 잘린다 */
+.individual-report-metrics__zone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.94rem;
+  flex-shrink: 0;
+  width: 100%;
+  height: 5.5rem;
+  padding-left: 1.94rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0.53rem;
+  border-bottom-right-radius: 0.53rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: #fafbfc;
+}
+
+.individual-report-metrics__zone-accent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0.362rem;
+  height: 100%;
+}
+
+.individual-report-metrics__zone--fail .individual-report-metrics__zone-accent {
+  background-color: #dc2626;
+}
+
+.individual-report-metrics__zone--reject .individual-report-metrics__zone-accent {
+  background-color: #d97706;
+}
+
+.individual-report-metrics__zone-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex-shrink: 0;
+}
+
+.individual-report-metrics__zone-title {
+  flex-shrink: 0;
+  font-size: 1.509rem;
+  font-weight: 700;
+  color: #191c1d;
+}
+
+.individual-report-metrics__zone-note {
+  flex-shrink: 0;
+  font-size: 1.388rem;
+  font-weight: 400;
+  color: #5b5f63;
+}

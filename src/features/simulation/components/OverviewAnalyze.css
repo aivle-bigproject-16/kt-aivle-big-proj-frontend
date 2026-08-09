@@ -1,0 +1,201 @@
+/* 디자인 컴포넌트 — 오버뷰 카드, 420×230 고정, 곡률 20px (피그마 px÷10=rem, 1400 기준 정책) */
+.overview-analyze {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 42rem;
+  height: 23rem;
+  border-radius: 1.2rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+
+/* 헤더 — 372×25 고정 (피그마 px÷10=rem). 좌: 상태 점+라벨, 우: 메뉴 버튼 */
+.overview-analyze__header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 37.2rem;
+  height: 2.5rem;
+  margin: 2.4rem 2.4rem 0;
+  box-sizing: border-box;
+}
+
+.overview-analyze__header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.76rem;
+  flex-shrink: 0;
+  height: 2.5rem;
+}
+
+.overview-analyze__dot {
+  flex-shrink: 0;
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 50%;
+  background-color: #6b7280;
+}
+
+.overview-analyze__label {
+  flex-shrink: 0;
+  font-size: 1.633rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.overview-analyze__sublabel {
+  flex-shrink: 0;
+  font-size: 1.225rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+/* 로고 — 돋보기 아이콘(22×22) 자체가 SVG stroke로 테두리를 그리므로
+   컨테이너에는 별도 border를 주지 않는다 */
+.overview-analyze__logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  box-sizing: border-box;
+}
+
+/* 스테이터스 — 379×45 고정 (피그마 px÷10=rem). 좌: 숫자+단위, 우: 총량 */
+.overview-analyze__status {
+  flex-shrink: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 37.9rem;
+  height: 4.5rem;
+  margin: 0.8rem 2.4rem 0;
+  box-sizing: border-box;
+}
+
+.overview-analyze__status-left {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7155rem;
+  flex-shrink: 0;
+}
+
+.overview-analyze__count {
+  flex-shrink: 0;
+  font-size: 3.733rem;
+  font-weight: 700;
+  color: #191c1d;
+  line-height: 1;
+}
+
+.overview-analyze__unit {
+  flex-shrink: 0;
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+.overview-analyze__total {
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+/* 스테이터스 바 — 380×5 고정 (피그마 px÷10=rem). 연한 색(전체) 위에 진한 색(현재)이
+   비율만큼 겹쳐진다. round cap이라 border-radius를 높이의 절반으로 준다 */
+.overview-analyze__status-bar {
+  position: relative;
+  flex-shrink: 0;
+  width: 38rem;
+  height: 0.5rem;
+  margin: 1.2rem 2.4rem 0;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  background-color: #d3eeef;
+}
+
+.overview-analyze__status-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0.5rem;
+  border-radius: 0.25rem;
+  background-color: #13777c;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 프로그레스 — 109×18 고정 (피그마 px÷10=rem). 회전하는 스피너 + 상태 텍스트 */
+.overview-analyze__progress {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 10.9rem;
+  height: 1.8rem;
+  margin: 1.6rem 2.4rem 0;
+  box-sizing: border-box;
+}
+
+.overview-analyze__spinner {
+  flex-shrink: 0;
+  width: 1.633rem;
+  height: 1.633rem;
+  border: 0.233rem solid #d3eeef;
+  border-top-color: #13777c;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: overview-analyze-spin 0.9s linear infinite;
+}
+
+@keyframes overview-analyze-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 분석 중인 셀이 없으면 애니메이션 정지 */
+.overview-analyze__spinner--paused {
+  animation-play-state: paused;
+}
+
+.overview-analyze__progress-text {
+  flex-shrink: 0;
+  font-size: 1.34rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+/* 푸터 — 378×17 고정 (피그마 px÷10=rem). 좌: 큐 힌트, 우: 배치 대기 */
+.overview-analyze__footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 37.8rem;
+  height: 1.7rem;
+  margin: auto 2.4rem 2rem;
+  box-sizing: border-box;
+}
+
+.overview-analyze__footer-hint {
+  flex-shrink: 0;
+  font-size: 1.34rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.overview-analyze__footer-batch {
+  flex-shrink: 0;
+  font-size: 1.34rem;
+  font-weight: 400;
+  color: #5b5f63;
+}

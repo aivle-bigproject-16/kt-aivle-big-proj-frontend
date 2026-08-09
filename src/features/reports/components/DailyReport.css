@@ -1,0 +1,19 @@
+/* 섹션 — 일일 리포트 페이지 전체 영역. 폭은 다른 섹션과 동일하게 140rem.
+   헤더/통계/결함유형+참조/총평이 세로로 정렬되고 사이 갭은 2rem */
+.daily-report {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex-shrink: 0;
+  width: 140rem;
+  box-sizing: border-box;
+}
+
+/* 결함 유형 분포 / 참조 이미지 — 좌우 배치, 사이 갭 2.4rem */
+.daily-report__row {
+  display: flex;
+  gap: 2.4rem;
+  flex-shrink: 0;
+  width: 140rem;
+  height: 33.872rem;
+}

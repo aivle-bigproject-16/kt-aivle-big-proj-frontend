@@ -1,0 +1,68 @@
+/* 섹션 — 1400 폭 고정, 곡률 1.44rem. 높이는 헤더 아래 세 섹션 합이 개별 리포트의
+   본문1+본문2 합(76.8rem)과 같아지도록 26.673rem으로 조정 */
+.daily-report-summary {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 140rem;
+  height: 26.673rem;
+  border-radius: 1.44rem;
+  box-sizing: border-box;
+  padding: 2.9rem 3.1rem;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.daily-report-summary__header {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  flex-shrink: 0;
+}
+
+.daily-report-summary__title {
+  flex-shrink: 0;
+  font-size: 1.69rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.daily-report-summary__badge {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.414rem;
+  padding: 0 1.4rem;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  background-color: #f3f4f6;
+  font-size: 1.267rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+.daily-report-summary__divider {
+  flex-shrink: 0;
+  width: 100%;
+  height: 1px;
+  margin-top: 1.4rem;
+  background-color: #eceef0;
+}
+
+.daily-report-summary__body {
+  flex-shrink: 0;
+  margin: 2rem 0 0;
+  font-size: 1.629rem;
+  font-weight: 400;
+  line-height: 1.9;
+  color: #191c1d;
+  white-space: pre-wrap;
+}
+
+.daily-report-summary__empty {
+  flex-shrink: 0;
+  margin: 2rem 0 0;
+  font-size: 1.4rem;
+  color: #9ca3af;
+}

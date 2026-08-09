@@ -1,0 +1,10 @@
+/* 3D 캔버스 — 부모(individual-report-cellview__canvas 등)의 크기를 그대로 채운다 */
+.cell3d {
+  width: 100%;
+  height: 100%;
+}
+
+.cell3d__canvas-wrap {
+  width: 100%;
+  height: 100%;
+}

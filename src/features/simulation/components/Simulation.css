@@ -1,8 +1,7 @@
-@keyframes kpi-pop {
-  from { opacity: 0; transform: translateY(0.5143rem); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.simulation-card__value--animate {
-  animation: kpi-pop 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+/* 섹션 — 시뮬레이션 전체 영역, 1400×900 고정 (피그마 px÷10=rem, 1400 기준 정책) */
+.simulation {
+  flex-shrink: 0;
+  width: 140rem;
+  height: 90rem;
+  box-sizing: border-box;
 }

@@ -1,22 +1,28 @@
-/* 기준 해상도: 1920×920 | 1920px에서 1rem = 8.7px.
-   모든 컴포넌트 rem 값은 1200px 폭 col-main 기준으로 설계됨(px÷10=rem).
-   4K 이상(vw≥2206.9px)에서는 상한 10px에 고정 — px÷10=rem 환산이 "정확히" 맞는
-   기준 해상도는 4K이고, FHD(1920px)는 그보다 작은 8.7px/rem로 축소되어 보인다.
+/* 정책 변경 — col-main 기준을 1200px에서 1400px로 되돌림. 레이아웃 총 폭
+   (col-side×2+col-main = 26×2+140 = 192rem)이 정확히 1920px 프레임과 같아서,
+   뷰포트 1920px에서 1rem=10px일 때 사이드 여백 없이 레이아웃이 화면에 꽉 찬다.
+   컴포넌트 rem 값은 이제 피그마 px ÷ 10 = rem 그대로 쓴다 (6/7 축소 계수 폐지).
+   기존 1200 기준으로 만들어진 컴포넌트 CSS는 더 이상 쓰지 않고 각 feature의
+   components/history/ 폴더로 옮겨 보관한다 — 새 CSS는 1400 기준으로 새로 만든다.
 
-   하한 4px — 레이아웃 총 폭(col-side×2+col-main=164.5714rem)이 하한에서
-   164.5714×4≈658px가 되어, 뷰포트가 그보다 좁아지기 전까지는 잘리지 않고
-   계속 비례해서 줄어든다. (하한이 7px일 때는 1152px부터 잘렸다) */
+   상한 10px — 1920px 뷰포트에서 레이아웃이 정확히 꽉 차는 지점.
+   하한 4px — 레이아웃 총 폭(192rem)이 하한에서 192×4=768px가 되어,
+   뷰포트가 그보다 좁아지기 전까지는 잘리지 않고 계속 비례해서 줄어든다. */
 :root {
   --base-w: 1920px;
   --base-h: 920px;
 
-  --col-side: 22.2857rem;   /* 222.857px */
-  --col-main: 120rem;  /* 1200px */
+  --col-side: 26rem;   /* 260px */
+  --col-main: 140rem;  /* 1400px */
 
   --bg: #ededed;
 
-  font-size: clamp(4px, calc(100vw / 195), 20px);
-  font-family: 'Inter', system-ui, 'Pretendard', sans-serif;
+  /* 카드형 디자인 컴포넌트의 표준 그림자 — 모든 컴포넌트가 이 값을 공유한다.
+     개별 컴포넌트 CSS에 리터럴로 반복하지 말고 var(--shadow-card)를 쓴다 */
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.25);
+
+  font-size: clamp(4px, calc(100vw / 205.294), 10px);
+  font-family: 'Inter', system-ui, sans-serif;
   line-height: 1.5;
   color: #191c1d;
   background: var(--bg);
