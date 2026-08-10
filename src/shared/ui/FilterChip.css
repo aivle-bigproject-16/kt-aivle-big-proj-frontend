@@ -1,0 +1,47 @@
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 3.2rem;
+  padding: 0 1.4rem;
+  border: none;
+  border-radius: var(--r-pill);
+  background: #ffffff;
+  color: #5b5f63;
+  font-size: 1.3rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.filter-chip--active {
+  background: #0c5795;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.filter-chip__count {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 1.2rem;
+  color: #9ca3af;
+}
+
+.filter-chip--active .filter-chip__count {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.filter-chip__marker-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.filter-chip__marker-triangle {
+  width: 0;
+  height: 0;
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+  border-bottom: 0.8rem solid;
+  flex-shrink: 0;
+}

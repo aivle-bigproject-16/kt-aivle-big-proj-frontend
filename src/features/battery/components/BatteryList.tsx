@@ -1,13 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-// 1200 기준 구 CSS는 history/BatteryList.css로 이동됨 — 1400 기준으로 새로 만들 것
-import { DownloadIcon, CalendarIcon } from './BatteryListIcons'
-import { useBatteryListStore } from '../store/useBatteryListStore'
+import './BatteryList.css'
 import { ROUTES } from '@/core/navigation/routes'
 import { Pagination } from '@/shared/ui/Pagination'
-import { DetailLinkButton } from '@/shared/ui/DetailLinkButton'
+import { ListSkeletonRows, ListEmptyRow, ListErrorRow } from '@/shared/ui/ListStates'
+import { useBatteryListStore } from '../store/useBatteryListStore'
+import { BatteryResultBadge } from './BatteryResultBadge'
+import { BatteryListToolbar } from './BatteryListToolbar'
+import type { FinalLabel } from '../types'
 
 const PAGE_SIZE = 20
+const COLUMN_COUNT = 5
+
+const CELL_TYPE_LABEL: Record<string, string> = {
+  POUCH: '파우치',
+  CYLINDRICAL: '원통형',
+}
 
 function formatDateTime(value: string | null): string {
   if (!value) return '-'
@@ -18,7 +26,13 @@ function formatDateTime(value: string | null): string {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`
 }
 
-type HistoryTab = 'ALL' | 'DEFECT' | 'INSPECTION_FAIL'
+function ChevronIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
 
 function BatteryList() {
   const navigate = useNavigate()
@@ -27,173 +41,165 @@ function BatteryList() {
   const error = useBatteryListStore((s) => s.error)
   const { fetchList } = useBatteryListStore((s) => s.actions)
 
-  const [activeTab, setActiveTab] = useState<HistoryTab>('ALL')
+  const [resultFilter, setResultFilter] = useState<FinalLabel | null>(null)
+  const [search, setSearch] = useState('')
+  const [debouncedSearch, setDebouncedSearch] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
     fetchList()
   }, [fetchList])
 
-  const filteredList = list.filter((item) => {
-    if (activeTab === 'DEFECT') return item.latestFinalLabel === 'REJECT'
-    if (activeTab === 'INSPECTION_FAIL') return item.latestFinalLabel === 'FAIL'
-    return true
-  })
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(search), 300)
+    return () => clearTimeout(timer)
+  }, [search])
 
-  const totalPages = Math.max(1, Math.ceil(filteredList.length / PAGE_SIZE))
-  const pagedList = filteredList.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
-  const rangeStart = filteredList.length === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1
-  const rangeEnd = Math.min(currentPage * PAGE_SIZE, filteredList.length)
-
-  const handleTabChange = (tab: HistoryTab) => {
-    setActiveTab(tab)
+  // 필터·검색어가 바뀌면 1페이지로 리셋한다. 렌더 도중 이전 값과 비교해 바로 조정 —
+  // useEffect를 쓰면 한 번 더 렌더가 도는 것을 피한다 (React 공식 권장 패턴).
+  const filterKey = `${resultFilter ?? ''}|${debouncedSearch}`
+  const [prevFilterKey, setPrevFilterKey] = useState(filterKey)
+  if (filterKey !== prevFilterKey) {
+    setPrevFilterKey(filterKey)
     setCurrentPage(1)
   }
 
+  const counts = useMemo(
+    () => ({
+      total: list.length,
+      pass: list.filter((r) => r.latestFinalLabel === 'PASS').length,
+      reject: list.filter((r) => r.latestFinalLabel === 'REJECT').length,
+      fail: list.filter((r) => r.latestFinalLabel === 'FAIL').length,
+    }),
+    [list],
+  )
+
+  const filtered = useMemo(() => {
+    const keyword = debouncedSearch.trim().toLowerCase()
+    return list.filter((item) => {
+      if (resultFilter && item.latestFinalLabel !== resultFilter) return false
+      if (keyword) {
+        const serial = (item.cellSerialNo ?? `CELL-${item.batteryCellId}`).toLowerCase()
+        if (!serial.includes(keyword)) return false
+      }
+      return true
+    })
+  }, [list, resultFilter, debouncedSearch])
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const pagedList = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
+  const rangeStart = filtered.length === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1
+  const rangeEnd = Math.min(currentPage * PAGE_SIZE, filtered.length)
+
+  const resetFilters = () => {
+    setResultFilter(null)
+    setSearch('')
+  }
+
   return (
-    <div className="battery-list">
+    <section className="battery-list">
       <div className="battery-list__header">
-        <div>
-          <h1 className="battery-list__title">
-            배터리별 점검 기록 <span className="battery-list__title-en">(Battery History)</span>
-          </h1>
-          <p className="battery-list__subtitle">
-            Track and analyze individual battery cell inspection results across all production lines.
-          </p>
-        </div>
-        <div className="battery-list__header-actions">
-          <button type="button" className="battery-list__btn battery-list__btn--outline">
-            <DownloadIcon />
-            Export CSV
-          </button>
-          <button type="button" className="battery-list__btn battery-list__btn--primary">
-            + New Query
-          </button>
-        </div>
+        <h1 className="battery-list__title">배터리 목록</h1>
       </div>
 
-      <div className="battery-list__toolbar">
-        <div className="battery-list__tabs">
-          <button
-            type="button"
-            className={
-              activeTab === 'ALL'
-                ? 'battery-list__tab battery-list__tab--active'
-                : 'battery-list__tab'
-            }
-            onClick={() => handleTabChange('ALL')}
-          >
-            전체 이력 (All History)
-          </button>
-          <button
-            type="button"
-            className={
-              activeTab === 'DEFECT'
-                ? 'battery-list__tab battery-list__tab--active'
-                : 'battery-list__tab'
-            }
-            onClick={() => handleTabChange('DEFECT')}
-          >
-            불량 이력 (Reject History)
-          </button>
-          <button
-            type="button"
-            className={
-              activeTab === 'INSPECTION_FAIL'
-                ? 'battery-list__tab battery-list__tab--active'
-                : 'battery-list__tab'
-            }
-            onClick={() => handleTabChange('INSPECTION_FAIL')}
-          >
-            검사 실패 이력 (Fail History)
-          </button>
-        </div>
-        <div className="battery-list__filters">
-          <button type="button" className="battery-list__filter">
-            <CalendarIcon />
-            2024-05-12 - Today
-          </button>
-        </div>
-      </div>
+      <BatteryListToolbar
+        resultFilter={resultFilter}
+        onResultFilterChange={setResultFilter}
+        counts={counts}
+        search={search}
+        onSearchChange={setSearch}
+      />
 
-      <div className="battery-list__table-card">
-        {isLoading && <p className="battery-list__status">로딩 중...</p>}
-        {error && <p className="battery-list__status battery-list__status--error">{error}</p>}
+      <div className="battery-list__card">
+        <div className="battery-list__scroll">
+          <table className="battery-list__table">
+            <colgroup>
+              <col style={{ width: '39.6rem' }} />
+              <col style={{ width: '24rem' }} />
+              <col style={{ width: '16rem' }} />
+              <col style={{ width: '26rem' }} />
+              <col style={{ width: '28rem' }} />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>셀 시리얼</th>
+                <th>모델</th>
+                <th>셀 유형</th>
+                <th>최근 검사</th>
+                <th>판정</th>
+              </tr>
+            </thead>
+            <tbody>
+              {isLoading && <ListSkeletonRows colSpan={COLUMN_COUNT} />}
 
-        <table className="battery-list__table">
-          <colgroup>
-            <col className="battery-list__col-index" />
-            <col className="battery-list__col-id" />
-            <col className="battery-list__col-model" />
-            <col className="battery-list__col-date" />
-            <col className="battery-list__col-result" />
-            <col className="battery-list__col-detail" />
-          </colgroup>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>배터리 ID (Battery ID)</th>
-              <th>모델 (Model)</th>
-              <th>최종 점검일 (Last Inspection)</th>
-              <th>판정 결과 (Result)</th>
-              <th>상세 보기 (Detail)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pagedList.map((item, index) => {
-              const isFail = item.latestFinalLabel === 'FAIL'
-              const isReject = item.latestFinalLabel === 'REJECT' || isFail
-              return (
-                <tr
-                  key={item.batteryCellId}
-                  onClick={() => navigate(ROUTES.BATTERY_DETAIL(item.batteryCellId))}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <td>{(currentPage - 1) * PAGE_SIZE + index + 1}</td>
-                  <td
-                    className={
-                      isReject
-                        ? 'battery-list__id battery-list__id--reject'
-                        : 'battery-list__id'
-                    }
-                  >
-                    {item.cellSerialNo ?? `CELL-${item.batteryCellId}`}
-                  </td>
-                  <td>{item.modelName ?? '-'}</td>
-                  <td>{formatDateTime(item.latestAnalyzedAt)}</td>
-                  <td>
-                    <span className="battery-list__result">
-                      <span className="battery-list__result-icon">
-                        <span
-                          className={
-                            isFail
-                              ? 'battery-list__dot battery-list__dot--fail'
-                              : isReject
-                                ? 'battery-list__dot battery-list__dot--reject'
-                                : 'battery-list__dot battery-list__dot--pass'
-                          }
-                        />
+              {!isLoading && error && (
+                <ListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={() => fetchList()} />
+              )}
+
+              {!isLoading && !error && list.length === 0 && (
+                <ListEmptyRow
+                  colSpan={COLUMN_COUNT}
+                  variant="no-data"
+                  title="아직 검사된 배터리가 없습니다"
+                  subtitle="대시보드에서 시뮬레이션을 실행하면 검사 결과가 이곳에 쌓입니다"
+                />
+              )}
+
+              {!isLoading && !error && list.length > 0 && filtered.length === 0 && (
+                <ListEmptyRow
+                  colSpan={COLUMN_COUNT}
+                  variant="no-results"
+                  title="조건에 맞는 항목이 없습니다"
+                  subtitle="필터 또는 검색어를 조정해 보세요"
+                  actionLabel="필터 초기화"
+                  onAction={resetFilters}
+                />
+              )}
+
+              {!isLoading &&
+                !error &&
+                pagedList.map((item) => (
+                  <tr key={item.batteryCellId} onClick={() => navigate(ROUTES.BATTERY_DETAIL(item.batteryCellId))}>
+                    <td className="battery-list__mono">{item.cellSerialNo ?? `CELL-${item.batteryCellId}`}</td>
+                    <td>{item.modelName ?? '-'}</td>
+                    <td>
+                      {item.cellType ? (
+                        <span className="battery-list__cell-type-badge">
+                          {CELL_TYPE_LABEL[item.cellType] ?? item.cellType}
+                        </span>
+                      ) : (
+                        <span className="battery-list__secondary">-</span>
+                      )}
+                    </td>
+                    <td className="battery-list__secondary battery-list__mono">
+                      {formatDateTime(item.latestAnalyzedAt)}
+                    </td>
+                    <td>
+                      {item.latestFinalLabel ? (
+                        <BatteryResultBadge label={item.latestFinalLabel} />
+                      ) : (
+                        <span className="battery-list__secondary">-</span>
+                      )}
+                      <span className="battery-list__chevron">
+                        <ChevronIcon />
                       </span>
-                      {item.latestFinalLabel ?? '-'}
-                    </span>
-                  </td>
-                  <td>
-                    <DetailLinkButton to={ROUTES.BATTERY_DETAIL(item.batteryCellId)} />
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
 
         <div className="battery-list__footer">
-          <span className="battery-list__footer-text">
-            Showing {rangeStart} to {rangeEnd} of {filteredList.length} entries
+          <span className="battery-list__count">
+            {filtered.length === 0 ? '0건' : `${filtered.length}건 중 ${rangeStart}–${rangeEnd}`}
           </span>
-          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+          {filtered.length > 0 && (
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+          )}
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

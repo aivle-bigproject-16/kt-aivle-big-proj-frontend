@@ -6,7 +6,7 @@ import { useIndividualReportListStore } from '../store/useIndividualReportListSt
 import { useReportListFilters } from '../hooks/useReportListFilters'
 import { ReportStatusBadge } from './ReportStatusBadge'
 import { ReportListToolbar } from './ReportListToolbar'
-import { ReportListSkeletonRows, ReportListEmptyRow, ReportListErrorRow } from './ReportListStates'
+import { ListSkeletonRows, ListEmptyRow, ListErrorRow } from '@/shared/ui/ListStates'
 
 const COLUMN_COUNT = 4
 
@@ -86,12 +86,12 @@ function IndividualReportTable() {
             </tr>
           </thead>
           <tbody>
-            {isLoading && <ReportListSkeletonRows colSpan={COLUMN_COUNT} />}
+            {isLoading && <ListSkeletonRows colSpan={COLUMN_COUNT} />}
 
-            {!isLoading && error && <ReportListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={retry} />}
+            {!isLoading && error && <ListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={retry} />}
 
             {!isLoading && !error && list.length === 0 && (
-              <ReportListEmptyRow
+              <ListEmptyRow
                 colSpan={COLUMN_COUNT}
                 variant="no-data"
                 title="생성된 리포트가 없습니다"
@@ -100,7 +100,7 @@ function IndividualReportTable() {
             )}
 
             {!isLoading && !error && list.length > 0 && filtered.length === 0 && (
-              <ReportListEmptyRow
+              <ListEmptyRow
                 colSpan={COLUMN_COUNT}
                 variant="no-results"
                 title="조건에 맞는 항목이 없습니다"

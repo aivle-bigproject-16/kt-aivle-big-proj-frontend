@@ -1,6 +1,7 @@
 import './ReportListToolbar.css'
-import './StatusMarkers.css'
 import { ReportTypeToggle } from './ReportTypeToggle'
+import { FilterChip } from '@/shared/ui/FilterChip'
+import { SearchBox } from '@/shared/ui/SearchBox'
 import type { ReportStatus } from '../types'
 
 interface StatusChipCounts {
@@ -20,23 +21,6 @@ interface ReportListToolbarProps {
   onSearchChange: (value: string) => void
 }
 
-function SearchIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2">
-      <circle cx="11" cy="11" r="7" />
-      <path d="M21 21l-4.35-4.35" strokeLinecap="round" />
-    </svg>
-  )
-}
-
-function ClearIcon() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5b5f63" strokeWidth="2">
-      <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
-    </svg>
-  )
-}
-
 function SortIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5b5f63" strokeWidth="1.6">
@@ -50,33 +34,6 @@ function ChevronDownIcon() {
     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2">
       <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
-  )
-}
-
-function StatusChip({
-  label,
-  count,
-  active,
-  marker,
-  onClick,
-}: {
-  label: string
-  count: number
-  active: boolean
-  marker?: 'pending' | 'failed'
-  onClick: () => void
-}) {
-  return (
-    <button
-      type="button"
-      className={active ? 'report-list-toolbar__chip report-list-toolbar__chip--active' : 'report-list-toolbar__chip'}
-      onClick={onClick}
-    >
-      {marker === 'pending' && <span className="status-marker-dot" />}
-      {marker === 'failed' && <span className="status-marker-triangle" />}
-      <span>{label}</span>
-      <span className="report-list-toolbar__chip-count">{count}</span>
-    </button>
   )
 }
 
@@ -95,30 +52,30 @@ function ReportListToolbar({
         <ReportTypeToggle />
         <span className="report-list-toolbar__divider" />
         <div className="report-list-toolbar__chips">
-          <StatusChip
+          <FilterChip
             label="전체"
             count={counts.total}
             active={statusFilter === null}
             onClick={() => onStatusFilterChange(null)}
           />
-          <StatusChip
+          <FilterChip
             label="완료"
             count={counts.completed}
             active={statusFilter === 'COMPLETED'}
             onClick={() => onStatusFilterChange('COMPLETED')}
           />
-          <StatusChip
+          <FilterChip
             label="대기중"
             count={counts.pending}
             active={statusFilter === 'PENDING'}
-            marker="pending"
+            marker={{ shape: 'dot', color: '#13777c' }}
             onClick={() => onStatusFilterChange('PENDING')}
           />
-          <StatusChip
+          <FilterChip
             label="실패"
             count={counts.failed}
             active={statusFilter === 'FAILED'}
-            marker="failed"
+            marker={{ shape: 'triangle', color: '#dc2626' }}
             onClick={() => onStatusFilterChange('FAILED')}
           />
         </div>
@@ -135,20 +92,7 @@ function ReportListToolbar({
           <ChevronDownIcon />
         </button>
 
-        <div className="report-list-toolbar__search">
-          <SearchIcon />
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="제목 검색"
-          />
-          {search && (
-            <button type="button" className="report-list-toolbar__search-clear" onClick={() => onSearchChange('')} aria-label="검색어 지우기">
-              <ClearIcon />
-            </button>
-          )}
-        </div>
+        <SearchBox value={search} onChange={onSearchChange} placeholder="제목 검색" />
       </div>
     </div>
   )

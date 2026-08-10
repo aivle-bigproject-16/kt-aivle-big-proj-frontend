@@ -1,4 +1,4 @@
-import './ReportListStates.css'
+import './ListStates.css'
 
 const SKELETON_ROW_WIDTHS = [
   [70, 90, 65, 85],
@@ -11,14 +11,14 @@ const SKELETON_ROW_WIDTHS = [
   [64, 70, 65, 60],
 ]
 
-function ReportListSkeletonRows({ colSpan }: { colSpan: number }) {
+function ListSkeletonRows({ colSpan }: { colSpan: number }) {
   return (
     <>
       {SKELETON_ROW_WIDTHS.map((widths, i) => (
-        <tr key={i} className="report-list-skeleton-row">
+        <tr key={i} className="list-skeleton-row">
           {Array.from({ length: colSpan }, (_, col) => (
             <td key={col}>
-              <span className="report-list-skeleton-bar" style={{ width: `${widths[col % widths.length]}%` }} />
+              <span className="list-skeleton-bar" style={{ width: `${widths[col % widths.length]}%` }} />
             </td>
           ))}
         </tr>
@@ -45,7 +45,7 @@ function EmptySearchIcon() {
   )
 }
 
-interface ReportListEmptyRowProps {
+interface ListEmptyRowProps {
   colSpan: number
   variant: 'no-data' | 'no-results'
   title: string
@@ -54,23 +54,23 @@ interface ReportListEmptyRowProps {
   onAction?: () => void
 }
 
-function ReportListEmptyRow({ colSpan, variant, title, subtitle, actionLabel, onAction }: ReportListEmptyRowProps) {
+function ListEmptyRow({ colSpan, variant, title, subtitle, actionLabel, onAction }: ListEmptyRowProps) {
   return (
-    <tr className="report-list-state-row">
+    <tr className="list-state-row">
       <td colSpan={colSpan}>
-        <div className="report-list-state">
-          <div className="report-list-state__icon">
+        <div className="list-state">
+          <div className="list-state__icon">
             {variant === 'no-data' ? <EmptyBoxIcon /> : <EmptySearchIcon />}
           </div>
-          <p className="report-list-state__title">{title}</p>
-          <p className="report-list-state__subtitle">{subtitle}</p>
+          <p className="list-state__title">{title}</p>
+          <p className="list-state__subtitle">{subtitle}</p>
           {actionLabel && onAction && (
             <button
               type="button"
               className={
                 variant === 'no-data'
-                  ? 'report-list-state__action report-list-state__action--filled'
-                  : 'report-list-state__action report-list-state__action--outline'
+                  ? 'list-state__action list-state__action--filled'
+                  : 'list-state__action list-state__action--outline'
               }
               onClick={onAction}
             >
@@ -93,23 +93,23 @@ function ErrorIcon() {
   )
 }
 
-interface ReportListErrorRowProps {
+interface ListErrorRowProps {
   colSpan: number
   message: string
   onRetry: () => void
 }
 
-function ReportListErrorRow({ colSpan, message, onRetry }: ReportListErrorRowProps) {
+function ListErrorRow({ colSpan, message, onRetry }: ListErrorRowProps) {
   return (
-    <tr className="report-list-state-row">
+    <tr className="list-state-row">
       <td colSpan={colSpan}>
-        <div className="report-list-state">
-          <div className="report-list-state__icon report-list-state__icon--error">
+        <div className="list-state">
+          <div className="list-state__icon list-state__icon--error">
             <ErrorIcon />
           </div>
-          <p className="report-list-state__title">목록을 불러오지 못했습니다</p>
-          <p className="report-list-state__subtitle report-list-state__subtitle--mono">{message}</p>
-          <button type="button" className="report-list-state__action report-list-state__action--filled" onClick={onRetry}>
+          <p className="list-state__title">목록을 불러오지 못했습니다</p>
+          <p className="list-state__subtitle list-state__subtitle--mono">{message}</p>
+          <button type="button" className="list-state__action list-state__action--filled" onClick={onRetry}>
             다시 시도
           </button>
         </div>
@@ -118,4 +118,4 @@ function ReportListErrorRow({ colSpan, message, onRetry }: ReportListErrorRowPro
   )
 }
 
-export { ReportListSkeletonRows, ReportListEmptyRow, ReportListErrorRow }
+export { ListSkeletonRows, ListEmptyRow, ListErrorRow }
