@@ -1,19 +1,5 @@
 /* 공용 목록 페이지 뼈대는 shared/ui/ListPageShell.css를 쓴다.
-   여기는 배터리 목록에만 있는 것 — 카드 내부 스크롤과 셀 유형 배지. */
-
-/* 카드 내부 스크롤 — 헤더는 sticky로 고정, 본문만 스크롤된다 (ARCHITECTURE.md 스크롤바 안정화 규칙) */
-.battery-list__scroll {
-  max-height: 63.2rem;
-  overflow-y: auto;
-  scrollbar-gutter: stable;
-}
-
-.battery-list__scroll .list-page__table th {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background: #ffffff;
-}
+   여기는 배터리 목록에만 있는 것 — 셀 유형 배지. */
 
 .battery-list__cell-type-badge {
   display: inline-flex;

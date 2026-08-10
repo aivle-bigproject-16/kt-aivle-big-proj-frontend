@@ -91,11 +91,11 @@ function BatteryList() {
       />
 
       <div className="list-page__card">
-        <div className="battery-list__scroll">
+        <div className="list-page__scroll">
           <table className="list-page__table">
             <colgroup>
               <col style={{ width: '39.6rem' }} />
-              <col style={{ width: '24rem' }} />
+              <col />
               <col style={{ width: '16rem' }} />
               <col style={{ width: '26rem' }} />
               <col style={{ width: '28rem' }} />

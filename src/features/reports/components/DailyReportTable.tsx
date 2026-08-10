@@ -94,65 +94,67 @@ function DailyReportTable() {
       />
 
       <div className="list-page__card">
-        <table className="list-page__table">
-          <colgroup>
-            <col style={{ width: '16rem' }} />
-            <col />
-            <col style={{ width: '22rem' }} />
-            <col style={{ width: '26rem' }} />
-          </colgroup>
-          <thead>
-            <tr>
-              <th>상태</th>
-              <th>제목</th>
-              <th>판정일자</th>
-              <th>생성일시</th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading && <ListSkeletonRows colSpan={COLUMN_COUNT} />}
+        <div className="list-page__scroll">
+          <table className="list-page__table">
+            <colgroup>
+              <col style={{ width: '16rem' }} />
+              <col />
+              <col style={{ width: '22rem' }} />
+              <col style={{ width: '26rem' }} />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>상태</th>
+                <th>제목</th>
+                <th>판정일자</th>
+                <th>생성일시</th>
+              </tr>
+            </thead>
+            <tbody>
+              {isLoading && <ListSkeletonRows colSpan={COLUMN_COUNT} />}
 
-            {!isLoading && error && <ListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={retry} />}
+              {!isLoading && error && <ListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={retry} />}
 
-            {!isLoading && !error && list.length === 0 && (
-              <ListEmptyRow
-                colSpan={COLUMN_COUNT}
-                variant="no-data"
-                title="생성된 리포트가 없습니다"
-                subtitle="기준일을 선택해 리포트를 생성해 보세요"
-                actionLabel="+ 리포트 생성"
-                onAction={() => setCreatorOpen(true)}
-              />
-            )}
+              {!isLoading && !error && list.length === 0 && (
+                <ListEmptyRow
+                  colSpan={COLUMN_COUNT}
+                  variant="no-data"
+                  title="생성된 리포트가 없습니다"
+                  subtitle="기준일을 선택해 리포트를 생성해 보세요"
+                  actionLabel="+ 리포트 생성"
+                  onAction={() => setCreatorOpen(true)}
+                />
+              )}
 
-            {!isLoading && !error && list.length > 0 && filtered.length === 0 && (
-              <ListEmptyRow
-                colSpan={COLUMN_COUNT}
-                variant="no-results"
-                title="조건에 맞는 항목이 없습니다"
-                subtitle="필터 또는 검색어를 조정해 보세요"
-                actionLabel="필터 초기화"
-                onAction={resetFilters}
-              />
-            )}
+              {!isLoading && !error && list.length > 0 && filtered.length === 0 && (
+                <ListEmptyRow
+                  colSpan={COLUMN_COUNT}
+                  variant="no-results"
+                  title="조건에 맞는 항목이 없습니다"
+                  subtitle="필터 또는 검색어를 조정해 보세요"
+                  actionLabel="필터 초기화"
+                  onAction={resetFilters}
+                />
+              )}
 
-            {!isLoading &&
-              !error &&
-              pagedList.map((item) => (
-                <tr key={item.reportId} onClick={() => navigate(ROUTES.REPORT_DAILY_DETAIL(item.reportId))}>
-                  <td>
-                    <ReportStatusBadge status={item.status} />
-                  </td>
-                  <td>{item.title ?? `리포트 #${item.reportId}`}</td>
-                  <td className="list-page__secondary list-page__mono">{item.reportDate}</td>
-                  <td className="list-page__secondary list-page__mono">
-                    {formatDateTime(item.createdAt)}
-                    <ListRowChevron />
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+              {!isLoading &&
+                !error &&
+                pagedList.map((item) => (
+                  <tr key={item.reportId} onClick={() => navigate(ROUTES.REPORT_DAILY_DETAIL(item.reportId))}>
+                    <td>
+                      <ReportStatusBadge status={item.status} />
+                    </td>
+                    <td>{item.title ?? `리포트 #${item.reportId}`}</td>
+                    <td className="list-page__secondary list-page__mono">{item.reportDate}</td>
+                    <td className="list-page__secondary list-page__mono">
+                      {formatDateTime(item.createdAt)}
+                      <ListRowChevron />
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
 
         <div className="list-page__footer">
           <span className="list-page__count">
