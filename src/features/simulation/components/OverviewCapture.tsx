@@ -2,11 +2,11 @@ import { useSimulationStore } from '../store/useSimulationStore'
 import './OverviewCapture.css'
 
 /* 프로그레스 세그먼트 개수 — 색은 CSS 애니메이션이 좌→우로 순차 재생하며 만든다 */
-const PROGRESS_SEGMENT_COUNT = 6
+const PROGRESS_SEGMENT_COUNT = 12
 
 /** 오버뷰 카드 — 420×230 흰 카드. 내부는 5개 영역이 세로로 정렬된다:
    헤더 / 스테이터스 / 스테이터스 바 / progress / 푸터 */
-function OverviewCapture() {
+function OverviewCapture({ onClick }: { onClick?: () => void }) {
   /* 현재 촬영(CAPTURING) 중인 셀 개수 */
   const capturingCount = useSimulationStore(
     (s) => s.capture.filter((c) => c.status === 'CAPTURING').length,
@@ -32,7 +32,7 @@ function OverviewCapture() {
   )
 
   return (
-    <div className="overview-capture">
+    <button type="button" className="overview-capture" onClick={onClick}>
       <div className="overview-capture__header">
         <div className="overview-capture__header-left">
           <span className="overview-capture__dot" />
@@ -73,7 +73,7 @@ function OverviewCapture() {
           {capturingBatchId !== undefined ? `Batch #${capturingBatchId}` : '촬영 중인 배치 없음'}
         </span>
       </div>
-    </div>
+    </button>
   )
 }
 

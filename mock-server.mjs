@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises'
 import { WebSocketServer } from 'ws'
 
 const RAW_PORT = 4001
-const PROXY_PORT = 4000
+const PROXY_PORT = 8080
 
 async function readDb() {
   return JSON.parse(await readFile(new URL('./db.json', import.meta.url), 'utf-8'))

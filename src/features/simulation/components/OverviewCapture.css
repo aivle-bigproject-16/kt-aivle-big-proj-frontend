@@ -1,14 +1,30 @@
-/* 디자인 컴포넌트 — 오버뷰 카드, 420×230 고정, 곡률 20px (피그마 px÷10=rem, 1400 기준 정책) */
+/* 디자인 컴포넌트 — 오버뷰 카드, 420×230 고정, 곡률 20px (피그마 px÷10=rem, 1400 기준 정책).
+   button이라 기본 스타일 리셋. 클릭하면 촬영 탭으로 이동한다 */
 .overview-capture {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   width: 42rem;
   height: 23rem;
+  padding: 0;
+  border: none;
   border-radius: 1.2rem;
   box-sizing: border-box;
   background-color: #ffffff;
   box-shadow: var(--shadow-card);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.overview-capture:hover {
+  transform: translateY(-0.2rem);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.overview-capture:active {
+  transform: scale(0.99);
 }
 
 
@@ -130,13 +146,14 @@
   transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* 프로그레스 — 60×19 고정 (피그마 px÷10=rem). 세그먼트 6개, 캡슐 모양 */
+/* 프로그레스 — 높이 19 고정 (피그마 px÷10=rem). 세그먼트 12개, 캡슐 모양.
+   개수가 늘어난 만큼 폭은 내용에 맞춰 자연스럽게 늘어난다 */
 .overview-capture__progress {
   flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  width: 6rem;
+  width: auto;
   height: 1.9rem;
   margin: 1.6rem 2.4rem 0;
   box-sizing: border-box;

@@ -3,7 +3,7 @@ import './OverviewAnalyze.css'
 
 /** 오버뷰 카드 — 420×230 흰 카드. 내부는 5개 영역이 세로로 정렬된다:
    헤더 / 스테이터스 / 스테이터스 바 / progress / 푸터 */
-function OverviewAnalyze() {
+function OverviewAnalyze({ onClick }: { onClick?: () => void }) {
   /* 현재 분석 중인 셀 개수 — analyze는 슬롯 하나뿐이라 있으면 1, 없으면 0 */
   const analyzingCount = useSimulationStore((s) => (s.analyze ? 1 : 0))
   const totalCount = useSimulationStore((s) => s.batteryCellCount)
@@ -14,7 +14,7 @@ function OverviewAnalyze() {
   const analyzeBatchId = useSimulationStore((s) => s.analyze?.batchId)
 
   return (
-    <div className="overview-analyze">
+    <button type="button" className="overview-analyze" onClick={onClick}>
       <div className="overview-analyze__header">
         <div className="overview-analyze__header-left">
           <span className="overview-analyze__dot" />
@@ -54,7 +54,7 @@ function OverviewAnalyze() {
           {analyzeBatchId !== undefined ? `Batch #${analyzeBatchId}` : '-'}
         </span>
       </div>
-    </div>
+    </button>
   )
 }
 

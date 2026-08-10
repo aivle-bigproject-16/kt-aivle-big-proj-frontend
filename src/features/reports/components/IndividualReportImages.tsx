@@ -4,8 +4,9 @@ import { useIndividualReportDetailStore } from '../store/useIndividualReportDeta
 import type { ImageMapping, ImageType } from '../types'
 import './IndividualReportImages.css'
 
-/* ImageMapping에 아직 실제 이미지 URL이 없어(스토어 필요) bbox가 온전히 보이는
-   크기의 단색 플레이스홀더 이미지를 만들어 모달에 넘긴다 */
+/* imageMappings에는 실제 이미지 URL이 없고 bbox 메타데이터만 있다. 실제 URL은
+   detail.ctImages/rgbImages에 타입별로 같은 순서로 내려오므로 인덱스로 짝지어 쓴다.
+   URL이 없는 경우에만(개수가 안 맞는 경우) bbox가 온전히 보이는 플레이스홀더로 대체한다 */
 function placeholderImageUrl(bbox: { x: number; y: number; width: number; height: number }): string {
   const w = Math.max(bbox.x + bbox.width + 40, 400)
   const h = Math.max(bbox.y + bbox.height + 40, 400)
@@ -13,23 +14,36 @@ function placeholderImageUrl(bbox: { x: number; y: number; width: number; height
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`
 }
 
-/** 검사 이미지 카드 — 869×345. CT/RGB 토글 + 썸네일 그리드.
-   ImageMapping에 아직 실제 이미지 URL이 없어(스토어 필요) 색상 플레이스홀더로 대체한다 */
+interface ImageEntry {
+  mapping: ImageMapping
+  url: string | undefined
+}
+
+/** 검사 이미지 카드 — 869×345. CT/RGB 토글 + 썸네일 그리드 */
 function IndividualReportImages() {
-  const imageMappings = useIndividualReportDetailStore((s) => s.detail?.imageMappings ?? [])
+  const detail = useIndividualReportDetailStore((s) => s.detail)
+  const imageMappings = detail?.imageMappings ?? []
+  const ctImages = detail?.ctImages ?? []
+  const rgbImages = detail?.rgbImages ?? []
   const [tab, setTab] = useState<ImageType>('CT')
   const [openId, setOpenId] = useState<number | null>(null)
 
-  const ctCount = useMemo(() => imageMappings.filter((m) => m.imageType === 'CT').length, [imageMappings])
-  const rgbCount = useMemo(() => imageMappings.filter((m) => m.imageType === 'RGB').length, [imageMappings])
-  const shown = useMemo(() => imageMappings.filter((m) => m.imageType === tab), [imageMappings, tab])
-  const openMapping = shown.find((m) => m.imageId === openId) ?? null
+  const ctEntries = useMemo<ImageEntry[]>(
+    () => imageMappings.filter((m) => m.imageType === 'CT').map((mapping, i) => ({ mapping, url: ctImages[i] })),
+    [imageMappings, ctImages],
+  )
+  const rgbEntries = useMemo<ImageEntry[]>(
+    () => imageMappings.filter((m) => m.imageType === 'RGB').map((mapping, i) => ({ mapping, url: rgbImages[i] })),
+    [imageMappings, rgbImages],
+  )
+  const shown = tab === 'CT' ? ctEntries : rgbEntries
+  const openEntry = shown.find((e) => e.mapping.imageId === openId) ?? null
 
   return (
     <div className="individual-report-images">
       <div className="individual-report-images__header">
         <span className="individual-report-images__title">검사 이미지</span>
-        <span className="individual-report-images__subtitle">INSPECTION IMAGES (스토어 필요)</span>
+        <span className="individual-report-images__subtitle">INSPECTION IMAGES</span>
       </div>
 
       <div className="individual-report-images__toggle">
@@ -38,14 +52,14 @@ function IndividualReportImages() {
           className={`individual-report-images__tab${tab === 'CT' ? ' individual-report-images__tab--active' : ''}`}
           onClick={() => setTab('CT')}
         >
-          CT ({ctCount})
+          CT ({ctEntries.length})
         </button>
         <button
           type="button"
           className={`individual-report-images__tab${tab === 'RGB' ? ' individual-report-images__tab--active' : ''}`}
           onClick={() => setTab('RGB')}
         >
-          RGB ({rgbCount})
+          RGB ({rgbEntries.length})
         </button>
       </div>
 
@@ -53,26 +67,26 @@ function IndividualReportImages() {
         <p className="individual-report-images__empty">{tab} 이미지가 없습니다.</p>
       ) : (
         <div className="individual-report-images__grid">
-          {shown.map((mapping) => (
+          {shown.map((entry) => (
             <ImageThumbnail
-              key={mapping.imageId}
-              mapping={mapping}
-              onClick={() => setOpenId(mapping.imageId)}
+              key={entry.mapping.imageId}
+              entry={entry}
+              onClick={() => setOpenId(entry.mapping.imageId)}
             />
           ))}
         </div>
       )}
 
-      {openMapping && (
+      {openEntry && (
         <ImageBboxModal
-          title={`${openMapping.imageType} · imageId ${openMapping.imageId}`}
-          imageUrl={placeholderImageUrl(openMapping.bbox)}
-          regions={[{ id: openMapping.imageId, bbox: openMapping.bbox, tone: 'neutral' }]}
+          title={`${openEntry.mapping.imageType} · imageId ${openEntry.mapping.imageId}`}
+          imageUrl={openEntry.url ?? placeholderImageUrl(openEntry.mapping.bbox)}
+          regions={[{ id: openEntry.mapping.imageId, bbox: openEntry.mapping.bbox, tone: 'neutral' }]}
           infoItems={[
             {
-              id: openMapping.imageId,
-              primaryText: `imageId ${openMapping.imageId}`,
-              secondaryText: `bbox (${openMapping.bbox.x}, ${openMapping.bbox.y}) ${openMapping.bbox.width}×${openMapping.bbox.height}`,
+              id: openEntry.mapping.imageId,
+              primaryText: `imageId ${openEntry.mapping.imageId}`,
+              secondaryText: `bbox (${openEntry.mapping.bbox.x}, ${openEntry.mapping.bbox.y}) ${openEntry.mapping.bbox.width}×${openEntry.mapping.bbox.height}`,
             },
           ]}
           open={openId !== null}
@@ -83,10 +97,16 @@ function IndividualReportImages() {
   )
 }
 
-function ImageThumbnail({ mapping, onClick }: { mapping: ImageMapping; onClick: () => void }) {
+function ImageThumbnail({ entry, onClick }: { entry: ImageEntry; onClick: () => void }) {
+  const { mapping, url } = entry
   return (
     <div className="individual-report-images__item">
       <button type="button" className="individual-report-images__thumb" onClick={onClick}>
+        {url ? (
+          <img src={url} alt={`${mapping.imageType} ${mapping.imageId}`} className="individual-report-images__thumb-img" />
+        ) : (
+          <span className="individual-report-images__thumb-placeholder" />
+        )}
         <span className="individual-report-images__thumb-badge">{mapping.imageType}</span>
       </button>
       <span className="individual-report-images__caption">imageId {mapping.imageId}</span>
