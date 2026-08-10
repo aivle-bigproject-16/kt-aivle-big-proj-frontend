@@ -10,7 +10,7 @@
   padding: 1.6rem;
   background: #ffffff;
   border-radius: var(--r-lg);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow-card);
 }
 
 .daily-report-create-popover__label {
