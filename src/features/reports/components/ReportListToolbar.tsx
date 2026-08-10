@@ -1,3 +1,4 @@
+import '@/shared/ui/ListPageShell.css'
 import './ReportListToolbar.css'
 import { ReportTypeToggle } from './ReportTypeToggle'
 import { FilterChip } from '@/shared/ui/FilterChip'
@@ -47,7 +48,7 @@ function ReportListToolbar({
   onSearchChange,
 }: ReportListToolbarProps) {
   return (
-    <div className="report-list-toolbar">
+    <div className="list-page__toolbar">
       <div className="report-list-toolbar__filters">
         <ReportTypeToggle />
         <span className="report-list-toolbar__divider" />

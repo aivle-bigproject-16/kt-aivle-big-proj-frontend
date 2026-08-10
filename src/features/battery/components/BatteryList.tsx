@@ -1,15 +1,18 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import '@/shared/ui/ListPageShell.css'
 import './BatteryList.css'
 import { ROUTES } from '@/core/navigation/routes'
 import { Pagination } from '@/shared/ui/Pagination'
 import { ListSkeletonRows, ListEmptyRow, ListErrorRow } from '@/shared/ui/ListStates'
+import { ListRowChevron } from '@/shared/ui/ListRowChevron'
+import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue'
+import { usePaginatedList } from '@/shared/hooks/usePaginatedList'
 import { useBatteryListStore } from '../store/useBatteryListStore'
 import { BatteryResultBadge } from './BatteryResultBadge'
 import { BatteryListToolbar } from './BatteryListToolbar'
 import type { FinalLabel } from '../types'
 
-const PAGE_SIZE = 20
 const COLUMN_COUNT = 5
 
 const CELL_TYPE_LABEL: Record<string, string> = {
@@ -26,14 +29,6 @@ function formatDateTime(value: string | null): string {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`
 }
 
-function ChevronIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
 function BatteryList() {
   const navigate = useNavigate()
   const list = useBatteryListStore((s) => s.list)
@@ -43,26 +38,11 @@ function BatteryList() {
 
   const [resultFilter, setResultFilter] = useState<FinalLabel | null>(null)
   const [search, setSearch] = useState('')
-  const [debouncedSearch, setDebouncedSearch] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
+  const debouncedSearch = useDebouncedValue(search, 300)
 
   useEffect(() => {
     fetchList()
   }, [fetchList])
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedSearch(search), 300)
-    return () => clearTimeout(timer)
-  }, [search])
-
-  // 필터·검색어가 바뀌면 1페이지로 리셋한다. 렌더 도중 이전 값과 비교해 바로 조정 —
-  // useEffect를 쓰면 한 번 더 렌더가 도는 것을 피한다 (React 공식 권장 패턴).
-  const filterKey = `${resultFilter ?? ''}|${debouncedSearch}`
-  const [prevFilterKey, setPrevFilterKey] = useState(filterKey)
-  if (filterKey !== prevFilterKey) {
-    setPrevFilterKey(filterKey)
-    setCurrentPage(1)
-  }
 
   const counts = useMemo(
     () => ({
@@ -86,10 +66,10 @@ function BatteryList() {
     })
   }, [list, resultFilter, debouncedSearch])
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
-  const pagedList = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
-  const rangeStart = filtered.length === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1
-  const rangeEnd = Math.min(currentPage * PAGE_SIZE, filtered.length)
+  const { currentPage, setCurrentPage, pagedList, totalPages, rangeStart, rangeEnd } = usePaginatedList(
+    filtered,
+    `${resultFilter ?? ''}|${debouncedSearch}`,
+  )
 
   const resetFilters = () => {
     setResultFilter(null)
@@ -97,9 +77,9 @@ function BatteryList() {
   }
 
   return (
-    <section className="battery-list">
-      <div className="battery-list__header">
-        <h1 className="battery-list__title">배터리 목록</h1>
+    <section className="list-page">
+      <div className="list-page__header">
+        <h1 className="list-page__title">배터리 목록</h1>
       </div>
 
       <BatteryListToolbar
@@ -110,9 +90,9 @@ function BatteryList() {
         onSearchChange={setSearch}
       />
 
-      <div className="battery-list__card">
+      <div className="list-page__card">
         <div className="battery-list__scroll">
-          <table className="battery-list__table">
+          <table className="list-page__table">
             <colgroup>
               <col style={{ width: '39.6rem' }} />
               <col style={{ width: '24rem' }} />
@@ -160,7 +140,7 @@ function BatteryList() {
                 !error &&
                 pagedList.map((item) => (
                   <tr key={item.batteryCellId} onClick={() => navigate(ROUTES.BATTERY_DETAIL(item.batteryCellId))}>
-                    <td className="battery-list__mono">{item.cellSerialNo ?? `CELL-${item.batteryCellId}`}</td>
+                    <td className="list-page__mono">{item.cellSerialNo ?? `CELL-${item.batteryCellId}`}</td>
                     <td>{item.modelName ?? '-'}</td>
                     <td>
                       {item.cellType ? (
@@ -168,21 +148,17 @@ function BatteryList() {
                           {CELL_TYPE_LABEL[item.cellType] ?? item.cellType}
                         </span>
                       ) : (
-                        <span className="battery-list__secondary">-</span>
+                        <span className="list-page__secondary">-</span>
                       )}
                     </td>
-                    <td className="battery-list__secondary battery-list__mono">
-                      {formatDateTime(item.latestAnalyzedAt)}
-                    </td>
+                    <td className="list-page__secondary list-page__mono">{formatDateTime(item.latestAnalyzedAt)}</td>
                     <td>
                       {item.latestFinalLabel ? (
                         <BatteryResultBadge label={item.latestFinalLabel} />
                       ) : (
-                        <span className="battery-list__secondary">-</span>
+                        <span className="list-page__secondary">-</span>
                       )}
-                      <span className="battery-list__chevron">
-                        <ChevronIcon />
-                      </span>
+                      <ListRowChevron />
                     </td>
                   </tr>
                 ))}
@@ -190,8 +166,8 @@ function BatteryList() {
           </table>
         </div>
 
-        <div className="battery-list__footer">
-          <span className="battery-list__count">
+        <div className="list-page__footer">
+          <span className="list-page__count">
             {filtered.length === 0 ? '0건' : `${filtered.length}건 중 ${rangeStart}–${rangeEnd}`}
           </span>
           {filtered.length > 0 && (

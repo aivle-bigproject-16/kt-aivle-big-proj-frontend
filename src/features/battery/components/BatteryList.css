@@ -1,37 +1,5 @@
-.battery-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-  padding: 2rem;
-}
-
-/* ── 슬롯 1: 헤더 ── */
-
-.battery-list__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 5.6rem;
-  flex-shrink: 0;
-}
-
-.battery-list__title {
-  margin: 0;
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: #191c1d;
-}
-
-/* ── 슬롯 3: 테이블 카드 ── */
-
-.battery-list__card {
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
-  border-radius: var(--r-xl);
-  box-shadow: var(--shadow-card);
-  padding: 1.2rem;
-}
+/* 공용 목록 페이지 뼈대는 shared/ui/ListPageShell.css를 쓴다.
+   여기는 배터리 목록에만 있는 것 — 카드 내부 스크롤과 셀 유형 배지. */
 
 /* 카드 내부 스크롤 — 헤더는 sticky로 고정, 본문만 스크롤된다 (ARCHITECTURE.md 스크롤바 안정화 규칙) */
 .battery-list__scroll {
@@ -40,68 +8,11 @@
   scrollbar-gutter: stable;
 }
 
-.battery-list__table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  table-layout: fixed;
-  font-size: 1.4rem;
-}
-
-.battery-list__table th {
+.battery-list__scroll .list-page__table th {
   position: sticky;
   top: 0;
   z-index: 1;
-  height: 4.4rem;
-  padding: 0 1.2rem;
-  text-align: left;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #5b5f63;
   background: #ffffff;
-  border-bottom: 1px solid #eceef0;
-}
-
-.battery-list__table td {
-  height: 5.6rem;
-  padding: 0 1.2rem;
-  color: #191c1d;
-  border-bottom: 1px solid #f4f5f6;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.battery-list__table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.battery-list__table tbody tr {
-  cursor: pointer;
-}
-
-.battery-list__table tbody tr:hover td {
-  background: #eef6fe;
-  border-bottom-color: #eef6fe;
-}
-
-.battery-list__table tbody tr:hover td:first-child {
-  border-top-left-radius: var(--r-md);
-  border-bottom-left-radius: var(--r-md);
-}
-
-.battery-list__table tbody tr:hover td:last-child {
-  border-top-right-radius: var(--r-md);
-  border-bottom-right-radius: var(--r-md);
-}
-
-.battery-list__secondary {
-  color: #5b5f63;
-}
-
-.battery-list__mono {
-  font-family: ui-monospace, Consolas, monospace;
-  font-variant-numeric: tabular-nums;
 }
 
 .battery-list__cell-type-badge {
@@ -113,40 +24,4 @@
   background: #f3f4f6;
   color: #5b5f63;
   font-size: 1.15rem;
-}
-
-.battery-list__table td:last-child {
-  position: relative;
-}
-
-.battery-list__chevron {
-  position: absolute;
-  right: 1.2rem;
-  top: 50%;
-  transform: translateY(-50%);
-  display: inline-flex;
-  opacity: 0;
-  color: #0c5795;
-}
-
-.battery-list__table tbody tr:hover .battery-list__chevron {
-  opacity: 1;
-}
-
-/* ── 슬롯 4: 푸터 ── */
-
-.battery-list__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 6.4rem;
-  padding: 0 1.2rem;
-  flex-shrink: 0;
-}
-
-.battery-list__count {
-  font-family: ui-monospace, Consolas, monospace;
-  font-variant-numeric: tabular-nums;
-  font-size: 1.25rem;
-  color: #9ca3af;
 }

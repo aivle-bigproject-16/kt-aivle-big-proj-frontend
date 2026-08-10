@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom'
-import './ReportTable.css'
+import '@/shared/ui/ListPageShell.css'
 import { ROUTES } from '@/core/navigation/routes'
 import { Pagination } from '@/shared/ui/Pagination'
+import { ListRowChevron } from '@/shared/ui/ListRowChevron'
 import { useIndividualReportListStore } from '../store/useIndividualReportListStore'
 import { useReportListFilters } from '../hooks/useReportListFilters'
 import { ReportStatusBadge } from './ReportStatusBadge'
@@ -17,14 +18,6 @@ function formatDateTime(value: string | null): string {
 
   const pad = (n: number) => String(n).padStart(2, '0')
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`
-}
-
-function ChevronIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
 }
 
 function IndividualReportTable() {
@@ -54,9 +47,9 @@ function IndividualReportTable() {
   } = useReportListFilters(list, fetchList)
 
   return (
-    <section className="report-table">
-      <div className="report-table__header">
-        <h1 className="report-table__title">개별 리포트</h1>
+    <section className="list-page">
+      <div className="list-page__header">
+        <h1 className="list-page__title">개별 리포트</h1>
       </div>
 
       <ReportListToolbar
@@ -69,8 +62,8 @@ function IndividualReportTable() {
         onSearchChange={setSearch}
       />
 
-      <div className="report-table__card">
-        <table className="report-table__table">
+      <div className="list-page__card">
+        <table className="list-page__table">
           <colgroup>
             <col style={{ width: '16rem' }} />
             <col />
@@ -118,20 +111,18 @@ function IndividualReportTable() {
                     <ReportStatusBadge status={item.status} />
                   </td>
                   <td>{item.title ?? `리포트 #${item.reportId}`}</td>
-                  <td className="report-table__secondary report-table__mono">{formatDateTime(item.updatedAt)}</td>
-                  <td className="report-table__secondary report-table__mono">
+                  <td className="list-page__secondary list-page__mono">{formatDateTime(item.updatedAt)}</td>
+                  <td className="list-page__secondary list-page__mono">
                     {formatDateTime(item.createdAt)}
-                    <span className="report-table__chevron">
-                      <ChevronIcon />
-                    </span>
+                    <ListRowChevron />
                   </td>
                 </tr>
               ))}
           </tbody>
         </table>
 
-        <div className="report-table__footer">
-          <span className="report-table__count">
+        <div className="list-page__footer">
+          <span className="list-page__count">
             {filtered.length === 0 ? '0건' : `${filtered.length}건 중 ${rangeStart}–${rangeEnd}`}
           </span>
           {filtered.length > 0 && (

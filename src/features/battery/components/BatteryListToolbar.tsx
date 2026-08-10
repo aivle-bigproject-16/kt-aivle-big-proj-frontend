@@ -1,3 +1,4 @@
+import '@/shared/ui/ListPageShell.css'
 import './BatteryListToolbar.css'
 import { FilterChip } from '@/shared/ui/FilterChip'
 import { SearchBox } from '@/shared/ui/SearchBox'
@@ -26,7 +27,7 @@ function BatteryListToolbar({
   onSearchChange,
 }: BatteryListToolbarProps) {
   return (
-    <div className="battery-list-toolbar">
+    <div className="list-page__toolbar">
       <div className="battery-list-toolbar__chips">
         <FilterChip
           label="전체"
