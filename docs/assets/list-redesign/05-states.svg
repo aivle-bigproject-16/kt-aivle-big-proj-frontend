@@ -59,7 +59,7 @@
     <g transform="translate(370,230)">
       <rect x="-28" y="-92" width="56" height="56" rx="8" fill="#f3f4f6"/>
       <rect x="-13" y="-79" width="26" height="30" rx="4" fill="none" stroke="#c3c8cd" stroke-width="2"/>
-      <rect x="-6" y="-83" width="12" height="4" rx="999" fill="#c3c8cd"/>
+      <rect x="-6" y="-83" width="12" height="4" rx="2" fill="#c3c8cd"/>
       <text x="0" y="-10" text-anchor="middle" font-size="16" font-weight="600" fill="#191c1d">아직 검사된 배터리가 없습니다</text>
       <text x="0" y="16" text-anchor="middle" font-size="13" fill="#5b5f63">시뮬레이션을 실행하면 검사 결과가 이곳에 쌓입니다</text>
     </g>

@@ -1,0 +1,252 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 920" width="1920" height="920" font-family="Inter, system-ui, sans-serif">
+  <title>배터리 목록 (Battery History)</title>
+  <desc>1400 기준 · 프레임 1920×920 · SVG 1단위 = 디자인 1px = 0.1rem. 컬럼 396+240+160+260+280 = 1336 = 카드 내부 폭</desc>
+
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+    <clipPath id="rows"><rect x="272" y="212" width="1356" height="632"/></clipPath>
+  </defs>
+
+  <rect width="1920" height="920" fill="#ededed"/>
+
+  <!-- ================= 좌측 컬럼 260 — 사이드바 (별도 담당, 현행 렌더) ================= -->
+  <g>
+    <rect x="87" y="30" width="86" height="86" rx="23" fill="#ffffff" filter="url(#sh)"/>
+    <text x="130" y="79" text-anchor="middle" font-size="13" font-weight="700" fill="#d94730">LOGO</text>
+
+    <rect x="87" y="146" width="86" height="307" rx="19" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="100" y="166" width="60" height="60" rx="16" fill="#ededed"/>
+    <rect x="118" y="184" width="24" height="24" rx="5" fill="#5b5f63" opacity="0.7"/>
+    <rect x="100" y="264" width="60" height="60" rx="16" fill="#ededed"/>
+    <rect x="118" y="282" width="24" height="24" rx="5" fill="#d94730"/>
+    <rect x="100" y="362" width="60" height="60" rx="16" fill="#ededed"/>
+    <rect x="118" y="380" width="24" height="24" rx="5" fill="#5b5f63" opacity="0.7"/>
+
+    <rect x="20" y="478" width="220" height="72" rx="8" fill="none" stroke="#c3c8cd" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="130" y="502" text-anchor="middle" font-size="11" font-weight="600" fill="#9ca3af">사이드바 — 별도 담당</text>
+    <text x="130" y="520" text-anchor="middle" font-size="10.5" fill="#b4b9be">현행 구현을 그대로 옮긴 참고 렌더다.</text>
+    <text x="130" y="536" text-anchor="middle" font-size="10.5" fill="#b4b9be">이 시안의 규격 대상이 아니다.</text>
+  </g>
+
+  <!-- ================= 우측 컬럼 260 — 미구현 ================= -->
+  <g>
+    <rect x="1680" y="30" width="220" height="52" rx="8" fill="none" stroke="#c3c8cd" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="1790" y="52" text-anchor="middle" font-size="11" font-weight="600" fill="#9ca3af">우측 컬럼 — 미구현</text>
+    <text x="1790" y="70" text-anchor="middle" font-size="10.5" fill="#b4b9be">사용자 칩 자리 (DASHBOARD §3.4)</text>
+  </g>
+
+  <!-- ================= 슬롯 1 — 페이지 헤더 (y 20..76, h56) ================= -->
+  <g>
+    <text x="280" y="60" font-size="24" font-weight="700" fill="#191c1d">배터리 목록</text>
+    <text x="1640" y="60" text-anchor="end" font-size="11" fill="#b4b9be">헤더 우측 액션 없음 — 생성 진입점은 배터리 상세 소관 (LIST §5.5)</text>
+  </g>
+
+  <!-- ================= 슬롯 2 — 툴바 (y 92..140, h48) ================= -->
+  <g>
+    <!-- 판정 칩 4개 — h32, padding 0 14, gap 4 -->
+    <rect x="280" y="100" width="86" height="32" rx="16" fill="#0c5795"/>
+    <text x="309" y="120" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">전체</text>
+    <text x="348" y="120" text-anchor="middle" font-size="12" fill="#ffffff" opacity="0.75">47</text>
+
+    <rect x="370" y="100" width="98" height="32" rx="16" fill="#ffffff"/>
+    <circle cx="390" cy="116" r="4" fill="#1e7e34"/>
+    <text x="421" y="120" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">PASS</text>
+    <text x="452" y="120" text-anchor="middle" font-size="12" fill="#9ca3af">39</text>
+
+    <rect x="472" y="100" width="112" height="32" rx="16" fill="#ffffff"/>
+    <circle cx="492" cy="116" r="4" fill="#d97706"/>
+    <text x="530" y="120" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">REJECT</text>
+    <text x="568" y="120" text-anchor="middle" font-size="12" fill="#9ca3af">6</text>
+
+    <rect x="588" y="100" width="94" height="32" rx="16" fill="#ffffff"/>
+    <path d="M608 112 l5 8 h-10 z" fill="#dc2626"/>
+    <text x="638" y="120" text-anchor="middle" font-size="13" font-weight="500" fill="#5b5f63">FAIL</text>
+    <text x="668" y="120" text-anchor="middle" font-size="12" fill="#9ca3af">2</text>
+
+    <!-- 결함 유형 축 — 데이터 부재로 숨김 -->
+    <text x="700" y="120" font-size="10.5" fill="#c3c8cd">결함 유형 축 — BatteryListItem 에 필드 없음, 확정 전까지 숨김 (LIST §4.1)</text>
+
+    <!-- 검색 — 240×32, 우측 정렬 -->
+    <rect x="1380" y="100" width="240" height="32" rx="16" fill="#ffffff"/>
+    <circle cx="1401" cy="116" r="5.5" fill="none" stroke="#9ca3af" stroke-width="1.6"/>
+    <path d="M1405 120 l4 4" stroke="#9ca3af" stroke-width="1.6" stroke-linecap="round"/>
+    <text x="1417" y="121" font-size="13" fill="#9ca3af">셀 시리얼 검색</text>
+  </g>
+
+  <!-- ================= 슬롯 3 — 테이블 카드 (y 156..900) ================= -->
+  <g>
+    <rect x="280" y="156" width="1360" height="744" rx="15" fill="#ffffff" filter="url(#sh)"/>
+
+    <!-- 헤더 행 h44 -->
+    <text x="304" y="196" font-size="13" font-weight="600" fill="#5b5f63">셀 시리얼</text>
+    <text x="700" y="196" font-size="13" font-weight="600" fill="#5b5f63">모델</text>
+    <text x="940" y="196" font-size="13" font-weight="600" fill="#5b5f63">셀 유형</text>
+    <text x="1100" y="196" font-size="13" font-weight="600" fill="#5b5f63">최근 검사</text>
+    <text x="1360" y="196" font-size="13" font-weight="600" fill="#5b5f63">판정</text>
+    <line x1="292" y1="212" x2="1628" y2="212" stroke="#eceef0" stroke-width="1"/>
+
+    <!-- ===== 행 영역 (내부 스크롤, h632 · 행 56 × 11) ===== -->
+    <g clip-path="url(#rows)">
+
+      <!-- 행 1 — REJECT · hover -->
+      <g>
+        <rect x="292" y="212" width="1336" height="56" rx="8" fill="#eef6fe"/>
+        <text x="304" y="245" font-size="13.5" fill="#191c1d">CELL-1027-A</text>
+        <text x="700" y="245" font-size="14" fill="#191c1d">KT-B-2400</text>
+        <rect x="940" y="230" width="72" height="24" rx="12" fill="#f3f4f6"/>
+        <text x="976" y="246" text-anchor="middle" font-size="11.5" fill="#5b5f63">파우치</text>
+        <text x="1100" y="245" font-size="13.5" fill="#5b5f63">2026-08-07 09:42</text>
+        <rect x="1360" y="230" width="86" height="24" rx="12" fill="#fffbeb"/>
+        <circle cx="1373" cy="242" r="4" fill="#d97706"/>
+        <text x="1409" y="246" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#d97706">REJECT</text>
+        <path d="M1608 234 l6 6 l-6 6" stroke="#0c5795" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- 행 2 — FAIL -->
+      <g>
+        <text x="304" y="301" font-size="13.5" fill="#191c1d">CELL-1026-A</text>
+        <text x="700" y="301" font-size="14" fill="#191c1d">KT-B-2400</text>
+        <rect x="940" y="286" width="72" height="24" rx="12" fill="#f3f4f6"/>
+        <text x="976" y="302" text-anchor="middle" font-size="11.5" fill="#5b5f63">파우치</text>
+        <text x="1100" y="301" font-size="13.5" fill="#5b5f63">2026-08-07 09:38</text>
+        <rect x="1360" y="286" width="74" height="24" rx="12" fill="none" stroke="#dc2626" stroke-width="1"/>
+        <path d="M1373 294 l5 8 h-10 z" fill="#dc2626"/>
+        <text x="1403" y="302" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#dc2626">FAIL</text>
+        <line x1="292" y1="324" x2="1628" y2="324" stroke="#f4f5f6" stroke-width="1"/>
+      </g>
+
+      <!-- 행 3 -->
+      <g>
+        <text x="304" y="357" font-size="13.5" fill="#191c1d">CELL-1025-C</text>
+        <text x="700" y="357" font-size="14" fill="#191c1d">KT-C-1800</text>
+        <rect x="940" y="342" width="72" height="24" rx="12" fill="#f3f4f6"/>
+        <text x="976" y="358" text-anchor="middle" font-size="11.5" fill="#5b5f63">원통형</text>
+        <text x="1100" y="357" font-size="13.5" fill="#5b5f63">2026-08-07 09:33</text>
+        <rect x="1360" y="342" width="70" height="24" rx="12" fill="#ecfdf3"/>
+        <text x="1395" y="358" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#1e7e34">PASS</text>
+        <line x1="292" y1="380" x2="1628" y2="380" stroke="#f4f5f6" stroke-width="1"/>
+      </g>
+
+      <!-- 행 4 -->
+      <g>
+        <text x="304" y="413" font-size="13.5" fill="#191c1d">CELL-1024-C</text>
+        <text x="700" y="413" font-size="14" fill="#191c1d">KT-C-1800</text>
+        <rect x="940" y="398" width="72" height="24" rx="12" fill="#f3f4f6"/>
+        <text x="976" y="414" text-anchor="middle" font-size="11.5" fill="#5b5f63">원통형</text>
+        <text x="1100" y="413" font-size="13.5" fill="#5b5f63">2026-08-07 09:28</text>
+        <rect x="1360" y="398" width="70" height="24" rx="12" fill="#ecfdf3"/>
+        <text x="1395" y="414" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#1e7e34">PASS</text>
+        <line x1="292" y1="436" x2="1628" y2="436" stroke="#f4f5f6" stroke-width="1"/>
+      </g>
+
+      <!-- 행 5 -->
+      <g>
+        <text x="304" y="469" font-size="13.5" fill="#191c1d">CELL-1023-A</text>
+        <text x="700" y="469" font-size="14" fill="#191c1d">KT-B-2400</text>
+        <rect x="940" y="454" width="72" height="24" rx="12" fill="#f3f4f6"/>
+        <text x="976" y="470" text-anchor="middle" font-size="11.5" fill="#5b5f63">파우치</text>
+        <text x="1100" y="469" font-size="13.5" fill="#5b5f63">2026-08-07 09:24</text>
+        <rect x="1360" y="454" width="70" height="24" rx="12" fill="#ecfdf3"/>
+        <text x="1395" y="470" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#1e7e34">PASS</text>
+        <line x1="292" y1="492" x2="1628" y2="492" stroke="#f4f5f6" stroke-width="1"/>
+      </g>
+
+      <!-- 행 6 — REJECT -->
+      <g>
+        <text x="304" y="525" font-size="13.5" fill="#191c1d">CELL-1022-C</text>
+        <text x="700" y="525" font-size="14" fill="#191c1d">KT-C-1800</text>
+        <rect x="940" y="510" width="72" height="24" rx="12" fill="#f3f4f6"/>
+        <text x="976" y="526" text-anchor="middle" font-size="11.5" fill="#5b5f63">원통형</text>
+        <text x="1100" y="525" font-size="13.5" fill="#5b5f63">2026-08-07 09:19</text>
+        <rect x="1360" y="510" width="86" height="24" rx="12" fill="#fffbeb"/>
+        <circle cx="1373" cy="522" r="4" fill="#d97706"/>
+        <text x="1409" y="526" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#d97706">REJECT</text>
+        <line x1="292" y1="548" x2="1628" y2="548" stroke="#f4f5f6" stroke-width="1"/>
+      </g>
+
+      <!-- 행 7 -->
+      <g>
+        <text x="304" y="581" font-size="13.5" fill="#191c1d">CELL-1021-A</text>
+        <text x="700" y="581" font-size="14" fill="#191c1d">KT-B-2400</text>
+        <rect x="940" y="566" width="72" height="24" rx="12" fill="#f3f4f6"/>
+        <text x="976" y="582" text-anchor="middle" font-size="11.5" fill="#5b5f63">파우치</text>
+        <text x="1100" y="581" font-size="13.5" fill="#5b5f63">2026-08-07 09:15</text>
+        <rect x="1360" y="566" width="70" height="24" rx="12" fill="#ecfdf3"/>
+        <text x="1395" y="582" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#1e7e34">PASS</text>
+        <line x1="292" y1="604" x2="1628" y2="604" stroke="#f4f5f6" stroke-width="1"/>
+      </g>
+
+      <!-- 행 8 -->
+      <g>
+        <text x="304" y="637" font-size="13.5" fill="#191c1d">CELL-1020-C</text>
+        <text x="700" y="637" font-size="14" fill="#191c1d">KT-C-1800</text>
+        <rect x="940" y="622" width="72" height="24" rx="12" fill="#f3f4f6"/>
+        <text x="976" y="638" text-anchor="middle" font-size="11.5" fill="#5b5f63">원통형</text>
+        <text x="1100" y="637" font-size="13.5" fill="#5b5f63">2026-08-07 09:11</text>
+        <rect x="1360" y="622" width="70" height="24" rx="12" fill="#ecfdf3"/>
+        <text x="1395" y="638" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#1e7e34">PASS</text>
+        <line x1="292" y1="660" x2="1628" y2="660" stroke="#f4f5f6" stroke-width="1"/>
+      </g>
+
+      <!-- 행 9 -->
+      <g>
+        <text x="304" y="693" font-size="13.5" fill="#191c1d">CELL-1019-A</text>
+        <text x="700" y="693" font-size="14" fill="#191c1d">KT-B-2400</text>
+        <rect x="940" y="678" width="72" height="24" rx="12" fill="#f3f4f6"/>
+        <text x="976" y="694" text-anchor="middle" font-size="11.5" fill="#5b5f63">파우치</text>
+        <text x="1100" y="693" font-size="13.5" fill="#5b5f63">2026-08-07 08:57</text>
+        <rect x="1360" y="678" width="70" height="24" rx="12" fill="#ecfdf3"/>
+        <text x="1395" y="694" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#1e7e34">PASS</text>
+        <line x1="292" y1="716" x2="1628" y2="716" stroke="#f4f5f6" stroke-width="1"/>
+      </g>
+
+      <!-- 행 10 -->
+      <g>
+        <text x="304" y="749" font-size="13.5" fill="#191c1d">CELL-1018-C</text>
+        <text x="700" y="749" font-size="14" fill="#191c1d">KT-C-1800</text>
+        <rect x="940" y="734" width="72" height="24" rx="12" fill="#f3f4f6"/>
+        <text x="976" y="750" text-anchor="middle" font-size="11.5" fill="#5b5f63">원통형</text>
+        <text x="1100" y="749" font-size="13.5" fill="#5b5f63">2026-08-07 08:44</text>
+        <rect x="1360" y="734" width="70" height="24" rx="12" fill="#ecfdf3"/>
+        <text x="1395" y="750" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#1e7e34">PASS</text>
+        <line x1="292" y1="772" x2="1628" y2="772" stroke="#f4f5f6" stroke-width="1"/>
+      </g>
+
+      <!-- 행 11 — 스크롤 경계에 걸린 행 -->
+      <g>
+        <text x="304" y="805" font-size="13.5" fill="#191c1d">CELL-1017-A</text>
+        <text x="700" y="805" font-size="14" fill="#191c1d">KT-B-2400</text>
+        <rect x="940" y="790" width="72" height="24" rx="12" fill="#f3f4f6"/>
+        <text x="976" y="806" text-anchor="middle" font-size="11.5" fill="#5b5f63">파우치</text>
+        <text x="1100" y="805" font-size="13.5" fill="#5b5f63">2026-08-07 08:31</text>
+        <rect x="1360" y="790" width="70" height="24" rx="12" fill="#ecfdf3"/>
+        <text x="1395" y="806" text-anchor="middle" font-size="11.5" letter-spacing="0.6" fill="#1e7e34">PASS</text>
+      </g>
+    </g>
+
+    <!-- 스크롤바 — 카드 안쪽, scrollbar-gutter: stable -->
+    <rect x="1634" y="212" width="6" height="632" rx="3" fill="#eceef0"/>
+    <rect x="1634" y="212" width="6" height="330" rx="3" fill="#d0d4d8"/>
+
+    <!-- 슬롯 4 — 푸터 h64 -->
+    <line x1="292" y1="844" x2="1628" y2="844" stroke="#eceef0" stroke-width="1"/>
+    <text x="292" y="882" font-size="12.5" fill="#9ca3af">47건 중 1–20</text>
+
+    <g>
+      <rect x="1368" y="860" width="32" height="32" rx="8" fill="#f3f4f6"/>
+      <path d="M1387 870 l-5 6 l5 6" stroke="#c3c8cd" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <rect x="1408" y="860" width="32" height="32" rx="8" fill="#0c5795"/>
+      <text x="1424" y="882" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">1</text>
+      <rect x="1448" y="860" width="32" height="32" rx="8" fill="#ffffff"/>
+      <text x="1464" y="882" text-anchor="middle" font-size="13" fill="#5b5f63">2</text>
+      <rect x="1488" y="860" width="32" height="32" rx="8" fill="#ffffff"/>
+      <text x="1504" y="882" text-anchor="middle" font-size="13" fill="#5b5f63">3</text>
+      <rect x="1528" y="860" width="32" height="32" rx="8" fill="#ffffff"/>
+      <text x="1544" y="882" text-anchor="middle" font-size="13" fill="#5b5f63">4</text>
+      <rect x="1568" y="860" width="32" height="32" rx="8" fill="#f3f4f6"/>
+      <path d="M1581 870 l5 6 l-5 6" stroke="#5b5f63" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>
