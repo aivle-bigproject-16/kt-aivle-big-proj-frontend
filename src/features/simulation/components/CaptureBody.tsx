@@ -1,9 +1,13 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSimulationStore } from '../store/useSimulationStore'
 import { ROUTES } from '@/core/navigation/routes'
 import type { CellProgress } from '../types'
 import './CaptureBody.css'
+
+/* 새로 생긴 배치가 등장 애니메이션을 재생하는 시간. CaptureBody.css의
+   capture-body-batch-enter와 맞춘다 */
+const ENTER_DURATION_MS = 1000
 
 /* capture 배열은 mock-server에서 새 배치가 뒤에 追加되므로(capture = [...capture, ...batchCells]),
    Map의 삽입 순서(= [...map.entries()])는 오래된 배치가 앞(batch 1이 맨 위)이다.
@@ -19,8 +23,8 @@ function groupByBatch(cells: CellProgress[]) {
 }
 
 /** 촬영 본문 — PendingBody와 동일한 형태, 데이터만 capture 배열로 바뀜. 1400×860 흰 카드.
-   배치를 클릭하면 펼쳐져서 하위 셀 목록을 보여준다. 맨 위(가장 최근에 들어온) 배치는
-   기본으로 펼쳐져 있고, 나머지는 접힌 채 시작한다 — 옅어지는 효과는 없다 */
+   배치는 기본적으로 모두 펼쳐진 채 유지된다 — 새 배치가 위에 생겨도 기존 배치가
+   닫히지 않고 펼쳐진 채로 아래로 내려간다. 클릭하면 개별적으로 접었다 펼 수 있다 */
 function CaptureBody() {
   /* capture 배열 자체를 구독하고 그룹핑은 useMemo로 — 셀렉터 안에서 매번 새 배열을
      만들면 참조가 매 렌더마다 달라져 getSnapshot 무한 루프(Maximum update depth
@@ -28,19 +32,51 @@ function CaptureBody() {
   const capture = useSimulationStore((s) => s.capture)
   const batches = useMemo(() => groupByBatch(capture), [capture])
 
-  /* 사용자가 아직 아무것도 건드리지 않았으면(빈 Set) 맨 앞 배치를 기본으로 펼친다.
-     한 번이라도 클릭하면 그 이후는 전적으로 이 Set을 따른다 */
-  const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set())
+  /* 기본은 전부 펼침 — 사용자가 클릭해서 직접 접은 배치만 collapsedIds에 담는다 */
+  const [collapsedIds, setCollapsedIds] = useState<Set<number>>(new Set())
   const toggle = (batchId: number) => {
-    setExpandedIds((prev) => {
-      const next = new Set(prev.size === 0 && batches[0] ? [batches[0][0]] : prev)
+    setCollapsedIds((prev) => {
+      const next = new Set(prev)
       if (next.has(batchId)) next.delete(batchId)
       else next.add(batchId)
       return next
     })
   }
-  const isExpanded = (batchId: number, index: number) =>
-    expandedIds.size === 0 ? index === 0 : expandedIds.has(batchId)
+  const isExpanded = (batchId: number) => !collapsedIds.has(batchId)
+
+  /* 새로 생긴 배치(이전엔 없던 batchId)를 잠깐 entering으로 표시해 등장 애니메이션을
+     재생한다. 기존 배치들은 펼쳐진 채로 유지되고 위치만 아래로 내려간다 */
+  const [enteringIds, setEnteringIds] = useState<Set<number>>(new Set())
+  const prevIdsRef = useRef<Set<number> | null>(null)
+  const mountedRef = useRef(true)
+  useEffect(() => {
+    mountedRef.current = true
+    return () => {
+      mountedRef.current = false
+    }
+  }, [])
+
+  useEffect(() => {
+    const currentIds = new Set(batches.map(([id]) => id))
+    const prevIds = prevIdsRef.current
+    prevIdsRef.current = currentIds
+
+    if (prevIds === null) return // 최초 로드시에는 등장 애니메이션을 재생하지 않는다
+
+    const newIds = [...currentIds].filter((id) => !prevIds.has(id))
+    if (newIds.length === 0) return
+
+    setEnteringIds((prev) => new Set([...prev, ...newIds]))
+    const timer = setTimeout(() => {
+      if (!mountedRef.current) return
+      setEnteringIds((prev) => {
+        const next = new Set(prev)
+        for (const id of newIds) next.delete(id)
+        return next
+      })
+    }, ENTER_DURATION_MS)
+    return () => clearTimeout(timer)
+  }, [batches])
 
   return (
     <div className="capture-body">
@@ -49,7 +85,7 @@ function CaptureBody() {
           <EmptyBatchRow />
         ) : (
           batches.map(([batchId, cells], i) => {
-            const expanded = isExpanded(batchId, i)
+            const expanded = isExpanded(batchId)
             return (
               <BatchRow
                 key={batchId}
@@ -57,6 +93,7 @@ function CaptureBody() {
                 cells={cells}
                 expanded={expanded}
                 isNext={i === 0}
+                entering={enteringIds.has(batchId)}
                 onToggle={() => toggle(batchId)}
               />
             )
@@ -72,16 +109,18 @@ function BatchRow({
   cells,
   expanded,
   isNext,
+  entering,
   onToggle,
 }: {
   batchId: number
   cells: CellProgress[]
   expanded: boolean
   isNext: boolean
+  entering?: boolean
   onToggle: () => void
 }) {
   return (
-    <div className="capture-body__batch">
+    <div className={`capture-body__batch${entering ? ' capture-body__batch--entering' : ''}`}>
       <button
         type="button"
         className={`capture-body__batch-header${expanded ? ' capture-body__batch-header--expanded' : ' capture-body__batch-header--collapsed'}`}
@@ -110,13 +149,11 @@ function BatchRow({
         {isNext && <span className="capture-body__batch-next-hint">촬영 중</span>}
       </button>
 
-      {expanded && (
-        <div className="capture-body__cells">
-          {cells.map((cell) => (
-            <CaptureBatteryCell key={cell.batteryCellId} batteryCellId={cell.batteryCellId} />
-          ))}
-        </div>
-      )}
+      <div className={`capture-body__cells${expanded ? '' : ' capture-body__cells--collapsed'}`}>
+        {[...cells].reverse().map((cell) => (
+          <CaptureBatteryCell key={cell.batteryCellId} batteryCellId={cell.batteryCellId} />
+        ))}
+      </div>
     </div>
   )
 }

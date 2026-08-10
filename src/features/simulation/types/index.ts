@@ -21,10 +21,14 @@ export type SimulationRunStatus = 'idle' | 'running' | 'completed'
 // 셀 단위 상태
 export type CellStatus = 'REGISTERED' | 'CAPTURING' | 'CAPTURED' | 'ANALYZING' | 'COMPLETED'
 
+// 검사 타입
+export type InspectionType = 'CT' | 'RGB'
+
 // 셀 단위 진행 정보 (registered / capture / analyze / completed 공통)
 export interface CellProgress {
   batteryCellId: number
   inspectionId: number
+  inspectionType: InspectionType
   finalLabel: FinalLabel | null
   batchId: number
   status: CellStatus

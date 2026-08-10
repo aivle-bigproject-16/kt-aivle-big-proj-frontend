@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises'
 import { WebSocketServer } from 'ws'
 
 const RAW_PORT = 4001
-const PROXY_PORT = 4000
+const PROXY_PORT = 8080
 
 async function readDb() {
   return JSON.parse(await readFile(new URL('./db.json', import.meta.url), 'utf-8'))
@@ -69,7 +69,7 @@ const server = http.createServer(async (req, res) => {
   // POST /api/dashboard — 실제 API는 body(조회 조건)를 받아 KPI 데이터를 계산해 반환하는
   // 액션이라, json-server의 "레코드 생성" 의미(body 그대로 저장)와 맞지 않는다.
   // db.json에 미리 넣어둔 대시보드 데이터를 그대로 반환하도록 특수 처리한다.
-  if (req.method === 'POST' && url.pathname === '/api/dashboard') {
+  if (req.method === 'POST' && url.pathname === '/dashboard') {
     const { graphType } = JSON.parse(body.toString() || '{}')
     const db = await readDb()
     const dashboard = db.dashboard?.[0]
@@ -80,7 +80,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   // POST /api/auth/login — users 리소스에서 email/password를 대조해 실제 로그인처럼 동작시킨다.
-  if (req.method === 'POST' && url.pathname === '/api/auth/login') {
+  if (req.method === 'POST' && url.pathname === '/auth/login') {
     const { email, password } = JSON.parse(body.toString() || '{}')
     const db = await readDb()
     const user = db.users?.find((u) => u.email === email && u.password === password)
@@ -95,14 +95,14 @@ const server = http.createServer(async (req, res) => {
   }
 
   // POST /api/auth/signup — 실제 회원가입 로직 없이 성공만 흉내낸다.
-  if (req.method === 'POST' && url.pathname === '/api/auth/signup') {
+  if (req.method === 'POST' && url.pathname === '/auth/signup') {
     res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
     res.end(JSON.stringify(wrap({})))
     return
   }
 
   // POST /api/sim — 요청받은 batchSize/batteryCellCount/captureSpeed로 셀·배치를 생성하고 진행을 시작한다.
-  if (req.method === 'POST' && url.pathname === '/api/sim') {
+  if (req.method === 'POST' && url.pathname === '/sim') {
     const { batchSize, batteryCellCount, captureSpeed } = JSON.parse(body.toString() || '{}')
     if (!batchSize || !batteryCellCount || !captureSpeed) {
       res.writeHead(400, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
@@ -116,14 +116,14 @@ const server = http.createServer(async (req, res) => {
   }
 
   // GET /api/sim — 진행 상황 복구용. 시작된 적이 없으면 COMPLETED로 응답한다.
-  if (req.method === 'GET' && url.pathname === '/api/sim') {
+  if (req.method === 'GET' && url.pathname === '/sim') {
     res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
     res.end(JSON.stringify(wrap(snapshot())))
     return
   }
 
   // GET /api/battery/:batteryCellId — 상세 조회. batteryDetail 컬렉션에서 찾아 반환한다.
-  const batteryDetailMatch = url.pathname.match(/^\/api\/battery\/(\d+)$/)
+  const batteryDetailMatch = url.pathname.match(/^\/battery\/(\d+)$/)
   if (req.method === 'GET' && batteryDetailMatch) {
     const batteryCellId = Number(batteryDetailMatch[1])
     const db = await readDb()
@@ -139,7 +139,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   // GET /api/reports/individual/:reportId/cell-view
-  const cellViewMatch = url.pathname.match(/^\/api\/reports\/individual\/(\d+)\/cell-view$/)
+  const cellViewMatch = url.pathname.match(/^\/reports\/individual\/(\d+)\/cell-view$/)
   if (req.method === 'GET' && cellViewMatch) {
     const reportId = Number(cellViewMatch[1])
     const db = await readDb()
@@ -157,8 +157,8 @@ const server = http.createServer(async (req, res) => {
   // GET /api/reports/individual/:reportId, GET /api/reports/daily/:reportId
   // 3단계 경로라 json-server의 /:name/:id 라우트가 못 잡는다.
   // db.json의 reports[].content 배열에서 직접 항목을 찾아 반환한다.
-  const individualDetailMatch = url.pathname.match(/^\/api\/reports\/individual\/(\d+)$/)
-  const dailyDetailMatch = url.pathname.match(/^\/api\/reports\/daily\/(\d+)$/)
+  const individualDetailMatch = url.pathname.match(/^\/reports\/individual\/(\d+)$/)
+  const dailyDetailMatch = url.pathname.match(/^\/reports\/daily\/(\d+)$/)
 
   if (req.method === 'GET' && individualDetailMatch) {
     const reportId = Number(individualDetailMatch[1])
@@ -195,7 +195,7 @@ const server = http.createServer(async (req, res) => {
   // GET /api/reports/individual, GET /api/reports/daily — 목록 조회.
   // json-server는 이 경로를 reports 컬렉션의 id="individual"/id="daily" 레코드 조회로 해석해버리므로
   // (해당 문서 자체를 반환) 직접 가로채 list-item 형태로 매핑하고 sort 파라미터를 적용한다.
-  if (req.method === 'GET' && url.pathname === '/api/reports/individual') {
+  if (req.method === 'GET' && url.pathname === '/reports/individual') {
     const db = await readDb()
     const content = db.reports?.find((r) => r.id === 'individual')?.content ?? []
     const sorted = sortByCreatedAt(content, url.searchParams.get('sort'))
@@ -211,7 +211,7 @@ const server = http.createServer(async (req, res) => {
     return
   }
 
-  if (req.method === 'GET' && url.pathname === '/api/reports/daily') {
+  if (req.method === 'GET' && url.pathname === '/reports/daily') {
     const db = await readDb()
     const content = db.reports?.find((r) => r.id === 'daily')?.content ?? []
     const sorted = sortByCreatedAt(content, url.searchParams.get('sort'))
@@ -228,9 +228,9 @@ const server = http.createServer(async (req, res) => {
   }
 
   try {
-    // json-server는 db.json의 리소스 키(예: /battery, /users)로 라우팅하므로 /api 프리픽스를 모른다.
-    const upstreamPath = req.url.replace(/^\/api(?=\/|$)/, '')
-    const upstream = await fetchWithRetry(`http://localhost:${RAW_PORT}${upstreamPath}`, {
+    // json-server는 db.json의 리소스 키(예: /battery, /users)로 그대로 라우팅한다.
+    // 이 서버로 들어오는 요청은 이미 /api 접두어가 없으므로 req.url을 그대로 넘긴다.
+    const upstream = await fetchWithRetry(`http://localhost:${RAW_PORT}${req.url}`, {
       method: req.method,
       headers: { 'content-type': 'application/json' },
       body: ['GET', 'HEAD'].includes(req.method ?? 'GET') ? undefined : body,
