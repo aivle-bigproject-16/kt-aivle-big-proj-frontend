@@ -13,16 +13,10 @@ function OverviewCapture({ onClick }: { onClick?: () => void }) {
   )
   const totalCount = useSimulationStore((s) => s.batteryCellCount)
 
-  /* 누적 캡쳐드 개수 — CAPTURING이 CAPTURED가 될 때마다 늘어난다.
-     analyze로 넘어간 셀도 "한 번 캡쳐드였다"는 사실은 그대로 유지되므로 제외하지 않는다.
-     capture 배열의 CAPTURED만 세면 analyze/completed로 넘어간 순간 줄어들어 버리니,
-     현재 CAPTURED로 남은 것 + 지금 analyze 중인 셀(1개면 1) + 이미 completed된 셀까지 합산한다 */
+  /* capture 배열 안에서 지금 CAPTURED 상태인 셀 개수 */
   const capturedInCaptureArray = useSimulationStore(
     (s) => s.capture.filter((c) => c.status === 'CAPTURED').length,
   )
-  const analyzingCount = useSimulationStore((s) => (s.analyze ? 1 : 0))
-  const completedCount = useSimulationStore((s) => s.completed.length)
-  const cumulativeCapturedCount = capturedInCaptureArray + analyzingCount + completedCount
   /* 클램프 — WS 메시지 순서가 꼬이면 값이 totalCount를 순간적으로 넘어설 수 있는데,
      그대로 두면 fill이 상태바 길이를 벗어난다 */
   const ratio = totalCount > 0 ? Math.min(1, capturedInCaptureArray / totalCount) : 0
@@ -53,7 +47,7 @@ function OverviewCapture({ onClick }: { onClick?: () => void }) {
           <span className="overview-capture__count">{capturingCount}</span>
           <span className="overview-capture__unit">active</span>
         </div>
-        <span className="overview-capture__total">/ {cumulativeCapturedCount} captured</span>
+        <span className="overview-capture__total">/ {capturedInCaptureArray} captured</span>
       </div>
       <div className="overview-capture__status-bar">
         <div className="overview-capture__status-bar-fill" style={{ width: `${ratio * 100}%` }} />
