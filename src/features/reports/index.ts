@@ -7,7 +7,7 @@ export { default as DailyReportDetailMockCard } from './components/DailyReportDe
 export { IndividualReport } from './components/IndividualReport'
 export { DailyReport } from './components/DailyReport'
 export { ReportTypeToggle } from './components/ReportTypeToggle'
-export { Cell3DCanvas, Cell3DInfo } from './components/Cell3DView'
+export { Cell3DCanvas } from './components/Cell3DView'
 export { useIndividualReportListStore } from './store/useIndividualReportListStore'
 export { useIndividualReportDetailStore } from './store/useIndividualReportDetailStore'
 export { useDailyReportListStore } from './store/useDailyReportListStore'

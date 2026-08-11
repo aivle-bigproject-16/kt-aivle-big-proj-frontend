@@ -1,32 +1,20 @@
-import { useRef, useMemo, useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import './Cell3DView.css'
-import type { CellDefectView, Severity } from '../types'
+import type { ImageMapping } from '../types'
 
 // ─── 상수 ────────────────────────────────────────────────────────────────────
 
-const SEVERITY_BORDER: Record<Severity, string> = {
-  HIGH: '#e34948',
-  MEDIUM: '#eda100',
-  LOW: '#1baf7a',
-}
+const DEFECT_COLOR = new THREE.Color('#e34948')
+const DEFAULT_AZIMUTH = 45
+const DEFAULT_ELEVATION = 20
+const DEFAULT_BORDER = '#3a3f44'
 
-const SEVERITY_LABEL: Record<Severity, string> = {
-  HIGH: '높음',
-  MEDIUM: '보통',
-  LOW: '낮음',
-}
-
-const POINT_COLOR = new THREE.Color('#ffffff')
-
-// ─── 점군 메시 ───────────────────────────────────────────────────────────────
-
-interface PointCloudProps {
-  points: [number, number, number, number][]
-  bounds: { a: number; b: number; c: number }
-}
+/* 셀 자체의 물리적 크기는 항상 고정이다 — bbox도 이 좌표계 기준(절대 좌표, 픽셀 아님)의
+   값으로 내려온다 */
+const CELL_BOUNDS = { a: 100, b: 254, c: 871 }
 
 // bounds 비율을 유지하며 최장 축을 MAX_SIZE로 정규화하는 스케일 계산
 const MAX_SIZE = 20
@@ -37,49 +25,101 @@ function computeScale(bounds: { a: number; b: number; c: number }) {
   return { sa: bounds.a * k, sb: bounds.b * k, sc: bounds.c * k, k }
 }
 
-/* 결함 점 전부를 흰색 반투명으로 통일해서 그린다 (신뢰도별 색상 구분 없음) */
-function PointCloud({ points, bounds }: PointCloudProps) {
-  const meshRef = useRef<THREE.InstancedMesh>(null)
+// ─── imageMappings → 3D 결함 박스 계산 ───────────────────────────────────────
+//
+// CT 슬라이스(imageMapping) 하나마다 그 자체로 직육면체 하나를 만든다 — 슬라이스의
+// axis 방향으로는 index/volume(1-based)로 정해지는 얇은 두께, 나머지 두 축
+// 방향으로는 bbox(CELL_BOUNDS와 같은 절대 좌표계)의 폭/높이 그대로. 여러 슬라이스가
+// 있으면 각각 독립된 박스로 만들어 겹쳐서 보여준다(합집합 — 서로 교차시키지 않음)
 
-  const positions = useMemo(() => {
-    const s = computeScale(bounds)
-    const pos: number[] = []
-    for (const [a, b, c] of points) {
-      pos.push(
-        (a / bounds.a - 0.5) * s.sa,
-        (b / bounds.b - 0.5) * s.sb,
-        (c / bounds.c - 0.5) * s.sc,
-      )
-    }
-    return pos
-  }, [points, bounds])
+type Range = [number, number]
 
-  useEffect(() => {
-    const mesh = meshRef.current
-    if (!mesh || positions.length === 0) return
-    const dummy = new THREE.Object3D()
-    for (let i = 0; i < positions.length / 3; i++) {
-      dummy.position.set(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2])
-      dummy.updateMatrix()
-      mesh.setMatrixAt(i, dummy.matrix)
-    }
-    mesh.instanceMatrix.needsUpdate = true
-  }, [positions])
+interface Box3 {
+  x: Range
+  y: Range
+  z: Range
+}
 
-  if (positions.length === 0) return null
+function clampRange([lo, hi]: Range, bound: number): Range {
+  const clampedLo = Math.max(0, Math.min(bound, lo))
+  const clampedHi = Math.max(0, Math.min(bound, hi))
+  const minSize = bound * 0.02
+  if (clampedHi - clampedLo < minSize) {
+    const center = (clampedLo + clampedHi) / 2
+    return [Math.max(0, center - minSize / 2), Math.min(bound, center + minSize / 2)]
+  }
+  return [clampedLo, clampedHi]
+}
+
+/** 슬라이스 하나(axis + index/volume + bbox) → 3D 박스 하나. axis/index/volume이
+   없으면(RGB, 또는 데이터 누락) null */
+function boxFromMapping(m: ImageMapping): Box3 | null {
+  if (!m.axis || m.index === undefined || m.volume === undefined || m.volume === 0) return null
+  const { a, b, c } = CELL_BOUNDS
+  const bound = m.axis === 'x' ? a : m.axis === 'y' ? b : c
+  // 1-based index — index=1이면 스택의 첫 슬라이스
+  const band: Range = [((m.index - 1) / m.volume) * bound, (m.index / m.volume) * bound]
+  const planeH: Range = [m.bbox.x, m.bbox.x + m.bbox.width]
+  const planeV: Range = [m.bbox.y, m.bbox.y + m.bbox.height]
+
+  if (m.axis === 'x') return { x: clampRange(band, a), y: clampRange(planeH, b), z: clampRange(planeV, c) }
+  if (m.axis === 'y') return { x: clampRange(planeH, a), y: clampRange(band, b), z: clampRange(planeV, c) }
+  return { x: clampRange(planeH, a), y: clampRange(planeV, b), z: clampRange(band, c) }
+}
+
+// ─── 결함 박스 메시 ──────────────────────────────────────────────────────────
+
+function DefectBox({ box }: { box: Box3 }) {
+  const { a, b, c } = CELL_BOUNDS
+  const { sa, sb, sc } = computeScale(CELL_BOUNDS)
+  const size = useMemo<[number, number, number]>(
+    () => [
+      ((box.x[1] - box.x[0]) / a) * sa,
+      ((box.y[1] - box.y[0]) / b) * sb,
+      ((box.z[1] - box.z[0]) / c) * sc,
+    ],
+    [box, sa, sb, sc],
+  )
+  const center = useMemo<[number, number, number]>(
+    () => [
+      ((box.x[0] + box.x[1]) / 2 / a - 0.5) * sa,
+      ((box.y[0] + box.y[1]) / 2 / b - 0.5) * sb,
+      ((box.z[0] + box.z[1]) / 2 / c - 0.5) * sc,
+    ],
+    [box, sa, sb, sc],
+  )
+  const edges = useMemo(() => new THREE.EdgesGeometry(new THREE.BoxGeometry(...size)), [size])
 
   return (
-    <instancedMesh ref={meshRef} args={[undefined, undefined, positions.length / 3]}>
-      <sphereGeometry args={[0.12, 6, 6]} />
-      <meshBasicMaterial color={POINT_COLOR} transparent opacity={0.5} depthWrite={false} />
-    </instancedMesh>
+    <group position={center}>
+      <mesh>
+        <boxGeometry args={size} />
+        {/* 면(mesh)과 테두리(lineSegments)가 정확히 같은 표면에 겹쳐 있으면 depth
+           버퍼 정밀도 때문에 z-fighting이 나서 면이 깜빡이며 뒤가 비치는 것처럼
+           보인다 — polygonOffset으로 면을 살짝 뒤로 밀어 테두리에 절대 안 가려지게 한다 */}
+        <meshBasicMaterial
+          color={DEFECT_COLOR}
+          transparent={false}
+          opacity={1}
+          side={THREE.FrontSide}
+          depthTest
+          depthWrite
+          polygonOffset
+          polygonOffsetFactor={1}
+          polygonOffsetUnits={1}
+        />
+      </mesh>
+      <lineSegments geometry={edges}>
+        <lineBasicMaterial color={DEFECT_COLOR} />
+      </lineSegments>
+    </group>
   )
 }
 
 // ─── 셀 외곽 와이어프레임 ─────────────────────────────────────────────────────
 
-function CellBounds({ bounds }: { bounds: { a: number; b: number; c: number } }) {
-  const { sa, sb, sc } = computeScale(bounds)
+function CellBounds() {
+  const { sa, sb, sc } = computeScale(CELL_BOUNDS)
   const edges = useMemo(() => new THREE.EdgesGeometry(new THREE.BoxGeometry(sa, sb, sc)), [sa, sb, sc])
   return (
     <lineSegments geometry={edges}>
@@ -110,27 +150,32 @@ function CameraSetup({ azimuth, elevation }: CameraSetupProps) {
 // ─── 3D 캔버스 — 검은 3D 영역에 들어가는 시각화 전용 부분 ─────────────────────
 
 interface Cell3DCanvasProps {
-  data: CellDefectView
+  mappings: ImageMapping[]
 }
 
-/* 3D 렌더링 전용 — 내부에 어떤 텍스트도 넣지 않는다 (점군이 비어도 빈 화면 유지) */
-function Cell3DCanvas({ data }: Cell3DCanvasProps) {
-  const { cloud, annotation } = data
-  const severity = annotation?.severity ?? null
-  const borderColor = severity ? SEVERITY_BORDER[severity] : '#3a3f44'
-  const azimuth = annotation?.recommendedView.azimuth ?? 45
-  const elevation = annotation?.recommendedView.elevation ?? 20
+/* 3D 렌더링 전용 — 내부에 어떤 텍스트도 넣지 않는다 */
+function Cell3DCanvas({ mappings }: Cell3DCanvasProps) {
+  const boxes = useMemo(
+    () =>
+      mappings
+        .filter((m) => m.imageType === 'CT')
+        .map(boxFromMapping)
+        .filter((b): b is Box3 => b !== null),
+    [mappings],
+  )
 
   return (
-    <div className="cell3d" style={{ '--cell3d-border': borderColor } as React.CSSProperties}>
+    <div className="cell3d" style={{ '--cell3d-border': DEFAULT_BORDER } as React.CSSProperties}>
       <div className="cell3d__canvas-wrap">
-        {cloud.points.length > 0 && (
+        {boxes.length > 0 && (
           <Canvas camera={{ fov: 50, near: 0.1, far: 200 }}>
-            <CameraSetup azimuth={azimuth} elevation={elevation} />
+            <CameraSetup azimuth={DEFAULT_AZIMUTH} elevation={DEFAULT_ELEVATION} />
             <ambientLight intensity={0.6} />
             <directionalLight position={[10, 10, 10]} intensity={0.8} />
-            <CellBounds bounds={cloud.bounds} />
-            <PointCloud points={cloud.points} bounds={cloud.bounds} />
+            <CellBounds />
+            {boxes.map((box, i) => (
+              <DefectBox key={i} box={box} />
+            ))}
             <OrbitControls enablePan={false} minDistance={8} maxDistance={40} />
           </Canvas>
         )}
@@ -139,56 +184,4 @@ function Cell3DCanvas({ data }: Cell3DCanvasProps) {
   )
 }
 
-// ─── 3D 정보 — 텍스트만 담당 (3D 영역 밖에서 사용) ─────────────────────────────
-
-interface Cell3DInfoProps {
-  data: CellDefectView
-}
-
-function Cell3DInfo({ data }: Cell3DInfoProps) {
-  const { cloud, annotation } = data
-  const severity = annotation?.severity ?? null
-  const borderColor = severity ? SEVERITY_BORDER[severity] : '#3a3f44'
-
-  return (
-    <div className="cell3d-info">
-      <div className="cell3d-info__header">
-        <span className="cell3d-info__title">셀 3D 결함 뷰</span>
-        {annotation && (
-          <span className="cell3d-info__severity-badge" style={{ background: borderColor }}>
-            위험도 {SEVERITY_LABEL[annotation.severity]}
-          </span>
-        )}
-      </div>
-
-      <div className="cell3d-info__metrics">
-        <span className="cell3d-info__metric">
-          <span className="cell3d-info__metric-label">DVF</span>
-          <span className="cell3d-info__metric-value">{cloud.metrics.dvfPpm.toLocaleString()} ppm</span>
-        </span>
-        <span className="cell3d-info__metric">
-          <span className="cell3d-info__metric-label">결함 수</span>
-          <span className="cell3d-info__metric-value">{cloud.metrics.defectCount}개</span>
-        </span>
-        <span className="cell3d-info__metric">
-          <span className="cell3d-info__metric-label">양성 슬라이스율</span>
-          <span className="cell3d-info__metric-value">{(cloud.metrics.posSliceRate * 100).toFixed(1)}%</span>
-        </span>
-      </div>
-
-      {annotation && (
-        <div className="cell3d-info__annotation">
-          {annotation.highlights.map((h) => (
-            <div key={h.zone} className="cell3d-info__highlight">
-              <span className="cell3d-info__highlight-zone">{h.zone}</span>
-              <span className="cell3d-info__highlight-note">{h.note}</span>
-            </div>
-          ))}
-          <p className="cell3d-info__caption">{annotation.caption}</p>
-        </div>
-      )}
-    </div>
-  )
-}
-
-export { Cell3DCanvas, Cell3DInfo }
+export { Cell3DCanvas }

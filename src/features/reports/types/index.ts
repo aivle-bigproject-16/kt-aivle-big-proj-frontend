@@ -116,34 +116,6 @@ export interface DailyReportDetail {
   summary: DailyReportSummary
 }
 
-// ─── 셀 3D 결함 뷰 ───────────────────────────────────────────────────────────
-
-export type DefectPattern = 'LOCAL_CLUSTER' | 'AXIAL_PENETRATING' | 'VOLUMETRIC' | 'NONE'
-export type Severity = 'HIGH' | 'MEDIUM' | 'LOW'
-
-export interface DefectCloud {
-  bounds: { a: number; b: number; c: number }
-  points: [number, number, number, number][] // [a, b, c, area]
-  metrics: { dvfPpm: number; posSliceRate: number; defectCount: number }
-}
-
-export interface VlmAnnotation {
-  pattern: DefectPattern
-  severity: Severity
-  highlights: { zone: string; note: string }[]
-  recommendedView: { azimuth: number; elevation: number }
-  caption: string
-  citedMetrics: string[]
-}
-
-// GET /reports/individual/:reportId/cell-view — Response
-export interface CellDefectView {
-  reportId: number
-  cellId: number
-  cloud: DefectCloud
-  annotation: VlmAnnotation | null
-}
-
 // ─── 일일 리포트 ─────────────────────────────────────────────────────────────
 
 // GET /reports/daily — Response content[]

@@ -1,0 +1,108 @@
+/* 셀 목록 — 넘치면 세로 스크롤, 하단은 은은하게 페이드 */
+.completed-cell-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.207rem;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: #d0d4d8 transparent;
+  mask-image: linear-gradient(to bottom, #000 92%, transparent 100%);
+}
+
+.completed-cell-list::-webkit-scrollbar {
+  width: 0.7rem;
+}
+
+.completed-cell-list::-webkit-scrollbar-thumb {
+  border-radius: 0.35rem;
+  background-color: #d0d4d8;
+}
+
+.completed-cell-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 셀 행 — 134.207×6.76 고정, 곡률 0.9rem. button이라 기본 스타일 리셋 */
+.completed-cell-list__row {
+  display: flex;
+  align-items: center;
+  gap: 2.41rem;
+  flex-shrink: 0;
+  width: 100%;
+  height: 6.76rem;
+  padding: 0 3rem 0 3.38rem;
+  border: none;
+  border-radius: 0.9rem;
+  box-sizing: border-box;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.completed-cell-list__row:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.completed-cell-list__row:active {
+  transform: scale(0.99);
+}
+
+.completed-cell-list__row--neutral {
+  background-color: #fafbfc;
+}
+
+.completed-cell-list__row--pass {
+  background-color: #fafbfc;
+}
+
+.completed-cell-list__row--reject {
+  background-color: #fffbeb;
+}
+
+.completed-cell-list__row--fail {
+  background-color: #fef2f2;
+}
+
+.completed-cell-list__row-id {
+  flex-shrink: 0;
+  font-size: 1.69rem;
+  font-weight: 700;
+  color: #191c1d;
+}
+
+.completed-cell-list__row-status {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-size: 1.267rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.completed-cell-list__row--pass .completed-cell-list__row-status {
+  color: #1e7e34;
+}
+
+.completed-cell-list__row--reject .completed-cell-list__row-status {
+  color: #d97706;
+}
+
+.completed-cell-list__row--fail .completed-cell-list__row-status {
+  color: #dc2626;
+}
+
+.completed-cell-list__row-batch {
+  flex-shrink: 0;
+  font-size: 1.388rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.completed-cell-list__row-arrow {
+  flex-shrink: 0;
+  width: 0.9rem;
+  height: 1.6rem;
+}

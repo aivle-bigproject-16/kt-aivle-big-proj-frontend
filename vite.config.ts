@@ -30,6 +30,13 @@ export default defineConfig({
         changeOrigin: true,
         ws: true,
       },
+      // AI 서버(FastAPI)는 메인 백엔드와 별도 호스트/포트 — SSE 로그 스트림용.
+      // 일반 HTTP GET의 응답이 안 끊기고 이어지는 것뿐이라 ws:true는 필요 없다.
+      '/ai': {
+        target: process.env.VITE_AI_PROXY_TARGET ?? 'http://localhost:8000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/ai/, ''),
+      },
     },
   },
   test: {

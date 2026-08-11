@@ -19,7 +19,7 @@
 
   /* 카드형 디자인 컴포넌트의 표준 그림자 — 모든 컴포넌트가 이 값을 공유한다.
      개별 컴포넌트 CSS에 리터럴로 반복하지 말고 var(--shadow-card)를 쓴다 */
-  --shadow-card: 0 4px 4px rgba(0, 0, 0, 0.25);
+  --shadow-card: 0 0px 0px rgba(0, 0, 0, 0.25);
 
   /* 라운드 스케일 — 5단계 + pill, 상한 15px. 판정은 값이 아니라 높이 대비 비율 (DASHBOARD_REDESIGN.md §2.7) */
   --r-xs: 0.2rem;    /* 2px — 셀 타일, 진행바 (h ≤ 6) */

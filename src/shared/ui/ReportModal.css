@@ -1,0 +1,117 @@
+.report-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(15, 17, 21, 0.6);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.report-modal-overlay[data-visible='true'] {
+  opacity: 1;
+}
+
+/* 60×70rem 고정, 내용이 넘치면 세로 스크롤 */
+.report-modal {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 60rem;
+  height: 70rem;
+  max-width: calc(100% - 8rem);
+  max-height: calc(100% - 8rem);
+  padding: 2.8rem 2.8rem 3rem;
+  border-radius: 1.44rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  transform: scale(0.96);
+  transition: transform 0.2s ease;
+  overflow-y: auto;
+}
+
+.report-modal-overlay[data-visible='true'] .report-modal {
+  transform: scale(1);
+}
+
+.report-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.report-modal__title {
+  flex-shrink: 0;
+  font-size: 1.69rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.report-modal__header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.report-modal__badge {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.414rem;
+  padding: 0 1.4rem;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  background-color: #f3f4f6;
+  font-size: 1.267rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+.report-modal__close {
+  flex-shrink: 0;
+  width: 2.414rem;
+  height: 2.414rem;
+  border: none;
+  border-radius: 50%;
+  box-sizing: border-box;
+  background-color: #f3f4f6;
+  color: #5b5f63;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.report-modal__close:hover {
+  background-color: #e5e7eb;
+}
+
+.report-modal__divider {
+  flex-shrink: 0;
+  width: 100%;
+  height: 1px;
+  margin-top: 1.5rem;
+  background-color: #eceef0;
+}
+
+.report-modal__body {
+  flex-shrink: 0;
+  margin: 2.2rem 0 0;
+  font-size: 1.569rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #191c1d;
+  white-space: pre-wrap;
+}
+
+.report-modal__empty {
+  flex-shrink: 0;
+  margin: 2.2rem 0 0;
+  font-size: 1.4rem;
+  color: #9ca3af;
+}
