@@ -9,6 +9,7 @@ export const ROUTES = {
   REPORT_DAILY: '/reports/daily',
   REPORT_DAILY_DETAIL: (reportId: string | number) => `/reports/daily/${reportId}`,
   NOTICE: '/notices',
+  NOTICE_CREATE: '/notices/new',
   NOTICE_DETAIL: (id: string | number) => `/notices/${id}`,
   HELP: '/help',
   SETTINGS: '/settings',

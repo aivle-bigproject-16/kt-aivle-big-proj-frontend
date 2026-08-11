@@ -1,0 +1,137 @@
+/* 섹션 — 1400×500 고정, 곡률 1.44rem (피그마 px÷10=rem, 1400 기준 정책) */
+.notice-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  flex-shrink: 0;
+  width: 140rem;
+  height: 50rem;
+  border-radius: 1.44rem;
+  box-sizing: border-box;
+  padding: 3rem 2.7rem;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.notice-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* 내용 입력칸은 남은 세로 공간을 모두 채운다 */
+.notice-form__field--grow {
+  flex: 1;
+  min-height: 0;
+}
+
+.notice-form__label {
+  flex-shrink: 0;
+  font-size: 1.69rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.notice-form__input,
+.notice-form__textarea {
+  width: 100%;
+  border: 1px solid #e1e5ea;
+  border-radius: 0.8rem;
+  box-sizing: border-box;
+  padding: 1.2rem 1.4rem;
+  background-color: #ffffff;
+  font-family: inherit;
+  font-size: 1.5rem;
+  color: #191c1d;
+}
+
+.notice-form__input {
+  height: 4.8rem;
+  flex-shrink: 0;
+}
+
+.notice-form__textarea {
+  flex: 1;
+  min-height: 0;
+  line-height: 1.7;
+  resize: none;
+}
+
+.notice-form__input:focus,
+.notice-form__textarea:focus {
+  outline: none;
+  border-color: #0c5795;
+}
+
+.notice-form__input:disabled,
+.notice-form__textarea:disabled {
+  background-color: #f3f4f6;
+  color: #9ca3af;
+}
+
+.notice-form__input::placeholder,
+.notice-form__textarea::placeholder {
+  color: #9ca3af;
+}
+
+.notice-form__counter {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1.328rem;
+  color: #9ca3af;
+}
+
+.notice-form__error {
+  flex-shrink: 0;
+  margin: 0;
+  font-size: 1.448rem;
+  color: #dc2626;
+}
+
+.notice-form__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.2rem;
+  flex-shrink: 0;
+}
+
+.notice-form__cancel,
+.notice-form__submit {
+  height: 4rem;
+  padding: 0 2.4rem;
+  border-radius: 0.8rem;
+  font-family: inherit;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.notice-form__cancel {
+  border: 1px solid #e1e5ea;
+  background-color: #ffffff;
+  color: #5b5f63;
+}
+
+.notice-form__cancel:hover:not(:disabled) {
+  background-color: #f3f4f6;
+}
+
+.notice-form__submit {
+  border: none;
+  background-color: #0c5795;
+  color: #ffffff;
+}
+
+.notice-form__submit:hover:not(:disabled) {
+  background-color: #236cae;
+}
+
+.notice-form__submit:disabled,
+.notice-form__cancel:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

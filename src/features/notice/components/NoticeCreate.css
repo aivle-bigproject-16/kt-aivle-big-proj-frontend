@@ -1,0 +1,17 @@
+/* 섹션 — 공지사항 작성 페이지 전체 영역. 폭은 다른 섹션과 동일하게 140rem */
+.notice-create {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex-shrink: 0;
+  width: 140rem;
+  box-sizing: border-box;
+}
+
+.notice-create__title {
+  flex-shrink: 0;
+  margin: 0;
+  font-size: 2.897rem;
+  font-weight: 700;
+  color: #191c1d;
+}

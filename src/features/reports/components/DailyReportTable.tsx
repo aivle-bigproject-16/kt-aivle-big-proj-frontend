@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '@/shared/ui/ListPageShell.css'
-import './ReportTable.css'
 import { ROUTES } from '@/core/navigation/routes'
 import { Pagination } from '@/shared/ui/Pagination'
 import { ListRowChevron } from '@/shared/ui/ListRowChevron'
@@ -70,7 +69,7 @@ function DailyReportTable() {
       <div className="list-page__header">
         <h1 className="list-page__title">일일 리포트</h1>
         <div style={{ position: 'relative' }}>
-          <button type="button" className="report-table__create-btn" onClick={() => setCreatorOpen((v) => !v)}>
+          <button type="button" className="list-page__action-btn" onClick={() => setCreatorOpen((v) => !v)}>
             + 리포트 생성
           </button>
           {creatorOpen && (

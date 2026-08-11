@@ -12,6 +12,7 @@ import IndividualReportDetailPage from '@/pages/IndividualReportDetailPage'
 import DailyReportPage from '@/pages/DailyReportPage'
 import DailyReportDetailPage from '@/pages/DailyReportDetailPage'
 import NoticePage from '@/pages/NoticePage'
+import NoticeCreatePage from '@/pages/NoticeCreatePage'
 import NoticeDetailPage from '@/pages/NoticeDetailPage'
 
 export const router = createBrowserRouter([
@@ -42,6 +43,8 @@ export const router = createBrowserRouter([
             ],
           },
           { path: 'notices', Component: NoticePage },
+          // 'new'가 :id보다 먼저 와야 /notices/new가 상세로 잘못 잡히지 않는다
+          { path: 'notices/new', Component: NoticeCreatePage },
           { path: 'notices/:id', Component: NoticeDetailPage },
         ],
       },

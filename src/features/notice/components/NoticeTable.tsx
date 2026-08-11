@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '@/shared/ui/ListPageShell.css'
 import { ROUTES } from '@/core/navigation/routes'
 import { Pagination } from '@/shared/ui/Pagination'
@@ -48,6 +48,9 @@ function NoticeTable() {
     <section className="list-page">
       <div className="list-page__header">
         <h1 className="list-page__title">공지사항</h1>
+        <Link to={ROUTES.NOTICE_CREATE} className="list-page__action-btn">
+          + 공지 작성
+        </Link>
       </div>
 
       <div className="list-page__toolbar">
