@@ -19,11 +19,33 @@
    더해지면 좌우 정렬이 깨진다 — 이 컨텍스트에서는 좌우 margin을 0으로, 너비를
    complete-body의 콘텐츠 폭에 맞춘다 */
 .complete-body > .overview-result__header,
-.complete-body > .overview-result__status-bar,
-.complete-body > .overview-result__result {
+.complete-body > .overview-result__status-bar {
   width: 100%;
   margin-left: 0;
   margin-right: 0;
+}
+
+/* result 영역은 원래 스탯 카드 한 줄(고정 높이 5.49rem)만 담던 컨테이너였는데,
+   이제 셀 목록(complete-body__list)까지 하단에 담아야 해서 세로 배치로 바꾸고
+   남은 세로 공간을 전부 차지하도록 flex:1을 준다 — 목록이 그 안에서 스크롤된다 */
+.complete-body > .overview-result__result {
+  width: 100%;
+  height: auto;
+  margin-left: 0;
+  margin-right: 0;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  flex: 1;
+  min-height: 0;
+}
+
+.complete-body__stat-row {
+  display: flex;
+  align-items: center;
+  gap: 2.41rem;
+  flex-shrink: 0;
+  height: 5.49rem;
 }
 
 /* 스탯 카드가 여기서는 button이라 기본 스타일 리셋 + 클릭 가능한 느낌을 준다.
@@ -84,112 +106,8 @@
   width: 31.7675rem;
 }
 
-/* 셀 목록 — 넘치면 세로 스크롤, 하단은 은은하게 페이드 */
-.complete-body__list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.207rem;
-  flex: 1;
-  min-height: 0;
+/* 완료 탭 전용 간격 — CompletedCellList 자체는 여백을 갖지 않는 공용 컴포넌트라
+   여기서 스탯 행과의 간격을 준다 */
+.complete-body .completed-cell-list {
   margin-top: 2.9rem;
-  overflow-y: auto;
-  scrollbar-gutter: stable;
-  scrollbar-width: thin;
-  scrollbar-color: #d0d4d8 transparent;
-  mask-image: linear-gradient(to bottom, #000 92%, transparent 100%);
-}
-
-.complete-body__list::-webkit-scrollbar {
-  width: 0.7rem;
-}
-
-.complete-body__list::-webkit-scrollbar-thumb {
-  border-radius: 0.35rem;
-  background-color: #d0d4d8;
-}
-
-.complete-body__list::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* 셀 행 — 134.207×6.76 고정, 곡률 0.9rem. button이라 기본 스타일 리셋 */
-.complete-body__row {
-  display: flex;
-  align-items: center;
-  gap: 2.41rem;
-  flex-shrink: 0;
-  width: 100%;
-  height: 6.76rem;
-  padding: 0 3rem 0 3.38rem;
-  border: none;
-  border-radius: 0.9rem;
-  box-sizing: border-box;
-  font-family: inherit;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.complete-body__row:hover {
-  transform: translateY(-0.15rem);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.complete-body__row:active {
-  transform: scale(0.99);
-}
-
-.complete-body__row--neutral {
-  background-color: #fafbfc;
-}
-
-.complete-body__row--pass {
-  background-color: #fafbfc;
-}
-
-.complete-body__row--reject {
-  background-color: #fffbeb;
-}
-
-.complete-body__row--fail {
-  background-color: #fef2f2;
-}
-
-.complete-body__row-id {
-  flex-shrink: 0;
-  font-size: 1.69rem;
-  font-weight: 700;
-  color: #191c1d;
-}
-
-.complete-body__row-status {
-  flex-shrink: 0;
-  margin-left: auto;
-  font-size: 1.267rem;
-  font-weight: 400;
-  color: #9ca3af;
-}
-
-.complete-body__row--pass .complete-body__row-status {
-  color: #1e7e34;
-}
-
-.complete-body__row--reject .complete-body__row-status {
-  color: #d97706;
-}
-
-.complete-body__row--fail .complete-body__row-status {
-  color: #dc2626;
-}
-
-.complete-body__row-batch {
-  flex-shrink: 0;
-  font-size: 1.388rem;
-  font-weight: 400;
-  color: #9ca3af;
-}
-
-.complete-body__row-arrow {
-  flex-shrink: 0;
-  width: 0.9rem;
-  height: 1.6rem;
 }

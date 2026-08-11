@@ -1,16 +1,31 @@
-/* 섹션 — 507×345 고정, 곡률 1.44rem (피그마 px÷10=rem, 1400 기준 정책) */
+/* 섹션 — 507×345 고정, 곡률 1.44rem (피그마 px÷10=rem, 1400 기준 정책).
+   button이라 기본 스타일 리셋 + 클릭하면 전체 리포트 모달이 열린다 */
 .individual-report-insight {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   width: 50.7rem;
   height: 34.5rem;
+  border: none;
   border-radius: 1.44rem;
   box-sizing: border-box;
   padding: 2.1rem 2.7rem;
   background-color: #ffffff;
   box-shadow: var(--shadow-card);
   overflow-y: auto;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.individual-report-insight:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.individual-report-insight:active {
+  transform: scale(0.99);
 }
 
 .individual-report-insight__header {

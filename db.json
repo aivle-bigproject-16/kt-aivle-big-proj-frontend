@@ -285,8 +285,12 @@
           "status": "COMPLETED",
           "title": "BATT-001 불량 검사 상세 리포트",
           "content": "CT 이미지 분석 결과, 상단 탭 부분에 94% 신뢰도로 크랙이 발견되었습니다.",
-          "ctImages": ["https://picsum.photos/seed/ct1002/4000/530"],
-          "rgbImages": ["https://picsum.photos/seed/rgb1002/1920/1080"],
+          "ctImages": [
+            "https://picsum.photos/seed/ct1002/4000/530"
+          ],
+          "rgbImages": [
+            "https://picsum.photos/seed/rgb1002/1920/1080"
+          ],
           "createdAt": "2026-07-07T10:00:00Z",
           "updatedAt": "2026-07-07T10:30:00Z",
           "imageMappings": [
@@ -298,10 +302,10 @@
               "index": 30,
               "axis": "x",
               "bbox": {
-                "x": 800,
-                "y": 100,
-                "width": 500,
-                "height": 200
+                "x": 100,
+                "y": 380,
+                "width": 40,
+                "height": 40
               }
             },
             {
@@ -312,10 +316,10 @@
               "index": 28,
               "axis": "y",
               "bbox": {
-                "x": 750,
-                "y": 120,
-                "width": 480,
-                "height": 210
+                "x": 35,
+                "y": 380,
+                "width": 20,
+                "height": 40
               }
             },
             {
@@ -326,10 +330,10 @@
               "index": 32,
               "axis": "z",
               "bbox": {
-                "x": 820,
-                "y": 90,
-                "width": 510,
-                "height": 190
+                "x": 35,
+                "y": 100,
+                "width": 20,
+                "height": 40
               }
             }
           ]
@@ -341,8 +345,12 @@
           "status": "COMPLETED",
           "title": "BATT-002 불량 검사 상세 리포트",
           "content": "RGB 이미지 분석 결과, 표면에 오점이 발견되었습니다.",
-          "ctImages": ["https://picsum.photos/seed/ct1002/4000/530"],
-          "rgbImages": ["https://picsum.photos/seed/rgb1002/1920/1080"],
+          "ctImages": [
+            "https://picsum.photos/seed/ct1002/4000/530"
+          ],
+          "rgbImages": [
+            "https://picsum.photos/seed/rgb1002/1920/1080"
+          ],
           "createdAt": "2026-07-07T11:00:00Z",
           "updatedAt": "2026-07-07T11:30:00Z",
           "imageMappings": [
@@ -365,10 +373,10 @@
               "index": 30,
               "axis": "x",
               "bbox": {
-                "x": 800,
-                "y": 100,
-                "width": 500,
-                "height": 200
+                "x": 110,
+                "y": 390,
+                "width": 40,
+                "height": 40
               }
             },
             {
@@ -379,10 +387,10 @@
               "index": 29,
               "axis": "y",
               "bbox": {
-                "x": 760,
-                "y": 110,
-                "width": 490,
-                "height": 205
+                "x": 40,
+                "y": 390,
+                "width": 20,
+                "height": 40
               }
             },
             {
@@ -393,10 +401,10 @@
               "index": 31,
               "axis": "z",
               "bbox": {
-                "x": 810,
-                "y": 95,
-                "width": 505,
-                "height": 195
+                "x": 40,
+                "y": 110,
+                "width": 20,
+                "height": 40
               }
             }
           ]
@@ -1582,84 +1590,6 @@
       "password": "testpass456!",
       "name": "이영희",
       "role": "user"
-    }
-  ],
-  "cellDefectViews": [
-    {
-      "reportId": 1,
-      "cellId": 1,
-      "cloud": {
-        "bounds": { "a": 100, "b": 254, "c": 871 },
-        "points": [
-          [41, 122, 107, 0.92],
-          [43, 130, 111, 0.88],
-          [39, 117, 114, 0.95],
-          [45, 135, 104, 0.81],
-          [42, 125, 122, 0.76],
-          [50, 140, 109, 0.69],
-          [38, 112, 118, 0.84],
-          [47, 127, 100, 0.91],
-          [40, 119, 120, 0.78],
-          [44, 132, 106, 0.87],
-          [21, 58, 248, 0.45],
-          [24, 69, 254, 0.41],
-          [19, 53, 242, 0.38],
-          [82, 216, 46, 0.33],
-          [85, 224, 53, 0.29],
-          [79, 208, 42, 0.31]
-        ],
-        "metrics": { "dvfPpm": 1240, "posSliceRate": 0.72, "defectCount": 16 }
-      },
-      "annotation": {
-        "pattern": "LOCAL_CLUSTER",
-        "severity": "HIGH",
-        "highlights": [
-          { "zone": "TOP_TAB", "note": "상단 탭 접합부에 크랙 집중 — 94% 신뢰도" },
-          { "zone": "MID_CORE", "note": "코어 중앙 미세 기공 산발" }
-        ],
-        "recommendedView": { "azimuth": 45, "elevation": 20 },
-        "caption": "상단 탭 접합부(a=41~50, b=112~140, c=100~122 구간)에 고밀도 결함 군집이 확인됩니다. DVF 1240ppm은 허용 임계(800ppm)를 초과하며, 즉각 폐기 판정을 권고합니다.",
-        "citedMetrics": ["dvfPpm", "posSliceRate"]
-      }
-    },
-    {
-      "reportId": 2,
-      "cellId": 2,
-      "cloud": {
-        "bounds": { "a": 100, "b": 254, "c": 871 },
-        "points": [
-          [12, 231, 30, 0.55],
-          [15, 224, 33, 0.51],
-          [10, 236, 25, 0.48],
-          [91, 30, 327, 0.42],
-          [88, 38, 332, 0.39],
-          [93, 23, 321, 0.44],
-          [51, 127, 176, 0.31],
-          [49, 132, 173, 0.28],
-          [53, 122, 180, 0.34]
-        ],
-        "metrics": { "dvfPpm": 620, "posSliceRate": 0.41, "defectCount": 9 }
-      },
-      "annotation": {
-        "pattern": "VOLUMETRIC",
-        "severity": "MEDIUM",
-        "highlights": [
-          { "zone": "SURFACE_CORNER", "note": "표면 모서리 오점 — RGB 분석 기반" }
-        ],
-        "recommendedView": { "azimuth": 135, "elevation": 10 },
-        "caption": "결함이 셀 전체에 산발적으로 분포합니다. DVF 620ppm으로 경계 수준이며 재검사를 권고합니다.",
-        "citedMetrics": ["dvfPpm", "defectCount"]
-      }
-    },
-    {
-      "reportId": 3,
-      "cellId": 1,
-      "cloud": {
-        "bounds": { "a": 100, "b": 254, "c": 871 },
-        "points": [],
-        "metrics": { "dvfPpm": 0, "posSliceRate": 0.0, "defectCount": 0 }
-      },
-      "annotation": null
     }
   ]
 }
