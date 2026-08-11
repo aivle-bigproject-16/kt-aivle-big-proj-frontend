@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSimulationStore } from '../store/useSimulationStore'
 import { ROUTES } from '@/core/navigation/routes'
@@ -77,6 +77,7 @@ function AnalyzeRight() {
   const capture = useSimulationStore((s) => s.capture)
   const analyze = useSimulationStore((s) => s.analyze)
   const completed = useSimulationStore((s) => s.completed)
+  const batteryCellCount = useSimulationStore((s) => s.batteryCellCount)
 
   /* 분석 중인 셀이 완료로 넘어가는 그 짧은 순간 analyze가 null이 되는데, 그때
      analyzeBatchId만 보고 배치를 고르면 화면이 잠깐 빈다 — 마지막으로 봤던
@@ -87,15 +88,36 @@ function AnalyzeRight() {
   }, [analyzeBatchId])
   const effectiveBatchId = analyzeBatchId ?? lastBatchIdRef.current
 
-  /* 분석 중인 셀과 같은 배치의 셀들을 모든 단계(대기/촬영/분석/완료)에서 모아
-     번호순으로 나열한다 — 배치 상태 패널은 배치 전체의 진행 상황을 보여준다 */
+  /* WS 스냅샷 하나하나는 completed 반영이 한 박자 늦기도 하고(analyze→completed
+     사이 공백), 여러 셀이 동시에 분석되면 그중 일부가 analyze(단일 값)에 전혀
+     비치지 못한 채 capture에서 곧장 사라졌다가 나중에야 completed에 나타나기도
+     한다 — 그 사이 스냅샷에서는 어느 배열에도 없어 통째로 빠진다.
+     그래서 4개 배열을 매번 새로 합치지 않고, 한 번이라도 본 셀은 배치ID와 함께
+     레지스트리에 계속 들고 있다가 상태만 최신값으로 갱신한다 — 사라지는 일이 없다.
+     새 시뮬레이션이 시작되면(batteryCellCount 변경) 레지스트리를 비운다 */
+  const [registry, setRegistry] = useState<Map<number, CellProgress>>(() => new Map())
+  const seenBatteryCellCountRef = useRef<number | null>(null)
+
+  useEffect(() => {
+    setRegistry((prev) => {
+      const next = seenBatteryCellCountRef.current !== batteryCellCount ? new Map<number, CellProgress>() : new Map(prev)
+      seenBatteryCellCountRef.current = batteryCellCount
+      for (const cell of registered) next.set(cell.batteryCellId, cell)
+      for (const cell of capture) next.set(cell.batteryCellId, cell)
+      if (analyze) next.set(analyze.batteryCellId, analyze)
+      for (const cell of completed) next.set(cell.batteryCellId, cell)
+      return next
+    })
+  }, [registered, capture, analyze, completed, batteryCellCount])
+
+  /* 분석 중인 셀과 같은 배치의 셀들을 레지스트리에서 모아 번호순으로 나열한다 —
+     배치 상태 패널은 배치 전체의 진행 상황을 보여준다 */
   const batchCells = useMemo(() => {
     if (effectiveBatchId === undefined) return []
-    const all = [...registered, ...capture, ...(analyze ? [analyze] : []), ...completed]
-    return all
+    return [...registry.values()]
       .filter((c) => c.batchId === effectiveBatchId)
       .sort((a, b) => a.batteryCellId - b.batteryCellId)
-  }, [effectiveBatchId, registered, capture, analyze, completed])
+  }, [effectiveBatchId, registry])
 
   return (
     <div className="analyze-body__right">
