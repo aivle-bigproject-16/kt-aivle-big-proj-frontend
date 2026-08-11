@@ -254,7 +254,18 @@ let totalBatchCount = 0
 let runId = 0
 
 function snapshot(forceProgress = false) {
-  if (!hasStartedOnce) return { event: 'COMPLETED' }
+  if (!hasStartedOnce) {
+    return {
+      event: 'COMPLETED',
+      batchCount: 0,
+      batteryCellCount: 0,
+      captureSpeed: null,
+      registered: [],
+      capture: [],
+      analyze: null,
+      completed: [],
+    }
+  }
 
   if (
     !forceProgress &&
@@ -264,7 +275,16 @@ function snapshot(forceProgress = false) {
     capture.length === 0
   ) {
     console.log(`[snap] COMPLETED`)
-    return { event: 'COMPLETED' }
+    return {
+      event: 'COMPLETED',
+      batchCount: totalBatchCount,
+      batteryCellCount: totalCellCount,
+      captureSpeed: captureSpeedSec,
+      registered,
+      capture,
+      analyze,
+      completed,
+    }
   }
 
   console.log(`[snap] PROGRESS: registered=${registered.length}, capture=${capture.length}, analyze=${analyze ? analyze.batteryCellId : 'null'}, completed=${completed.length}/${totalCellCount}`)

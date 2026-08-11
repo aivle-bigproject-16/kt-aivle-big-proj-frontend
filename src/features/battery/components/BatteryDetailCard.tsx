@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 // 1200 기준 구 CSS는 history/BatteryDetailCard.css로 이동됨 — 1400 기준으로 새로 만들 것
 import { useBatteryDetailStore } from '../store/useBatteryDetailStore'
 import { ImageSection } from './InspectionImageSection'
@@ -56,10 +56,6 @@ function BatteryDetailCard({ batteryCellId }: Props) {
 
   return (
     <section className="battery-detail">
-      <Link to={ROUTES.BATTERY} className="battery-detail__back">
-        ← 배터리 목록으로
-      </Link>
-
       {isLoading && <p className="battery-detail__notice">불러오는 중...</p>}
       {error && <p className="battery-detail__notice battery-detail__notice--error">{error}</p>}
 
