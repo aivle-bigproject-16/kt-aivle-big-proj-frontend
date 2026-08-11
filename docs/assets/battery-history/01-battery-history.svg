@@ -14,13 +14,13 @@
   <!-- ================= 좌측 컬럼 260 — 사이드바 (별도 담당, 현행 렌더) ================= -->
   <g>
     <rect x="87" y="30" width="86" height="86" rx="23" fill="#ffffff" filter="url(#sh)"/>
-    <text x="130" y="79" text-anchor="middle" font-size="13" font-weight="700" fill="#d94730">LOGO</text>
+    <text x="130" y="79" text-anchor="middle" font-size="13" font-weight="700" fill="#0c5795">LOGO</text>
 
     <rect x="87" y="146" width="86" height="307" rx="19" fill="#ffffff" filter="url(#sh)"/>
     <rect x="100" y="166" width="60" height="60" rx="16" fill="#ededed"/>
     <rect x="118" y="184" width="24" height="24" rx="5" fill="#5b5f63" opacity="0.7"/>
     <rect x="100" y="264" width="60" height="60" rx="16" fill="#ededed"/>
-    <rect x="118" y="282" width="24" height="24" rx="5" fill="#d94730"/>
+    <rect x="118" y="282" width="24" height="24" rx="5" fill="#0c5795"/>
     <rect x="100" y="362" width="60" height="60" rx="16" fill="#ededed"/>
     <rect x="118" y="380" width="24" height="24" rx="5" fill="#5b5f63" opacity="0.7"/>
 
