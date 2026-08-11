@@ -11,6 +11,7 @@ import IndividualReportPage from '@/pages/IndividualReportPage'
 import IndividualReportDetailPage from '@/pages/IndividualReportDetailPage'
 import DailyReportPage from '@/pages/DailyReportPage'
 import DailyReportDetailPage from '@/pages/DailyReportDetailPage'
+import NoticePage from '@/pages/NoticePage'
 
 export const router = createBrowserRouter([
   { path: '/', element: <Navigate to={ROUTES.DASHBOARD} replace /> },
@@ -39,6 +40,7 @@ export const router = createBrowserRouter([
               { path: 'daily/:reportId', Component: DailyReportDetailPage },
             ],
           },
+          { path: 'notices', Component: NoticePage },
         ],
       },
     ],
