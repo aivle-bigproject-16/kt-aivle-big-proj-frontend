@@ -12,6 +12,7 @@ import IndividualReportDetailPage from '@/pages/IndividualReportDetailPage'
 import DailyReportPage from '@/pages/DailyReportPage'
 import DailyReportDetailPage from '@/pages/DailyReportDetailPage'
 import NoticePage from '@/pages/NoticePage'
+import NoticeDetailPage from '@/pages/NoticeDetailPage'
 
 export const router = createBrowserRouter([
   { path: '/', element: <Navigate to={ROUTES.DASHBOARD} replace /> },
@@ -41,6 +42,7 @@ export const router = createBrowserRouter([
             ],
           },
           { path: 'notices', Component: NoticePage },
+          { path: 'notices/:id', Component: NoticeDetailPage },
         ],
       },
     ],

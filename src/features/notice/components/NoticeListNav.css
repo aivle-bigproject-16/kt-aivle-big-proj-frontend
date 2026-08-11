@@ -1,0 +1,23 @@
+/* 목록으로 가는 버튼 — 화살표 아이콘 + 텍스트 (피그마 px÷10=rem, 1400 기준 정책) */
+.notice-list-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.7rem;
+  width: fit-content;
+  flex-shrink: 0;
+  font-size: 1.575rem;
+  font-weight: 400;
+  color: #5b5f63;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+  margin-top: 1rem;
+  margin-bottom: -1rem;
+}
+
+.notice-list-nav:hover {
+  opacity: 0.7;
+}
+
+.notice-list-nav svg {
+  flex-shrink: 0;
+}
