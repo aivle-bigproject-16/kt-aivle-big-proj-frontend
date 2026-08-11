@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import { ListBackNav } from '@/shared/ui/ListBackNav'
 import { ROUTES } from '@/core/navigation/routes'
 import { NoticeForm, type NoticeFormValues } from './NoticeForm'
+import { NoticeStateMessage } from './NoticeStateMessage'
 import { useNoticeDetailStore } from '../store/useNoticeDetailStore'
-import './NoticeEdit.css'
+import './NoticeFormPage.css'
 
 interface NoticeEditProps {
   id: number
@@ -31,14 +32,14 @@ function NoticeEdit({ id }: NoticeEditProps) {
   }
 
   return (
-    <div className="notice-edit">
+    <div className="notice-form-page">
       <ListBackNav to={ROUTES.NOTICE_DETAIL(id)} label="공지사항으로" />
-      <h1 className="notice-edit__title">공지사항 수정</h1>
+      <h1 className="notice-form-page__title">공지사항 수정</h1>
 
       {error ? (
-        <div className="notice-edit__notice notice-edit__notice--error">{error}</div>
+        <NoticeStateMessage isError>{error}</NoticeStateMessage>
       ) : isLoading || !detail ? (
-        <div className="notice-edit__notice">불러오는 중...</div>
+        <NoticeStateMessage>불러오는 중...</NoticeStateMessage>
       ) : (
         <NoticeForm
           initialValues={{ title: detail.title, content: detail.content }}

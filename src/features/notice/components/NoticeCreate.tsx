@@ -3,7 +3,7 @@ import { ListBackNav } from '@/shared/ui/ListBackNav'
 import { ROUTES } from '@/core/navigation/routes'
 import { NoticeForm, type NoticeFormValues } from './NoticeForm'
 import { useNoticeDetailStore } from '../store/useNoticeDetailStore'
-import './NoticeCreate.css'
+import './NoticeFormPage.css'
 
 /** 공지사항 작성 페이지 — 목록 버튼 + 제목/본문 폼 */
 function NoticeCreate() {
@@ -18,9 +18,9 @@ function NoticeCreate() {
   }
 
   return (
-    <div className="notice-create">
+    <div className="notice-form-page">
       <ListBackNav to={ROUTES.NOTICE} label="공지사항 목록" />
-      <h1 className="notice-create__title">공지사항 작성</h1>
+      <h1 className="notice-form-page__title">공지사항 작성</h1>
       <NoticeForm submitLabel="등록" onSubmit={handleCreate} cancelTo={ROUTES.NOTICE} />
     </div>
   )

@@ -4,6 +4,7 @@ import { ROUTES } from '@/core/navigation/routes'
 import { NoticeDetailHeader } from './NoticeDetailHeader'
 import { NoticeDetailBody } from './NoticeDetailBody'
 import { NoticeDetailActions } from './NoticeDetailActions'
+import { NoticeStateMessage } from './NoticeStateMessage'
 import { useNoticeDetailStore } from '../store/useNoticeDetailStore'
 import './NoticeDetail.css'
 
@@ -29,9 +30,9 @@ function NoticeDetail({ id }: NoticeDetailProps) {
       <ListBackNav to={ROUTES.NOTICE} label="공지사항 목록" />
 
       {error ? (
-        <div className="notice-detail__notice notice-detail__notice--error">{error}</div>
+        <NoticeStateMessage isError>{error}</NoticeStateMessage>
       ) : isLoading ? (
-        <div className="notice-detail__notice">불러오는 중...</div>
+        <NoticeStateMessage>불러오는 중...</NoticeStateMessage>
       ) : (
         <>
           <NoticeDetailHeader />

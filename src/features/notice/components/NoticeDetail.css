@@ -8,23 +8,3 @@
   width: 140rem;
   box-sizing: border-box;
 }
-
-/* 로딩·에러 안내 — 카드 자리를 대신 채운다 */
-.notice-detail__notice {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 140rem;
-  height: 10rem;
-  border-radius: 1.25rem;
-  box-sizing: border-box;
-  background-color: #ffffff;
-  box-shadow: var(--shadow-card);
-  font-size: 1.5rem;
-  color: #5b5f63;
-}
-
-.notice-detail__notice--error {
-  color: #dc2626;
-}
