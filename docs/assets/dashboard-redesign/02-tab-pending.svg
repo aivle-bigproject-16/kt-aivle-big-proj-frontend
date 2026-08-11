@@ -110,37 +110,37 @@
     <g>
       <rect x="267" y="256" width="172" height="40" rx="8" fill="#fafbfc"/>
       <rect x="283" y="266" width="14" height="20" rx="4" fill="none" stroke="#6b7280" stroke-width="1.6"/>
-      <rect x="286" y="263" width="8" height="3" rx="999" fill="#6b7280"/>
+      <rect x="286" y="263" width="8" height="3" rx="1.5" fill="#6b7280"/>
       <text x="309" y="281" font-size="13" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1039</text>
     </g>
     <g>
       <rect x="455" y="256" width="172" height="40" rx="8" fill="#fafbfc"/>
       <rect x="471" y="266" width="14" height="20" rx="4" fill="none" stroke="#6b7280" stroke-width="1.6"/>
-      <rect x="474" y="263" width="8" height="3" rx="999" fill="#6b7280"/>
+      <rect x="474" y="263" width="8" height="3" rx="1.5" fill="#6b7280"/>
       <text x="497" y="281" font-size="13" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1040</text>
     </g>
     <g>
       <rect x="643" y="256" width="172" height="40" rx="8" fill="#fafbfc"/>
       <rect x="659" y="266" width="14" height="20" rx="4" fill="none" stroke="#6b7280" stroke-width="1.6"/>
-      <rect x="662" y="263" width="8" height="3" rx="999" fill="#6b7280"/>
+      <rect x="662" y="263" width="8" height="3" rx="1.5" fill="#6b7280"/>
       <text x="685" y="281" font-size="13" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1041</text>
     </g>
     <g>
       <rect x="831" y="256" width="172" height="40" rx="8" fill="#fafbfc"/>
       <rect x="847" y="266" width="14" height="20" rx="4" fill="none" stroke="#6b7280" stroke-width="1.6"/>
-      <rect x="850" y="263" width="8" height="3" rx="999" fill="#6b7280"/>
+      <rect x="850" y="263" width="8" height="3" rx="1.5" fill="#6b7280"/>
       <text x="873" y="281" font-size="13" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1042</text>
     </g>
     <g>
       <rect x="1019" y="256" width="172" height="40" rx="8" fill="#fafbfc"/>
       <rect x="1035" y="266" width="14" height="20" rx="4" fill="none" stroke="#6b7280" stroke-width="1.6"/>
-      <rect x="1038" y="263" width="8" height="3" rx="999" fill="#6b7280"/>
+      <rect x="1038" y="263" width="8" height="3" rx="1.5" fill="#6b7280"/>
       <text x="1061" y="281" font-size="13" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1043</text>
     </g>
     <g>
       <rect x="1207" y="256" width="172" height="40" rx="8" fill="#fafbfc"/>
       <rect x="1223" y="266" width="14" height="20" rx="4" fill="none" stroke="#6b7280" stroke-width="1.6"/>
-      <rect x="1226" y="263" width="8" height="3" rx="999" fill="#6b7280"/>
+      <rect x="1226" y="263" width="8" height="3" rx="1.5" fill="#6b7280"/>
       <text x="1249" y="281" font-size="13" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1044</text>
     </g>
 
@@ -181,6 +181,6 @@
     </g>
 
     <!-- 스크롤바 (scrollbar-gutter: stable) -->
-    <rect x="1387" y="196" width="6" height="300" rx="4" fill="#d0d4d8"/>
+    <rect x="1387" y="196" width="6" height="300" rx="3" fill="#d0d4d8"/>
   </g>
 </svg>

@@ -110,7 +110,7 @@
       <rect x="267" y="226" width="4" height="56" fill="#d97706"/>
       <rect x="295" y="243" width="16" height="22" rx="4" fill="#d97706"/>
       <text x="331" y="260" font-size="14" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1027</text>
-      <rect x="455" y="244" width="66" height="20" rx="999" fill="#d97706"/>
+      <rect x="455" y="244" width="66" height="20" rx="10" fill="#d97706"/>
       <text x="488" y="258" text-anchor="middle" font-size="10.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">REJECT</text>
       <text x="553" y="260" font-size="13" fill="#5b5f63">갈라짐</text>
       <text x="700" y="260" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">CT · 신뢰도 87%</text>
@@ -123,7 +123,7 @@
       <rect x="267" y="292" width="1112" height="56" rx="8" fill="#fafbfc"/>
       <rect x="295" y="309" width="16" height="22" rx="4" fill="#1e7e34"/>
       <text x="331" y="326" font-size="14" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1026</text>
-      <rect x="455" y="310" width="52" height="20" rx="999" fill="#1e7e34"/>
+      <rect x="455" y="310" width="52" height="20" rx="10" fill="#1e7e34"/>
       <text x="481" y="324" text-anchor="middle" font-size="10.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">PASS</text>
       <text x="553" y="326" font-size="13" fill="#9ca3af">결함 없음</text>
       <text x="700" y="326" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">RGB · 신뢰도 96%</text>
@@ -134,7 +134,7 @@
       <rect x="267" y="358" width="1112" height="56" rx="8" fill="#fafbfc"/>
       <rect x="295" y="375" width="16" height="22" rx="4" fill="#1e7e34"/>
       <text x="331" y="392" font-size="14" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1025</text>
-      <rect x="455" y="376" width="52" height="20" rx="999" fill="#1e7e34"/>
+      <rect x="455" y="376" width="52" height="20" rx="10" fill="#1e7e34"/>
       <text x="481" y="390" text-anchor="middle" font-size="10.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">PASS</text>
       <text x="553" y="392" font-size="13" fill="#9ca3af">결함 없음</text>
       <text x="700" y="392" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">CT · 신뢰도 93%</text>
@@ -145,7 +145,7 @@
       <rect x="267" y="424" width="1112" height="56" rx="8" fill="#fafbfc"/>
       <rect x="295" y="441" width="16" height="22" rx="4" fill="#1e7e34"/>
       <text x="331" y="458" font-size="14" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1024</text>
-      <rect x="455" y="442" width="52" height="20" rx="999" fill="#1e7e34"/>
+      <rect x="455" y="442" width="52" height="20" rx="10" fill="#1e7e34"/>
       <text x="481" y="456" text-anchor="middle" font-size="10.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">PASS</text>
       <text x="553" y="458" font-size="13" fill="#9ca3af">결함 없음</text>
       <text x="700" y="458" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">RGB · 신뢰도 89%</text>
@@ -156,7 +156,7 @@
       <rect x="267" y="490" width="1112" height="56" rx="8" fill="#fafbfc"/>
       <rect x="295" y="507" width="16" height="22" rx="4" fill="#1e7e34"/>
       <text x="331" y="524" font-size="14" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1023</text>
-      <rect x="455" y="508" width="52" height="20" rx="999" fill="#1e7e34"/>
+      <rect x="455" y="508" width="52" height="20" rx="10" fill="#1e7e34"/>
       <text x="481" y="522" text-anchor="middle" font-size="10.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">PASS</text>
       <text x="553" y="524" font-size="13" fill="#9ca3af">결함 없음</text>
       <text x="700" y="524" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">CT · 신뢰도 94%</text>
@@ -167,7 +167,7 @@
       <rect x="267" y="556" width="1112" height="56" rx="8" fill="#fafbfc"/>
       <rect x="295" y="573" width="16" height="22" rx="4" fill="#1e7e34"/>
       <text x="331" y="590" font-size="14" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1022</text>
-      <rect x="455" y="574" width="52" height="20" rx="999" fill="#1e7e34"/>
+      <rect x="455" y="574" width="52" height="20" rx="10" fill="#1e7e34"/>
       <text x="481" y="588" text-anchor="middle" font-size="10.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">PASS</text>
       <text x="553" y="590" font-size="13" fill="#9ca3af">결함 없음</text>
       <text x="700" y="590" font-size="12" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">RGB · 신뢰도 91%</text>
@@ -180,6 +180,6 @@
       <text x="331" y="656" font-size="14" font-weight="600" fill="#191c1d" font-family="ui-monospace, Consolas, monospace">CELL-1021</text>
     </g>
 
-    <rect x="1387" y="226" width="6" height="240" rx="4" fill="#d0d4d8"/>
+    <rect x="1387" y="226" width="6" height="240" rx="3" fill="#d0d4d8"/>
   </g>
 </svg>

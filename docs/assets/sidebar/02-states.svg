@@ -1,0 +1,698 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1380" width="1920" height="1380" font-family="Inter, system-ui, sans-serif">
+  <title>사이드바 — 상태 변형</title>
+  <desc>브랜드 블록 3안 · 활성 탭 3종 · 게시판 미구현 처리 · 인증 화면 미마운트 · 뷰포트 스케일 · 로고 리컬러 확정. 01-sidebar.svg 의 규격을 전제로 한다. 내비 pill 은 탭 4개 기준 312 다.</desc>
+
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <rect width="1920" height="1380" fill="#ededed"/>
+
+  <text x="60" y="52" font-size="24" font-weight="700" fill="#191c1d">사이드바 — 상태 변형</text>
+  <text x="60" y="78" font-size="13" fill="#5b5f63">로고 아래 슬롯은 슬로건이 아니라 워드마크가 쓴다. 슬롯 높이 34 를 고정해 pill 을 붙들고, 게시판은 미구현이라 비활성으로만 존재한다.</text>
+  <line x1="60" y1="96" x2="1860" y2="96" stroke="#e1e5ea" stroke-width="1"/>
+
+  <!-- ==================== A. 브랜드 블록 3안 ==================== -->
+  <text x="60" y="136" font-size="11" letter-spacing="1.1" fill="#0c5795">A</text>
+  <text x="84" y="136" font-size="17" font-weight="650" fill="#191c1d">브랜드 블록 — 워드마크로 확정</text>
+  <text x="60" y="158" font-size="12.5" fill="#5b5f63">슬롯 34 를 유지하는 한 pill 상단은 y369 에 고정된다. 슬로건을 되살리면 슬롯이 68 이 되고 pill 이 34 내려간다.</text>
+  <g>
+    <rect x="60" y="176" width="190" height="560" fill="none" stroke="#0c5795" stroke-width="1.4"/>
+    <rect x="112" y="206" width="86" height="86" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <defs><linearGradient id="ag0" gradientUnits="userSpaceOnUse" x1="411.4" y1="256.2" x2="42.4" y2="283.2"><stop offset="0" stop-color="#4b8bc8"/><stop offset="1" stop-color="#64a0dd"/></linearGradient><linearGradient id="ag1" gradientUnits="userSpaceOnUse" x1="405.4" y1="129.2" x2="301.4" y2="312.2"><stop offset="0" stop-color="#5796d3"/><stop offset="1" stop-color="#3e81be"/></linearGradient><linearGradient id="ag2" gradientUnits="userSpaceOnUse" x1="466.4" y1="99.2" x2="517.4" y2="330.2"><stop offset="0" stop-color="#5796d3"/><stop offset="1" stop-color="#256caa"/></linearGradient><linearGradient id="ag3" gradientUnits="userSpaceOnUse" x1="490.4" y1="168.2" x2="418.4" y2="382.2"><stop offset="0" stop-color="#0c5795"/><stop offset="1" stop-color="#3e81be"/></linearGradient><linearGradient id="ag5" gradientUnits="userSpaceOnUse" x1="520.4" y1="107.2" x2="638.4" y2="255.2"><stop offset="0" stop-color="#256caa"/><stop offset="1" stop-color="#0c5795"/></linearGradient><linearGradient id="ag6" gradientUnits="userSpaceOnUse" x1="193.4" y1="180.2" x2="77.4" y2="248.2"><stop offset="0" stop-color="#5796d3"/><stop offset="1" stop-color="#64a0dd"/></linearGradient></defs>
+    <g transform="translate(120,223.4) scale(0.1071)" fill="none" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="url(#ag0)" d="M411.4 256.2 L385.4 282.2 L376.4 286.2 L369.4 286.2 L361.4 282.2 L270.4 191.2 L255.4 185.2 L243.4 185.2 L224.4 194.2 L142.4 276.2 L134.4 280.2 L121.4 283.2 L42.4 283.2"/>
+      <path stroke="url(#ag1)" d="M405.4 129.2 L510.4 233.2 L514.4 240.2 L512.4 244.2 L415.4 342.2 L401.4 352.2 L389.4 357.2 L365.4 359.2 L343.4 351.2 L334.4 345.2 L301.4 312.2"/>
+      <path stroke="url(#ag2)" d="M466.4 99.2 L600.4 232.2 L605.4 240.2 L600.4 248.2 L517.4 330.2"/>
+      <path stroke="url(#ag3)" d="M490.4 168.2 L555.4 233.2 L559.4 240.2 L555.4 247.2 L418.4 382.2"/>
+      <path stroke="#64a0dd" d="M250.4 216.2 L345.4 311.2 L359.4 318.2 L369.4 320.2 L383.4 319.2 L402.4 310.2 L465.4 247.2 L469.4 240.2 L465.4 232.2"/>
+      <path stroke="url(#ag5)" d="M520.4 107.2 L640.4 227.2 L645.4 242.2 L638.4 255.2"/>
+      <path stroke="url(#ag6)" d="M193.4 180.2 L131.4 243.2 L122.4 247.2 L115.4 247.2 L118.4 248.2 L77.4 248.2"/>
+      <path stroke="#0c5795" d="M306 181.3 L312.5 187.7"/>
+      <path stroke="#0c5795" d="M618.7 274.9 L612.4 281.5"/>
+      <path stroke="#0c5795" d="M273.2 330.2 L280.2 337"/>
+      <path stroke="#0c5795" d="M569.9 323.9 L563.6 330.4"/>
+      <path stroke="#0c5795" d="M271.9 374.6 L278.4 380.9"/>
+      <path stroke="#0c5795" d="M463.1 141.4 L470.1 148.2"/>
+      <path stroke="#0c5795" d="M594.5 299.3 L588.2 305.7"/>
+      <path stroke="#0c5795" d="M545.2 348.5 L539.3 354.5"/>
+      <path stroke="#0c5795" d="M520.8 373.4 L514.4 379.7"/>
+      <path stroke="#256caa" d="M327.9 423.1 L336.1 427.1"/>
+      <path stroke="#0c5795" d="M331.3 206.6 L338 212.8"/>
+      <path stroke="#0c5795" d="M248.9 306.3 L254.8 312.2"/>
+      <path stroke="#19619f" d="M173 334.2 L180.2 328.5"/>
+      <path stroke="#0c5795" d="M298.2 400.4 L305 406.5"/>
+      <path stroke="#0c5795" d="M463.8 431 L470.2 424.5"/>
+      <path stroke="#0c5795" d="M409.3 467.6 L400.6 469.9"/>
+      <path stroke="#0c5795" d="M205.2 303.8 L198.9 310.4"/>
+      <path stroke="#0c5795" d="M298.2 354.7 L304.9 361"/>
+      <path stroke="#0c5795" d="M489.6 404.9 L496 398.4"/>
+      <path stroke="#3e81be" d="M276 287.4 L282.5 293.8"/>
+      <path stroke="#0c5795" d="M323.4 378.6 L330.5 384.5"/>
+      <path stroke="#256caa" d="M436.9 115.4 L443.3 121.7"/>
+      <path stroke="#256caa" d="M279 158.8 L286.9 163.5"/>
+      <path stroke="#0c5795" d="M226.1 237.8 L219.9 244.5"/>
+      <path stroke="#19619f" d="M353 394.1 L361.5 396.2"/>
+      <path stroke="#4b8bc8" d="M467 54.5 L473.6 60.8"/>
+      <path stroke="#256caa" d="M394.9 393.7 L386.4 395.7"/>
+      <path stroke="#3e81be" d="M251.2 262.8 L257.9 269"/>
+      <path stroke="#0c5795" d="M443.2 450.5 L435.6 455.5"/>
+      <path stroke="#64a0dd" d="M182.4 147.7 L188.9 141.4"/>
+      <path stroke="#5796d3" d="M493.3 80.7 L499.3 86.6"/>
+      <path stroke="#64a0dd" d="M138.2 191.4 L132.3 197.3"/>
+      <path stroke="#3e81be" d="M201.1 262.7 L194.8 269.2"/>
+      <path stroke="#4b8bc8" d="M409.9 426.7 L401.8 429.7"/>
+      <path stroke="#5796d3" d="M441.4 29 L447.6 34.8"/>
+      <path stroke="#64a0dd" d="M439.7 73.3 L446.3 79.6"/>
+      <path stroke="#5796d3" d="M410.6 89.7 L416.7 95.6"/>
+      <path stroke="#5796d3" d="M219.9 122.9 L211.8 126.1"/>
+      <path stroke="#4b8bc8" d="M221.2 157.9 L213.8 162.4"/>
+      <path stroke="#64a0dd" d="M163.2 166.4 L157.1 172.3"/>
+      <path stroke="#4b8bc8" d="M149 346.5 L140.6 349"/>
+      <path stroke="#5796d3" d="M494.9 353 L489 359"/>
+      <path stroke="#3276b4" d="M363.9 433.2 L373 433.9"/>
+      <path stroke="#3e81be" d="M246.1 152 L254.2 152.3"/>
+      <path stroke="#5796d3" d="M169.5 293.8 L176.1 287.5"/>
+      <path stroke="#4b8bc8" d="M441.8 406 L435.5 411.7"/>
+      <path stroke="#3e81be" d="M247.6 119 L255.7 119"/>
+      <path stroke="#64a0dd" d="M70.1 215.3 L78.1 215.3"/>
+      <path stroke="#64a0dd" d="M379.1 33.7 L387.5 37.4"/>
+      <path stroke="#64a0dd" d="M357.9 82.5 L363.8 88.4"/>
+      <path stroke="#64a0dd" d="M410.4 8 L418.2 11.9"/>
+      <path stroke="#64a0dd" d="M342.5 24.7 L351.1 26.3"/>
+      <path stroke="#64a0dd" d="M141.7 313.2 L149.3 309.7"/>
+      <path stroke="#64a0dd" d="M108.7 317.4 L116.8 317.4"/>
+      <path stroke="#64a0dd" d="M468.8 379.3 L463 385.6"/>
+      <path stroke="#64a0dd" d="M42.9 247.8 L50.9 248"/>
+      <path stroke="#64a0dd" d="M74.7 317.5 L82.8 317.3"/>
+      <path stroke="#64a0dd" d="M412.6 50.5 L419.4 55.8"/>
+      <path stroke="#64a0dd" d="M381.6 105.9 L387.4 111.9"/>
+      <path stroke="#64a0dd" d="M104.9 215.3 L112.9 215.2"/>
+      <path stroke="#5796d3" d="M105.7 351.4 L113.8 351.6"/>
+      <path stroke="#64a0dd" d="M8 247.9 L16 247.9"/>
+      <path stroke="#64a0dd" d="M441.8 209.4 L446.9 214.3"/>
+      <path stroke="#64a0dd" d="M419 187 L424.1 191.9"/>
+      <path stroke="#64a0dd" d="M399.4 167.5 L402 169.8"/>
+      <path stroke="#5796d3" d="M225.3 285.1 L227.7 287"/>
+    </g>
+    <text x="155" y="329" text-anchor="middle" font-size="22" font-weight="700" fill="#0c5795">FlowCell</text>
+    <rect x="60" y="369" width="190" height="312" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="76" y="389" width="158" height="56" rx="15" fill="#eef6fe"/>
+    <text x="128" y="422" font-size="14" font-weight="600" fill="#0c5795">대시보드</text>
+    <text x="128" y="494" font-size="14" font-weight="500" fill="#5b5f63">배터리 목록</text>
+    <text x="128" y="566" font-size="14" font-weight="500" fill="#5b5f63">리포트 목록</text>
+    <text x="128" y="638" font-size="14" font-weight="500" fill="#9ca3af">게시판</text>
+    <rect x="176" y="629" width="42" height="18" rx="9" fill="#f3f4f6"/>
+    <text x="197" y="642" text-anchor="middle" font-size="9.5" fill="#9ca3af">준비 중</text>
+    <rect x="60" y="748" width="190" height="20" rx="10" fill="#0c5795"/>
+    <text x="155" y="762" text-anchor="middle" font-size="11" font-weight="600" fill="#ffffff">1 · 워드마크만 — 확정</text>
+    <text x="155" y="784" text-anchor="middle" font-size="10.5" fill="#9ca3af">FlowCell 22px/700 · 폭 87 · pill y369</text>
+  </g>
+  <g>
+    <rect x="290" y="176" width="190" height="560" fill="none" stroke="#dfe3e7" stroke-width="1" stroke-dasharray="2 4"/>
+    <rect x="342" y="206" width="86" height="86" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <defs><linearGradient id="bg0" gradientUnits="userSpaceOnUse" x1="411.4" y1="256.2" x2="42.4" y2="283.2"><stop offset="0" stop-color="#4b8bc8"/><stop offset="1" stop-color="#64a0dd"/></linearGradient><linearGradient id="bg1" gradientUnits="userSpaceOnUse" x1="405.4" y1="129.2" x2="301.4" y2="312.2"><stop offset="0" stop-color="#5796d3"/><stop offset="1" stop-color="#3e81be"/></linearGradient><linearGradient id="bg2" gradientUnits="userSpaceOnUse" x1="466.4" y1="99.2" x2="517.4" y2="330.2"><stop offset="0" stop-color="#5796d3"/><stop offset="1" stop-color="#256caa"/></linearGradient><linearGradient id="bg3" gradientUnits="userSpaceOnUse" x1="490.4" y1="168.2" x2="418.4" y2="382.2"><stop offset="0" stop-color="#0c5795"/><stop offset="1" stop-color="#3e81be"/></linearGradient><linearGradient id="bg5" gradientUnits="userSpaceOnUse" x1="520.4" y1="107.2" x2="638.4" y2="255.2"><stop offset="0" stop-color="#256caa"/><stop offset="1" stop-color="#0c5795"/></linearGradient><linearGradient id="bg6" gradientUnits="userSpaceOnUse" x1="193.4" y1="180.2" x2="77.4" y2="248.2"><stop offset="0" stop-color="#5796d3"/><stop offset="1" stop-color="#64a0dd"/></linearGradient></defs>
+    <g transform="translate(350,223.4) scale(0.1071)" fill="none" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="url(#bg0)" d="M411.4 256.2 L385.4 282.2 L376.4 286.2 L369.4 286.2 L361.4 282.2 L270.4 191.2 L255.4 185.2 L243.4 185.2 L224.4 194.2 L142.4 276.2 L134.4 280.2 L121.4 283.2 L42.4 283.2"/>
+      <path stroke="url(#bg1)" d="M405.4 129.2 L510.4 233.2 L514.4 240.2 L512.4 244.2 L415.4 342.2 L401.4 352.2 L389.4 357.2 L365.4 359.2 L343.4 351.2 L334.4 345.2 L301.4 312.2"/>
+      <path stroke="url(#bg2)" d="M466.4 99.2 L600.4 232.2 L605.4 240.2 L600.4 248.2 L517.4 330.2"/>
+      <path stroke="url(#bg3)" d="M490.4 168.2 L555.4 233.2 L559.4 240.2 L555.4 247.2 L418.4 382.2"/>
+      <path stroke="#64a0dd" d="M250.4 216.2 L345.4 311.2 L359.4 318.2 L369.4 320.2 L383.4 319.2 L402.4 310.2 L465.4 247.2 L469.4 240.2 L465.4 232.2"/>
+      <path stroke="url(#bg5)" d="M520.4 107.2 L640.4 227.2 L645.4 242.2 L638.4 255.2"/>
+      <path stroke="url(#bg6)" d="M193.4 180.2 L131.4 243.2 L122.4 247.2 L115.4 247.2 L118.4 248.2 L77.4 248.2"/>
+      <path stroke="#0c5795" d="M306 181.3 L312.5 187.7"/>
+      <path stroke="#0c5795" d="M618.7 274.9 L612.4 281.5"/>
+      <path stroke="#0c5795" d="M273.2 330.2 L280.2 337"/>
+      <path stroke="#0c5795" d="M569.9 323.9 L563.6 330.4"/>
+      <path stroke="#0c5795" d="M271.9 374.6 L278.4 380.9"/>
+      <path stroke="#0c5795" d="M463.1 141.4 L470.1 148.2"/>
+      <path stroke="#0c5795" d="M594.5 299.3 L588.2 305.7"/>
+      <path stroke="#0c5795" d="M545.2 348.5 L539.3 354.5"/>
+      <path stroke="#0c5795" d="M520.8 373.4 L514.4 379.7"/>
+      <path stroke="#256caa" d="M327.9 423.1 L336.1 427.1"/>
+      <path stroke="#0c5795" d="M331.3 206.6 L338 212.8"/>
+      <path stroke="#0c5795" d="M248.9 306.3 L254.8 312.2"/>
+      <path stroke="#19619f" d="M173 334.2 L180.2 328.5"/>
+      <path stroke="#0c5795" d="M298.2 400.4 L305 406.5"/>
+      <path stroke="#0c5795" d="M463.8 431 L470.2 424.5"/>
+      <path stroke="#0c5795" d="M409.3 467.6 L400.6 469.9"/>
+      <path stroke="#0c5795" d="M205.2 303.8 L198.9 310.4"/>
+      <path stroke="#0c5795" d="M298.2 354.7 L304.9 361"/>
+      <path stroke="#0c5795" d="M489.6 404.9 L496 398.4"/>
+      <path stroke="#3e81be" d="M276 287.4 L282.5 293.8"/>
+      <path stroke="#0c5795" d="M323.4 378.6 L330.5 384.5"/>
+      <path stroke="#256caa" d="M436.9 115.4 L443.3 121.7"/>
+      <path stroke="#256caa" d="M279 158.8 L286.9 163.5"/>
+      <path stroke="#0c5795" d="M226.1 237.8 L219.9 244.5"/>
+      <path stroke="#19619f" d="M353 394.1 L361.5 396.2"/>
+      <path stroke="#4b8bc8" d="M467 54.5 L473.6 60.8"/>
+      <path stroke="#256caa" d="M394.9 393.7 L386.4 395.7"/>
+      <path stroke="#3e81be" d="M251.2 262.8 L257.9 269"/>
+      <path stroke="#0c5795" d="M443.2 450.5 L435.6 455.5"/>
+      <path stroke="#64a0dd" d="M182.4 147.7 L188.9 141.4"/>
+      <path stroke="#5796d3" d="M493.3 80.7 L499.3 86.6"/>
+      <path stroke="#64a0dd" d="M138.2 191.4 L132.3 197.3"/>
+      <path stroke="#3e81be" d="M201.1 262.7 L194.8 269.2"/>
+      <path stroke="#4b8bc8" d="M409.9 426.7 L401.8 429.7"/>
+      <path stroke="#5796d3" d="M441.4 29 L447.6 34.8"/>
+      <path stroke="#64a0dd" d="M439.7 73.3 L446.3 79.6"/>
+      <path stroke="#5796d3" d="M410.6 89.7 L416.7 95.6"/>
+      <path stroke="#5796d3" d="M219.9 122.9 L211.8 126.1"/>
+      <path stroke="#4b8bc8" d="M221.2 157.9 L213.8 162.4"/>
+      <path stroke="#64a0dd" d="M163.2 166.4 L157.1 172.3"/>
+      <path stroke="#4b8bc8" d="M149 346.5 L140.6 349"/>
+      <path stroke="#5796d3" d="M494.9 353 L489 359"/>
+      <path stroke="#3276b4" d="M363.9 433.2 L373 433.9"/>
+      <path stroke="#3e81be" d="M246.1 152 L254.2 152.3"/>
+      <path stroke="#5796d3" d="M169.5 293.8 L176.1 287.5"/>
+      <path stroke="#4b8bc8" d="M441.8 406 L435.5 411.7"/>
+      <path stroke="#3e81be" d="M247.6 119 L255.7 119"/>
+      <path stroke="#64a0dd" d="M70.1 215.3 L78.1 215.3"/>
+      <path stroke="#64a0dd" d="M379.1 33.7 L387.5 37.4"/>
+      <path stroke="#64a0dd" d="M357.9 82.5 L363.8 88.4"/>
+      <path stroke="#64a0dd" d="M410.4 8 L418.2 11.9"/>
+      <path stroke="#64a0dd" d="M342.5 24.7 L351.1 26.3"/>
+      <path stroke="#64a0dd" d="M141.7 313.2 L149.3 309.7"/>
+      <path stroke="#64a0dd" d="M108.7 317.4 L116.8 317.4"/>
+      <path stroke="#64a0dd" d="M468.8 379.3 L463 385.6"/>
+      <path stroke="#64a0dd" d="M42.9 247.8 L50.9 248"/>
+      <path stroke="#64a0dd" d="M74.7 317.5 L82.8 317.3"/>
+      <path stroke="#64a0dd" d="M412.6 50.5 L419.4 55.8"/>
+      <path stroke="#64a0dd" d="M381.6 105.9 L387.4 111.9"/>
+      <path stroke="#64a0dd" d="M104.9 215.3 L112.9 215.2"/>
+      <path stroke="#5796d3" d="M105.7 351.4 L113.8 351.6"/>
+      <path stroke="#64a0dd" d="M8 247.9 L16 247.9"/>
+      <path stroke="#64a0dd" d="M441.8 209.4 L446.9 214.3"/>
+      <path stroke="#64a0dd" d="M419 187 L424.1 191.9"/>
+      <path stroke="#64a0dd" d="M399.4 167.5 L402 169.8"/>
+      <path stroke="#5796d3" d="M225.3 285.1 L227.7 287"/>
+    </g>
+    <rect x="290" y="304" width="190" height="34" rx="4" fill="none" stroke="#e1e5ea" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="385" y="326" text-anchor="middle" font-size="11" fill="#c3c8cd">비어 있음</text>
+    <rect x="290" y="369" width="190" height="312" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="306" y="389" width="158" height="56" rx="15" fill="#eef6fe"/>
+    <text x="358" y="422" font-size="14" font-weight="600" fill="#0c5795">대시보드</text>
+    <text x="358" y="494" font-size="14" font-weight="500" fill="#5b5f63">배터리 목록</text>
+    <text x="358" y="566" font-size="14" font-weight="500" fill="#5b5f63">리포트 목록</text>
+    <text x="358" y="638" font-size="14" font-weight="500" fill="#9ca3af">게시판</text>
+    <rect x="406" y="629" width="42" height="18" rx="9" fill="#f3f4f6"/>
+    <text x="427" y="642" text-anchor="middle" font-size="9.5" fill="#9ca3af">준비 중</text>
+    <text x="385" y="762" text-anchor="middle" font-size="12" font-weight="600" fill="#5b5f63">2 · 로고만</text>
+    <text x="385" y="784" text-anchor="middle" font-size="10.5" fill="#9ca3af">슬롯은 비워도 34 유지 · pill y369</text>
+  </g>
+  <g>
+    <rect x="520" y="176" width="190" height="560" fill="none" stroke="#dfe3e7" stroke-width="1" stroke-dasharray="2 4"/>
+    <rect x="572" y="206" width="86" height="86" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <defs><linearGradient id="cg0" gradientUnits="userSpaceOnUse" x1="411.4" y1="256.2" x2="42.4" y2="283.2"><stop offset="0" stop-color="#4b8bc8"/><stop offset="1" stop-color="#64a0dd"/></linearGradient><linearGradient id="cg1" gradientUnits="userSpaceOnUse" x1="405.4" y1="129.2" x2="301.4" y2="312.2"><stop offset="0" stop-color="#5796d3"/><stop offset="1" stop-color="#3e81be"/></linearGradient><linearGradient id="cg2" gradientUnits="userSpaceOnUse" x1="466.4" y1="99.2" x2="517.4" y2="330.2"><stop offset="0" stop-color="#5796d3"/><stop offset="1" stop-color="#256caa"/></linearGradient><linearGradient id="cg3" gradientUnits="userSpaceOnUse" x1="490.4" y1="168.2" x2="418.4" y2="382.2"><stop offset="0" stop-color="#0c5795"/><stop offset="1" stop-color="#3e81be"/></linearGradient><linearGradient id="cg5" gradientUnits="userSpaceOnUse" x1="520.4" y1="107.2" x2="638.4" y2="255.2"><stop offset="0" stop-color="#256caa"/><stop offset="1" stop-color="#0c5795"/></linearGradient><linearGradient id="cg6" gradientUnits="userSpaceOnUse" x1="193.4" y1="180.2" x2="77.4" y2="248.2"><stop offset="0" stop-color="#5796d3"/><stop offset="1" stop-color="#64a0dd"/></linearGradient></defs>
+    <g transform="translate(580,223.4) scale(0.1071)" fill="none" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="url(#cg0)" d="M411.4 256.2 L385.4 282.2 L376.4 286.2 L369.4 286.2 L361.4 282.2 L270.4 191.2 L255.4 185.2 L243.4 185.2 L224.4 194.2 L142.4 276.2 L134.4 280.2 L121.4 283.2 L42.4 283.2"/>
+      <path stroke="url(#cg1)" d="M405.4 129.2 L510.4 233.2 L514.4 240.2 L512.4 244.2 L415.4 342.2 L401.4 352.2 L389.4 357.2 L365.4 359.2 L343.4 351.2 L334.4 345.2 L301.4 312.2"/>
+      <path stroke="url(#cg2)" d="M466.4 99.2 L600.4 232.2 L605.4 240.2 L600.4 248.2 L517.4 330.2"/>
+      <path stroke="url(#cg3)" d="M490.4 168.2 L555.4 233.2 L559.4 240.2 L555.4 247.2 L418.4 382.2"/>
+      <path stroke="#64a0dd" d="M250.4 216.2 L345.4 311.2 L359.4 318.2 L369.4 320.2 L383.4 319.2 L402.4 310.2 L465.4 247.2 L469.4 240.2 L465.4 232.2"/>
+      <path stroke="url(#cg5)" d="M520.4 107.2 L640.4 227.2 L645.4 242.2 L638.4 255.2"/>
+      <path stroke="url(#cg6)" d="M193.4 180.2 L131.4 243.2 L122.4 247.2 L115.4 247.2 L118.4 248.2 L77.4 248.2"/>
+      <path stroke="#0c5795" d="M306 181.3 L312.5 187.7"/>
+      <path stroke="#0c5795" d="M618.7 274.9 L612.4 281.5"/>
+      <path stroke="#0c5795" d="M273.2 330.2 L280.2 337"/>
+      <path stroke="#0c5795" d="M569.9 323.9 L563.6 330.4"/>
+      <path stroke="#0c5795" d="M271.9 374.6 L278.4 380.9"/>
+      <path stroke="#0c5795" d="M463.1 141.4 L470.1 148.2"/>
+      <path stroke="#0c5795" d="M594.5 299.3 L588.2 305.7"/>
+      <path stroke="#0c5795" d="M545.2 348.5 L539.3 354.5"/>
+      <path stroke="#0c5795" d="M520.8 373.4 L514.4 379.7"/>
+      <path stroke="#256caa" d="M327.9 423.1 L336.1 427.1"/>
+      <path stroke="#0c5795" d="M331.3 206.6 L338 212.8"/>
+      <path stroke="#0c5795" d="M248.9 306.3 L254.8 312.2"/>
+      <path stroke="#19619f" d="M173 334.2 L180.2 328.5"/>
+      <path stroke="#0c5795" d="M298.2 400.4 L305 406.5"/>
+      <path stroke="#0c5795" d="M463.8 431 L470.2 424.5"/>
+      <path stroke="#0c5795" d="M409.3 467.6 L400.6 469.9"/>
+      <path stroke="#0c5795" d="M205.2 303.8 L198.9 310.4"/>
+      <path stroke="#0c5795" d="M298.2 354.7 L304.9 361"/>
+      <path stroke="#0c5795" d="M489.6 404.9 L496 398.4"/>
+      <path stroke="#3e81be" d="M276 287.4 L282.5 293.8"/>
+      <path stroke="#0c5795" d="M323.4 378.6 L330.5 384.5"/>
+      <path stroke="#256caa" d="M436.9 115.4 L443.3 121.7"/>
+      <path stroke="#256caa" d="M279 158.8 L286.9 163.5"/>
+      <path stroke="#0c5795" d="M226.1 237.8 L219.9 244.5"/>
+      <path stroke="#19619f" d="M353 394.1 L361.5 396.2"/>
+      <path stroke="#4b8bc8" d="M467 54.5 L473.6 60.8"/>
+      <path stroke="#256caa" d="M394.9 393.7 L386.4 395.7"/>
+      <path stroke="#3e81be" d="M251.2 262.8 L257.9 269"/>
+      <path stroke="#0c5795" d="M443.2 450.5 L435.6 455.5"/>
+      <path stroke="#64a0dd" d="M182.4 147.7 L188.9 141.4"/>
+      <path stroke="#5796d3" d="M493.3 80.7 L499.3 86.6"/>
+      <path stroke="#64a0dd" d="M138.2 191.4 L132.3 197.3"/>
+      <path stroke="#3e81be" d="M201.1 262.7 L194.8 269.2"/>
+      <path stroke="#4b8bc8" d="M409.9 426.7 L401.8 429.7"/>
+      <path stroke="#5796d3" d="M441.4 29 L447.6 34.8"/>
+      <path stroke="#64a0dd" d="M439.7 73.3 L446.3 79.6"/>
+      <path stroke="#5796d3" d="M410.6 89.7 L416.7 95.6"/>
+      <path stroke="#5796d3" d="M219.9 122.9 L211.8 126.1"/>
+      <path stroke="#4b8bc8" d="M221.2 157.9 L213.8 162.4"/>
+      <path stroke="#64a0dd" d="M163.2 166.4 L157.1 172.3"/>
+      <path stroke="#4b8bc8" d="M149 346.5 L140.6 349"/>
+      <path stroke="#5796d3" d="M494.9 353 L489 359"/>
+      <path stroke="#3276b4" d="M363.9 433.2 L373 433.9"/>
+      <path stroke="#3e81be" d="M246.1 152 L254.2 152.3"/>
+      <path stroke="#5796d3" d="M169.5 293.8 L176.1 287.5"/>
+      <path stroke="#4b8bc8" d="M441.8 406 L435.5 411.7"/>
+      <path stroke="#3e81be" d="M247.6 119 L255.7 119"/>
+      <path stroke="#64a0dd" d="M70.1 215.3 L78.1 215.3"/>
+      <path stroke="#64a0dd" d="M379.1 33.7 L387.5 37.4"/>
+      <path stroke="#64a0dd" d="M357.9 82.5 L363.8 88.4"/>
+      <path stroke="#64a0dd" d="M410.4 8 L418.2 11.9"/>
+      <path stroke="#64a0dd" d="M342.5 24.7 L351.1 26.3"/>
+      <path stroke="#64a0dd" d="M141.7 313.2 L149.3 309.7"/>
+      <path stroke="#64a0dd" d="M108.7 317.4 L116.8 317.4"/>
+      <path stroke="#64a0dd" d="M468.8 379.3 L463 385.6"/>
+      <path stroke="#64a0dd" d="M42.9 247.8 L50.9 248"/>
+      <path stroke="#64a0dd" d="M74.7 317.5 L82.8 317.3"/>
+      <path stroke="#64a0dd" d="M412.6 50.5 L419.4 55.8"/>
+      <path stroke="#64a0dd" d="M381.6 105.9 L387.4 111.9"/>
+      <path stroke="#64a0dd" d="M104.9 215.3 L112.9 215.2"/>
+      <path stroke="#5796d3" d="M105.7 351.4 L113.8 351.6"/>
+      <path stroke="#64a0dd" d="M8 247.9 L16 247.9"/>
+      <path stroke="#64a0dd" d="M441.8 209.4 L446.9 214.3"/>
+      <path stroke="#64a0dd" d="M419 187 L424.1 191.9"/>
+      <path stroke="#64a0dd" d="M399.4 167.5 L402 169.8"/>
+      <path stroke="#5796d3" d="M225.3 285.1 L227.7 287"/>
+    </g>
+    <text x="615" y="329" text-anchor="middle" font-size="22" font-weight="700" fill="#0c5795">FlowCell</text>
+    <text x="615" y="352" text-anchor="middle" font-size="12" fill="#5b5f63">판정에서 처분까지 잇는</text>
+    <text x="615" y="368" text-anchor="middle" font-size="12" fill="#5b5f63">이차전지 검사 플랫폼</text>
+    <rect x="520" y="403" width="190" height="312" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="536" y="423" width="158" height="56" rx="15" fill="#eef6fe"/>
+    <text x="588" y="456" font-size="14" font-weight="600" fill="#0c5795">대시보드</text>
+    <text x="588" y="528" font-size="14" font-weight="500" fill="#5b5f63">배터리 목록</text>
+    <text x="588" y="600" font-size="14" font-weight="500" fill="#5b5f63">리포트 목록</text>
+    <text x="588" y="672" font-size="14" font-weight="500" fill="#9ca3af">게시판</text>
+    <rect x="636" y="663" width="42" height="18" rx="9" fill="#f3f4f6"/>
+    <text x="657" y="676" text-anchor="middle" font-size="9.5" fill="#9ca3af">준비 중</text>
+    <text x="615" y="762" text-anchor="middle" font-size="12" font-weight="600" fill="#5b5f63">3 · 워드마크 + 슬로건</text>
+    <text x="615" y="784" text-anchor="middle" font-size="10.5" fill="#9ca3af">슬롯 68 · pill 이 y403 으로 34 내려간다</text>
+  </g>
+
+  <rect x="60" y="800" width="650" height="86" rx="8" fill="#ffffff" filter="url(#sh)"/>
+  <text x="76" y="824" font-size="11.5" font-weight="600" fill="#5b5f63">워드마크가 슬로건보다 나은 이유</text>
+  <text x="76" y="842" font-size="11" fill="#5b5f63">폭 87 로 86 로고 카드와 사실상 같아 좌우 정렬이 저절로 맞는다. 1줄이라 줄바꿈을 고정할 필요가 없다.</text>
+  <text x="76" y="858" font-size="11" fill="#5b5f63">브랜드 이름은 화면마다 반복돼도 소음이 아니지만, 문장은 세 번째 방문부터 읽히지 않는다.</text>
+  <text x="76" y="876" font-size="11" fill="#9ca3af">FlowCell 은 가칭이다. 확정되면 이 텍스트만 교체한다 — 슬롯 34 안에서 폭 130 까지는 재조정 없이 들어간다.</text>
+
+  <!-- ==================== B. 활성 탭 3종 ==================== -->
+  <text x="760" y="136" font-size="11" letter-spacing="1.1" fill="#0c5795">B</text>
+  <text x="784" y="136" font-size="17" font-weight="650" fill="#191c1d">활성 탭 3종</text>
+  <text x="760" y="158" font-size="12.5" fill="#5b5f63">구현된 탭 3개가 화면 8개를 덮는다. 게시판은 어느 경로에서도 활성이 되지 않는다.</text>
+
+  <!-- 대시보드 활성 -->
+  <g>
+    <rect x="760" y="190" width="190" height="312" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="776" y="210" width="158" height="56" rx="15" fill="#eef6fe"/>
+    <g transform="translate(792,226)" fill="none" stroke="#0c5795" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/>
+      <rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>
+    </g>
+    <text x="828" y="243" font-size="14" font-weight="600" fill="#0c5795">대시보드</text>
+    <g transform="translate(792,298)" fill="none" stroke="#5b5f63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="4" width="18" height="16" rx="2"/>
+      <circle cx="7.5" cy="9" r="0.75" fill="#5b5f63" stroke="none"/><path d="M10 9h7"/>
+      <circle cx="7.5" cy="13" r="0.75" fill="#5b5f63" stroke="none"/><path d="M10 13h7"/>
+      <circle cx="7.5" cy="17" r="0.75" fill="#5b5f63" stroke="none"/><path d="M10 17h5"/>
+    </g>
+    <text x="828" y="315" font-size="14" font-weight="500" fill="#5b5f63">배터리 목록</text>
+    <g transform="translate(792,370)" fill="none" stroke="#5b5f63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 3v18h18"/><rect x="7" y="13" width="3" height="5" fill="#5b5f63" stroke="none"/>
+      <rect x="12" y="9" width="3" height="9" fill="#5b5f63" stroke="none"/><rect x="17" y="5" width="3" height="13" fill="#5b5f63" stroke="none"/>
+    </g>
+    <text x="828" y="387" font-size="14" font-weight="500" fill="#5b5f63">리포트 목록</text>
+    <g transform="translate(792,442)" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 4 h14 a2 2 0 0 1 2 2 v9 a2 2 0 0 1 -2 2 h-7 l-5 4 v-4 h-2 a2 2 0 0 1 -2 -2 V6 a2 2 0 0 1 2 -2 z"/>
+      <path d="M7 9h10"/><path d="M7 13h6"/>
+    </g>
+    <text x="828" y="459" font-size="14" font-weight="500" fill="#9ca3af">게시판</text>
+    <rect x="876" y="450" width="42" height="18" rx="9" fill="#f3f4f6"/>
+    <text x="897" y="463" text-anchor="middle" font-size="9.5" fill="#9ca3af">준비 중</text>
+    <text x="855" y="526" text-anchor="middle" font-size="11.5" font-weight="600" fill="#191c1d">대시보드</text>
+    <text x="855" y="544" text-anchor="middle" font-size="10.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">/dashboard</text>
+  </g>
+
+  <!-- 배터리 활성 -->
+  <g>
+    <rect x="970" y="190" width="190" height="312" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <g transform="translate(1002,226)" fill="none" stroke="#5b5f63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/>
+      <rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>
+    </g>
+    <text x="1038" y="243" font-size="14" font-weight="500" fill="#5b5f63">대시보드</text>
+    <rect x="986" y="282" width="158" height="56" rx="15" fill="#eef6fe"/>
+    <g transform="translate(1002,298)" fill="none" stroke="#0c5795" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="4" width="18" height="16" rx="2"/>
+      <circle cx="7.5" cy="9" r="0.75" fill="#0c5795" stroke="none"/><path d="M10 9h7"/>
+      <circle cx="7.5" cy="13" r="0.75" fill="#0c5795" stroke="none"/><path d="M10 13h7"/>
+      <circle cx="7.5" cy="17" r="0.75" fill="#0c5795" stroke="none"/><path d="M10 17h5"/>
+    </g>
+    <text x="1038" y="315" font-size="14" font-weight="600" fill="#0c5795">배터리 목록</text>
+    <g transform="translate(1002,370)" fill="none" stroke="#5b5f63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 3v18h18"/><rect x="7" y="13" width="3" height="5" fill="#5b5f63" stroke="none"/>
+      <rect x="12" y="9" width="3" height="9" fill="#5b5f63" stroke="none"/><rect x="17" y="5" width="3" height="13" fill="#5b5f63" stroke="none"/>
+    </g>
+    <text x="1038" y="387" font-size="14" font-weight="500" fill="#5b5f63">리포트 목록</text>
+    <g transform="translate(1002,442)" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 4 h14 a2 2 0 0 1 2 2 v9 a2 2 0 0 1 -2 2 h-7 l-5 4 v-4 h-2 a2 2 0 0 1 -2 -2 V6 a2 2 0 0 1 2 -2 z"/>
+      <path d="M7 9h10"/><path d="M7 13h6"/>
+    </g>
+    <text x="1038" y="459" font-size="14" font-weight="500" fill="#9ca3af">게시판</text>
+    <rect x="1086" y="450" width="42" height="18" rx="9" fill="#f3f4f6"/>
+    <text x="1107" y="463" text-anchor="middle" font-size="9.5" fill="#9ca3af">준비 중</text>
+    <text x="1065" y="526" text-anchor="middle" font-size="11.5" font-weight="600" fill="#191c1d">배터리 목록</text>
+    <text x="1065" y="544" text-anchor="middle" font-size="10.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">/battery · /battery/:id</text>
+  </g>
+
+  <!-- 리포트 활성 -->
+  <g>
+    <rect x="1180" y="190" width="190" height="312" rx="15" fill="#ffffff" filter="url(#sh)"/>
+    <g transform="translate(1212,226)" fill="none" stroke="#5b5f63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/>
+      <rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>
+    </g>
+    <text x="1248" y="243" font-size="14" font-weight="500" fill="#5b5f63">대시보드</text>
+    <g transform="translate(1212,298)" fill="none" stroke="#5b5f63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="4" width="18" height="16" rx="2"/>
+      <circle cx="7.5" cy="9" r="0.75" fill="#5b5f63" stroke="none"/><path d="M10 9h7"/>
+      <circle cx="7.5" cy="13" r="0.75" fill="#5b5f63" stroke="none"/><path d="M10 13h7"/>
+      <circle cx="7.5" cy="17" r="0.75" fill="#5b5f63" stroke="none"/><path d="M10 17h5"/>
+    </g>
+    <text x="1248" y="315" font-size="14" font-weight="500" fill="#5b5f63">배터리 목록</text>
+    <rect x="1196" y="354" width="158" height="56" rx="15" fill="#eef6fe"/>
+    <g transform="translate(1212,370)" fill="none" stroke="#0c5795" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 3v18h18"/><rect x="7" y="13" width="3" height="5" fill="#0c5795" stroke="none"/>
+      <rect x="12" y="9" width="3" height="9" fill="#0c5795" stroke="none"/><rect x="17" y="5" width="3" height="13" fill="#0c5795" stroke="none"/>
+    </g>
+    <text x="1248" y="387" font-size="14" font-weight="600" fill="#0c5795">리포트 목록</text>
+    <g transform="translate(1212,442)" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 4 h14 a2 2 0 0 1 2 2 v9 a2 2 0 0 1 -2 2 h-7 l-5 4 v-4 h-2 a2 2 0 0 1 -2 -2 V6 a2 2 0 0 1 2 -2 z"/>
+      <path d="M7 9h10"/><path d="M7 13h6"/>
+    </g>
+    <text x="1248" y="459" font-size="14" font-weight="500" fill="#9ca3af">게시판</text>
+    <rect x="1296" y="450" width="42" height="18" rx="9" fill="#f3f4f6"/>
+    <text x="1317" y="463" text-anchor="middle" font-size="9.5" fill="#9ca3af">준비 중</text>
+    <text x="1275" y="526" text-anchor="middle" font-size="11.5" font-weight="600" fill="#191c1d">리포트 목록</text>
+    <text x="1275" y="544" text-anchor="middle" font-size="10.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">/reports/**</text>
+  </g>
+
+  <rect x="760" y="570" width="610" height="118" rx="8" fill="#ffffff" filter="url(#sh)"/>
+  <text x="776" y="594" font-size="11.5" font-weight="600" fill="#5b5f63">게시판 — 미구현 탭 규격</text>
+  <text x="776" y="612" font-size="11" fill="#5b5f63">전경 #9ca3af · 배경 없음 · 우측에 '준비 중' 마커(42×18 pill, #f3f4f6). 호버·포커스 없음, 클릭 불가.</text>
+  <text x="776" y="628" font-size="11" fill="#9ca3af">숨기면 로드맵이 안 보이고, 일반 탭이면 클릭 시 빈 화면이 뜬다. 구현되면 마커를 떼고 일반 규격으로 전환한다.</text>
+  <line x1="776" y1="642" x2="1354" y2="642" stroke="#eceef0" stroke-width="1"/>
+  <text x="776" y="662" font-size="11.5" font-weight="600" fill="#5b5f63">리포트 탭은 목적지와 활성 조건이 다르다</text>
+  <text x="776" y="678" font-size="11" fill="#5b5f63">to="/reports/daily" 로 가지만 matchPrefix="/reports" 라 개별에서도 활성이다. 일일이 기본인 근거는 문서에 없다.</text>
+
+  <!-- ==================== C. 인증 화면 ==================== -->
+  <text x="1420" y="136" font-size="11" letter-spacing="1.1" fill="#0c5795">C</text>
+  <text x="1444" y="136" font-size="17" font-weight="650" fill="#191c1d">인증 화면 — 미마운트</text>
+  <text x="1420" y="158" font-size="12.5" fill="#5b5f63">/auth/* 는 RootLayout 밖이라 사이드바가 아예 없다.</text>
+
+  <g>
+    <rect x="1420" y="190" width="440" height="248" rx="12" fill="#dfe3e7"/>
+    <rect x="1560" y="234" width="160" height="160" rx="12" fill="#ffffff"/>
+    <rect x="1584" y="262" width="112" height="14" rx="4" fill="#eceef0"/>
+    <rect x="1584" y="292" width="112" height="24" rx="6" fill="#f3f4f6"/>
+    <rect x="1584" y="324" width="112" height="24" rx="6" fill="#f3f4f6"/>
+    <rect x="1584" y="358" width="112" height="24" rx="6" fill="#0c5795"/>
+    <text x="1640" y="418" text-anchor="middle" font-size="11" fill="#5b5f63">AuthLayout — 배경 사진 + 폼 카드</text>
+  </g>
+  <text x="1420" y="464" font-size="11" fill="#9ca3af">router.tsx 에서 /auth 는 RootLayout 형제 라우트다. 3열 프레임</text>
+  <text x="1420" y="480" font-size="11" fill="#9ca3af">자체가 마운트되지 않으므로 사이드바 상태를 정의할 필요가 없다.</text>
+
+  <rect x="1420" y="500" width="440" height="70" rx="8" fill="#fffbeb"/>
+  <text x="1436" y="524" font-size="11.5" font-weight="600" fill="#d97706">경로가 /login 이 아니라 /auth/login 이다</text>
+  <text x="1436" y="542" font-size="11" fill="#5b5f63">ROUTES.AUTH_LOGIN = '/auth/login'. 로그아웃 리다이렉트를</text>
+  <text x="1436" y="558" font-size="11" fill="#5b5f63">우측 사용자 블록에서 걸 때 이 경로를 쓴다.</text>
+
+  <!-- ==================== D. 뷰포트 스케일 ==================== -->
+  <text x="60" y="946" font-size="11" letter-spacing="1.1" fill="#0c5795">D</text>
+  <text x="84" y="946" font-size="17" font-weight="650" fill="#191c1d">뷰포트 스케일 — 사이드바는 고정폭이 아니다</text>
+  <text x="60" y="968" font-size="12.5" fill="#5b5f63">index.css 의 font-size: clamp(4px, 100vw / 205.294, 10px) 때문에 1rem 이 뷰포트에 비례한다. 260 은 상한에서만 나오는 값이다.</text>
+
+  <g transform="translate(60,988)">
+    <rect x="0" y="0" width="900" height="300" rx="12" fill="#ffffff" filter="url(#sh)"/>
+    <text x="24" y="32" font-size="12.5" font-weight="600" fill="#5b5f63">뷰포트</text>
+    <text x="160" y="32" font-size="12.5" font-weight="600" fill="#5b5f63">1rem</text>
+    <text x="280" y="32" font-size="12.5" font-weight="600" fill="#5b5f63">컬럼 26rem</text>
+    <text x="420" y="32" font-size="12.5" font-weight="600" fill="#5b5f63">pill 31.2rem</text>
+    <text x="560" y="32" font-size="12.5" font-weight="600" fill="#5b5f63">라벨 1.4rem</text>
+    <text x="700" y="32" font-size="12.5" font-weight="600" fill="#5b5f63">판정</text>
+    <line x1="24" y1="44" x2="876" y2="44" stroke="#eceef0" stroke-width="1"/>
+
+    <text x="24" y="70" font-size="12" fill="#191c1d">2053 이상</text>
+    <text x="160" y="70" font-size="12" fill="#191c1d">10.00</text>
+    <text x="280" y="70" font-size="12" font-weight="600" fill="#0c5795">260.0</text>
+    <text x="420" y="70" font-size="12" fill="#191c1d">312.0</text>
+    <text x="560" y="70" font-size="12" fill="#191c1d">14.0</text>
+    <text x="700" y="70" font-size="11.5" fill="#1e7e34">시안 좌표계와 일치</text>
+
+    <text x="24" y="98" font-size="12" fill="#191c1d">1920</text>
+    <text x="160" y="98" font-size="12" fill="#191c1d">9.35</text>
+    <text x="280" y="98" font-size="12" font-weight="600" fill="#d97706">243.2</text>
+    <text x="420" y="98" font-size="12" fill="#191c1d">291.8</text>
+    <text x="560" y="98" font-size="12" fill="#191c1d">13.1</text>
+    <text x="700" y="98" font-size="11.5" fill="#d97706">시안보다 6.5% 작다</text>
+
+    <text x="24" y="126" font-size="12" fill="#191c1d">1600</text>
+    <text x="160" y="126" font-size="12" fill="#191c1d">7.79</text>
+    <text x="280" y="126" font-size="12" fill="#191c1d">202.6</text>
+    <text x="420" y="126" font-size="12" fill="#191c1d">243.2</text>
+    <text x="560" y="126" font-size="12" fill="#191c1d">10.9</text>
+    <text x="700" y="126" font-size="11.5" fill="#5b5f63">읽힘</text>
+
+    <text x="24" y="154" font-size="12" fill="#191c1d">1440</text>
+    <text x="160" y="154" font-size="12" fill="#191c1d">7.01</text>
+    <text x="280" y="154" font-size="12" fill="#191c1d">182.3</text>
+    <text x="420" y="154" font-size="12" fill="#191c1d">218.8</text>
+    <text x="560" y="154" font-size="12" fill="#191c1d">9.8</text>
+    <text x="700" y="154" font-size="11.5" fill="#5b5f63">읽힘 하한 근처</text>
+
+    <text x="24" y="182" font-size="12" fill="#191c1d">1280</text>
+    <text x="160" y="182" font-size="12" fill="#191c1d">6.23</text>
+    <text x="280" y="182" font-size="12" fill="#191c1d">162.1</text>
+    <text x="420" y="182" font-size="12" fill="#191c1d">194.5</text>
+    <text x="560" y="182" font-size="12" font-weight="600" fill="#d97706">8.7</text>
+    <text x="700" y="182" font-size="11.5" fill="#d97706">라벨이 작다</text>
+
+    <text x="24" y="210" font-size="12" fill="#191c1d">1024</text>
+    <text x="160" y="210" font-size="12" fill="#191c1d">4.99</text>
+    <text x="280" y="210" font-size="12" fill="#191c1d">129.7</text>
+    <text x="420" y="210" font-size="12" fill="#191c1d">155.6</text>
+    <text x="560" y="210" font-size="12" font-weight="600" fill="#dc2626">7.0</text>
+    <text x="700" y="210" font-size="11.5" fill="#dc2626">라벨 판독 불가</text>
+
+    <text x="24" y="238" font-size="12" fill="#191c1d">821 이하</text>
+    <text x="160" y="238" font-size="12" fill="#191c1d">4.00 (하한)</text>
+    <text x="280" y="238" font-size="12" fill="#191c1d">104.0</text>
+    <text x="420" y="238" font-size="12" fill="#191c1d">124.8</text>
+    <text x="560" y="238" font-size="12" font-weight="600" fill="#dc2626">5.6</text>
+    <text x="700" y="238" font-size="11.5" fill="#dc2626">레이아웃 클리핑 시작</text>
+
+    <line x1="24" y1="254" x2="876" y2="254" stroke="#eceef0" stroke-width="1"/>
+    <text x="24" y="276" font-size="11" fill="#9ca3af">탭이 4개가 되면서 pill 은 240 에서 312 로 늘었다. pill 은 세로로만 자라므로 폭 문제는 생기지 않는다. 다만 사이드바 상단 덩이의</text>
+    <text x="24" y="290" font-size="11" fill="#9ca3af">총 높이가 30+86+12+34+31+312 = 505 로 늘어, 세로가 짧은 뷰포트에서는 하단 여백이 먼저 사라진다.</text>
+  </g>
+
+
+  <!-- ==================== E. 로고 리컬러 확정 ==================== -->
+  <text x="1010" y="946" font-size="11" letter-spacing="1.1" fill="#0c5795">E</text>
+  <text x="1034" y="946" font-size="17" font-weight="650" fill="#191c1d">로고 리컬러 — B안 확정</text>
+  <text x="1010" y="968" font-size="12.5" fill="#5b5f63">BRAND_COLOR §9 미결이 해소됐다. 옛 레드 램프를 brand-400 → brand-700 램프로 교체한다.</text>
+
+  <g>
+    <rect x="1010" y="988" width="850" height="300" rx="12" fill="#ffffff" filter="url(#sh)"/>
+
+    <rect x="1034" y="1012" width="150" height="150" rx="8" fill="#f9fafb"/>
+    <defs><linearGradient id="r0g0" gradientUnits="userSpaceOnUse" x1="411.4" y1="256.2" x2="42.4" y2="283.2"><stop offset="0" stop-color="#955f61"/><stop offset="1" stop-color="#7d7d7d"/></linearGradient><linearGradient id="r0g1" gradientUnits="userSpaceOnUse" x1="405.4" y1="129.2" x2="301.4" y2="312.2"><stop offset="0" stop-color="#896e6f"/><stop offset="1" stop-color="#a15053"/></linearGradient><linearGradient id="r0g2" gradientUnits="userSpaceOnUse" x1="466.4" y1="99.2" x2="517.4" y2="330.2"><stop offset="0" stop-color="#896e6f"/><stop offset="1" stop-color="#b83236"/></linearGradient><linearGradient id="r0g3" gradientUnits="userSpaceOnUse" x1="490.4" y1="168.2" x2="418.4" y2="382.2"><stop offset="0" stop-color="#d0141a"/><stop offset="1" stop-color="#a15053"/></linearGradient><linearGradient id="r0g5" gradientUnits="userSpaceOnUse" x1="520.4" y1="107.2" x2="638.4" y2="255.2"><stop offset="0" stop-color="#b83236"/><stop offset="1" stop-color="#d0141a"/></linearGradient><linearGradient id="r0g6" gradientUnits="userSpaceOnUse" x1="193.4" y1="180.2" x2="77.4" y2="248.2"><stop offset="0" stop-color="#896e6f"/><stop offset="1" stop-color="#7d7d7d"/></linearGradient></defs>
+    <g transform="translate(1044,1044) scale(0.2)" fill="none" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="url(#r0g0)" d="M411.4 256.2 L385.4 282.2 L376.4 286.2 L369.4 286.2 L361.4 282.2 L270.4 191.2 L255.4 185.2 L243.4 185.2 L224.4 194.2 L142.4 276.2 L134.4 280.2 L121.4 283.2 L42.4 283.2"/>
+      <path stroke="url(#r0g1)" d="M405.4 129.2 L510.4 233.2 L514.4 240.2 L512.4 244.2 L415.4 342.2 L401.4 352.2 L389.4 357.2 L365.4 359.2 L343.4 351.2 L334.4 345.2 L301.4 312.2"/>
+      <path stroke="url(#r0g2)" d="M466.4 99.2 L600.4 232.2 L605.4 240.2 L600.4 248.2 L517.4 330.2"/>
+      <path stroke="url(#r0g3)" d="M490.4 168.2 L555.4 233.2 L559.4 240.2 L555.4 247.2 L418.4 382.2"/>
+      <path stroke="#7d7d7d" d="M250.4 216.2 L345.4 311.2 L359.4 318.2 L369.4 320.2 L383.4 319.2 L402.4 310.2 L465.4 247.2 L469.4 240.2 L465.4 232.2"/>
+      <path stroke="url(#r0g5)" d="M520.4 107.2 L640.4 227.2 L645.4 242.2 L638.4 255.2"/>
+      <path stroke="url(#r0g6)" d="M193.4 180.2 L131.4 243.2 L122.4 247.2 L115.4 247.2 L118.4 248.2 L77.4 248.2"/>
+      <path stroke="#d0141a" d="M306 181.3 L312.5 187.7"/>
+      <path stroke="#d0141a" d="M618.7 274.9 L612.4 281.5"/>
+      <path stroke="#d0141a" d="M273.2 330.2 L280.2 337"/>
+      <path stroke="#d0141a" d="M569.9 323.9 L563.6 330.4"/>
+      <path stroke="#d0141a" d="M271.9 374.6 L278.4 380.9"/>
+      <path stroke="#d0141a" d="M463.1 141.4 L470.1 148.2"/>
+      <path stroke="#d0141a" d="M594.5 299.3 L588.2 305.7"/>
+      <path stroke="#d0141a" d="M545.2 348.5 L539.3 354.5"/>
+      <path stroke="#d0141a" d="M520.8 373.4 L514.4 379.7"/>
+      <path stroke="#b83236" d="M327.9 423.1 L336.1 427.1"/>
+      <path stroke="#d0141a" d="M331.3 206.6 L338 212.8"/>
+      <path stroke="#d0141a" d="M248.9 306.3 L254.8 312.2"/>
+      <path stroke="#c42328" d="M173 334.2 L180.2 328.5"/>
+      <path stroke="#d0141a" d="M298.2 400.4 L305 406.5"/>
+      <path stroke="#d0141a" d="M463.8 431 L470.2 424.5"/>
+      <path stroke="#d0141a" d="M409.3 467.6 L400.6 469.9"/>
+      <path stroke="#d0141a" d="M205.2 303.8 L198.9 310.4"/>
+      <path stroke="#d0141a" d="M298.2 354.7 L304.9 361"/>
+      <path stroke="#d0141a" d="M489.6 404.9 L496 398.4"/>
+      <path stroke="#a15053" d="M276 287.4 L282.5 293.8"/>
+      <path stroke="#d0141a" d="M323.4 378.6 L330.5 384.5"/>
+      <path stroke="#b83236" d="M436.9 115.4 L443.3 121.7"/>
+      <path stroke="#b83236" d="M279 158.8 L286.9 163.5"/>
+      <path stroke="#d0141a" d="M226.1 237.8 L219.9 244.5"/>
+      <path stroke="#c42328" d="M353 394.1 L361.5 396.2"/>
+      <path stroke="#955f61" d="M467 54.5 L473.6 60.8"/>
+      <path stroke="#b83236" d="M394.9 393.7 L386.4 395.7"/>
+      <path stroke="#a15053" d="M251.2 262.8 L257.9 269"/>
+      <path stroke="#d0141a" d="M443.2 450.5 L435.6 455.5"/>
+      <path stroke="#7d7d7d" d="M182.4 147.7 L188.9 141.4"/>
+      <path stroke="#896e6f" d="M493.3 80.7 L499.3 86.6"/>
+      <path stroke="#7d7d7d" d="M138.2 191.4 L132.3 197.3"/>
+      <path stroke="#a15053" d="M201.1 262.7 L194.8 269.2"/>
+      <path stroke="#955f61" d="M409.9 426.7 L401.8 429.7"/>
+      <path stroke="#896e6f" d="M441.4 29 L447.6 34.8"/>
+      <path stroke="#7d7d7d" d="M439.7 73.3 L446.3 79.6"/>
+      <path stroke="#896e6f" d="M410.6 89.7 L416.7 95.6"/>
+      <path stroke="#896e6f" d="M219.9 122.9 L211.8 126.1"/>
+      <path stroke="#955f61" d="M221.2 157.9 L213.8 162.4"/>
+      <path stroke="#7d7d7d" d="M163.2 166.4 L157.1 172.3"/>
+      <path stroke="#955f61" d="M149 346.5 L140.6 349"/>
+      <path stroke="#896e6f" d="M494.9 353 L489 359"/>
+      <path stroke="#ac4144" d="M363.9 433.2 L373 433.9"/>
+      <path stroke="#a15053" d="M246.1 152 L254.2 152.3"/>
+      <path stroke="#896e6f" d="M169.5 293.8 L176.1 287.5"/>
+      <path stroke="#955f61" d="M441.8 406 L435.5 411.7"/>
+      <path stroke="#a15053" d="M247.6 119 L255.7 119"/>
+      <path stroke="#7d7d7d" d="M70.1 215.3 L78.1 215.3"/>
+      <path stroke="#7d7d7d" d="M379.1 33.7 L387.5 37.4"/>
+      <path stroke="#7d7d7d" d="M357.9 82.5 L363.8 88.4"/>
+      <path stroke="#7d7d7d" d="M410.4 8 L418.2 11.9"/>
+      <path stroke="#7d7d7d" d="M342.5 24.7 L351.1 26.3"/>
+      <path stroke="#7d7d7d" d="M141.7 313.2 L149.3 309.7"/>
+      <path stroke="#7d7d7d" d="M108.7 317.4 L116.8 317.4"/>
+      <path stroke="#7d7d7d" d="M468.8 379.3 L463 385.6"/>
+      <path stroke="#7d7d7d" d="M42.9 247.8 L50.9 248"/>
+      <path stroke="#7d7d7d" d="M74.7 317.5 L82.8 317.3"/>
+      <path stroke="#7d7d7d" d="M412.6 50.5 L419.4 55.8"/>
+      <path stroke="#7d7d7d" d="M381.6 105.9 L387.4 111.9"/>
+      <path stroke="#7d7d7d" d="M104.9 215.3 L112.9 215.2"/>
+      <path stroke="#896e6f" d="M105.7 351.4 L113.8 351.6"/>
+      <path stroke="#7d7d7d" d="M8 247.9 L16 247.9"/>
+      <path stroke="#7d7d7d" d="M441.8 209.4 L446.9 214.3"/>
+      <path stroke="#7d7d7d" d="M419 187 L424.1 191.9"/>
+      <path stroke="#7d7d7d" d="M399.4 167.5 L402 169.8"/>
+      <path stroke="#896e6f" d="M225.3 285.1 L227.7 287"/>
+    </g>
+    <text x="1109" y="1184" text-anchor="middle" font-size="12" font-weight="600" fill="#9ca3af">전 — 폐기</text>
+    <text x="1109" y="1202" text-anchor="middle" font-size="10.5" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">7d7d7d → d0141a</text>
+
+    <path d="M1196 1087 h16 M1204 1079 l8 8 l-8 8" stroke="#9ca3af" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="1228" y="1012" width="150" height="150" rx="8" fill="#eef6fe"/>
+    <defs><linearGradient id="r1g0" gradientUnits="userSpaceOnUse" x1="411.4" y1="256.2" x2="42.4" y2="283.2"><stop offset="0" stop-color="#4b8bc8"/><stop offset="1" stop-color="#64a0dd"/></linearGradient><linearGradient id="r1g1" gradientUnits="userSpaceOnUse" x1="405.4" y1="129.2" x2="301.4" y2="312.2"><stop offset="0" stop-color="#5796d3"/><stop offset="1" stop-color="#3e81be"/></linearGradient><linearGradient id="r1g2" gradientUnits="userSpaceOnUse" x1="466.4" y1="99.2" x2="517.4" y2="330.2"><stop offset="0" stop-color="#5796d3"/><stop offset="1" stop-color="#256caa"/></linearGradient><linearGradient id="r1g3" gradientUnits="userSpaceOnUse" x1="490.4" y1="168.2" x2="418.4" y2="382.2"><stop offset="0" stop-color="#0c5795"/><stop offset="1" stop-color="#3e81be"/></linearGradient><linearGradient id="r1g5" gradientUnits="userSpaceOnUse" x1="520.4" y1="107.2" x2="638.4" y2="255.2"><stop offset="0" stop-color="#256caa"/><stop offset="1" stop-color="#0c5795"/></linearGradient><linearGradient id="r1g6" gradientUnits="userSpaceOnUse" x1="193.4" y1="180.2" x2="77.4" y2="248.2"><stop offset="0" stop-color="#5796d3"/><stop offset="1" stop-color="#64a0dd"/></linearGradient></defs>
+    <g transform="translate(1238,1044) scale(0.2)" fill="none" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="url(#r1g0)" d="M411.4 256.2 L385.4 282.2 L376.4 286.2 L369.4 286.2 L361.4 282.2 L270.4 191.2 L255.4 185.2 L243.4 185.2 L224.4 194.2 L142.4 276.2 L134.4 280.2 L121.4 283.2 L42.4 283.2"/>
+      <path stroke="url(#r1g1)" d="M405.4 129.2 L510.4 233.2 L514.4 240.2 L512.4 244.2 L415.4 342.2 L401.4 352.2 L389.4 357.2 L365.4 359.2 L343.4 351.2 L334.4 345.2 L301.4 312.2"/>
+      <path stroke="url(#r1g2)" d="M466.4 99.2 L600.4 232.2 L605.4 240.2 L600.4 248.2 L517.4 330.2"/>
+      <path stroke="url(#r1g3)" d="M490.4 168.2 L555.4 233.2 L559.4 240.2 L555.4 247.2 L418.4 382.2"/>
+      <path stroke="#64a0dd" d="M250.4 216.2 L345.4 311.2 L359.4 318.2 L369.4 320.2 L383.4 319.2 L402.4 310.2 L465.4 247.2 L469.4 240.2 L465.4 232.2"/>
+      <path stroke="url(#r1g5)" d="M520.4 107.2 L640.4 227.2 L645.4 242.2 L638.4 255.2"/>
+      <path stroke="url(#r1g6)" d="M193.4 180.2 L131.4 243.2 L122.4 247.2 L115.4 247.2 L118.4 248.2 L77.4 248.2"/>
+      <path stroke="#0c5795" d="M306 181.3 L312.5 187.7"/>
+      <path stroke="#0c5795" d="M618.7 274.9 L612.4 281.5"/>
+      <path stroke="#0c5795" d="M273.2 330.2 L280.2 337"/>
+      <path stroke="#0c5795" d="M569.9 323.9 L563.6 330.4"/>
+      <path stroke="#0c5795" d="M271.9 374.6 L278.4 380.9"/>
+      <path stroke="#0c5795" d="M463.1 141.4 L470.1 148.2"/>
+      <path stroke="#0c5795" d="M594.5 299.3 L588.2 305.7"/>
+      <path stroke="#0c5795" d="M545.2 348.5 L539.3 354.5"/>
+      <path stroke="#0c5795" d="M520.8 373.4 L514.4 379.7"/>
+      <path stroke="#256caa" d="M327.9 423.1 L336.1 427.1"/>
+      <path stroke="#0c5795" d="M331.3 206.6 L338 212.8"/>
+      <path stroke="#0c5795" d="M248.9 306.3 L254.8 312.2"/>
+      <path stroke="#19619f" d="M173 334.2 L180.2 328.5"/>
+      <path stroke="#0c5795" d="M298.2 400.4 L305 406.5"/>
+      <path stroke="#0c5795" d="M463.8 431 L470.2 424.5"/>
+      <path stroke="#0c5795" d="M409.3 467.6 L400.6 469.9"/>
+      <path stroke="#0c5795" d="M205.2 303.8 L198.9 310.4"/>
+      <path stroke="#0c5795" d="M298.2 354.7 L304.9 361"/>
+      <path stroke="#0c5795" d="M489.6 404.9 L496 398.4"/>
+      <path stroke="#3e81be" d="M276 287.4 L282.5 293.8"/>
+      <path stroke="#0c5795" d="M323.4 378.6 L330.5 384.5"/>
+      <path stroke="#256caa" d="M436.9 115.4 L443.3 121.7"/>
+      <path stroke="#256caa" d="M279 158.8 L286.9 163.5"/>
+      <path stroke="#0c5795" d="M226.1 237.8 L219.9 244.5"/>
+      <path stroke="#19619f" d="M353 394.1 L361.5 396.2"/>
+      <path stroke="#4b8bc8" d="M467 54.5 L473.6 60.8"/>
+      <path stroke="#256caa" d="M394.9 393.7 L386.4 395.7"/>
+      <path stroke="#3e81be" d="M251.2 262.8 L257.9 269"/>
+      <path stroke="#0c5795" d="M443.2 450.5 L435.6 455.5"/>
+      <path stroke="#64a0dd" d="M182.4 147.7 L188.9 141.4"/>
+      <path stroke="#5796d3" d="M493.3 80.7 L499.3 86.6"/>
+      <path stroke="#64a0dd" d="M138.2 191.4 L132.3 197.3"/>
+      <path stroke="#3e81be" d="M201.1 262.7 L194.8 269.2"/>
+      <path stroke="#4b8bc8" d="M409.9 426.7 L401.8 429.7"/>
+      <path stroke="#5796d3" d="M441.4 29 L447.6 34.8"/>
+      <path stroke="#64a0dd" d="M439.7 73.3 L446.3 79.6"/>
+      <path stroke="#5796d3" d="M410.6 89.7 L416.7 95.6"/>
+      <path stroke="#5796d3" d="M219.9 122.9 L211.8 126.1"/>
+      <path stroke="#4b8bc8" d="M221.2 157.9 L213.8 162.4"/>
+      <path stroke="#64a0dd" d="M163.2 166.4 L157.1 172.3"/>
+      <path stroke="#4b8bc8" d="M149 346.5 L140.6 349"/>
+      <path stroke="#5796d3" d="M494.9 353 L489 359"/>
+      <path stroke="#3276b4" d="M363.9 433.2 L373 433.9"/>
+      <path stroke="#3e81be" d="M246.1 152 L254.2 152.3"/>
+      <path stroke="#5796d3" d="M169.5 293.8 L176.1 287.5"/>
+      <path stroke="#4b8bc8" d="M441.8 406 L435.5 411.7"/>
+      <path stroke="#3e81be" d="M247.6 119 L255.7 119"/>
+      <path stroke="#64a0dd" d="M70.1 215.3 L78.1 215.3"/>
+      <path stroke="#64a0dd" d="M379.1 33.7 L387.5 37.4"/>
+      <path stroke="#64a0dd" d="M357.9 82.5 L363.8 88.4"/>
+      <path stroke="#64a0dd" d="M410.4 8 L418.2 11.9"/>
+      <path stroke="#64a0dd" d="M342.5 24.7 L351.1 26.3"/>
+      <path stroke="#64a0dd" d="M141.7 313.2 L149.3 309.7"/>
+      <path stroke="#64a0dd" d="M108.7 317.4 L116.8 317.4"/>
+      <path stroke="#64a0dd" d="M468.8 379.3 L463 385.6"/>
+      <path stroke="#64a0dd" d="M42.9 247.8 L50.9 248"/>
+      <path stroke="#64a0dd" d="M74.7 317.5 L82.8 317.3"/>
+      <path stroke="#64a0dd" d="M412.6 50.5 L419.4 55.8"/>
+      <path stroke="#64a0dd" d="M381.6 105.9 L387.4 111.9"/>
+      <path stroke="#64a0dd" d="M104.9 215.3 L112.9 215.2"/>
+      <path stroke="#5796d3" d="M105.7 351.4 L113.8 351.6"/>
+      <path stroke="#64a0dd" d="M8 247.9 L16 247.9"/>
+      <path stroke="#64a0dd" d="M441.8 209.4 L446.9 214.3"/>
+      <path stroke="#64a0dd" d="M419 187 L424.1 191.9"/>
+      <path stroke="#64a0dd" d="M399.4 167.5 L402 169.8"/>
+      <path stroke="#5796d3" d="M225.3 285.1 L227.7 287"/>
+    </g>
+    <text x="1303" y="1184" text-anchor="middle" font-size="12" font-weight="600" fill="#0c5795">후 — B안 확정</text>
+    <text x="1303" y="1202" text-anchor="middle" font-size="10.5" fill="#0c5795" font-family="ui-monospace, Consolas, monospace">64a0dd → 0c5795</text>
+
+    <text x="1418" y="1032" font-size="12.5" font-weight="600" fill="#5b5f63">확정 램프 8단 — 좌 400 에서 우 700 으로</text>
+    <rect x="1418" y="1044" width="50" height="36" rx="6" fill="#64a0dd"/>
+    <rect x="1476" y="1044" width="50" height="36" rx="6" fill="#5796d3"/>
+    <rect x="1534" y="1044" width="50" height="36" rx="6" fill="#4b8bc8"/>
+    <rect x="1592" y="1044" width="50" height="36" rx="6" fill="#3e81be"/>
+    <rect x="1650" y="1044" width="50" height="36" rx="6" fill="#3276b4"/>
+    <rect x="1708" y="1044" width="50" height="36" rx="6" fill="#256caa"/>
+    <rect x="1766" y="1044" width="50" height="36" rx="6" fill="#19619f"/>
+    <rect x="1418" y="1088" width="50" height="36" rx="6" fill="#0c5795"/>
+        <text x="1478" y="1112" font-size="11" font-weight="600" fill="#0c5795">0c5795 — brand-700, 마지막 단</text>
+    <text x="1418" y="1146" font-size="11" fill="#5b5f63">400 에서 700 사이를 균등 보간한 8단이다. §6.1 은 "700·400 + 그레이"라고</text>
+    <text x="1418" y="1162" font-size="11" fill="#5b5f63">썼지만 그레이는 쓰지 않는다 — 세 색을 다 넣으면 로고 안에서 명도 폭이</text>
+    <text x="1418" y="1178" font-size="11" fill="#5b5f63">너무 넓어져 86 카드 크기에서 흐린 획이 사라져 보인다.</text>
+    <text x="1418" y="1202" font-size="11" fill="#9ca3af">사이드바 활성 탭도 #0c5795 라 로고의 진한 끝과 같은 색이 된다. 의도된</text>
+    <text x="1418" y="1218" font-size="11" fill="#9ca3af">일치다 — 브랜드 대표색은 하나뿐이다(BRAND_COLOR §1).</text>
+
+    <line x1="1034" y1="1240" x2="1836" y2="1240" stroke="#eceef0" stroke-width="1"/>
+    <text x="1034" y="1262" font-size="11" fill="#9ca3af">docs/assets/logo_blue.svg 가 현행 자산이고 시안 2장이 인라인한다. 리컬러 이전 배색은 logo_red.svg 로 보관했다. 남은 교체 대상은 src/assets/logo.png 다.</text>
+    <text x="1034" y="1278" font-size="11" fill="#9ca3af">다시 바꿀 일이 생기면 logo_blue.svg 상단 주석의 8단 hex 를 새 램프로 치환하면 된다.</text>
+  </g>
+
+  <text x="60" y="1352" font-size="11.5" fill="#b4b9be">사이드바에 없는 상태 — 로딩(정적 링크라 비동기 없음) · 에러(마운트 실패는 화면 전체 문제) · 접힘(토글 요구가 없다). 게시판의 경로와 아이콘, 워드마크 문구는 잠정이며 확정 시 교체한다.</text>
+</svg>
