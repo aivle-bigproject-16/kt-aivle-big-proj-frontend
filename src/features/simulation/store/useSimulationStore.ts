@@ -56,15 +56,20 @@ export const useSimulationStore = create<SimulationState & SimulationActions>((s
       if (!isSimulationSocketMessage(data)) return
 
       if (data.event === 'PROGRESS') {
+        /* 필드가 배열이 아니거나(malformed) 아예 빠진 메시지가 가끔 온다. 그럴 때
+           즉시 빈 상태로 반영하면 "잠깐 비었다가 다시 채워지는" 것처럼 보여
+           대기 배치 소멸 애니메이션 등이 실제 변화 없이 오탐 트리거된다.
+           진짜 빈 배열([])은 그대로 반영하되, 형식이 안 맞을 때만 직전 값을 유지한다 */
+        const prev = get()
         set({
           event: 'PROGRESS',
           batchCount: data.batchCount,
           batteryCellCount: data.batteryCellCount,
           captureSpeed: data.captureSpeed,
-          registered: Array.isArray(data.registered) ? data.registered : [],
-          capture: Array.isArray(data.capture) ? data.capture : [],
-          analyze: Array.isArray(data.analyze) ? null : (data.analyze ?? null),
-          completed: Array.isArray(data.completed) ? data.completed : [],
+          registered: Array.isArray(data.registered) ? data.registered : prev.registered,
+          capture: Array.isArray(data.capture) ? data.capture : prev.capture,
+          analyze: data.analyze === undefined ? prev.analyze : Array.isArray(data.analyze) ? prev.analyze : data.analyze,
+          completed: Array.isArray(data.completed) ? data.completed : prev.completed,
           simulationStatus: 'running',
           lastMessage: data,
           lastMessageAt: Date.now(),

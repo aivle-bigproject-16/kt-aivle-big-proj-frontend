@@ -130,7 +130,7 @@ function AnalyzeBatchCellRow({ index, cell }: { index: number; cell: CellProgres
 
 function AnalyzeBatteryIcon() {
   return (
-    <svg width="17" height="31" viewBox="0 0 17 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg style={{ width: '1.7rem', height: '3.1rem' }} viewBox="0 0 17 31" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M10.0371 0L5.7514 0C5.35691 0 5.03711 0.319799 5.03711 0.714292L5.03711 1.42858C5.03711 1.82308 5.35691 2.14288 5.7514 2.14288L10.0371 2.14288C10.4316 2.14288 10.7514 1.82308 10.7514 1.42858V0.714292C10.7514 0.319799 10.4316 0 10.0371 0Z"
         fill="#94A3B8"

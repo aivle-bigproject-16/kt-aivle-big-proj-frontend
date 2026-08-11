@@ -84,14 +84,14 @@
   justify-content: center;
   flex-shrink: 0;
   width: 24.724rem;
+  gap: 0.8rem;
 }
 
 .analyze-header__cell-value {
   flex-shrink: 0;
-  font-size: 3.862rem;
+  font-size: 2.414rem;
   font-weight: 700;
   color: #191c1d;
-  line-height: 1;
 }
 
 /* 배치 / 모델 — 동일 패턴: 위 작은 라벨, 아래 굵은 값 */

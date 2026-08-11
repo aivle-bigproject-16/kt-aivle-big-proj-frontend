@@ -18,7 +18,7 @@ function Simulation() {
   return (
     <div className="simulation">
       <SimulationNav activeIndex={activeIndex} onChange={setActiveIndex} />
-      {activeIndex === 0 && <Overview />}
+      {activeIndex === 0 && <Overview onNavigate={setActiveIndex} />}
       {activeIndex === 1 && <Pending />}
       {activeIndex === 2 && <Capture />}
       {activeIndex === 3 && <Analyze />}

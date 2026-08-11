@@ -10,7 +10,7 @@ function SimControl() {
   return (
     <div className="sim-control-wrap">
       <button type="button" className="sim-control" onClick={() => setOpen((v) => !v)}>
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg style={{ width: '1.5rem', height: '1.5rem' }} viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="7.5" cy="7.5" r="4.9" stroke="#5B5F63" strokeWidth="1" />
           <line x1="7.5" y1="0" x2="7.5" y2="2.5" stroke="#5B5F63" strokeWidth="1" strokeLinecap="round" />
           <line x1="7.5" y1="12.5" x2="7.5" y2="15" stroke="#5B5F63" strokeWidth="1" strokeLinecap="round" />
@@ -32,7 +32,7 @@ function SimControlPopover({ onClose }: { onClose: () => void }) {
   const start = useSimulationStore((s) => s.actions.start)
 
   const [batchSize, setBatchSize] = useState(10)
-  const [batteryCellCount, setBatteryCellCount] = useState(100)
+  const [batteryCellCount, setBatteryCellCount] = useState(1000)
   const [captureSpeed, setCaptureSpeed] = useState(5)
 
   const handleStart = async () => {
