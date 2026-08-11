@@ -2,8 +2,8 @@ import { useSimulationStore } from '../store/useSimulationStore'
 import './OverviewPending.css'
 
 /** 오버뷰 카드 — 420×230 흰 카드. 내부는 5개 영역이 세로로 정렬된다:
-   헤더 / 스테이터스 / 스테이터스 바 / progress / 푸터 */
-function OverviewPending() {
+   헤더 / 스테이터스 / 스테이터스 바 / progress / 푸터. 클릭하면 대기 탭으로 이동 */
+function OverviewPending({ onClick }: { onClick?: () => void }) {
   const pendingCount = useSimulationStore((s) => s.registered.length)
   const totalCount = useSimulationStore((s) => s.batteryCellCount)
   const ratio = totalCount > 0 ? pendingCount / totalCount : 0
@@ -11,7 +11,7 @@ function OverviewPending() {
   const nextBatchId = useSimulationStore((s) => s.registered[0]?.batchId)
 
   return (
-    <div className="overview-pending">
+    <button type="button" className="overview-pending" onClick={onClick}>
       <div className="overview-pending__header">
         <div className="overview-pending__header-left">
           <span className="overview-pending__dot" />
@@ -42,7 +42,7 @@ function OverviewPending() {
           {nextBatchId !== undefined ? `Batch #${nextBatchId} 대기` : '대기 배치 없음'}
         </span>
       </div>
-    </div>
+    </button>
   )
 }
 

@@ -7,8 +7,9 @@ import { OverviewResult } from './OverviewResult'
 import { SimControl } from './SimControl'
 import './Overview.css'
 
-/** 오버뷰 헤더 — 1404×49 고정. 좌: 타이틀, 우: LIVE 배지 + Sim Control 버튼 */
-function Overview() {
+/** 오버뷰 헤더 — 1404×49 고정. 좌: 타이틀, 우: LIVE 배지 + Sim Control 버튼.
+   각 카드를 클릭하면 해당 탭(대기/촬영/분석)으로 이동한다 */
+function Overview({ onNavigate }: { onNavigate?: (index: number) => void }) {
   const isLive = useSimulationStore((s) => s.simulationStatus === 'running')
 
   return (
@@ -31,11 +32,11 @@ function Overview() {
       {/* 카드 사이 간격 7rem — 카드/화살표 모두 0.5rem gap으로 나열해
          화살표(6rem) 양옆에 0.5rem씩 붙어 카드 사이 총 7rem이 되게 한다 */}
       <div className="overview-cards">
-        <OverviewPending />
+        <OverviewPending onClick={() => onNavigate?.(1)} />
         <OverviewArrow />
-        <OverviewCapture />
+        <OverviewCapture onClick={() => onNavigate?.(2)} />
         <OverviewArrow />
-        <OverviewAnalyze />
+        <OverviewAnalyze onClick={() => onNavigate?.(3)} />
       </div>
 
       <OverviewResult />
