@@ -14,6 +14,7 @@ import DailyReportDetailPage from '@/pages/DailyReportDetailPage'
 import NoticePage from '@/pages/NoticePage'
 import NoticeCreatePage from '@/pages/NoticeCreatePage'
 import NoticeDetailPage from '@/pages/NoticeDetailPage'
+import NoticeEditPage from '@/pages/NoticeEditPage'
 
 export const router = createBrowserRouter([
   { path: '/', element: <Navigate to={ROUTES.DASHBOARD} replace /> },
@@ -46,6 +47,7 @@ export const router = createBrowserRouter([
           // 'new'가 :id보다 먼저 와야 /notices/new가 상세로 잘못 잡히지 않는다
           { path: 'notices/new', Component: NoticeCreatePage },
           { path: 'notices/:id', Component: NoticeDetailPage },
+          { path: 'notices/:id/edit', Component: NoticeEditPage },
         ],
       },
     ],

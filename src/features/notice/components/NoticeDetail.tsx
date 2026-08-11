@@ -3,6 +3,7 @@ import { ListBackNav } from '@/shared/ui/ListBackNav'
 import { ROUTES } from '@/core/navigation/routes'
 import { NoticeDetailHeader } from './NoticeDetailHeader'
 import { NoticeDetailBody } from './NoticeDetailBody'
+import { NoticeDetailActions } from './NoticeDetailActions'
 import { useNoticeDetailStore } from '../store/useNoticeDetailStore'
 import './NoticeDetail.css'
 
@@ -35,6 +36,7 @@ function NoticeDetail({ id }: NoticeDetailProps) {
         <>
           <NoticeDetailHeader />
           <NoticeDetailBody />
+          <NoticeDetailActions id={id} />
         </>
       )}
     </div>

@@ -11,6 +11,7 @@ export const ROUTES = {
   NOTICE: '/notices',
   NOTICE_CREATE: '/notices/new',
   NOTICE_DETAIL: (id: string | number) => `/notices/${id}`,
+  NOTICE_EDIT: (id: string | number) => `/notices/${id}/edit`,
   HELP: '/help',
   SETTINGS: '/settings',
 } as const
