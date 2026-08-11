@@ -21,7 +21,7 @@
 }
 
 .filter-chip__count {
-  font-family: ui-monospace, Consolas, monospace;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: 1.2rem;
   color: #9ca3af;
 }

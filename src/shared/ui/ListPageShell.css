@@ -122,7 +122,7 @@
 }
 
 .list-page__mono {
-  font-family: ui-monospace, Consolas, monospace;
+  font-family: 'Inter', system-ui, sans-serif;
   font-variant-numeric: tabular-nums;
 }
 
@@ -156,7 +156,7 @@
 }
 
 .list-page__count {
-  font-family: ui-monospace, Consolas, monospace;
+  font-family: 'Inter', system-ui, sans-serif;
   font-variant-numeric: tabular-nums;
   font-size: 1.25rem;
   color: #9ca3af;

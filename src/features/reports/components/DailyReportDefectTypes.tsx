@@ -9,9 +9,15 @@ const DEFECT_TYPE_LABEL: Record<string, string> = {
   SPOT: '오점',
 }
 
+/* 모듈 스코프 상수 — 셀렉터 안에서 매번 새 []를 만들면(예: `s.detail?.x ?? []`) 참조가
+   매 호출마다 달라져 getSnapshot 무한 루프(Maximum update depth exceeded)가 난다.
+   detail이 null인 첫 렌더에서만 문제가 되므로 데이터가 채워진 뒤에는 재현되지 않는다 */
+const EMPTY_DEFECTS: DefectStat[] = []
+
 /** 결함 유형 분포 카드 — 869×367. 결함 유형별 건수/비율을 막대로 보여준다 */
 function DailyReportDefectTypes() {
-  const defects = useDailyReportDetailStore((s) => s.detail?.summary.defects ?? [])
+  const detail = useDailyReportDetailStore((s) => s.detail)
+  const defects = detail?.summary.defects ?? EMPTY_DEFECTS
   const total = useMemo(() => defects.reduce((sum, d) => sum + d.count, 0), [defects])
 
   return (

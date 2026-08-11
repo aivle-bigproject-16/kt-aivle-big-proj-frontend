@@ -19,15 +19,15 @@
 
   /* 카드형 디자인 컴포넌트의 표준 그림자 — 모든 컴포넌트가 이 값을 공유한다.
      개별 컴포넌트 CSS에 리터럴로 반복하지 말고 var(--shadow-card)를 쓴다 */
-  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-card: 0 4px 4px rgba(0, 0, 0, 0.25);
 
   /* 라운드 스케일 — 5단계 + pill, 상한 15px. 판정은 값이 아니라 높이 대비 비율 (DASHBOARD_REDESIGN.md §2.7) */
   --r-xs: 0.2rem;    /* 2px — 셀 타일, 진행바 (h ≤ 6) */
   --r-sm: 0.4rem;    /* 4px — 누적 바, 스켈레톤 바, 작은 마커 */
   --r-md: 0.8rem;    /* 8px — 버튼, 페이지네이션, 목록 행, 썸네일, 그룹 헤더 */
   --r-lg: 1.2rem;    /* 12px — 중간 카드, 탐지 카드, 서브 블록 */
-  --r-xl: 1.5rem;    /* 15px — 최상위 카드 (상한) */
-  --r-pill: 999px;   /* 칩, 배지, 토글, 사용자 칩, 탭바 트랙·인디케이터 */
+  --r-xl: 1rem;    /* 15px — 최상위 카드 (상한) */
+  --r-pill: 1rem;   /* 칩, 배지, 토글, 사용자 칩, 탭바 트랙·인디케이터 */
 
   font-size: clamp(4px, calc(100vw / 205.294), 10px);
   font-family: 'Inter', system-ui, sans-serif;

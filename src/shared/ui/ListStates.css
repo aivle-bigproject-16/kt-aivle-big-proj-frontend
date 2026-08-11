@@ -53,7 +53,7 @@
 }
 
 .list-state__subtitle--mono {
-  font-family: ui-monospace, Consolas, monospace;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
 .list-state__action {
