@@ -1,6 +1,6 @@
 import { spawn } from 'node:child_process'
 import http from 'node:http'
-import { readFile } from 'node:fs/promises'
+import { readFile, writeFile } from 'node:fs/promises'
 import { WebSocketServer } from 'ws'
 
 const RAW_PORT = 4001
@@ -8,6 +8,12 @@ const PROXY_PORT = 8080
 
 async function readDb() {
   return JSON.parse(await readFile(new URL('./db.json', import.meta.url), 'utf-8'))
+}
+
+// 공지사항은 작성·수정·삭제가 있어 db.json에 다시 써야 한다.
+// (/notices 경로는 모두 아래에서 직접 처리하므로 json-server와 충돌하지 않는다)
+async function writeDb(db) {
+  await writeFile(new URL('./db.json', import.meta.url), JSON.stringify(db, null, 2))
 }
 
 const child = spawn('npx', ['json-server', '--port', String(RAW_PORT), 'db.json'], {
@@ -224,6 +230,105 @@ const server = http.createServer(async (req, res) => {
     }))
     res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
     res.end(JSON.stringify(wrap(listItems)))
+    return
+  }
+
+  // ── 공지사항(게시판) ──────────────────────────────────────────────────────
+  // 목록은 명세서의 list-item 형태(본문 content 제외)로 매핑해 최신순으로 반환한다.
+  if (req.method === 'GET' && url.pathname === '/notices') {
+    const db = await readDb()
+    const sorted = sortByCreatedAt(db.notices ?? [], null)
+    const listItems = sorted.map((n) => ({
+      id: n.id,
+      title: n.title,
+      authorName: n.authorName,
+      createdAt: n.createdAt,
+      updatedAt: n.updatedAt,
+    }))
+    res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
+    res.end(JSON.stringify(wrap(listItems)))
+    return
+  }
+
+  const noticeDetailMatch = url.pathname.match(/^\/notices\/(\d+)$/)
+
+  if (req.method === 'GET' && noticeDetailMatch) {
+    const db = await readDb()
+    const notice = db.notices?.find((n) => n.id === Number(noticeDetailMatch[1]))
+    if (!notice) {
+      res.writeHead(404, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
+      res.end(JSON.stringify({ success: false, message: '해당 공지사항이 없습니다.', data: null }))
+      return
+    }
+    res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
+    res.end(JSON.stringify(wrap(notice)))
+    return
+  }
+
+  // 작성자 정보와 일시는 실제 서버가 세션·DB에서 채우는 값이라 mock이 대신 만들어 준다.
+  if (req.method === 'POST' && url.pathname === '/notices') {
+    const { title, content } = JSON.parse(body.toString() || '{}')
+    if (!title || !content) {
+      res.writeHead(400, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
+      res.end(JSON.stringify({ success: false, message: '제목과 내용은 필수입니다.', data: null }))
+      return
+    }
+    const db = await readDb()
+    db.notices = db.notices ?? []
+    const now = new Date().toISOString().slice(0, 19)
+    const created = {
+      id: db.notices.reduce((max, n) => Math.max(max, n.id), 0) + 1,
+      title,
+      content,
+      authorName: '관리자',
+      authorEmail: 'admin@test.com',
+      createdAt: now,
+      updatedAt: now,
+    }
+    db.notices.push(created)
+    await writeDb(db)
+    res.writeHead(201, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
+    res.end(JSON.stringify({ success: true, message: '공지사항 작성이 완료되었습니다.', data: created }))
+    return
+  }
+
+  if (req.method === 'PUT' && noticeDetailMatch) {
+    const { title, content } = JSON.parse(body.toString() || '{}')
+    if (!title || !content) {
+      res.writeHead(400, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
+      res.end(JSON.stringify({ success: false, message: '제목과 내용은 필수입니다.', data: null }))
+      return
+    }
+    const db = await readDb()
+    const notice = db.notices?.find((n) => n.id === Number(noticeDetailMatch[1]))
+    if (!notice) {
+      res.writeHead(404, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
+      res.end(JSON.stringify({ success: false, message: '해당 공지사항이 없습니다.', data: null }))
+      return
+    }
+    notice.title = title
+    notice.content = content
+    notice.updatedAt = new Date().toISOString().slice(0, 19)
+    await writeDb(db)
+    res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
+    res.end(JSON.stringify({ success: true, message: '공지사항 수정이 완료되었습니다.', data: null }))
+    return
+  }
+
+  // 명세서에는 204로 적혀 있으나 204는 본문을 보낼 수 없어, 공통 응답 형식을 유지하려면 200이어야 한다.
+  // (BE 확인 대기 중 — 204로 확정되면 이 응답에서 본문을 빼고 FE도 함께 맞춘다)
+  if (req.method === 'DELETE' && noticeDetailMatch) {
+    const db = await readDb()
+    const index = db.notices?.findIndex((n) => n.id === Number(noticeDetailMatch[1])) ?? -1
+    if (index === -1) {
+      res.writeHead(404, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
+      res.end(JSON.stringify({ success: false, message: '해당 공지사항이 없습니다.', data: null }))
+      return
+    }
+    db.notices.splice(index, 1)
+    await writeDb(db)
+    res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
+    res.end(JSON.stringify({ success: true, message: '공지사항 삭제가 완료되었습니다.', data: null }))
     return
   }
 

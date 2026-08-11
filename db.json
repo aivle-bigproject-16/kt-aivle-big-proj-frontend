@@ -285,8 +285,12 @@
           "status": "COMPLETED",
           "title": "BATT-001 불량 검사 상세 리포트",
           "content": "CT 이미지 분석 결과, 상단 탭 부분에 94% 신뢰도로 크랙이 발견되었습니다.",
-          "ctImages": ["https://picsum.photos/seed/ct1002/4000/530"],
-          "rgbImages": ["https://picsum.photos/seed/rgb1002/1920/1080"],
+          "ctImages": [
+            "https://picsum.photos/seed/ct1002/4000/530"
+          ],
+          "rgbImages": [
+            "https://picsum.photos/seed/rgb1002/1920/1080"
+          ],
           "createdAt": "2026-07-07T10:00:00Z",
           "updatedAt": "2026-07-07T10:30:00Z",
           "imageMappings": [
@@ -341,8 +345,12 @@
           "status": "COMPLETED",
           "title": "BATT-002 불량 검사 상세 리포트",
           "content": "RGB 이미지 분석 결과, 표면에 오점이 발견되었습니다.",
-          "ctImages": ["https://picsum.photos/seed/ct1002/4000/530"],
-          "rgbImages": ["https://picsum.photos/seed/rgb1002/1920/1080"],
+          "ctImages": [
+            "https://picsum.photos/seed/ct1002/4000/530"
+          ],
+          "rgbImages": [
+            "https://picsum.photos/seed/rgb1002/1920/1080"
+          ],
           "createdAt": "2026-07-07T11:00:00Z",
           "updatedAt": "2026-07-07T11:30:00Z",
           "imageMappings": [
@@ -1589,77 +1597,321 @@
       "reportId": 1,
       "cellId": 1,
       "cloud": {
-        "bounds": { "a": 100, "b": 254, "c": 871 },
+        "bounds": {
+          "a": 100,
+          "b": 254,
+          "c": 871
+        },
         "points": [
-          [41, 122, 107, 0.92],
-          [43, 130, 111, 0.88],
-          [39, 117, 114, 0.95],
-          [45, 135, 104, 0.81],
-          [42, 125, 122, 0.76],
-          [50, 140, 109, 0.69],
-          [38, 112, 118, 0.84],
-          [47, 127, 100, 0.91],
-          [40, 119, 120, 0.78],
-          [44, 132, 106, 0.87],
-          [21, 58, 248, 0.45],
-          [24, 69, 254, 0.41],
-          [19, 53, 242, 0.38],
-          [82, 216, 46, 0.33],
-          [85, 224, 53, 0.29],
-          [79, 208, 42, 0.31]
+          [
+            41,
+            122,
+            107,
+            0.92
+          ],
+          [
+            43,
+            130,
+            111,
+            0.88
+          ],
+          [
+            39,
+            117,
+            114,
+            0.95
+          ],
+          [
+            45,
+            135,
+            104,
+            0.81
+          ],
+          [
+            42,
+            125,
+            122,
+            0.76
+          ],
+          [
+            50,
+            140,
+            109,
+            0.69
+          ],
+          [
+            38,
+            112,
+            118,
+            0.84
+          ],
+          [
+            47,
+            127,
+            100,
+            0.91
+          ],
+          [
+            40,
+            119,
+            120,
+            0.78
+          ],
+          [
+            44,
+            132,
+            106,
+            0.87
+          ],
+          [
+            21,
+            58,
+            248,
+            0.45
+          ],
+          [
+            24,
+            69,
+            254,
+            0.41
+          ],
+          [
+            19,
+            53,
+            242,
+            0.38
+          ],
+          [
+            82,
+            216,
+            46,
+            0.33
+          ],
+          [
+            85,
+            224,
+            53,
+            0.29
+          ],
+          [
+            79,
+            208,
+            42,
+            0.31
+          ]
         ],
-        "metrics": { "dvfPpm": 1240, "posSliceRate": 0.72, "defectCount": 16 }
+        "metrics": {
+          "dvfPpm": 1240,
+          "posSliceRate": 0.72,
+          "defectCount": 16
+        }
       },
       "annotation": {
         "pattern": "LOCAL_CLUSTER",
         "severity": "HIGH",
         "highlights": [
-          { "zone": "TOP_TAB", "note": "상단 탭 접합부에 크랙 집중 — 94% 신뢰도" },
-          { "zone": "MID_CORE", "note": "코어 중앙 미세 기공 산발" }
+          {
+            "zone": "TOP_TAB",
+            "note": "상단 탭 접합부에 크랙 집중 — 94% 신뢰도"
+          },
+          {
+            "zone": "MID_CORE",
+            "note": "코어 중앙 미세 기공 산발"
+          }
         ],
-        "recommendedView": { "azimuth": 45, "elevation": 20 },
+        "recommendedView": {
+          "azimuth": 45,
+          "elevation": 20
+        },
         "caption": "상단 탭 접합부(a=41~50, b=112~140, c=100~122 구간)에 고밀도 결함 군집이 확인됩니다. DVF 1240ppm은 허용 임계(800ppm)를 초과하며, 즉각 폐기 판정을 권고합니다.",
-        "citedMetrics": ["dvfPpm", "posSliceRate"]
+        "citedMetrics": [
+          "dvfPpm",
+          "posSliceRate"
+        ]
       }
     },
     {
       "reportId": 2,
       "cellId": 2,
       "cloud": {
-        "bounds": { "a": 100, "b": 254, "c": 871 },
+        "bounds": {
+          "a": 100,
+          "b": 254,
+          "c": 871
+        },
         "points": [
-          [12, 231, 30, 0.55],
-          [15, 224, 33, 0.51],
-          [10, 236, 25, 0.48],
-          [91, 30, 327, 0.42],
-          [88, 38, 332, 0.39],
-          [93, 23, 321, 0.44],
-          [51, 127, 176, 0.31],
-          [49, 132, 173, 0.28],
-          [53, 122, 180, 0.34]
+          [
+            12,
+            231,
+            30,
+            0.55
+          ],
+          [
+            15,
+            224,
+            33,
+            0.51
+          ],
+          [
+            10,
+            236,
+            25,
+            0.48
+          ],
+          [
+            91,
+            30,
+            327,
+            0.42
+          ],
+          [
+            88,
+            38,
+            332,
+            0.39
+          ],
+          [
+            93,
+            23,
+            321,
+            0.44
+          ],
+          [
+            51,
+            127,
+            176,
+            0.31
+          ],
+          [
+            49,
+            132,
+            173,
+            0.28
+          ],
+          [
+            53,
+            122,
+            180,
+            0.34
+          ]
         ],
-        "metrics": { "dvfPpm": 620, "posSliceRate": 0.41, "defectCount": 9 }
+        "metrics": {
+          "dvfPpm": 620,
+          "posSliceRate": 0.41,
+          "defectCount": 9
+        }
       },
       "annotation": {
         "pattern": "VOLUMETRIC",
         "severity": "MEDIUM",
         "highlights": [
-          { "zone": "SURFACE_CORNER", "note": "표면 모서리 오점 — RGB 분석 기반" }
+          {
+            "zone": "SURFACE_CORNER",
+            "note": "표면 모서리 오점 — RGB 분석 기반"
+          }
         ],
-        "recommendedView": { "azimuth": 135, "elevation": 10 },
+        "recommendedView": {
+          "azimuth": 135,
+          "elevation": 10
+        },
         "caption": "결함이 셀 전체에 산발적으로 분포합니다. DVF 620ppm으로 경계 수준이며 재검사를 권고합니다.",
-        "citedMetrics": ["dvfPpm", "defectCount"]
+        "citedMetrics": [
+          "dvfPpm",
+          "defectCount"
+        ]
       }
     },
     {
       "reportId": 3,
       "cellId": 1,
       "cloud": {
-        "bounds": { "a": 100, "b": 254, "c": 871 },
+        "bounds": {
+          "a": 100,
+          "b": 254,
+          "c": 871
+        },
         "points": [],
-        "metrics": { "dvfPpm": 0, "posSliceRate": 0.0, "defectCount": 0 }
+        "metrics": {
+          "dvfPpm": 0,
+          "posSliceRate": 0,
+          "defectCount": 0
+        }
       },
       "annotation": null
+    }
+  ],
+  "notices": [
+    {
+      "id": 1,
+      "title": "시스템 정기 점검 안내",
+      "content": "2026년 8월 15일 새벽 2시부터 4시까지 정기 점검이 진행됩니다. 해당 시간 동안 검사 시뮬레이션 실행이 제한됩니다.",
+      "authorName": "관리자",
+      "authorEmail": "admin@test.com",
+      "createdAt": "2026-07-28T09:00:00",
+      "updatedAt": "2026-07-28T09:00:00"
+    },
+    {
+      "id": 2,
+      "title": "CT 판독 모델 v4.1 배포",
+      "content": "CT 이미지 미세결함 탐지 모델이 v4.1로 업데이트되었습니다. 기존 대비 오탐률이 약 12% 감소했습니다.",
+      "authorName": "관리자",
+      "authorEmail": "admin@test.com",
+      "createdAt": "2026-07-27T09:00:00",
+      "updatedAt": "2026-07-27T09:00:00"
+    },
+    {
+      "id": 3,
+      "title": "불량 판정 기준 변경 공지",
+      "content": "8월 1일부로 REJECT 판정 신뢰도 임계값이 0.85에서 0.80으로 조정되었습니다. 문의는 품질관리팀으로 부탁드립니다.",
+      "authorName": "관리자",
+      "authorEmail": "admin@test.com",
+      "createdAt": "2026-07-26T09:00:00",
+      "updatedAt": "2026-07-26T09:00:00"
+    },
+    {
+      "id": 4,
+      "title": "일일 리포트 자동 생성 시간 변경",
+      "content": "일일 리포트 자동 생성 시각이 매일 23:00에서 23:30으로 변경되었습니다.",
+      "authorName": "관리자",
+      "authorEmail": "admin@test.com",
+      "createdAt": "2026-07-25T09:00:00",
+      "updatedAt": "2026-07-25T09:00:00"
+    },
+    {
+      "id": 5,
+      "title": "신규 셀 모델 MODEL-C 등록",
+      "content": "원통형 신규 모델 MODEL-C가 검사 대상에 추가되었습니다. 관련 검사 파라미터는 설정 페이지에서 확인하실 수 있습니다.",
+      "authorName": "관리자",
+      "authorEmail": "admin@test.com",
+      "createdAt": "2026-07-24T09:00:00",
+      "updatedAt": "2026-07-24T09:00:00"
+    },
+    {
+      "id": 6,
+      "title": "8월 휴무일 검사 일정 안내",
+      "content": "8월 15일 광복절은 검사 라인이 운영되지 않습니다. 예약된 시뮬레이션은 익일로 자동 이월됩니다.",
+      "authorName": "관리자",
+      "authorEmail": "admin@test.com",
+      "createdAt": "2026-07-23T09:00:00",
+      "updatedAt": "2026-07-23T09:00:00"
+    },
+    {
+      "id": 7,
+      "title": "리포트 조회 권한 정책 안내",
+      "content": "개별 리포트는 작성자와 관리자만 조회할 수 있도록 정책이 변경될 예정입니다. 적용 시점은 추후 공지합니다.",
+      "authorName": "관리자",
+      "authorEmail": "admin@test.com",
+      "createdAt": "2026-07-22T09:00:00",
+      "updatedAt": "2026-07-22T09:00:00"
+    },
+    {
+      "id": 8,
+      "title": "대시보드 개편 안내",
+      "content": "대시보드 화면이 개편되어 시뮬레이션 진행 상황을 단계별 탭으로 확인할 수 있습니다.",
+      "authorName": "관리자",
+      "authorEmail": "admin@test.com",
+      "createdAt": "2026-07-21T09:00:00",
+      "updatedAt": "2026-07-21T09:00:00"
     }
   ]
 }
