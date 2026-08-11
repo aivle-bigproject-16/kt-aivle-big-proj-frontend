@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSimulationStore } from '../store/useSimulationStore'
 import { ROUTES } from '@/core/navigation/routes'
@@ -78,15 +78,24 @@ function AnalyzeRight() {
   const analyze = useSimulationStore((s) => s.analyze)
   const completed = useSimulationStore((s) => s.completed)
 
+  /* 분석 중인 셀이 완료로 넘어가는 그 짧은 순간 analyze가 null이 되는데, 그때
+     analyzeBatchId만 보고 배치를 고르면 화면이 잠깐 빈다 — 마지막으로 봤던
+     batchId를 ref에 남겨두고 analyze가 null인 동안은 그걸로 폴백한다 */
+  const lastBatchIdRef = useRef<number | undefined>(undefined)
+  useEffect(() => {
+    if (analyzeBatchId !== undefined) lastBatchIdRef.current = analyzeBatchId
+  }, [analyzeBatchId])
+  const effectiveBatchId = analyzeBatchId ?? lastBatchIdRef.current
+
   /* 분석 중인 셀과 같은 배치의 셀들을 모든 단계(대기/촬영/분석/완료)에서 모아
      번호순으로 나열한다 — 배치 상태 패널은 배치 전체의 진행 상황을 보여준다 */
   const batchCells = useMemo(() => {
-    if (analyzeBatchId === undefined) return []
+    if (effectiveBatchId === undefined) return []
     const all = [...registered, ...capture, ...(analyze ? [analyze] : []), ...completed]
     return all
-      .filter((c) => c.batchId === analyzeBatchId)
+      .filter((c) => c.batchId === effectiveBatchId)
       .sort((a, b) => a.batteryCellId - b.batteryCellId)
-  }, [analyzeBatchId, registered, capture, analyze, completed])
+  }, [effectiveBatchId, registered, capture, analyze, completed])
 
   return (
     <div className="analyze-body__right">
