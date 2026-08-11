@@ -78,15 +78,26 @@ export const useSimulationStore = create<SimulationState & SimulationActions>((s
       }
 
       // event === 'COMPLETED'
-      set({
-        event: 'COMPLETED',
-        simulationStatus: 'completed',
-        registered: [],
-        capture: [],
-        analyze: null,
-        lastMessage: data,
-        lastMessageAt: Date.now(),
-      })
+      // 마지막 PROGRESS 이후 완료된 셀(예: 30번째)이 COMPLETED 메시지에만 실려 온다 —
+      // registered/capture/completed를 무조건 비우면 이 마지막 셀들이 화면에서 사라진다.
+      // registered는 남아있으면 안 되므로(더 이상 대기 중일 수 없음) 빈 배열로 확정하고,
+      // 나머지는 PROGRESS와 동일하게 malformed 데이터에 대비해 직전 값을 폴백으로 쓴다
+      {
+        const prev = get()
+        set({
+          event: 'COMPLETED',
+          simulationStatus: 'completed',
+          batchCount: data.batchCount,
+          batteryCellCount: data.batteryCellCount,
+          captureSpeed: data.captureSpeed,
+          registered: Array.isArray(data.registered) ? data.registered : [],
+          capture: Array.isArray(data.capture) ? data.capture : prev.capture,
+          analyze: null,
+          completed: Array.isArray(data.completed) ? data.completed : prev.completed,
+          lastMessage: data,
+          lastMessageAt: Date.now(),
+        })
+      }
     },
 
     setWsStatus: (status) => set({ wsStatus: status }),

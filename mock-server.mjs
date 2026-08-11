@@ -144,22 +144,6 @@ const server = http.createServer(async (req, res) => {
     return
   }
 
-  // GET /reports/individual/:reportId/cell-view
-  const cellViewMatch = url.pathname.match(/^\/reports\/individual\/(\d+)\/cell-view$/)
-  if (req.method === 'GET' && cellViewMatch) {
-    const reportId = Number(cellViewMatch[1])
-    const db = await readDb()
-    const item = db.cellDefectViews?.find((v) => v.reportId === reportId)
-    if (!item) {
-      res.writeHead(404, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
-      res.end(JSON.stringify({ success: false, message: '해당 셀 결함 뷰 데이터가 없습니다.', data: null }))
-      return
-    }
-    res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
-    res.end(JSON.stringify(wrap(item)))
-    return
-  }
-
   // GET /reports/individual/:reportId, GET /reports/daily/:reportId
   // 3단계 경로라 json-server의 /:name/:id 라우트가 못 잡는다.
   // db.json의 reports[].content 배열에서 직접 항목을 찾아 반환한다.
@@ -375,7 +359,18 @@ let totalBatchCount = 0
 let runId = 0
 
 function snapshot(forceProgress = false) {
-  if (!hasStartedOnce) return { event: 'COMPLETED' }
+  if (!hasStartedOnce) {
+    return {
+      event: 'COMPLETED',
+      batchCount: 0,
+      batteryCellCount: 0,
+      captureSpeed: null,
+      registered: [],
+      capture: [],
+      analyze: null,
+      completed: [],
+    }
+  }
 
   if (
     !forceProgress &&
@@ -385,7 +380,16 @@ function snapshot(forceProgress = false) {
     capture.length === 0
   ) {
     console.log(`[snap] COMPLETED`)
-    return { event: 'COMPLETED' }
+    return {
+      event: 'COMPLETED',
+      batchCount: totalBatchCount,
+      batteryCellCount: totalCellCount,
+      captureSpeed: captureSpeedSec,
+      registered,
+      capture,
+      analyze,
+      completed,
+    }
   }
 
   console.log(`[snap] PROGRESS: registered=${registered.length}, capture=${capture.length}, analyze=${analyze ? analyze.batteryCellId : 'null'}, completed=${completed.length}/${totalCellCount}`)

@@ -51,6 +51,13 @@ export interface SimulationProgressPayload {
 // WS event: COMPLETED
 export interface SimulationCompletedPayload {
   event: 'COMPLETED'
+  batchCount: number
+  batteryCellCount: number
+  captureSpeed: number
+  registered: CellProgress[]
+  capture: CellProgress[]      // 마지막 배치까지 촬영 완료된 셀 — 비우면 안 됨
+  analyze: CellProgress | null
+  completed: CellProgress[]    // 최종 완료 셀 전체 (마지막 PROGRESS 이후 셀 포함)
 }
 
 export type SimulationSocketMessage = SimulationProgressPayload | SimulationCompletedPayload

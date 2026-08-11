@@ -1,16 +1,27 @@
-/* 섹션 — 카드 행 하단, 1400×220 고정, 흰 배경 (피그마 px÷10=rem, 1400 기준 정책).
-   내부 3개 영역(헤더/스테이터스바/리절트)은 세로로 정렬만 담당 — 크기는 이후 지정 */
+/* 섹션 — 카드 행 하단, 1400 폭 고정, 흰 배경 (피그마 px÷10=rem, 1400 기준 정책).
+   내부 4개 영역(헤더/스테이터스바/리절트/완료 셀 목록)은 세로로 정렬만 담당 — 크기는
+   이후 지정. 목록이 늘어난 만큼 높이는 22rem 고정에서 auto로 바꾸고 목록 자체를
+   내부 스크롤로 감싼다 */
 .overview-result {
   display: flex;
   flex-direction: column;
   align-self: center;
   flex-shrink: 0;
   width: 140rem;
-  height: 22rem;
+  height: auto;
   margin-top: 2rem;
   box-sizing: border-box;
   background-color: #ffffff;
   border-radius: 1rem;
+}
+
+/* 완료된 셀 목록 — 카드 아래 여백을 주고, 개수가 많아지면 이 영역만 스크롤되게
+   최대 높이를 제한한다 (공용 컴포넌트 자체는 flex:1이라 정해진 높이가 없으면
+   무한정 늘어나므로 여기서 max-height로 잡아준다) */
+.overview-result .completed-cell-list {
+  flex: none;
+  max-height: 30rem;
+  margin: 2rem 2.4rem 2.4rem;
 }
 
 /* 리절트 — 1343×55 고정 (피그마 px÷10=rem). PASS/REJECT/FAIL 스탯 카드 3개, 가로 배치 */

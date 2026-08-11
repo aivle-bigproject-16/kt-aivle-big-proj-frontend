@@ -96,8 +96,8 @@
     <text x="317" y="212" font-size="15" fill="#5b5f63">units</text>
     <text x="585" y="211" text-anchor="end" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">/ 120 total</text>
 
-    <rect x="261" y="228" width="324" height="4" rx="999" fill="#eceef0"/>
-    <rect x="261" y="228" width="275" height="4" rx="999" fill="#6b7280"/>
+    <rect x="261" y="228" width="324" height="4" rx="2" fill="#eceef0"/>
+    <rect x="261" y="228" width="275" height="4" rx="2" fill="#6b7280"/>
 
     <rect x="261" y="244" width="321" height="16" fill="url(#tilePending)"/>
 
@@ -124,8 +124,8 @@
     <text x="683" y="212" font-size="15" fill="#5b5f63">active</text>
     <text x="985" y="211" text-anchor="end" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">배치 6셀</text>
 
-    <rect x="661" y="228" width="324" height="4" rx="999" fill="#D3EEEF"/>
-    <rect x="661" y="228" width="198" height="4" rx="999" fill="#13777C"/>
+    <rect x="661" y="228" width="324" height="4" rx="2" fill="#D3EEEF"/>
+    <rect x="661" y="228" width="198" height="4" rx="2" fill="#13777C"/>
 
     <!-- 셀 타일: CAPTURED 4 + CAPTURING 1 + 대기 1 -->
     <rect x="661" y="244" width="6" height="16" rx="2" fill="#85C4C8"/>
@@ -158,7 +158,7 @@
     <text x="1083" y="212" font-size="15" fill="#5b5f63">queued</text>
     <text x="1385" y="211" text-anchor="end" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">셀 #1032</text>
 
-    <rect x="1061" y="228" width="324" height="4" rx="999" fill="#D3EEEF"/>
+    <rect x="1061" y="228" width="324" height="4" rx="2" fill="#D3EEEF"/>
 
     <!-- 스트립 슬롯: 스피너 + 문구 (슬롯 자리 유지) -->
     <circle cx="1069" cy="252" r="6.5" fill="none" stroke="#D3EEEF" stroke-width="2"/>
@@ -225,9 +225,9 @@
         <ellipse cx="104" cy="43" rx="46" ry="30" fill="#5a6068"/>
         <rect x="86" y="30" width="34" height="24" fill="none" stroke="#d97706" stroke-width="2"/>
       </g>
-      <rect x="8" y="8" width="30" height="16" rx="999" fill="#00000099"/>
+      <rect x="8" y="8" width="30" height="16" rx="8" fill="#00000099"/>
       <text x="23" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">CT</text>
-      <rect x="146" y="8" width="54" height="16" rx="999" fill="#d97706"/>
+      <rect x="146" y="8" width="54" height="16" rx="8" fill="#d97706"/>
       <text x="173" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">REJECT</text>
       <text x="12" y="108" font-size="13" font-weight="600" fill="#191c1d">갈라짐</text>
       <text x="12" y="126" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">신뢰도 87%</text>
@@ -241,9 +241,9 @@
         <rect x="0" y="0" width="208" height="86" fill="#43484e"/>
         <ellipse cx="104" cy="43" rx="46" ry="30" fill="#646a72"/>
       </g>
-      <rect x="8" y="8" width="36" height="16" rx="999" fill="#00000099"/>
+      <rect x="8" y="8" width="36" height="16" rx="8" fill="#00000099"/>
       <text x="26" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">RGB</text>
-      <rect x="156" y="8" width="44" height="16" rx="999" fill="#1e7e34"/>
+      <rect x="156" y="8" width="44" height="16" rx="8" fill="#1e7e34"/>
       <text x="178" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">PASS</text>
       <text x="12" y="108" font-size="13" font-weight="600" fill="#191c1d">결함 없음</text>
       <text x="12" y="126" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">신뢰도 96%</text>
@@ -257,9 +257,9 @@
         <rect x="0" y="0" width="208" height="86" fill="#3c4147"/>
         <ellipse cx="104" cy="43" rx="46" ry="30" fill="#5a6068"/>
       </g>
-      <rect x="8" y="8" width="30" height="16" rx="999" fill="#00000099"/>
+      <rect x="8" y="8" width="30" height="16" rx="8" fill="#00000099"/>
       <text x="23" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">CT</text>
-      <rect x="156" y="8" width="44" height="16" rx="999" fill="#1e7e34"/>
+      <rect x="156" y="8" width="44" height="16" rx="8" fill="#1e7e34"/>
       <text x="178" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">PASS</text>
       <text x="12" y="108" font-size="13" font-weight="600" fill="#191c1d">결함 없음</text>
       <text x="12" y="126" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">신뢰도 93%</text>
@@ -273,9 +273,9 @@
         <rect x="0" y="0" width="208" height="86" fill="#43484e"/>
         <ellipse cx="104" cy="43" rx="46" ry="30" fill="#646a72"/>
       </g>
-      <rect x="8" y="8" width="36" height="16" rx="999" fill="#00000099"/>
+      <rect x="8" y="8" width="36" height="16" rx="8" fill="#00000099"/>
       <text x="26" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">RGB</text>
-      <rect x="156" y="8" width="44" height="16" rx="999" fill="#1e7e34"/>
+      <rect x="156" y="8" width="44" height="16" rx="8" fill="#1e7e34"/>
       <text x="178" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">PASS</text>
       <text x="12" y="108" font-size="13" font-weight="600" fill="#191c1d">결함 없음</text>
       <text x="12" y="126" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">신뢰도 89%</text>
@@ -289,9 +289,9 @@
         <rect x="0" y="0" width="208" height="86" fill="#3c4147"/>
         <ellipse cx="104" cy="43" rx="46" ry="30" fill="#5a6068"/>
       </g>
-      <rect x="8" y="8" width="30" height="16" rx="999" fill="#00000099"/>
+      <rect x="8" y="8" width="30" height="16" rx="8" fill="#00000099"/>
       <text x="23" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">CT</text>
-      <rect x="156" y="8" width="44" height="16" rx="999" fill="#1e7e34"/>
+      <rect x="156" y="8" width="44" height="16" rx="8" fill="#1e7e34"/>
       <text x="178" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">PASS</text>
       <text x="12" y="108" font-size="13" font-weight="600" fill="#191c1d">결함 없음</text>
       <text x="12" y="126" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">신뢰도 94%</text>

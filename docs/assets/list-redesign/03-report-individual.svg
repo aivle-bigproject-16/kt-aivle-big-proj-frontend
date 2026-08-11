@@ -49,7 +49,7 @@
   <!-- ================= 슬롯 2 — 툴바 ================= -->
   <g>
     <rect x="243" y="110" width="180" height="32" fill="#dcdcdc"/>
-    <rect x="333" y="113" width="87" height="26" rx="999" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="333" y="113" width="87" height="26" rx="13" fill="#ffffff" filter="url(#sh)"/>
     <text x="289" y="131" text-anchor="middle" font-size="13" font-weight="500" fill="#00000080">일일</text>
     <text x="377" y="131" text-anchor="middle" font-size="13" font-weight="600" fill="#191c1d">개별</text>
 

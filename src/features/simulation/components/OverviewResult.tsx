@@ -1,17 +1,23 @@
+import { useMemo } from 'react'
 import { useSimulationStore } from '../store/useSimulationStore'
+import { CompletedCellList } from './CompletedCellList'
 import './OverviewResult.css'
 
-/** 오버뷰 리절트 — 카드 행 하단, 1400×220 고정, 흰 배경. 내부는 3개 영역이
-   세로로 정렬된다: 헤더 / 스테이터스바 / 리절트 */
+/** 오버뷰 리절트 — 카드 행 하단, 1400 폭 고정, 흰 배경. 내부는 4개 영역이
+   세로로 정렬된다: 헤더 / 스테이터스바 / 리절트 / 완료된 셀 목록 */
 function OverviewResult() {
-  const completedCount = useSimulationStore((s) => s.completed.length)
+  const completed = useSimulationStore((s) => s.completed)
   const totalCount = useSimulationStore((s) => s.batteryCellCount)
-  const passCount = useSimulationStore((s) => s.completed.filter((c) => c.finalLabel === 'PASS').length)
-  const rejectCount = useSimulationStore((s) => s.completed.filter((c) => c.finalLabel === 'REJECT').length)
-  const failCount = useSimulationStore((s) => s.completed.filter((c) => c.finalLabel === 'FAIL').length)
+  const completedCount = completed.length
+  const passCount = useMemo(() => completed.filter((c) => c.finalLabel === 'PASS').length, [completed])
+  const rejectCount = useMemo(() => completed.filter((c) => c.finalLabel === 'REJECT').length, [completed])
+  const failCount = useMemo(() => completed.filter((c) => c.finalLabel === 'FAIL').length, [completed])
   const passPct = completedCount > 0 ? (passCount / completedCount) * 100 : 0
   const rejectPct = completedCount > 0 ? (rejectCount / completedCount) * 100 : 0
   const failPct = completedCount > 0 ? (failCount / completedCount) * 100 : 0
+
+  /* completed 배열은 완료 순서대로 뒤에 추가되므로, 최근 완료된 셀이 위로 오도록 뒤집는다 */
+  const rows = useMemo(() => [...completed].reverse(), [completed])
 
   return (
     <div className="overview-result">
@@ -64,6 +70,8 @@ function OverviewResult() {
           pct={failPct}
         />
       </div>
+
+      <CompletedCellList cells={rows} />
     </div>
   )
 }

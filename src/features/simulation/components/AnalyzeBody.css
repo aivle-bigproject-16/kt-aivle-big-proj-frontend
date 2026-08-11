@@ -187,6 +187,14 @@
   color: #13777c;
 }
 
+/* panel-content 아래 남는 공간을 채우는 터미널 로그 영역 — 좌측 카드 높이가
+   고정(70rem)이라 남은 세로 공간을 flex:1로 흡수한다 */
+.analyze-body__log {
+  flex: 1;
+  min-height: 0;
+  margin-top: 2rem;
+}
+
 /* 우측 영역 — 710×700 고정, 곡률 1rem */
 .analyze-body__right {
   display: flex;

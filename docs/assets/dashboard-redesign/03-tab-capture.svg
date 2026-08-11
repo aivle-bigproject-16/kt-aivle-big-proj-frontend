@@ -78,7 +78,7 @@
     <g>
       <rect x="900" y="98" width="240" height="44" rx="8" fill="#EBF8F9"/>
       <rect x="1004" y="106" width="20" height="28" rx="4" fill="none" stroke="#13777C" stroke-width="1.8"/>
-      <rect x="1009" y="102" width="10" height="4" rx="999" fill="#13777C"/>
+      <rect x="1009" y="102" width="10" height="4" rx="2" fill="#13777C"/>
       <line x1="912" y1="120" x2="1128" y2="120" stroke="#13777C" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.55"/>
       <rect x="960" y="98" width="3" height="44" fill="#13777C" opacity="0.85"/>
       <text x="1020" y="92" text-anchor="middle" font-size="10" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">SCANNER · 촬영 탭 전용 장식</text>
@@ -102,8 +102,8 @@
     <text x="1359" y="226" text-anchor="end" font-size="11.5" fill="#13777C" font-family="ui-monospace, Consolas, monospace">진행 4 / 6</text>
 
     <!-- 촬영 진행바 -->
-    <rect x="267" y="256" width="1112" height="4" rx="999" fill="#D3EEEF"/>
-    <rect x="267" y="256" width="741" height="4" rx="999" fill="#13777C"/>
+    <rect x="267" y="256" width="1112" height="4" rx="2" fill="#D3EEEF"/>
+    <rect x="267" y="256" width="741" height="4" rx="2" fill="#13777C"/>
 
     <!-- 셀 칩: CAPTURED 4 · CAPTURING 1 · 대기 1 -->
     <g>
@@ -159,6 +159,6 @@
 
     <text x="267" y="500" font-size="11.5" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">촬영 완료(CAPTURED) 셀은 흐린 청록 #85C4C8, 촬영 중(CAPTURING)은 진한 청록 #13777C — 명도로만 구분한다</text>
 
-    <rect x="1387" y="196" width="6" height="200" rx="4" fill="#d0d4d8"/>
+    <rect x="1387" y="196" width="6" height="200" rx="3" fill="#d0d4d8"/>
   </g>
 </svg>

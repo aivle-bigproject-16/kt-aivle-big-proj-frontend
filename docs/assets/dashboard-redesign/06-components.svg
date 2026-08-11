@@ -42,8 +42,8 @@
     <text x="342" y="79" text-anchor="end" font-size="12" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">배치 6셀</text>
 
     <!-- slot 3 -->
-    <rect x="18" y="96" width="324" height="4" rx="999" fill="#D3EEEF"/>
-    <rect x="18" y="96" width="198" height="4" rx="999" fill="#13777C"/>
+    <rect x="18" y="96" width="324" height="4" rx="2" fill="#D3EEEF"/>
+    <rect x="18" y="96" width="198" height="4" rx="2" fill="#13777C"/>
 
     <!-- slot 4 -->
     <rect x="18" y="112" width="324" height="16" fill="#EBF8F9" opacity="0.6"/>
@@ -110,9 +110,9 @@
       <ellipse cx="104" cy="43" rx="46" ry="30" fill="#5a6068"/>
       <rect x="86" y="30" width="34" height="24" fill="none" stroke="#d97706" stroke-width="2"/>
     </g>
-    <rect x="8" y="8" width="30" height="16" rx="999" fill="#00000099"/>
+    <rect x="8" y="8" width="30" height="16" rx="8" fill="#00000099"/>
     <text x="23" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">CT</text>
-    <rect x="146" y="8" width="54" height="16" rx="999" fill="#d97706"/>
+    <rect x="146" y="8" width="54" height="16" rx="8" fill="#d97706"/>
     <text x="173" y="20" text-anchor="middle" font-size="9.5" fill="#ffffff" font-family="ui-monospace, Consolas, monospace">REJECT</text>
     <text x="12" y="108" font-size="13" font-weight="600" fill="#191c1d">갈라짐</text>
     <text x="12" y="126" font-size="11" fill="#5b5f63" font-family="ui-monospace, Consolas, monospace">신뢰도 87%</text>

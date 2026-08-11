@@ -1,0 +1,90 @@
+/* 터미널 스타일 로그 패널 — 크기는 쓰는 곳에서 결정하도록 100% 채움 */
+.ai-log-panel {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: 0.8rem;
+  box-sizing: border-box;
+  background-color: #14171a;
+  overflow: hidden;
+}
+
+.ai-log-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding: 1.2rem 1.6rem;
+  border-bottom: 1px solid #262b30;
+}
+
+.ai-log-panel__title {
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #e5e7eb;
+}
+
+.ai-log-panel__status {
+  flex-shrink: 0;
+  padding: 0.2rem 0.8rem;
+  border-radius: 0.4rem;
+  font-size: 1.1rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #9ca3af;
+  background-color: #262b30;
+}
+
+.ai-log-panel__status--open {
+  color: #1baf7a;
+  background-color: rgba(27, 175, 122, 0.15);
+}
+
+.ai-log-panel__status--connecting,
+.ai-log-panel__status--reconnecting {
+  color: #eda100;
+  background-color: rgba(237, 161, 0, 0.15);
+}
+
+.ai-log-panel__status--closed {
+  color: #e34948;
+  background-color: rgba(227, 73, 72, 0.15);
+}
+
+.ai-log-panel__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1;
+  min-height: 0;
+  padding: 1.2rem 1.6rem;
+  overflow-y: auto;
+  font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+}
+
+.ai-log-panel__empty {
+  font-size: 1.3rem;
+  color: #6b7280;
+}
+
+.ai-log-panel__line {
+  display: flex;
+  gap: 1rem;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.ai-log-panel__line-time {
+  flex-shrink: 0;
+  color: #6b7280;
+}
+
+.ai-log-panel__line-message {
+  color: #d1d5db;
+}

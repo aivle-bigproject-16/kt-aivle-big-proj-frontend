@@ -73,7 +73,7 @@
     <!-- 장식: 배터리 충전 (탭당 1개) -->
     <g>
       <rect x="1010" y="98" width="130" height="44" rx="8" fill="#EBF8F9"/>
-      <rect x="1066" y="106" width="18" height="4" rx="999" fill="#94a3b8"/>
+      <rect x="1066" y="106" width="18" height="4" rx="2" fill="#94a3b8"/>
       <rect x="1062" y="110" width="26" height="26" rx="4" fill="none" stroke="#13777C" stroke-width="2"/>
       <rect x="1065" y="122" width="20" height="11" rx="2" fill="#13777C"/>
       <text x="1075" y="92" text-anchor="middle" font-size="10" fill="#b4b9be" font-family="ui-monospace, Consolas, monospace">CHARGING · 분석 탭 전용 장식</text>
@@ -162,6 +162,6 @@
       <text x="1359" y="447" text-anchor="end" font-size="11" fill="#9ca3af" font-family="ui-monospace, Consolas, monospace">Batch #3</text>
     </g>
 
-    <rect x="1387" y="250" width="6" height="140" rx="4" fill="#d0d4d8"/>
+    <rect x="1387" y="250" width="6" height="140" rx="3" fill="#d0d4d8"/>
   </g>
 </svg>

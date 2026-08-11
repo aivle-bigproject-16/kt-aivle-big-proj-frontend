@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSimulationStore } from '../store/useSimulationStore'
 import { ROUTES } from '@/core/navigation/routes'
 import type { CellProgress } from '../types'
+import { AiLogPanel } from './AiLogPanel'
 import './AnalyzeBody.css'
 
 /** 분석 본문 — 가로 정렬된 두 영역. 좌측 660×700(분석 상태), 우측 710×700(배치 상태), 사이 갭 30 */
@@ -61,6 +62,10 @@ function AnalyzeLeft() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="analyze-body__log">
+        <AiLogPanel jobId={analyze ? String(analyze.inspectionId) : null} />
       </div>
     </div>
   )

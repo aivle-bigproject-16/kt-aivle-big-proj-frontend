@@ -16,12 +16,11 @@ interface IndividualReportProps {
 /** 개별 리포트 페이지 전체 — 최상단에 목록 버튼, 그 아래 헤더/본문1/본문2가
    세로로 정렬된다 (1400×100 / 1400×400 / 1400×340, 사이 갭 2rem) */
 function IndividualReport({ reportId }: IndividualReportProps) {
-  const { fetchDetail, fetchCellView } = useIndividualReportDetailStore((s) => s.actions)
+  const { fetchDetail } = useIndividualReportDetailStore((s) => s.actions)
 
   useEffect(() => {
     fetchDetail(reportId)
-    fetchCellView(reportId)
-  }, [fetchDetail, fetchCellView, reportId])
+  }, [fetchDetail, reportId])
 
   return (
     <div className="individual-report">
