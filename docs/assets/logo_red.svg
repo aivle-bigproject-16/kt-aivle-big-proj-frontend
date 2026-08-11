@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 653.4 477.9" width="653" height="478" role="img" aria-labelledby="logoTitle">
   <title id="logoTitle">브랜드 로고 — 셰브론 플로우 마크</title>
-  <desc>docs/assets/로고 2.png 를 벡터로 재구성한 것이다. 원본 대비 픽셀 IoU 0.925. 실선 7획과 점선 66조각이 모두 stroke 이므로 두께·라인캡·색을 값 하나로 바꿀 수 있다. 색은 그레이 #7d7d7d 에서 레드 #d0141a 로 가는 8단 램프이며, 짧은 조각은 stroke 속성이 단색으로, 긴 실선은 경로 방향 linearGradient 가 잡는다. CSS 클래스를 쓰지 않으므로 GitHub 를 포함해 SVG 를 새니타이즈하는 환경에서도 색이 유지된다. 리컬러는 아래 주석의 8단 hex 를 새 램프로 치환하는 것으로 끝난다 (BRAND_COLOR §9 로고 리컬러 미결 대응).</desc>
-  <!-- 색 램프 8단 (그레이 → 레드). 리컬러는 이 8개 hex 를 새 램프로 치환하고,
+  <desc>보관용 — 리컬러 이전의 원본 배색(레드·그레이)이다. 현행 브랜드 자산은 logo_blue.svg 이며, 이 파일은 이력 보존과 대조용으로만 둔다. 로고 2.png 를 벡터로 재구성한 것이고 원본 대비 픽셀 IoU 는 0.925 다. 실선 7획과 점선 66조각이 모두 stroke 이므로 두께·라인캡·색을 값 하나로 바꿀 수 있다. 색은 그레이 #7d7d7d 에서 레드 #d0141a 로 가는 8단 램프이며, 짧은 조각은 stroke 속성이 단색으로, 긴 실선은 경로 방향 linearGradient 가 잡는다. CSS 클래스를 쓰지 않으므로 GitHub 를 포함해 SVG 를 새니타이즈하는 환경에서도 색이 유지된다. 리컬러는 아래 주석의 8단 hex 를 새 램프로 치환하는 것으로 끝난다 BRAND_COLOR §9 의 리컬러 미결은 이후 B안(brand-400 #64a0dd → brand-700 #0c5795)으로 확정됐고, 그 결과물이 logo_blue.svg 다.</desc>
+  <!-- 색 램프 8단 (그레이 → 레드) — 폐기된 옛 브랜드 배색. 리컬러는 이 8개 hex 를 새 램프로 치환하고,
        아래 linearGradient 의 stop-color 도 같은 규칙으로 바꾸면 된다.
        0:#7d7d7d  1:#896e6f  2:#955f61  3:#a15053  4:#ac4144  5:#b83236  6:#c42328  7:#d0141a -->
   <defs>
