@@ -1,0 +1,13 @@
+/* 공용 목록 페이지 뼈대는 shared/ui/ListPageShell.css를 쓴다.
+   여기는 배터리 목록에만 있는 것 — 셀 유형 배지. */
+
+.battery-list__cell-type-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 2.4rem;
+  padding: 0 1rem;
+  border-radius: var(--r-pill);
+  background: #f3f4f6;
+  color: #5b5f63;
+  font-size: 1.15rem;
+}

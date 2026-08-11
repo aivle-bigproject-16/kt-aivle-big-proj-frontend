@@ -293,11 +293,43 @@
             {
               "imageType": "CT",
               "imageId": 1001,
+              "imgUrl": "https://picsum.photos/seed/ct1001x/800/800",
+              "volume": 60,
+              "index": 30,
+              "axis": "x",
               "bbox": {
                 "x": 800,
                 "y": 100,
                 "width": 500,
                 "height": 200
+              }
+            },
+            {
+              "imageType": "CT",
+              "imageId": 1001,
+              "imgUrl": "https://picsum.photos/seed/ct1001y/800/800",
+              "volume": 60,
+              "index": 28,
+              "axis": "y",
+              "bbox": {
+                "x": 750,
+                "y": 120,
+                "width": 480,
+                "height": 210
+              }
+            },
+            {
+              "imageType": "CT",
+              "imageId": 1001,
+              "imgUrl": "https://picsum.photos/seed/ct1001z/800/800",
+              "volume": 60,
+              "index": 32,
+              "axis": "z",
+              "bbox": {
+                "x": 820,
+                "y": 90,
+                "width": 510,
+                "height": 190
               }
             }
           ]
@@ -317,6 +349,7 @@
             {
               "imageType": "RGB",
               "imageId": 2,
+              "imgUrl": "https://picsum.photos/seed/rgb2/800/800",
               "bbox": {
                 "x": 400,
                 "y": 200,
@@ -327,11 +360,43 @@
             {
               "imageType": "CT",
               "imageId": 1001,
+              "imgUrl": "https://picsum.photos/seed/ct2x/800/800",
+              "volume": 60,
+              "index": 30,
+              "axis": "x",
               "bbox": {
                 "x": 800,
                 "y": 100,
                 "width": 500,
                 "height": 200
+              }
+            },
+            {
+              "imageType": "CT",
+              "imageId": 1001,
+              "imgUrl": "https://picsum.photos/seed/ct2y/800/800",
+              "volume": 60,
+              "index": 29,
+              "axis": "y",
+              "bbox": {
+                "x": 760,
+                "y": 110,
+                "width": 490,
+                "height": 205
+              }
+            },
+            {
+              "imageType": "CT",
+              "imageId": 1001,
+              "imgUrl": "https://picsum.photos/seed/ct2z/800/800",
+              "volume": 60,
+              "index": 31,
+              "axis": "z",
+              "bbox": {
+                "x": 810,
+                "y": 95,
+                "width": 505,
+                "height": 195
               }
             }
           ]

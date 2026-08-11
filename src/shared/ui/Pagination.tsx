@@ -47,7 +47,7 @@ function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) 
     <div className="pagination">
       <button
         type="button"
-        className="pagination__btn"
+        className="pagination__btn pagination__btn--arrow"
         disabled={currentPage <= 1}
         onClick={() => onPageChange(currentPage - 1)}
         aria-label="이전 페이지"
@@ -74,7 +74,7 @@ function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) 
       )}
       <button
         type="button"
-        className="pagination__btn"
+        className="pagination__btn pagination__btn--arrow"
         disabled={currentPage >= totalPages}
         onClick={() => onPageChange(currentPage + 1)}
         aria-label="다음 페이지"

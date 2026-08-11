@@ -1,5 +1,6 @@
 export type ReportStatus = 'PENDING' | 'COMPLETED' | 'FAILED'
 export type ImageType = 'CT' | 'RGB'
+export type ImageAxis = 'x' | 'y' | 'z'
 export type FailureReason =
   | 'INCOMPLETE_SET'
   | 'AI_SERVER_ERROR'
@@ -19,6 +20,13 @@ export interface BboxCoords {
 export interface ImageMapping {
   imageType: ImageType
   imageId: number
+  imgUrl: string
+  /** CT만 해당 — 슬라이스가 속한 볼륨의 총 슬라이스 수 */
+  volume?: number
+  /** CT만 해당 — 볼륨 내 이 슬라이스의 순번 */
+  index?: number
+  /** CT만 해당 — 슬라이스 축. 한 볼륨에 x/y/z 세 축이 전부 내려올 수 있다 */
+  axis?: ImageAxis
   bbox: BboxCoords
 }
 

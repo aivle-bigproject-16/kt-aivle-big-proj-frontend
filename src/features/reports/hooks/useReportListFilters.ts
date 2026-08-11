@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue'
+import { usePaginatedList } from '@/shared/hooks/usePaginatedList'
 import type { ReportStatus } from '../types'
-
-const PAGE_SIZE = 20
 
 interface ReportListItemLike {
   reportId: number
@@ -25,26 +25,11 @@ function useReportListFilters<T extends ReportListItemLike>(
   const [statusFilter, setStatusFilter] = useState<ReportStatus | null>(null)
   const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc')
   const [search, setSearch] = useState('')
-  const [debouncedSearch, setDebouncedSearch] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
+  const debouncedSearch = useDebouncedValue(search, 300)
 
   useEffect(() => {
     fetchList(0, 100, toSortParam(sortOrder))
   }, [fetchList, sortOrder])
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedSearch(search), 300)
-    return () => clearTimeout(timer)
-  }, [search])
-
-  // 필터·검색어가 바뀌면 1페이지로 리셋한다. 렌더 도중 이전 값과 비교해 바로 조정 —
-  // useEffect를 쓰면 한 번 더 렌더가 도는 것을 피한다 (React 공식 권장 패턴).
-  const filterKey = `${statusFilter ?? ''}|${debouncedSearch}`
-  const [prevFilterKey, setPrevFilterKey] = useState(filterKey)
-  if (filterKey !== prevFilterKey) {
-    setPrevFilterKey(filterKey)
-    setCurrentPage(1)
-  }
 
   const counts = useMemo(
     () => ({
@@ -68,10 +53,10 @@ function useReportListFilters<T extends ReportListItemLike>(
     })
   }, [list, statusFilter, debouncedSearch])
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
-  const pagedList = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
-  const rangeStart = filtered.length === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1
-  const rangeEnd = Math.min(currentPage * PAGE_SIZE, filtered.length)
+  const { currentPage, setCurrentPage, pagedList, totalPages, rangeStart, rangeEnd } = usePaginatedList(
+    filtered,
+    `${statusFilter ?? ''}|${debouncedSearch}`,
+  )
 
   const resetFilters = () => {
     setStatusFilter(null)

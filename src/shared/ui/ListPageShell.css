@@ -1,0 +1,163 @@
+/* 목록 페이지 공용 뼈대 — 컨테이너·헤더·툴바·카드·테이블·푸터.
+   리포트 목록(일일/개별)과 배터리 목록이 공유한다. 각 feature는 자기만의
+   차이(생성 버튼, 내부 스크롤, 셀 유형 배지 등)만 자신의 CSS에 추가로 둔다. */
+
+.list-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 2rem;
+}
+
+/* ── 슬롯 1: 헤더 ── */
+
+.list-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 5.6rem;
+  flex-shrink: 0;
+}
+
+.list-page__title {
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #191c1d;
+}
+
+/* ── 슬롯 2: 툴바 ── */
+
+.list-page__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  height: 4.8rem;
+}
+
+/* ── 슬롯 3: 테이블 카드 ── */
+
+.list-page__card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-card);
+  padding: 1.2rem;
+}
+
+/* 카드 내부 스크롤 — 헤더는 sticky로 고정, 본문만 스크롤된다 (ARCHITECTURE.md 스크롤바 안정화 규칙).
+   min-width: 0 — flex 아이템 기본값(min-width: auto)이 안의 테이블 크기만큼 폭을 밀어내는 것을 막는다.
+   overflow-x: hidden — 세로 스크롤바가 scrollbar-gutter로 예약하는 폭만큼 안쪽이 좁아져도
+   가로 스크롤이 뜨지 않게 한다 (컬럼 폭은 카드 폭에 맞춰 설계되어 있어 실제로 넘칠 내용은 없다). */
+.list-page__scroll {
+  min-width: 0;
+  max-height: 63.2rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
+.list-page__scroll .list-page__table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #ffffff;
+}
+
+.list-page__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  font-size: 1.4rem;
+}
+
+.list-page__table th {
+  height: 4.4rem;
+  padding: 0 1.2rem;
+  text-align: left;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #5b5f63;
+  border-bottom: 1px solid #eceef0;
+}
+
+.list-page__table td {
+  height: 5.6rem;
+  padding: 0 1.2rem;
+  color: #191c1d;
+  border-bottom: 1px solid #f4f5f6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list-page__table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.list-page__table tbody tr {
+  cursor: pointer;
+}
+
+.list-page__table tbody tr:hover td {
+  background: #eef6fe;
+  border-bottom-color: #eef6fe;
+}
+
+.list-page__table tbody tr:hover td:first-child {
+  border-top-left-radius: var(--r-md);
+  border-bottom-left-radius: var(--r-md);
+}
+
+.list-page__table tbody tr:hover td:last-child {
+  border-top-right-radius: var(--r-md);
+  border-bottom-right-radius: var(--r-md);
+}
+
+.list-page__secondary {
+  color: #5b5f63;
+}
+
+.list-page__mono {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.list-page__table td:last-child {
+  position: relative;
+}
+
+.list-page__chevron {
+  position: absolute;
+  right: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  opacity: 0;
+  color: #0c5795;
+}
+
+.list-page__table tbody tr:hover .list-page__chevron {
+  opacity: 1;
+}
+
+/* ── 슬롯 4: 푸터 ── */
+
+.list-page__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 6.4rem;
+  padding: 0 1.2rem;
+  flex-shrink: 0;
+}
+
+.list-page__count {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-size: 1.25rem;
+  color: #9ca3af;
+}
