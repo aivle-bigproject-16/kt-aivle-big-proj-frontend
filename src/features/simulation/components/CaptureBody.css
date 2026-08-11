@@ -82,6 +82,8 @@
    overflow:visible로 박스 밖까지 그리게 해서 잘리지 않게 한다 */
 .capture-body__chevron {
   flex-shrink: 0;
+  width: 1.7rem;
+  height: 0.9rem;
   overflow: visible;
   transform: rotate(-90deg);
   transition: transform 0.2s ease;
