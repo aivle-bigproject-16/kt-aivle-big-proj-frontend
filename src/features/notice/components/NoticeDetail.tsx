@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { NoticeListNav } from './NoticeListNav'
+import { ListBackNav } from '@/shared/ui/ListBackNav'
+import { ROUTES } from '@/core/navigation/routes'
 import { NoticeDetailHeader } from './NoticeDetailHeader'
 import { NoticeDetailBody } from './NoticeDetailBody'
 import { useNoticeDetailStore } from '../store/useNoticeDetailStore'
@@ -9,7 +10,7 @@ interface NoticeDetailProps {
   id: number
 }
 
-/** 공지사항 상세 페이지 전체 — 최상단에 NoticeListNav, 그 아래 헤더/본문이
+/** 공지사항 상세 페이지 전체 — 최상단에 목록 버튼, 그 아래 헤더/본문이
    세로로 정렬된다 (1400×100 / 1400×400, 사이 갭 2rem) */
 function NoticeDetail({ id }: NoticeDetailProps) {
   const isLoading = useNoticeDetailStore((s) => s.isLoading)
@@ -24,7 +25,7 @@ function NoticeDetail({ id }: NoticeDetailProps) {
 
   return (
     <div className="notice-detail">
-      <NoticeListNav />
+      <ListBackNav to={ROUTES.NOTICE} label="공지사항 목록" />
 
       {error ? (
         <div className="notice-detail__notice notice-detail__notice--error">{error}</div>
