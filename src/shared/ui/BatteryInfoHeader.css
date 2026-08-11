@@ -1,0 +1,115 @@
+/* 섹션 — 다른 상세 헤더(IndividualReportHeader/DailyReportPageHeader)와 동일한 크기:
+   1400×100, 곡률 1.25rem (피그마 px÷10=rem, 1400 기준 정책) */
+.battery-info-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  width: 140rem;
+  height: 10rem;
+  border-radius: 1.25rem;
+  box-sizing: border-box;
+  padding: 0 3rem 0 3.3rem;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.battery-info-header__left {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.battery-info-header__badges {
+  display: flex;
+  align-items: center;
+  gap: 1.448rem;
+  flex-shrink: 0;
+}
+
+.battery-info-header__badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 2.868rem;
+  padding: 0 1.6rem;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  font-size: 1.388rem;
+  font-weight: 400;
+  color: #5b5f63;
+  background-color: #f3f4f6;
+}
+
+.battery-info-header__badge--accent {
+  color: #0c5795;
+  background-color: #eaf2fb;
+}
+
+.battery-info-header__badge--plain {
+  color: #5b5f63;
+  background-color: #f3f4f6;
+}
+
+.battery-info-header__badge--neutral {
+  color: #5b5f63;
+  background-color: #f3f4f6;
+}
+
+.battery-info-header__title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1.2rem;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.battery-info-header__title {
+  flex-shrink: 0;
+  margin: 0;
+  font-size: 2.897rem;
+  font-weight: 700;
+  color: #191c1d;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.battery-info-header__id-label {
+  flex-shrink: 0;
+  font-size: 1.388rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.battery-info-header__meta {
+  display: flex;
+  align-items: flex-end;
+  gap: 4.5rem;
+  flex-shrink: 0;
+}
+
+.battery-info-header__meta-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  flex-shrink: 0;
+}
+
+.battery-info-header__meta-label {
+  flex-shrink: 0;
+  font-size: 1.328rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.battery-info-header__meta-val {
+  flex-shrink: 0;
+  font-size: 1.448rem;
+  font-weight: 400;
+  color: #5b5f63;
+  white-space: nowrap;
+}

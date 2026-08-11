@@ -23,7 +23,9 @@ function OverviewCapture({ onClick }: { onClick?: () => void }) {
   const analyzingCount = useSimulationStore((s) => (s.analyze ? 1 : 0))
   const completedCount = useSimulationStore((s) => s.completed.length)
   const cumulativeCapturedCount = capturedInCaptureArray + analyzingCount + completedCount
-  const ratio = totalCount > 0 ? cumulativeCapturedCount / totalCount : 0
+  /* 클램프 — WS 메시지 순서가 꼬이면 값이 totalCount를 순간적으로 넘어설 수 있는데,
+     그대로 두면 fill이 상태바 길이를 벗어난다 */
+  const ratio = totalCount > 0 ? Math.min(1, capturedInCaptureArray / totalCount) : 0
 
   const captureSpeed = useSimulationStore((s) => s.captureSpeed)
   /* 현재 촬영(CAPTURING) 중인 배치 — capture 배열에서 CAPTURING 상태 셀의 배치 id */
@@ -51,7 +53,7 @@ function OverviewCapture({ onClick }: { onClick?: () => void }) {
           <span className="overview-capture__count">{capturingCount}</span>
           <span className="overview-capture__unit">active</span>
         </div>
-        <span className="overview-capture__total">/ {cumulativeCapturedCount} total</span>
+        <span className="overview-capture__total">/ {cumulativeCapturedCount} captured</span>
       </div>
       <div className="overview-capture__status-bar">
         <div className="overview-capture__status-bar-fill" style={{ width: `${ratio * 100}%` }} />
