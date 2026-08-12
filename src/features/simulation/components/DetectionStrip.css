@@ -1,0 +1,220 @@
+/* 탐지 카드 스트립 — 860×250 고정. 트윈 스테이지 아래 좌측 패널 */
+.detection-strip {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 86rem;
+  height: 25rem;
+  padding: 1.6rem;
+  border-radius: var(--r-xl);
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.detection-strip__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  width: 100%;
+  height: 4.4rem;
+}
+
+.detection-strip__title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.detection-strip__title {
+  flex-shrink: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #191c1d;
+}
+
+.detection-strip__subtitle {
+  flex-shrink: 0;
+  font-family: ui-monospace, 'SF Mono', 'Roboto Mono', monospace;
+  font-size: 1.05rem;
+  letter-spacing: 0.09em;
+  color: #9ca3af;
+}
+
+.detection-strip__hint {
+  flex-shrink: 0;
+  font-size: 1.15rem;
+  color: #9ca3af;
+}
+
+.detection-strip__cards {
+  display: flex;
+  align-items: stretch;
+  gap: 1.2rem;
+  flex-shrink: 0;
+  width: 100%;
+  height: 17.4rem;
+}
+
+/* 카드 — 198×174. 4장이 gap 1.2rem 으로 82.8rem 를 채운다 */
+.detection-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 19.8rem;
+  height: 17.4rem;
+  padding: 0;
+  border: none;
+  border-radius: var(--r-lg);
+  box-sizing: border-box;
+  background-color: transparent;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.detection-card:hover {
+  transform: translateY(-0.2rem);
+}
+
+.detection-card:active {
+  transform: scale(0.99);
+}
+
+.detection-card--empty {
+  cursor: default;
+}
+
+.detection-card--empty:hover {
+  transform: none;
+}
+
+/* 썸네일 — bbox 오버레이의 기준 박스라 position: relative 가 필요하다 */
+.detection-card__thumb {
+  position: relative;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 19.8rem;
+  height: 11.8rem;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background-color: #f1f3f4;
+}
+
+/* 크기와 위치는 useDetectionCrop 이 인라인 스타일로 지정한다 — 탐지 영역을
+   중심에 놓아야 해서 object-fit 으로는 표현할 수 없다 */
+.detection-card__img {
+  position: absolute;
+  display: block;
+  max-width: none;
+}
+
+.detection-card__type {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  padding: 0.2rem 0.7rem;
+  border-radius: var(--r-pill);
+  font-family: ui-monospace, 'SF Mono', 'Roboto Mono', monospace;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: rgba(25, 28, 29, 0.65);
+}
+
+/* 모델이 지목한 영역. 판정색으로 칠해 어떤 판정을 만든 근거인지 바로 잇는다 */
+.detection-card__bbox {
+  position: absolute;
+  border: 2px solid #dc2626;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.detection-card__bbox--pass {
+  border-color: #1e7e34;
+  background-color: rgba(30, 126, 52, 0.14);
+}
+
+.detection-card__bbox--reject {
+  border-color: #d97706;
+  background-color: rgba(217, 119, 6, 0.16);
+}
+
+.detection-card__bbox--fail {
+  border-color: #dc2626;
+  background-color: rgba(220, 38, 38, 0.16);
+}
+
+.detection-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  width: 100%;
+  height: 2.2rem;
+}
+
+.detection-card__cell {
+  flex-shrink: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #191c1d;
+}
+
+.detection-card__cell--empty {
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.detection-card__verdict {
+  flex-shrink: 0;
+  padding: 0.2rem 0.8rem;
+  border-radius: var(--r-pill);
+  font-family: ui-monospace, 'SF Mono', 'Roboto Mono', monospace;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+}
+
+.detection-card__verdict--pass {
+  color: #1e7e34;
+  background-color: #ecfdf3;
+}
+
+.detection-card__verdict--reject {
+  color: #d97706;
+  background-color: #fffbeb;
+}
+
+.detection-card__verdict--fail {
+  color: #dc2626;
+  background-color: #fef2f2;
+}
+
+.detection-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  width: 100%;
+  height: 2rem;
+}
+
+.detection-card__defect {
+  flex-shrink: 0;
+  font-size: 1.2rem;
+  color: #5b5f63;
+}
+
+.detection-card__confidence {
+  flex-shrink: 0;
+  font-family: ui-monospace, 'SF Mono', 'Roboto Mono', monospace;
+  font-size: 1.1rem;
+  font-variant-numeric: tabular-nums;
+  color: #9ca3af;
+}

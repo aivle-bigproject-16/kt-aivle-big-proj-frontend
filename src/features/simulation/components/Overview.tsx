@@ -1,11 +1,14 @@
 import { useSimulationStore } from '../store/useSimulationStore'
 import { TwinStage } from './twin/TwinStage'
+import { DetectionStrip } from './DetectionStrip'
+import { RecentCompletedPanel } from './RecentCompletedPanel'
 import { SimControl } from './SimControl'
 import './Overview.css'
 
-/** 오버뷰 — 헤더 + 디지털 트윈 스테이지 2덩이.
+/** 오버뷰 — 헤더 + 디지털 트윈 스테이지 + 하단 인사이트 행, 3덩이.
    구 flow 카드 3장(OverviewPending/Capture/Analyze)과 결과 블록(OverviewResult)은
-   트윈 스테이지가 통째로 대체한다. 결과는 라인 끝의 배출함 3개가 표시한다 */
+   트윈 스테이지가 통째로 대체한다. 판정별 집계는 라인 끝의 배출함 3개가 표시하고,
+   모델 산출값과 셀 단위 진입점은 하단 인사이트 행이 맡는다 */
 function Overview({ onNavigate }: { onNavigate?: (index: number) => void }) {
   const isLive = useSimulationStore((s) => s.simulationStatus === 'running')
   const completedCount = useSimulationStore((s) => s.completed.length)
@@ -46,6 +49,11 @@ function Overview({ onNavigate }: { onNavigate?: (index: number) => void }) {
 
       <div className="overview-stage">
         <TwinStage onNavigate={onNavigate} />
+      </div>
+
+      <div className="overview-insights">
+        <DetectionStrip />
+        <RecentCompletedPanel />
       </div>
     </div>
   )

@@ -19,6 +19,20 @@
   box-sizing: border-box;
 }
 
+/* 인사이트 행 — 1404×250 고정. 좌: 탐지 카드 스트립(860), 우: 최근 완료(524), gap 20.
+   세로 예산은 .simulation 90rem 에 정확히 맞춘다:
+   nav 8 + 헤더 5 + (2 + 스테이지 48) + (2 + 인사이트 25) = 90rem */
+.overview-insights {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-shrink: 0;
+  width: 140.4rem;
+  height: 25rem;
+  margin-top: 2rem;
+  box-sizing: border-box;
+}
+
 /* 오버뷰 헤더 — 1404×49 고정 (피그마 px÷10=rem, 1400 기준 정책) */
 .overview-header {
   display: flex;
