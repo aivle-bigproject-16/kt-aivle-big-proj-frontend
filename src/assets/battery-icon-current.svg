@@ -1,0 +1,69 @@
+<!--
+  현재 상태(twinLayout.ts PUCK={w:26,h:15}, TwinPuck.tsx, Twin.css)의 트윈 퍽 배터리 아이콘을
+  그대로 추출한 것 — 톤(tone)별 전체 색상 정보를 다 담았다.
+
+  geometry (PUCK 중심 기준, halfW=13, halfH=7.5):
+    shell:    x=-13   y=-7.5 w=26 h=15 rx=3
+    terminal: x=12    y=-3   w=4  h=6  rx=1.5
+    rib:      x=-8    y=-3.5 w=12 h=2  rx=1  fill=#ffffff opacity=0.55 (톤 무관 고정)
+
+  톤별 shell/terminal fill (Twin.css 기준, CSS 변수는 실제 값으로 치환):
+    default(미지정) : shell #d5dade   terminal #aeb5bb
+    pending         : shell #cbd2d8   terminal #aeb5bb (terminal 오버라이드 없음)
+    capturing       : shell #13777c   terminal #5aa3a7
+    captured        : shell #85c4c8   terminal #5aa3a7
+    analyzing       : shell #13777c   terminal #0f5f63
+    pass            : shell #1e7e34   terminal #17632a
+    reject          : shell #d97706   terminal #a95d05
+    fail            : shell #dc2626   terminal #a81d1d
+-->
+<svg width="335" height="60" viewBox="0 0 335 60" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, 'SF Mono', 'Roboto Mono', monospace">
+  <g transform="translate(23, 24)">
+    <rect x="-13" y="-7.5" width="26" height="15" rx="3" fill="#cbd2d8"/>
+    <rect x="12" y="-3" width="4" height="6" rx="1.5" fill="#aeb5bb"/>
+    <rect x="-8" y="-3.5" width="12" height="2" rx="1" fill="#ffffff" opacity="0.55"/>
+  </g>
+  <text x="23" y="52" font-size="7" text-anchor="middle" fill="#5b5f63">pending</text>
+
+  <g transform="translate(70, 24)">
+    <rect x="-13" y="-7.5" width="26" height="15" rx="3" fill="#13777c"/>
+    <rect x="12" y="-3" width="4" height="6" rx="1.5" fill="#5aa3a7"/>
+    <rect x="-8" y="-3.5" width="12" height="2" rx="1" fill="#ffffff" opacity="0.55"/>
+  </g>
+  <text x="70" y="52" font-size="7" text-anchor="middle" fill="#5b5f63">capturing</text>
+
+  <g transform="translate(117, 24)">
+    <rect x="-13" y="-7.5" width="26" height="15" rx="3" fill="#85c4c8"/>
+    <rect x="12" y="-3" width="4" height="6" rx="1.5" fill="#5aa3a7"/>
+    <rect x="-8" y="-3.5" width="12" height="2" rx="1" fill="#ffffff" opacity="0.55"/>
+  </g>
+  <text x="117" y="52" font-size="7" text-anchor="middle" fill="#5b5f63">captured</text>
+
+  <g transform="translate(164, 24)">
+    <rect x="-13" y="-7.5" width="26" height="15" rx="3" fill="#13777c"/>
+    <rect x="12" y="-3" width="4" height="6" rx="1.5" fill="#0f5f63"/>
+    <rect x="-8" y="-3.5" width="12" height="2" rx="1" fill="#ffffff" opacity="0.55"/>
+  </g>
+  <text x="164" y="52" font-size="7" text-anchor="middle" fill="#5b5f63">analyzing</text>
+
+  <g transform="translate(211, 24)">
+    <rect x="-13" y="-7.5" width="26" height="15" rx="3" fill="#1e7e34"/>
+    <rect x="12" y="-3" width="4" height="6" rx="1.5" fill="#17632a"/>
+    <rect x="-8" y="-3.5" width="12" height="2" rx="1" fill="#ffffff" opacity="0.55"/>
+  </g>
+  <text x="211" y="52" font-size="7" text-anchor="middle" fill="#5b5f63">pass</text>
+
+  <g transform="translate(258, 24)">
+    <rect x="-13" y="-7.5" width="26" height="15" rx="3" fill="#d97706"/>
+    <rect x="12" y="-3" width="4" height="6" rx="1.5" fill="#a95d05"/>
+    <rect x="-8" y="-3.5" width="12" height="2" rx="1" fill="#ffffff" opacity="0.55"/>
+  </g>
+  <text x="258" y="52" font-size="7" text-anchor="middle" fill="#5b5f63">reject</text>
+
+  <g transform="translate(305, 24)">
+    <rect x="-13" y="-7.5" width="26" height="15" rx="3" fill="#dc2626"/>
+    <rect x="12" y="-3" width="4" height="6" rx="1.5" fill="#a81d1d"/>
+    <rect x="-8" y="-3.5" width="12" height="2" rx="1" fill="#ffffff" opacity="0.55"/>
+  </g>
+  <text x="305" y="52" font-size="7" text-anchor="middle" fill="#5b5f63">fail</text>
+</svg>

@@ -8,29 +8,59 @@ import { TwinBatchTimeline } from './TwinBatchTimeline'
 import {
   BELTS,
   BELT_THICKNESS,
+  type BinKey,
   LINE_Y,
   SORTER,
   STAGE,
   STATIONS,
+  STATION_HEADER_H,
+  STATION_PAD,
   analyzeScanFrame,
+  chutePath,
+  rem,
   stationFloor,
 } from './twinLayout'
 import './Twin.css'
 
+const BIN_KEYS: BinKey[] = ['PASS', 'REJECT', 'FAIL']
+
 /** 스테이션 사이 벨트 한 구간. 스트라이프는 시뮬레이션이 도는 동안에만 흐른다 */
 function TwinBelt({ x1, x2, running }: { x1: number; x2: number; running: boolean }) {
   return (
-    <g className={`twin-belt${running ? ' twin-belt--running' : ''}`}>
-      <rect
-        className="twin-belt__deck"
-        x={x1}
-        y={LINE_Y - BELT_THICKNESS / 2}
-        width={x2 - x1}
-        height={BELT_THICKNESS}
-        rx={4}
-      />
-      <line className="twin-belt__stripes" x1={x1} y1={LINE_Y} x2={x2} y2={LINE_Y} />
-    </g>
+    <div
+      className={`twin-belt${running ? ' twin-belt--running' : ''}`}
+      style={{
+        left: rem(x1),
+        top: rem(LINE_Y - BELT_THICKNESS / 2),
+        width: rem(x2 - x1),
+        height: rem(BELT_THICKNESS),
+      }}
+    >
+      <svg className="twin-belt__stripes" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true">
+        <line x1="0" y1="50%" x2="100%" y2="50%" />
+      </svg>
+    </div>
+  )
+}
+
+/** 분기점에서 배출함까지 이어지는 슈트 곡선 — HTML/CSS로는 베지어 곡선을 그릴 수 없어
+   이 부분만 예외로 SVG로 남는다. 장식용이며 클릭/이벤트는 없다(pointer-events: none) */
+function TwinChutes({ running }: { running: boolean }) {
+  return (
+    <svg
+      className="twin-chutes"
+      viewBox={`0 0 ${STAGE.width} ${STAGE.height}`}
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      {BIN_KEYS.map((key) => (
+        <path
+          key={key}
+          className={`twin-chute twin-chute--${key.toLowerCase()}${running ? ' twin-chute--running' : ''}`}
+          d={chutePath(key)}
+        />
+      ))}
+    </svg>
   )
 }
 
@@ -39,6 +69,7 @@ function TwinBelt({ x1, x2, running }: { x1: number; x2: number; running: boolea
  * 공정 라인을 위에서 내려다본 뷰. 셀 오브젝트가 구역 사이를 실제로 이동한다.
  *
  * 좌표는 전부 `twinLayout.ts` 가 소유한다. 이 파일에는 좌표 리터럴을 두지 않는다.
+ * 슈트 곡선만 SVG이고 나머지는 전부 HTML/CSS(div 절대 위치)다.
  */
 function TwinStage({ onNavigate }: { onNavigate?: (index: number) => void }) {
   const { agents, overflow } = useTwinAgents()
@@ -69,22 +100,28 @@ function TwinStage({ onNavigate }: { onNavigate?: (index: number) => void }) {
   const scanFrame = analyzeScanFrame()
   const SWEEP_W = 30
 
+  /* 스위프/게이트는 스테이션 본문(body) 안에 담기는 장치 그래픽이다. 본문의 좌상단은
+     항상 (스테이션.x + STATION_PAD, 스테이션.y + STATION_HEADER_H)이므로, 그 원점을
+     빼면 stationFloor/analyzeScanFrame의 스테이지 절대좌표가 본문 기준 상대좌표가 된다 */
+  const captureBodyOrigin = { x: STATIONS.capture.x + STATION_PAD, y: STATIONS.capture.y + STATION_HEADER_H }
+  const analyzeBodyOrigin = { x: STATIONS.analyze.x + STATION_PAD, y: STATIONS.analyze.y + STATION_HEADER_H }
+  const gateRel = {
+    x: scanFrame.x - analyzeBodyOrigin.x,
+    y: scanFrame.y - analyzeBodyOrigin.y,
+    w: scanFrame.w,
+    h: scanFrame.h,
+  }
+  const gateCaptionRel = { x: gateRel.x + gateRel.w / 2, y: gateRel.y + gateRel.h + 20 }
+
   return (
-    <svg
+    <div
       className="twin-stage"
-      viewBox={`0 0 ${STAGE.width} ${STAGE.height}`}
+      style={{ width: rem(STAGE.width), height: rem(STAGE.height) }}
       role="img"
       aria-label={`배터리 셀 검사 공정 실시간 라인. 대기 ${pendingCount}, 촬영 중 ${capturingCount}, 분석 대기 ${capturedCount}, 완료 ${completedCount} / ${totalCount}`}
     >
-      <defs>
-        <pattern id="twin-floor-grid" width="16" height="16" patternUnits="userSpaceOnUse">
-          <path className="twin-floor-grid__line" d="M 16 0 L 0 0 0 16" />
-        </pattern>
-      </defs>
-
       {/* 바닥 — 라인 전체가 놓인 판 */}
-      <rect className="twin-ground" x={0} y={0} width={STAGE.width} height={STAGE.height} rx={15} />
-      <rect className="twin-ground__grid" x={0} y={0} width={STAGE.width} height={STAGE.height} rx={15} />
+      <div className="twin-ground" />
 
       {/* 벨트 — 스테이션 사이를 잇는 본선 */}
       {BELTS.map((belt) => (
@@ -92,18 +129,23 @@ function TwinStage({ onNavigate }: { onNavigate?: (index: number) => void }) {
       ))}
 
       {/* 분기점 — 판정에 따라 3방향 슈트로 갈린다 */}
-      <g className={`twin-sorter${running ? ' twin-sorter--running' : ''}`}>
-        <circle className="twin-sorter__hub" cx={SORTER.x} cy={SORTER.y} r={11} />
-        <circle className="twin-sorter__core" cx={SORTER.x} cy={SORTER.y} r={4} />
-      </g>
+      <div
+        className={`twin-sorter${running ? ' twin-sorter--running' : ''}`}
+        style={{ left: rem(SORTER.x), top: rem(SORTER.y) }}
+      >
+        <span className="twin-sorter__hub" />
+        <span className="twin-sorter__core" />
+      </div>
 
-      {/* 배출함 — 슈트를 함께 그린다. 벨트보다 위, 오브젝트보다 아래 */}
+      {/* 슈트 — 유일하게 SVG로 남은 부분. 벨트보다 위, 오브젝트보다 아래 */}
+      <TwinChutes running={running} />
+
+      {/* 배출함 */}
       <TwinBin
         binKey="PASS"
         label="정상"
         count={passCount}
         pct={pct(passCount)}
-        running={running}
         onClick={() => onNavigate?.(4)}
       />
       <TwinBin
@@ -111,7 +153,6 @@ function TwinStage({ onNavigate }: { onNavigate?: (index: number) => void }) {
         label="불량"
         count={rejectCount}
         pct={pct(rejectCount)}
-        running={running}
         onClick={() => onNavigate?.(4)}
       />
       <TwinBin
@@ -119,11 +160,10 @@ function TwinStage({ onNavigate }: { onNavigate?: (index: number) => void }) {
         label="실패"
         count={failCount}
         pct={pct(failCount)}
-        running={running}
         onClick={() => onNavigate?.(4)}
       />
 
-      {/* 스테이션 4종 — 껍데기는 같고 채워지는 값만 다르다 */}
+      {/* 스테이션 3종 — 껍데기는 같고 채워지는 값만 다르다 */}
       <TwinStation
         box={STATIONS.source}
         label="대기"
@@ -160,16 +200,18 @@ function TwinStage({ onNavigate }: { onNavigate?: (index: number) => void }) {
         }
         onClick={() => onNavigate?.(2)}
       >
-
         {/* 촬영 스위프 — 촬영 중일 때만 챔버를 훑는다 */}
-        <rect
+        <div
           className={`twin-sweep${capturingCount > 0 ? ' twin-sweep--running' : ''}`}
-          x={captureFloor.x}
-          y={captureFloor.y}
-          width={SWEEP_W}
-          height={captureFloor.h}
-          rx={4}
-          style={{ '--twin-sweep-distance': `${captureFloor.w - SWEEP_W}px` } as CSSProperties}
+          style={
+            {
+              left: 0,
+              top: 0,
+              width: rem(SWEEP_W),
+              height: rem(captureFloor.h),
+              '--twin-sweep-distance': rem(captureFloor.w - SWEEP_W),
+            } as CSSProperties
+          }
         />
       </TwinStation>
 
@@ -186,37 +228,33 @@ function TwinStage({ onNavigate }: { onNavigate?: (index: number) => void }) {
         onClick={() => onNavigate?.(3)}
       >
         {/* 추론 게이트 — 분석 슬롯을 감싸는 검사 프레임 */}
-        <rect
+        <div
           className={`twin-gate${analyzing ? ' twin-gate--running' : ''}`}
-          x={scanFrame.x}
-          y={scanFrame.y}
-          width={scanFrame.w}
-          height={scanFrame.h}
-          rx={8}
-        />
-        <line
-          className={`twin-gate__beam${analyzing ? ' twin-gate__beam--running' : ''}`}
-          x1={scanFrame.x}
-          y1={scanFrame.y}
-          x2={scanFrame.x + scanFrame.w}
-          y2={scanFrame.y}
-          style={{ '--twin-beam-distance': `${scanFrame.h}px` } as CSSProperties}
-        />
-        <text className="twin-gate__caption" x={scanFrame.x + scanFrame.w / 2} y={scanFrame.y + scanFrame.h + 20}>
+          style={{ left: rem(gateRel.x), top: rem(gateRel.y), width: rem(gateRel.w), height: rem(gateRel.h) }}
+        >
+          <span
+            className={`twin-gate__beam${analyzing ? ' twin-gate__beam--running' : ''}`}
+            style={{ '--twin-beam-distance': rem(gateRel.h) } as CSSProperties}
+          />
+        </div>
+        <span
+          className="twin-gate__caption"
+          style={{ left: rem(gateCaptionRel.x), top: rem(gateCaptionRel.y) }}
+        >
           {analyzing ? 'AI 추론 진행 중' : '분석 대기 중'}
-        </text>
+        </span>
       </TwinStation>
 
       {/* 배치 진척 — 스테이션 줄 아래. 셀 단위와 결과 단위 사이의 배치 축을 채운다 */}
       <TwinBatchTimeline />
 
       {/* 오브젝트 레이어 — 셀 퍽. 항상 최상단에서 구역 사이를 이동한다 */}
-      <g className="twin-agents">
+      <div className="twin-agents">
         {agents.map((agent) => (
           <TwinPuck key={agent.id} agent={agent} />
         ))}
-      </g>
-    </svg>
+      </div>
+    </div>
   )
 }
 

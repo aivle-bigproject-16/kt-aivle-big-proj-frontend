@@ -1,88 +1,82 @@
+/* 사이드바 — 부모 영역(--col-side, 26rem)을 그대로 채운다 */
 .side-bar {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
+  width: 80%;
   height: 100%;
-  padding: 3rem 1.0629rem;
+  background: #ffffff;
   box-sizing: border-box;
-  background: transparent;
+  overflow: hidden;
 }
 
-/* 로고 카드 — Group 93: 100×100, rx=27.27px, shadow dy=2.92 blur=2.92 alpha=0.25 */
-.side-bar__logo-card {
-  width: 8.5714rem;
-  height: 8.5714rem;
+/* 로고 영역 — 첫 내비 항목이 시작되는 y=171px(17.1rem) 지점까지. 중앙 정렬이
+   아니라 내비 아이콘과 같은 좌측 기준선(4.5rem)에 맞춘다 */
+.side-bar__logo {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff;
-  border-radius: 2.34rem;
-  box-shadow: 0 0.2486rem 0.2486rem rgba(0, 0, 0, 0.25);
   flex-shrink: 0;
-  margin-bottom: 3rem;
-  margin-left: 8.5714rem;
-}
-
-.side-bar__logo-img {
-  width: 7.7143rem;
-  height: 7.7143rem;
-  object-fit: contain;
-}
-
-/* 내비 pill — Group 94: w=100 rx=21.875, shadow dy=2.92 blur=12.4 alpha=0.25
-   높이는 탭 개수에 맞춰 계산한다. 탭을 추가·제거하면 이 값도 함께 고쳐야 한다.
-   = padding-top 1.9714 + (아이콘 6 × 탭수) + (간격 3.7714 × (탭수-1)) + padding-bottom 3.1714
-   현재 탭 4개(대시보드·배터리·리포트·공지사항) 기준 40.457rem */
-.side-bar__pill {
-  width: 8.5714rem;
-  height: 40.457rem;
-  background: #ffffff;
-  border-radius: 1.8771rem;
-  box-shadow: 0 0.2486rem 1.0629rem rgba(0, 0, 0, 0.25);
+  height: 17.1rem;
   box-sizing: border-box;
-  padding-top: 1.9714rem;
-  padding-bottom: 3.1714rem;
-  margin-left: 8.5714rem;
+}
+
+.flow-cell-logo {
+  width: 12rem;
+  height: 11rem;
 }
 
 .side-bar__nav {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 3.7714rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-/* 아이콘 버튼 — Group 94: w=70 h=70 rx=19.09px, shadow dy=2.92 blur=2.92 alpha=0.25 */
+/* 항목 하나 — 전체 폭, 6rem(60px) 높이. 아이콘은 좌측 4.5rem 지점부터 시작 */
 .side-bar__nav-item {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 6rem;
+  gap: 1.5rem;
+  width: 100%;
   height: 6rem;
-  border-radius: 1.6371rem;
-  background: #ededed;
+  padding-left: 4.5rem;
+  box-sizing: border-box;
   color: #5b5f63;
-  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 400;
   text-decoration: none;
-  flex-shrink: 0;
-  transition: background 0.15s;
-  box-shadow: 0 0.2486rem 0.2486rem rgba(0, 0, 0, 0.25);
+  transition: background-color 0.15s ease;
 }
 
 .side-bar__nav-item:hover {
-  background: #dde0e2;
+  background-color: #f5f8fb;
 }
 
 .side-bar__nav-item--active {
-  color: #d94730;
+  background-color: #eef6fe;
+  color: #0c5795;
+  font-weight: 700;
 }
 
 .side-bar__nav-item-icon {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+/* Icons.tsx의 아이콘들은 HTML 속성으로 px 크기가 박혀 있다 — CSS로 덮어써서
+   rem 스케일과 어긋나지 않게 한다 */
+.side-bar__nav-item-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.side-bar__nav-item-label {
+  flex-shrink: 0;
+  font-family: inter;
+  font-size: 2rem;
 }

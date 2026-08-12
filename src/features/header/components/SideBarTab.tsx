@@ -17,7 +17,6 @@ function SideBarTab({ icon, label, to, matchPrefix }: SideBarTabProps) {
         <li>
           <NavLink
             to={to}
-            title={label}
             className={({ isActive }) =>
               (isActive || isPrefixActive)
                 ? 'side-bar__nav-item side-bar__nav-item--active'
@@ -25,6 +24,7 @@ function SideBarTab({ icon, label, to, matchPrefix }: SideBarTabProps) {
             }
           >
             <span className="side-bar__nav-item-icon">{icon}</span>
+            <span className="side-bar__nav-item-label">{label}</span>
           </NavLink>
         </li>
     );

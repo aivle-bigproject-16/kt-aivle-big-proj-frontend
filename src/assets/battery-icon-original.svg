@@ -1,0 +1,5 @@
+<svg width="29" height="15" viewBox="-13 -7.5 29 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect class="twin-puck__shell" x="-13" y="-7.5" width="26" height="15" rx="6" fill="#D5DADE" stroke="#94A3B8" stroke-width="1"/>
+<rect class="twin-puck__terminal" x="12" y="-3" width="4" height="6" rx="2" fill="#94A3B8"/>
+<rect class="twin-puck__rib" x="-8" y="-3.5" width="12" height="2" rx="1" fill="#94A3B8"/>
+</svg>

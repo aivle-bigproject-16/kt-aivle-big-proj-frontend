@@ -351,6 +351,12 @@ const server = http.createServer(async (req, res) => {
 let registered = []   // CellProgress[] — 대기 중인 셀
 let capture = []      // CellProgress[] — 현재 촬영 배치의 셀들 (CAPTURING | CAPTURED)
 let analyze = null    // CellProgress | null — 분석 중인 단일 셀
+/* analyzeCell 체인이 진행 중인지 여부 — analyze는 완료 직전 연출용으로 잠깐 null이
+   되므로(ANALYZE_TO_COMPLETED_GAP_MS) "분석 중이 아님"의 신호로 쓸 수 없다.
+   그 null 공백 동안 processNextBatch가 analyze===null만 보고 새 analyzeCell을
+   또 시작해버리는 레이스가 있었다 — 두 셀이 동시에 분석되며 완료가 몰아서 나왔다.
+   이 락은 체인이 완전히 idle(다음 CAPTURED 셀이 없음)해질 때만 풀린다 */
+let analyzing = false
 let completed = []    // CellProgress[] — 공정 완료 셀
 let captureSpeedSec = null
 let hasStartedOnce = false
@@ -483,6 +489,7 @@ function randomAnalyzeDelayMs() {
 function analyzeCell(cell, myRunId) {
   if (myRunId !== runId) return
 
+  analyzing = true
   capture = capture.filter((c) => c.batteryCellId !== cell.batteryCellId)
   cell.status = 'ANALYZING'
   analyze = cell
@@ -511,13 +518,18 @@ function analyzeCell(cell, myRunId) {
       broadcastSnapshot(true)
       console.log(`[sim] cell ${cell.batteryCellId} → COMPLETED (${cell.finalLabel})`)
 
-      // 다음 CAPTURED 셀 분석 — 없으면 완료 체크
+      // 다음 CAPTURED 셀 분석 — 없으면 락을 풀고 완료 체크.
+      // analyzeCell을 다시 부를 거면 그 안에서 바로 analyzing=true로 재설정되니
+      // 여기서 먼저 풀었다가 다시 잠그는 중간 틈을 만들지 않는다
       const nextCapture = capture.find((c) => c.status === 'CAPTURED')
       if (nextCapture) {
         analyzeCell(nextCapture, myRunId)
-      } else if (registered.length === 0 && !capture.some((c) => c.status === 'CAPTURING')) {
-        broadcastSnapshot()
-        console.log('[sim] all cells completed')
+      } else {
+        analyzing = false
+        if (registered.length === 0 && !capture.some((c) => c.status === 'CAPTURING')) {
+          broadcastSnapshot()
+          console.log('[sim] all cells completed')
+        }
       }
     }, ANALYZE_TO_COMPLETED_GAP_MS)
   }, analyzeDelayMs)
@@ -556,8 +568,9 @@ function processNextBatch(myRunId) {
     // CAPTURED 즉시 다음 배치 촬영 시작
     processNextBatch(myRunId)
 
-    // 분석 슬롯이 비어 있으면 첫 번째 CAPTURED 셀 분석 시작
-    if (analyze === null) {
+    // 분석 체인이 idle일 때만 첫 번째 CAPTURED 셀 분석 시작 (analyze===null은
+    // 완료 직전 잠깐도 참이라 락으로 쓸 수 없다 — analyzing 참고)
+    if (!analyzing) {
       const firstCapture = capture.find((c) => c.status === 'CAPTURED')
       if (firstCapture) analyzeCell(firstCapture, myRunId)
     }
@@ -574,6 +587,7 @@ function startSimulation({ batchSize, batteryCellCount, captureSpeed }) {
   registered = cells
   capture = []
   analyze = null
+  analyzing = false
   completed = []
   captureSpeedSec = captureSpeed
   hasStartedOnce = true

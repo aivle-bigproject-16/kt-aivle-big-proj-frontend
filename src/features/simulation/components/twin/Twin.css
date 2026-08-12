@@ -1,16 +1,15 @@
-/* 디지털 트윈 스테이지.
-   SVG viewBox 1404×480 = 140.4rem × 48rem 이므로 user unit 1 = 0.1rem 이다.
-   길이 값을 px 로 적어도 viewBox 안에서는 전부 user unit 으로 해석되어 rem 스케일을 따라간다.
+/* 디지털 트윈 스테이지 — HTML/CSS(div 절대 위치) 기반. 슈트(분기점→배출함 곡선)만
+   베지어 곡선이 필요해 SVG로 남아 있고, 나머지는 전부 div다.
+   좌표 리터럴은 `twinLayout.ts`의 rem() 규약(디자인 px ÷ 10 = rem)을 그대로 따른다 —
+   이 파일의 px 단위 값(font-size, border-width 등)도 전부 같은 규약으로 rem 변환했다.
 
    색은 DASHBOARD_REDESIGN.md §6.1 의 상태 5색과 파생색 1개만 쓴다. 브랜드 블루는 쓰지 않는다. */
 
 .twin-stage {
+  position: relative;
   flex-grow: 0;
   flex-shrink: 0;
-  width: 140.4rem;
-  height: 48rem;
   display: block;
-  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
 
   --twin-pending: #6b7280;
   --twin-process: #13777c;
@@ -27,63 +26,84 @@
 /* ── 바닥 ─────────────────────────────────────────────────── */
 
 .twin-ground {
-  fill: #f4f6f7;
-}
-
-.twin-ground__grid {
-  fill: url(#twin-floor-grid);
-}
-
-.twin-floor-grid__line {
-  fill: none;
-  stroke: #e7eaec;
-  stroke-width: 1;
+  position: absolute;
+  inset: 0;
+  background-color: #f4f6f7;
+  border-radius: 1.5rem;
+  background-image:
+    linear-gradient(to right, #e7eaec 1px, transparent 1px),
+    linear-gradient(to bottom, #e7eaec 1px, transparent 1px);
+  background-size: 1.6rem 1.6rem;
 }
 
 /* ── 벨트 ─────────────────────────────────────────────────── */
 
-.twin-belt__deck {
-  fill: #e4e8eb;
-  stroke: #d5dade;
-  stroke-width: 1;
+.twin-belt {
+  position: absolute;
+  background: #e4e8eb;
+  border: 0.1rem solid #d5dade;
+  box-sizing: border-box;
 }
 
 .twin-belt__stripes {
-  stroke: #c2cad0;
-  stroke-width: 10;
-  stroke-linecap: round;
-  stroke-dasharray: 10 14;
+  position: absolute;
+  inset: 0;
+  overflow: visible;
 }
 
-.twin-belt--running .twin-belt__stripes {
+.twin-belt__stripes line {
+  stroke: #c2cad0;
+  stroke-width: 1rem;
+  stroke-linecap: round;
+  stroke-dasharray: 1rem 1.4rem;
+}
+
+.twin-belt--running .twin-belt__stripes line {
   stroke: var(--twin-process-dim);
   animation: twin-belt-flow 0.9s linear infinite;
 }
 
 @keyframes twin-belt-flow {
   to {
-    stroke-dashoffset: -24;
+    stroke-dashoffset: -2.4rem;
   }
 }
 
 /* ── 분기점 ───────────────────────────────────────────────── */
 
+.twin-sorter {
+  position: absolute;
+  width: 2.2rem;
+  height: 2.2rem;
+  transform: translate(-50%, -50%);
+}
+
 .twin-sorter__hub {
-  fill: #ffffff;
-  stroke: #cfd4d9;
-  stroke-width: 2;
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 0.2rem solid #cfd4d9;
+  box-sizing: border-box;
 }
 
 .twin-sorter__core {
-  fill: #cfd4d9;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: #cfd4d9;
+  transform: translate(-50%, -50%);
 }
 
 .twin-sorter--running .twin-sorter__hub {
-  stroke: var(--twin-process);
+  border-color: var(--twin-process);
 }
 
 .twin-sorter--running .twin-sorter__core {
-  fill: var(--twin-process);
+  background: var(--twin-process);
   animation: twin-pulse 1.4s ease-in-out infinite;
 }
 
@@ -98,6 +118,16 @@
 }
 
 /* ── 슈트 (분기점 → 배출함) ───────────────────────────────── */
+/* 유일하게 SVG로 남은 부분 — HTML/CSS로는 베지어 곡선을 그릴 수 없다.
+   장식용 오버레이라 pointer-events는 컴포넌트에서 이미 꺼져 있다 */
+
+.twin-chutes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
 
 .twin-chute {
   fill: none;
@@ -131,86 +161,116 @@
 
 /* ── 스테이션 ─────────────────────────────────────────────── */
 
+/* 호버는 색만 바뀐다 — 위치/크기는 그대로 둔다 */
 .twin-station {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 1.2rem;
+  box-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.12);
   cursor: pointer;
-}
-
-.twin-station__shell {
-  fill: #ffffff;
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.12));
-}
-
-.twin-station__floor {
-  fill: #f8fafb;
-}
-
-.twin-station:hover .twin-station__floor {
-  fill: #f2f6f7;
-}
-
-.twin-station:focus-visible {
+  transition: background-color 0.15s ease;
   outline: none;
 }
 
-.twin-station:focus-visible .twin-station__shell {
-  stroke: var(--twin-process);
-  stroke-width: 2;
+.twin-station:hover {
+  background-color: #f2f6f7;
+}
+
+.twin-station:focus-visible {
+  box-shadow: 0 0 0 0.2rem var(--twin-process);
+}
+
+.twin-station__header {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: 5rem;
+
+  gap: 0.6rem;
 }
 
 .twin-station__dot {
-  fill: #cfd4d9;
+  width: 0.8rem;
+  height: 0.8rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #cfd4d9;
 }
 
 .twin-station--pending.twin-station--active .twin-station__dot {
-  fill: var(--twin-pending);
+  background: var(--twin-pending);
 }
 
 .twin-station--process.twin-station--active .twin-station__dot {
-  fill: var(--twin-process);
+  background: var(--twin-process);
   animation: twin-pulse 1.4s ease-in-out infinite;
 }
 
 .twin-station__label {
-  font-size: 15px;
+  font-size: 1.9rem;
   font-weight: 600;
-  fill: var(--twin-ink);
+  color: var(--twin-ink);
+  white-space: nowrap;
 }
 
 .twin-station__code {
-  font-family: var(--twin-mono);
-  font-size: 10.5px;
+  font-family: inter;
+  font-size: 1.4rem;
   letter-spacing: 0.09em;
-  fill: var(--twin-ink-faint);
+  color: var(--twin-ink-faint);
+  white-space: nowrap;
 }
 
 .twin-station__count {
-  font-size: 20px;
+  margin-left: auto;
+  font-size: 2rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  text-anchor: end;
-  fill: var(--twin-ink);
+  color: var(--twin-ink);
+  white-space: nowrap;
 }
 
 .twin-station__unit {
-  font-size: 11px;
+  font-size: 1.1rem;
   font-weight: 400;
-  fill: var(--twin-ink-sub);
+  color: var(--twin-ink-sub);
+}
+
+.twin-station__body {
+  position: relative;
+  flex: 1 1 auto;
+}
+
+.twin-station__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  gap: 0.6rem;
+  height: 2.4rem;
 }
 
 .twin-station__footer-left,
 .twin-station__footer-right {
   font-family: var(--twin-mono);
-  font-size: 10.5px;
-  fill: var(--twin-ink-faint);
+  font-size: 1.05rem;
+  color: var(--twin-ink-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .twin-station__footer-right {
-  text-anchor: end;
+  text-align: right;
 }
 
 /* 촬영 스위프 — 챔버를 훑는 빛 */
 .twin-sweep {
-  fill: var(--twin-process);
+  position: absolute;
+  background: var(--twin-process);
   opacity: 0;
 }
 
@@ -228,29 +288,29 @@
   }
 }
 
-/* 추론 게이트 — 분석 슬롯을 감싸는 검사 프레임 */
+/* 추론 게이트 — 분석 슬롯을 감싸는 검사 프레임.
+   마칭앤츠(dasharray 흐름)는 CSS로 재현할 수 없어 정적 점선 테두리로 단순화했다 —
+   실행 중 색 전환(--running)만 유지한다 */
 .twin-gate {
-  fill: none;
-  stroke: #d5dade;
-  stroke-width: 1.5;
-  stroke-dasharray: 4 4;
+  position: absolute;
+  box-sizing: border-box;
+  border: 0.15rem dashed #d5dade;
+  border-radius: 0.8rem;
+  overflow: hidden;
 }
 
 .twin-gate--running {
-  stroke: var(--twin-process);
-  animation: twin-gate-spin 1.6s linear infinite;
-}
-
-@keyframes twin-gate-spin {
-  to {
-    stroke-dashoffset: -16;
-  }
+  border-color: var(--twin-process);
 }
 
 .twin-gate__beam {
-  stroke: var(--twin-process);
-  stroke-width: 2;
-  stroke-linecap: round;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 0.2rem;
+  border-radius: 0.1rem;
+  background: var(--twin-process);
   opacity: 0;
 }
 
@@ -260,13 +320,15 @@
 }
 
 .twin-gate__caption {
-  font-size: 11px;
-  text-anchor: middle;
-  fill: var(--twin-ink-faint);
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 1.1rem;
+  color: var(--twin-ink-faint);
+  white-space: nowrap;
 }
 
 .twin-station--active .twin-gate__caption {
-  fill: var(--twin-process);
+  color: var(--twin-process);
 }
 
 @keyframes twin-beam-move {
@@ -280,141 +342,194 @@
 
 /* ── 배치 타임라인 ────────────────────────────────────────── */
 
+.twin-timeline {
+  position: absolute;
+  inset: 0;
+}
+
 .twin-timeline__caption {
-  font-size: 11px;
+  position: absolute;
+  transform: translateY(-100%);
+  font-size: 1.1rem;
   font-weight: 600;
-  fill: var(--twin-ink-sub);
+  color: var(--twin-ink-sub);
+  white-space: nowrap;
 }
 
 .twin-timeline__count {
+  position: absolute;
+  transform: translate(-100%, -100%);
   font-family: var(--twin-mono);
-  font-size: 10.5px;
+  font-size: 1.05rem;
   font-variant-numeric: tabular-nums;
-  text-anchor: end;
-  fill: var(--twin-ink-faint);
+  color: var(--twin-ink-faint);
+  white-space: nowrap;
 }
 
 .twin-timeline__track {
-  fill: #e9edf0;
+  position: absolute;
+  display: flex;
+  box-sizing: border-box;
+  background: #e9edf0;
+  border-radius: 0.4rem;
+  overflow: hidden;
 }
 
 /* 상태색이 아니라 진척 축이다 — 판정 5색을 쓰지 않고 청록 명도만으로 차오르게 한다.
    대기(연회색) → 진행(흐린 청록) → 완료(진한 청록) 순으로 진해진다 */
+.twin-timeline__segment {
+  height: 100%;
+  flex-shrink: 0;
+  border-radius: 0.2rem;
+}
+
 .twin-timeline__segment--pending {
-  fill: #d5dade;
+  background: #d5dade;
 }
 
 /* 진행 칸에 펄스를 걸지 않는다. 배치가 열 개 넘게 동시에 진행 중일 수 있어
    그대로 두면 무한 애니메이션이 화면 상한(§7.5, 4개)을 훌쩍 넘긴다 */
 .twin-timeline__segment--active {
-  fill: var(--twin-process-dim);
+  background: var(--twin-process-dim);
 }
 
 .twin-timeline__segment--done {
-  fill: var(--twin-process);
+  background: var(--twin-process);
 }
 
 /* ── 배출함 ───────────────────────────────────────────────── */
 
-.twin-bin__card {
+/* overview-analyze 버튼과 동일한 호버/액티브 애니메이션 — .twin-station과 동일 */
+.twin-bin {
+  position: absolute;
+  display: flex;
+  align-items: start;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: none;
+  border-radius: 0 1.2rem 1.2rem 0;
+  box-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.12);
   cursor: pointer;
-}
-
-.twin-bin__shell {
-  fill: #ffffff;
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.12));
-}
-
-.twin-bin__card:focus-visible {
+  font: inherit;
+  text-align: left;
+  transition: background-color 0.15s ease;
   outline: none;
 }
 
-.twin-bin__card:focus-visible .twin-bin__shell {
-  stroke: var(--twin-process);
-  stroke-width: 2;
+.twin-bin:focus-visible {
+  box-shadow: 0 0 0 0.2rem var(--twin-process);
 }
 
-.twin-bin__label {
-  font-size: 13px;
-  font-weight: 600;
-  fill: var(--twin-ink);
-}
-
-.twin-bin__code {
-  font-family: var(--twin-mono);
-  font-size: 10px;
-  letter-spacing: 0.09em;
-  fill: var(--twin-ink-faint);
-}
-
-.twin-bin__count {
-  font-size: 18px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  text-anchor: end;
-  fill: var(--twin-ink);
-}
-
-.twin-bin__pct {
-  font-size: 10.5px;
-  font-weight: 400;
-  fill: var(--twin-ink-sub);
+.twin-bin__accent {
+  position: absolute;
+  left: 0;
+  width: 0.5rem;
+  height: 100%;
 }
 
 .twin-bin--pass .twin-bin__accent {
-  fill: var(--twin-pass);
+  background: var(--twin-pass);
 }
 
 .twin-bin--reject .twin-bin__accent {
-  fill: var(--twin-reject);
+  background: var(--twin-reject);
 }
 
 .twin-bin--fail .twin-bin__accent {
-  fill: var(--twin-fail);
+  background: var(--twin-fail);
 }
 
-.twin-bin--pass .twin-bin__card:hover .twin-bin__shell {
-  fill: #f6fdf8;
+.twin-bin--pass:hover {
+  background-color: #f6fdf8;
 }
 
-.twin-bin--reject .twin-bin__card:hover .twin-bin__shell {
-  fill: #fffdf5;
+.twin-bin--reject:hover {
+  background-color: #fffdf5;
 }
 
-.twin-bin--fail .twin-bin__card:hover .twin-bin__shell {
-  fill: #fff8f8;
+.twin-bin--fail:hover {
+  background-color: #fff8f8;
+}
+
+.twin-bin__header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.8rem;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.twin-bin__label {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--twin-ink);
+  white-space: nowrap;
+}
+
+.twin-bin__code {
+  font-family: infer;
+  font-size: 1rem;
+  letter-spacing: 0.09em;
+  color: var(--twin-ink-faint);
+  white-space: nowrap;
+}
+
+.twin-bin__count {
+  margin-left: auto;
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--twin-ink);
+  white-space: nowrap;
+}
+
+.twin-bin__pct {
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--twin-ink-sub);
 }
 
 /* ── 셀 오브젝트 ──────────────────────────────────────────── */
 
+.twin-agents {
+  position: absolute;
+  inset: 0;
+}
+
 /* 이동의 전부. 구역/슬롯이 바뀌면 목표 좌표가 바뀌고 여기서 보간된다.
-   React 는 스냅샷당 한 번만 리렌더하고 프레임은 브라우저가 굴린다 */
+   React 는 스냅샷당 한 번만 리렌더하고 프레임은 브라우저가 굴린다.
+   퍽은 자체 클릭 핸들러가 없는 순수 장식 오브젝트다 — station/bin 위에 퍽이 얹혀 있으면
+   그 밑의 호버·클릭이 막히므로 pointer-events:none 으로 이벤트가 퍽을 투과해 아래
+   트리거로 그대로 가게 한다 */
 .twin-puck {
-  transform-box: view-box;
+  position: absolute;
+  left: 0;
+  top: 0;
   transition: transform 620ms cubic-bezier(0.33, 0.1, 0.2, 1);
+  pointer-events: none;
 }
 
 /* 새 DOM 노드가 삽입될 때만 재생되어야 하므로 수정자 클래스가 아니라
    클래스 자체에 animation 을 건다 (ARCHITECTURE.md CSS 애니메이션 정책) */
 .twin-puck__body {
-  transform-box: fill-box;
+  position: relative;
+  width: 100%;
+  height: 100%;
   transform-origin: 50% 50%;
   animation: twin-puck-enter 380ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
-@keyframes twin-puck-enter {
-  from {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+/* 배터리 셀 아이콘은 이미 가로가 긴 모양이라 회전이 필요 없다 */
+.twin-puck__body svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
-/* 색은 스냅샷이 오는 즉시 바뀌지만 위치는 이동이 끝나야 도착한다. 색 전환에도
-   같은 시간을 주지 않으면 아직 이전 구역에 앉아 있는 셀이 다음 단계 색으로 보인다 */
+/* battery-icon-current.svg 와 동일한 톤별 색상표 — rib은 톤과 무관하게 항상
+   반투명 흰색 하이라이트다 */
 .twin-puck__shell,
 .twin-puck__terminal {
   transition: fill 620ms cubic-bezier(0.33, 0.1, 0.2, 1);
@@ -483,9 +598,22 @@
   fill: #a81d1d;
 }
 
+@keyframes twin-puck-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* ── 접근성 ───────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
+  .twin-station,
+  .twin-bin,
   .twin-puck,
   .twin-puck__shell,
   .twin-puck__terminal {
@@ -499,7 +627,6 @@
   .twin-station--active .twin-station__dot,
   .twin-puck__body--capturing .twin-puck__shell,
   .twin-sweep--running,
-  .twin-gate--running,
   .twin-gate__beam--running {
     animation: none;
   }
