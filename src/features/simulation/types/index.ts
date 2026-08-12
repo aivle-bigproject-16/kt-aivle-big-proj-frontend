@@ -21,14 +21,13 @@ export type SimulationRunStatus = 'idle' | 'running' | 'completed'
 // 셀 단위 상태
 export type CellStatus = 'REGISTERED' | 'CAPTURING' | 'CAPTURED' | 'ANALYZING' | 'COMPLETED'
 
-// 검사 타입
-export type InspectionType = 'CT' | 'RGB'
-
-// 셀 단위 진행 정보 (registered / capture / analyze / completed 공통)
+/* 셀 단위 진행 정보 (registered / capture / analyze / completed 공통).
+   필드 구성은 API_SPEC「검사 진행 상황 수신」의 셀 스키마와 1:1이다.
+   `inspectionType`(CT/RGB)은 여기 선언돼 있었으나 계약에도 mock 응답에도 없고
+   참조하는 곳도 없어 제거했다 — 검사 타입은 배터리 상세(GET /battery/:id)에서 온다 */
 export interface CellProgress {
   batteryCellId: number
   inspectionId: number
-  inspectionType: InspectionType
   finalLabel: FinalLabel | null
   batchId: number
   status: CellStatus
