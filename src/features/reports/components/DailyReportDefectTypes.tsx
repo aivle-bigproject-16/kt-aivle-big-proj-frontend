@@ -1,13 +1,8 @@
 import { useMemo } from 'react'
 import { useDailyReportDetailStore } from '../store/useDailyReportDetailStore'
 import type { DefectStat } from '../types'
+import { DEFECT_TYPE_LABEL } from '@/shared/utils/defectTypeLabel'
 import './DailyReportDefectTypes.css'
-
-const DEFECT_TYPE_LABEL: Record<string, string> = {
-  MICRO_DEFECT: '미세결함',
-  CRACK: '갈라짐',
-  SPOT: '오점',
-}
 
 /* 모듈 스코프 상수 — 셀렉터 안에서 매번 새 []를 만들면(예: `s.detail?.x ?? []`) 참조가
    매 호출마다 달라져 getSnapshot 무한 루프(Maximum update depth exceeded)가 난다.

@@ -1,0 +1,65 @@
+/* 최근 완료 패널 — 524×250 고정. 트윈 스테이지 아래 우측 패널 */
+.recent-completed {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 52.4rem;
+  height: 25rem;
+  padding: 1.6rem;
+  border-radius: var(--r-xl);
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.recent-completed__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  width: 100%;
+  height: 4.4rem;
+}
+
+.recent-completed__title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.recent-completed__title {
+  flex-shrink: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #191c1d;
+}
+
+.recent-completed__subtitle {
+  flex-shrink: 0;
+  font-family: ui-monospace, 'SF Mono', 'Roboto Mono', monospace;
+  font-size: 1.05rem;
+  letter-spacing: 0.09em;
+  color: #9ca3af;
+}
+
+.recent-completed__count {
+  flex-shrink: 0;
+  font-size: 1.7rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #191c1d;
+}
+
+.recent-completed__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 100%;
+  height: 17.4rem;
+  font-size: 1.3rem;
+  color: #9ca3af;
+}
