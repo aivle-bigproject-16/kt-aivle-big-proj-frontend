@@ -79,7 +79,7 @@ function useDetectionCrop(bbox: Bbox | null) {
  * 그 대표값을 메인 화면 1-depth 로 끌어올린 자리다 (DASHBOARD_REDESIGN.md §4.5).
  */
 function DetectionStrip() {
-  const completed = useSimulationStore((s) => s.completed)
+  const completed = useSimulationStore((s) => s.completedOrdered)
   const cards = useDetectionStore((s) => s.cards)
   const { sync, reset } = useDetectionStore((s) => s.actions)
 

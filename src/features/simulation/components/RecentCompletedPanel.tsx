@@ -11,11 +11,11 @@ import './RecentCompletedPanel.css'
  * 같은 컴포넌트라 행 모양과 이동 동작이 두 화면에서 어긋나지 않는다.
  */
 function RecentCompletedPanel() {
-  const completed = useSimulationStore((s) => s.completed)
+  /* 스토어가 최근 완료를 앞에 오도록 정규화해 둔 목록. 서버 배열의 정렬 방향과
+     무관하게 항상 같은 의미다 */
+  const completed = useSimulationStore((s) => s.completedOrdered)
   const completedCount = completed.length
 
-  /* 완료 목록의 정렬 방향이 서버 구현에 달려 있어(§주의) 여기서는 배열 순서를
-     그대로 쓴다. 뒤집는 쪽은 완료 탭과 구 OverviewResult 가 하고 있다 */
   const rows = useMemo(() => completed.slice(0, 12), [completed])
 
   return (

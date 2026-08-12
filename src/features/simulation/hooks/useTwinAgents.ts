@@ -44,7 +44,9 @@ export function useTwinAgents(): TwinAgentsResult {
   const registered = useSimulationStore((s) => s.registered)
   const capture = useSimulationStore((s) => s.capture)
   const analyze = useSimulationStore((s) => s.analyze)
-  const completed = useSimulationStore((s) => s.completed)
+  /* 배출함은 최근 완료가 첫 칸에 들어가야 새 셀이 밀려 들어오는 것처럼 보인다.
+     서버 배열의 정렬 방향을 믿지 않고 스토어가 정규화한 목록을 쓴다 */
+  const completed = useSimulationStore((s) => s.completedOrdered)
 
   return useMemo(() => {
     const agents: TwinAgent[] = []
@@ -90,7 +92,7 @@ export function useTwinAgents(): TwinAgentsResult {
       })
     }
 
-    /* completed 는 최신 셀이 배열 앞에 붙는다(서버가 prepend). 그대로 슬롯을 주면
+    /* 최신 셀이 배열 앞에 오도록 이미 정규화돼 있다. 그대로 슬롯을 주면
        새 셀이 항상 배출함 첫 칸에 들어가고 나머지가 한 칸씩 밀린다 */
     const binFilled: Record<FinalLabel, number> = { PASS: 0, REJECT: 0, FAIL: 0 }
 

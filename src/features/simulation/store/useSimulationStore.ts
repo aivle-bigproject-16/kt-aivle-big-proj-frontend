@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { simulationService } from '../services/simulationService'
+import { observeCompletions, orderNewestFirst, resetCompletionOrder } from './completionOrder'
 import type { CellProgress, SimStartRequest, SimulationRunStatus, SimulationSocketMessage, WsStatus } from '../types'
 
 function hasEvent(value: unknown): value is Record<string, unknown> {
@@ -51,7 +52,10 @@ interface SimulationState {
   registered: CellProgress[]
   capture: CellProgress[]
   analyze: CellProgress | null
+  /** 서버가 준 순서 그대로. 정렬 방향이 계약에 없으므로 화면에서 직접 쓰지 않는다 */
   completed: CellProgress[]
+  /** 최근 완료가 앞. `completed` 의 정렬 방향과 무관하게 항상 같은 의미를 갖는다 */
+  completedOrdered: CellProgress[]
   captureSpeed: number | null
   wsStatus: WsStatus
   simulationStatus: SimulationRunStatus
@@ -78,6 +82,7 @@ const initialState: SimulationState = {
   capture: [],
   analyze: null,
   completed: [],
+  completedOrdered: [],
   captureSpeed: null,
   wsStatus: 'idle',
   simulationStatus: 'idle',
@@ -101,6 +106,9 @@ export const useSimulationStore = create<SimulationState & SimulationActions>((s
            대기 배치 소멸 애니메이션 등이 실제 변화 없이 오탐 트리거된다.
            진짜 빈 배열([])은 그대로 반영하되, 형식이 안 맞을 때만 직전 값을 유지한다 */
         const prev = get()
+        const completed = normalizeCells(data.completed) ?? prev.completed
+        observeCompletions(completed)
+
         set({
           event: 'PROGRESS',
           batchCount: data.batchCount ?? prev.batchCount,
@@ -116,7 +124,8 @@ export const useSimulationStore = create<SimulationState & SimulationActions>((s
                 : data.analyze === null
                   ? null
                   : normalizeCell(data.analyze),
-          completed: normalizeCells(data.completed) ?? prev.completed,
+          completed,
+          completedOrdered: orderNewestFirst(completed),
           simulationStatus: 'running',
           lastMessage: data,
           lastMessageAt: Date.now(),
@@ -135,6 +144,9 @@ export const useSimulationStore = create<SimulationState & SimulationActions>((s
       // undefined 로 덮여 "완료 58 / undefined" 처럼 화면이 깨진다
       {
         const prev = get()
+        const completed = normalizeCells(data.completed) ?? prev.completed
+        observeCompletions(completed)
+
         set({
           event: 'COMPLETED',
           simulationStatus: 'completed',
@@ -144,7 +156,8 @@ export const useSimulationStore = create<SimulationState & SimulationActions>((s
           registered: normalizeCells(data.registered) ?? [],
           capture: normalizeCells(data.capture) ?? prev.capture,
           analyze: null,
-          completed: normalizeCells(data.completed) ?? prev.completed,
+          completed,
+          completedOrdered: orderNewestFirst(completed),
           lastMessage: data,
           lastMessageAt: Date.now(),
         })
@@ -164,6 +177,9 @@ export const useSimulationStore = create<SimulationState & SimulationActions>((s
       }
     },
 
-    reset: () => set(initialState),
+    reset: () => {
+      resetCompletionOrder()
+      set(initialState)
+    },
   },
 }))
