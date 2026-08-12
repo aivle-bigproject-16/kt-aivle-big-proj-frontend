@@ -26,21 +26,19 @@ export interface PuckSize {
    -90도로 눕힌 모양과 같은 비율이어야 한다 — 즉 w:h = 31:17(아이콘의 세로:가로, ≈1.8235)를
    지켜야 아이콘이 박스에 꽉 차면서도 비율이 일그러지지 않는다. 컨테이너마다 이 비율을
    유지한 채 크기만 따로 둔다:
-   - STATION_PUCK: 대기(source)·촬영(capture)는 같은 스테이션 격자(320×340, 5열)를
+   - STATION_PUCK: 대기(source)·촬영(capture)는 같은 스테이션 격자(320×340, 8열)를
      공유하니 퍽 크기도 같아야 자연스럽다. 격자 바닥 폭(floorW = 320 − STATION_PAD×2 = 292)에
-     5칸이 실제 간격을 두고 겹치지 않게 들어가는 한도(54×29.6)에서 0.95를 곱해 축소하고
-     (비율은 그대로 31:17), 줄어든 만큼(w는 2.7, h는 1.48)을 그대로 gapX/gapY에 더해
-     칸 사이가 더 벌어지게 했다.
-   - ANALYZE_PUCK: 분석은 슬롯이 하나뿐이라 격자 제약이 없어 더 크게 키울 수 있다
-     (검사 게이트 안에만 들어가면 된다). 게이트를 1.5배(165×108)로 키우면서 퍽도
-     같은 1.5배로 키워 게이트 대비 비율을 유지했다.
+     8칸이 gapX=5 간격을 두고 겹치지 않게 들어가는 한도(8w+7×5≤292 → w≤32.06)에서
+     w=32로 잡고, h는 그 비율(31:17)로 역산했다.
+   - ANALYZE_PUCK: 대기(STATION_PUCK)와 같은 크기로 맞췄다 — 구역마다 퍽 크기가
+     다르면 이동할 때 크기가 갑자기 바뀌어 보이니, 요청대로 통일했다.
    - BIN_PUCK: 정상/불량/실패 3개 배출함은 판정만 다를 뿐 같은 종류의 칸이므로
      서로 크기가 같아야 한다. 214×140 함 안에 4×4(16칸) 격자로 들어가는 크기로
      맞췄다 — 세로 예산이 더 빡빡해(4행이 정확히 86에 꽉 참) h=17로 먼저 정하고,
      w=31은 그 비율(31:17)로 나온 값을 그대로 썼다(아이콘 viewBox 17×31과 숫자가
      같은 건 우연이 아니라 비율이 정확히 31:17이기 때문이다). */
-export const STATION_PUCK: PuckSize = { w: 51.3, h: 28.12, gapX: 7.7, gapY: 6.48 }
-export const ANALYZE_PUCK: PuckSize = { w: 135, h: 74.1, gapX: 0, gapY: 0 }
+export const STATION_PUCK: PuckSize = { w: 32, h: 17.5, gapX: 5, gapY: 5 }
+export const ANALYZE_PUCK: PuckSize = { w: 32, h: 17.5, gapX: 0, gapY: 0 }
 export const BIN_PUCK: PuckSize = { w: 31, h: 17, gapX: 6, gapY: 6 }
 
 export interface Point {
@@ -63,7 +61,7 @@ export const STATION_PAD = 14
 export const STATION_FOOTER_H = 24
 
 /* 스테이션 세로 공간을 헤더/바디/푸터로 명시적으로 나눈다. 바디(퍽 격자) 예산은
-   "5×8칸이 실제 간격을 두고 정확히 들어가는 최소 높이"로 역산하고, 스테이션
+   "8×8칸이 실제 간격을 두고 정확히 들어가는 최소 높이"로 역산하고, 스테이션
    전체 높이는 헤더+바디+푸터를 그대로 더해서 만든다 — 매직 넘버로 340을 박아두지 않는다.
    스테이션은 본선(LINE_Y)을 세로 중심으로 삼는다 */
 const STATION_BODY_ROWS = 8
@@ -174,10 +172,10 @@ function stationGrid(key: StationKey, cols: number): GridSpec {
   }
 }
 
-/* 한 줄에 5개씩 — floorW를 안 줬으니 고정 pitch(퍽 실제 폭 + gapX)로 왼쪽부터 채운다.
+/* 한 줄에 8개씩 — floorW를 안 줬으니 고정 pitch(퍽 실제 폭 + gapX)로 왼쪽부터 채운다.
    남는 공간은 늘려 붙이지 않고 그대로 오른쪽 끝 여백으로 남는다 */
-const SOURCE_GRID = stationGrid('source', 5)
-const CAPTURE_GRID = stationGrid('capture', 5)
+const SOURCE_GRID = stationGrid('source', 8)
+const CAPTURE_GRID = stationGrid('capture', 8)
 
 /** 구역별로 그릴 수 있는 최대 오브젝트 수. 초과분은 수치로만 표시한다 */
 export const GRID_CAPACITY = {
