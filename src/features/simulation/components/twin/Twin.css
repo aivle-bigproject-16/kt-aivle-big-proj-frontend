@@ -342,9 +342,12 @@
 
 /* ── 배치 타임라인 ────────────────────────────────────────── */
 
+/* 스테이지 전체를 덮으면서 스테이션/배출함보다 DOM상 뒤(=위)에 그려진다 —
+   내부에 클릭 가능한 요소가 없으니 통째로 꺼서 아래 클릭을 막지 않게 한다 */
 .twin-timeline {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .twin-timeline__caption {
@@ -492,9 +495,12 @@
 
 /* ── 셀 오브젝트 ──────────────────────────────────────────── */
 
+/* 스테이지 전체를 덮는 래퍼라 자식(퍽)이 pointer-events:none이어도 래퍼 자체가
+   맨 위에서 클릭을 가로챈다 — 래퍼도 꺼야 아래 station/bin 클릭이 통과한다 */
 .twin-agents {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 /* 이동의 전부. 구역/슬롯이 바뀌면 목표 좌표가 바뀌고 여기서 보간된다.
