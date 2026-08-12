@@ -472,11 +472,11 @@ function makeCells(batchSize, batteryCellCount) {
   return cells
 }
 
-const ANALYZE_DELAY_MIN_MS = 1000
-const ANALYZE_DELAY_MAX_MS = 5000
+const ANALYZE_DELAY_MS = 10000
+const ANALYZE_TO_COMPLETED_GAP_MS = 300 // analyze가 null이 된 뒤 completed가 채워지기까지의 공백 재현용
 
 function randomAnalyzeDelayMs() {
-  return Math.floor(Math.random() * (ANALYZE_DELAY_MAX_MS - ANALYZE_DELAY_MIN_MS + 1)) + ANALYZE_DELAY_MIN_MS
+  return ANALYZE_DELAY_MS
 }
 
 // 캡처 완료 셀 하나를 분석 슬롯으로 이동한다.
@@ -496,19 +496,30 @@ function analyzeCell(cell, myRunId) {
     const r = Math.random()
     cell.finalLabel = r < 0.75 ? 'PASS' : r < 0.95 ? 'REJECT' : 'FAIL'
     cell.status = 'COMPLETED'
-    analyze = null
-    completed = [cell, ...completed]
-    broadcastSnapshot(true)
-    console.log(`[sim] cell ${cell.batteryCellId} → COMPLETED (${cell.finalLabel})`)
 
-    // 다음 CAPTURED 셀 분석 — 없으면 완료 체크
-    const nextCapture = capture.find((c) => c.status === 'CAPTURED')
-    if (nextCapture) {
-      analyzeCell(nextCapture, myRunId)
-    } else if (registered.length === 0 && !capture.some((c) => c.status === 'CAPTURING')) {
-      broadcastSnapshot()
-      console.log('[sim] all cells completed')
-    }
+    // 1단계 — analyze만 먼저 null로 비우고 broadcast. 실제 백엔드에서 분석 중이던
+    // 셀이 완료로 넘어갈 때 잠깐 analyze가 비는 구간을 재현한다(completed는 아직 안 채움)
+    analyze = null
+    broadcastSnapshot(true)
+    console.log(`[sim] cell ${cell.batteryCellId} → ANALYZE 비움 (완료 반영 대기 중)`)
+
+    setTimeout(() => {
+      if (myRunId !== runId) return
+
+      // 2단계 — 공백 이후 completed에 반영
+      completed = [cell, ...completed]
+      broadcastSnapshot(true)
+      console.log(`[sim] cell ${cell.batteryCellId} → COMPLETED (${cell.finalLabel})`)
+
+      // 다음 CAPTURED 셀 분석 — 없으면 완료 체크
+      const nextCapture = capture.find((c) => c.status === 'CAPTURED')
+      if (nextCapture) {
+        analyzeCell(nextCapture, myRunId)
+      } else if (registered.length === 0 && !capture.some((c) => c.status === 'CAPTURING')) {
+        broadcastSnapshot()
+        console.log('[sim] all cells completed')
+      }
+    }, ANALYZE_TO_COMPLETED_GAP_MS)
   }, analyzeDelayMs)
 }
 

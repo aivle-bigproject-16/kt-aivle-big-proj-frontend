@@ -1,0 +1,162 @@
+/* 검사 이미지 뷰어 — 61.8×38.7rem 히어로 이미지 기준 (피그마 px÷10=rem) */
+.battery-detail__image-section {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 61.8rem;
+}
+
+.battery-detail__image-tabs {
+  display: flex;
+  gap: 0.8rem;
+  flex-shrink: 0;
+  margin-bottom: 1.6rem;
+}
+
+.battery-detail__image-tab {
+  flex-shrink: 0;
+  height: 3.29rem;
+  padding: 0 1.8rem;
+  border: none;
+  border-radius: 1.65rem;
+  box-sizing: border-box;
+  background-color: #f3f4f6;
+  font-family: inherit;
+  font-size: 1.34rem;
+  font-weight: 400;
+  color: #5b5f63;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.battery-detail__image-tab:not(.battery-detail__image-tab--active):hover {
+  background-color: #e5e7eb;
+}
+
+.battery-detail__image-tab--active {
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #0c5795;
+}
+
+.battery-detail__image-tab--active:hover {
+  background-color: #0a4a7d;
+}
+
+/* button이라 기본 스타일 리셋 — 클릭하면 ImageBboxModal이 열린다 */
+.battery-detail__image-hero {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  width: 61.8rem;
+  height: 38.7rem;
+  padding: 0;
+  border: none;
+  border-radius: 0.45rem;
+  box-sizing: border-box;
+  background-color: #d9dee2;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.battery-detail__image-hero-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.battery-detail__image-hero:hover .battery-detail__image-hero-img {
+  transform: scale(1.03);
+}
+
+.battery-detail__image-marker {
+  position: absolute;
+  box-sizing: border-box;
+  border: 2px solid;
+}
+
+.battery-detail__image-marker-num {
+  position: absolute;
+  left: -1.1rem;
+  top: -1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.battery-detail__image-marker--reject {
+  border-color: #d97706;
+}
+
+.battery-detail__image-marker--reject .battery-detail__image-marker-num {
+  background-color: #d97706;
+}
+
+.battery-detail__image-marker--fail {
+  border-color: #dc2626;
+}
+
+.battery-detail__image-marker--fail .battery-detail__image-marker-num {
+  background-color: #dc2626;
+}
+
+.battery-detail__image-marker--pass {
+  border-color: #1e7e34;
+}
+
+.battery-detail__image-marker--pass .battery-detail__image-marker-num {
+  background-color: #1e7e34;
+}
+
+.battery-detail__image-caption {
+  flex-shrink: 0;
+  margin-top: 1rem;
+  font-size: 1.13rem;
+  font-weight: 400;
+  color: #6b7280;
+}
+
+.battery-detail__image-thumbs {
+  display: flex;
+  gap: 1rem;
+  flex-shrink: 0;
+  margin-top: 1.6rem;
+}
+
+.battery-detail__image-thumb {
+  flex-shrink: 0;
+  width: 7.4rem;
+  height: 7.4rem;
+  padding: 0;
+  border: 0.2rem solid transparent;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  background-color: #d9dee2;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.battery-detail__image-thumb:not(.battery-detail__image-thumb--active):hover {
+  border-color: #d0d4d8;
+  transform: translateY(-0.1rem);
+}
+
+.battery-detail__image-thumb--active {
+  border-color: #0c5795;
+}
+
+.battery-detail__image-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

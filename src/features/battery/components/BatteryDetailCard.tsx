@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-// 1200 기준 구 CSS는 history/BatteryDetailCard.css로 이동됨 — 1400 기준으로 새로 만들 것
+// 1200 기준 구 CSS는 history/BatteryDetailCard.css로 이동됨 — 1400 기준으로 새로 만드는 중
+import './BatteryDetailCard.css'
 import { useBatteryDetailStore } from '../store/useBatteryDetailStore'
 import { ImageSection } from './InspectionImageSection'
 import { ROUTES } from '@/core/navigation/routes'
@@ -74,15 +75,18 @@ function BatteryDetailCard({ batteryCellId }: Props) {
           />
 
           <div className="battery-detail__body">
-            <InspectionList
-              inspections={detail.inspections}
-              selectedId={selectedInspectionId}
-              onSelect={setSelectedInspectionId}
-            />
-            <InspectionDetailPanel inspection={selectedInspection} />
+            <div className="battery-detail__body-left">
+              <InspectionList
+                inspections={detail.inspections}
+                reports={detail.reports}
+                selectedId={selectedInspectionId}
+                onSelect={setSelectedInspectionId}
+              />
+            </div>
+            <div className="battery-detail__body-right">
+              <InspectionDetailPanel inspection={selectedInspection} reports={detail.reports} />
+            </div>
           </div>
-
-          {detail.reports.length > 0 && <ReportSection reports={detail.reports} />}
         </>
       )}
     </section>
@@ -93,53 +97,115 @@ function BatteryDetailCard({ batteryCellId }: Props) {
 
 function InspectionList({
   inspections,
+  reports,
   selectedId,
   onSelect,
 }: {
   inspections: Inspection[]
+  reports: BatteryDetailReport[]
   selectedId: number | null
   onSelect: (id: number) => void
 }) {
   return (
     <div className="battery-detail__insp-list">
-      <p className="battery-detail__panel-label">검사 이력 ({inspections.length}건)</p>
+      <p className="battery-detail__panel-label">검사 이력 ({inspections.length})</p>
       {inspections.length === 0 ? (
         <p className="battery-detail__empty">검사 기록이 없습니다.</p>
       ) : (
         <ul className="battery-detail__insp-items">
-          {inspections.map((insp) => (
-            <li key={insp.inspectionId}>
-              <button
-                type="button"
-                className={
-                  insp.inspectionId === selectedId
-                    ? 'battery-detail__insp-item battery-detail__insp-item--active'
-                    : 'battery-detail__insp-item'
-                }
-                onClick={() => onSelect(insp.inspectionId)}
-              >
-                <span
-                  className={`battery-detail__dot battery-detail__dot--${insp.finalLabel.toLowerCase()}`}
-                />
-                <span className="battery-detail__insp-info">
-                  <span className="battery-detail__insp-id">#{insp.inspectionId}</span>
-                  <span className="battery-detail__insp-time">
-                    {formatDateTime(insp.analyzedAt)}
+          {inspections.map((insp) => {
+            const reportCount = reports.filter((r) => r.inspectionId === insp.inspectionId).length
+            return (
+              <li key={insp.inspectionId}>
+                <button
+                  type="button"
+                  className={
+                    insp.inspectionId === selectedId
+                      ? 'battery-detail__insp-item battery-detail__insp-item--active'
+                      : 'battery-detail__insp-item'
+                  }
+                  onClick={() => onSelect(insp.inspectionId)}
+                >
+                  {insp.inspectionId === selectedId && (
+                    <span className="battery-detail__insp-item-accent" />
+                  )}
+                  <InspectionStatusMark label={insp.finalLabel} />
+                  <span className="battery-detail__insp-info">
+                    <span
+                      className={`battery-detail__insp-id${insp.inspectionId === selectedId ? ' battery-detail__insp-id--active' : ''}`}
+                    >
+                      검사 #{insp.inspectionId}
+                    </span>
+                    <span className="battery-detail__insp-time">
+                      {formatDateTime(insp.analyzedAt)}
+                    </span>
                   </span>
-                </span>
-                <LabelBadge label={insp.finalLabel} />
-              </button>
-            </li>
-          ))}
+                  <span className="battery-detail__insp-right">
+                    <LabelBadge label={insp.finalLabel} />
+                    <ReportCountChip count={reportCount} />
+                  </span>
+                </button>
+              </li>
+            )
+          })}
         </ul>
       )}
     </div>
   )
 }
 
+/* PASS/REJECT는 원, FAIL은 삼각형 — 결과에 따라 모양 자체가 다르다 */
+function InspectionStatusMark({ label }: { label: string }) {
+  if (label === 'FAIL') {
+    return (
+      <svg
+        className="battery-detail__insp-mark battery-detail__insp-mark--fail"
+        viewBox="0 0 10 8"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M5 0L10 8H0L5 0Z" fill="#DC2626" />
+      </svg>
+    )
+  }
+  return (
+    <span
+      className={`battery-detail__insp-mark battery-detail__insp-mark--dot battery-detail__insp-mark--${label.toLowerCase()}`}
+    />
+  )
+}
+
+function ReportCountChip({ count }: { count: number }) {
+  return (
+    <span className={`battery-detail__report-chip${count === 0 ? ' battery-detail__report-chip--empty' : ''}`}>
+      <svg
+        className="battery-detail__report-chip-icon"
+        viewBox="0 0 9 12"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect x="0.55" y="0.55" width="7.9" height="10.9" rx="0.9" />
+      </svg>
+      리포트 {count > 0 ? count : '—'}
+    </span>
+  )
+}
+
 // ── Inspection Detail Panel (right panel) ─────────────────────────────────────
 
-function InspectionDetailPanel({ inspection }: { inspection: Inspection | null }) {
+function InspectionDetailPanel({
+  inspection,
+  reports,
+}: {
+  inspection: Inspection | null
+  reports: BatteryDetailReport[]
+}) {
+  const [activeImageId, setActiveImageId] = useState<number | null>(null)
+
+  useEffect(() => {
+    setActiveImageId(inspection?.image[0]?.imageId ?? null)
+  }, [inspection])
+
   if (!inspection) {
     return (
       <div className="battery-detail__insp-panel battery-detail__insp-panel--placeholder">
@@ -149,6 +215,8 @@ function InspectionDetailPanel({ inspection }: { inspection: Inspection | null }
   }
 
   const isPass = inspection.finalLabel === 'PASS'
+  const activeImage =
+    inspection.image.find((i) => i.imageId === activeImageId) ?? inspection.image[0] ?? null
 
   return (
     <div className="battery-detail__insp-panel">
@@ -157,18 +225,50 @@ function InspectionDetailPanel({ inspection }: { inspection: Inspection | null }
           <span className="battery-detail__insp-panel-id">검사 #{inspection.inspectionId}</span>
           <LabelBadge label={inspection.finalLabel} />
         </div>
-        <span className="battery-detail__insp-time">{formatDateTime(inspection.analyzedAt)}</span>
+        <span className="battery-detail__insp-panel-meta">
+          분석 완료 {formatDateTime(inspection.analyzedAt)}
+        </span>
       </div>
+
+      <span className="battery-detail__insp-panel-divider" />
 
       {isPass ? (
         <div className="battery-detail__pass-state">
-          <p className="battery-detail__pass-text">이상 없음 (PASS)</p>
-          <p className="battery-detail__pass-sub">이미지 및 결함 데이터 없음</p>
+          <span className="battery-detail__pass-icon">
+            <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M6 10.5L8.5 13L14 7"
+                stroke="#1E7E34"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+          <p className="battery-detail__pass-text">이상 없음</p>
+          <p className="battery-detail__pass-sub">검사 결과 정상으로 판단되었습니다.</p>
         </div>
       ) : (
         <div className="battery-detail__insp-content">
-          <ImageSection images={inspection.image} defects={inspection.defectResults} />
-          <DefectSection defects={inspection.defectResults} />
+          <ImageSection
+            images={inspection.image}
+            defects={inspection.defectResults}
+            activeImageId={activeImageId}
+            onSelectImage={setActiveImageId}
+          />
+
+          <div className="battery-detail__insp-side">
+            <DefectSection
+              defects={inspection.defectResults}
+              activeType={activeImage?.imageType}
+              activeImageId={activeImageId}
+              onSelectDefectImage={setActiveImageId}
+            />
+
+            <span className="battery-detail__insp-side-divider" />
+
+            <InspectionReportSection inspectionId={inspection.inspectionId} reports={reports} />
+          </div>
         </div>
       )}
     </div>
@@ -177,74 +277,122 @@ function InspectionDetailPanel({ inspection }: { inspection: Inspection | null }
 
 // ── Defect Section ────────────────────────────────────────────────────────────
 
-function DefectSection({ defects }: { defects: Inspection['defectResults'] }) {
+function DefectSection({
+  defects,
+  activeType,
+  activeImageId,
+  onSelectDefectImage,
+}: {
+  defects: Inspection['defectResults']
+  /** CT 탭이면 CT 결함만, RGB 탭이면 RGB 결함만 보여준다 */
+  activeType?: string
+  activeImageId: number | null
+  onSelectDefectImage: (imageId: number) => void
+}) {
+  const numbered = defects.map((d, i) => ({ ...d, orderNo: i + 1 }))
+  const shown = activeType ? numbered.filter((d) => d.imageType === activeType) : numbered
+
   return (
     <div className="battery-detail__defect-section">
-      <p className="battery-detail__sub-label">결함 탐지 결과 ({defects.length})</p>
-      {defects.length === 0 ? (
+      <p className="battery-detail__sub-label">결함 탐지 결과 ({shown.length})</p>
+      {shown.length === 0 ? (
         <p className="battery-detail__empty">탐지된 결함이 없습니다.</p>
       ) : (
         <ul className="battery-detail__defect-list">
-          {defects.map((d) => (
-            <li key={d.defectResultId} className="battery-detail__defect-card">
-              <div className="battery-detail__defect-header">
-                <LabelBadge label={d.label} />
-                <span className="battery-detail__defect-type">{d.defectType}</span>
-                <span className="battery-detail__image-type-tag">{d.imageType}</span>
-              </div>
-              <div className="battery-detail__conf-row">
-                <span className="battery-detail__conf-label">신뢰도</span>
-                <div className="battery-detail__conf-bar-bg">
-                  <div
-                    className={`battery-detail__conf-bar battery-detail__conf-bar--${d.label.toLowerCase()}`}
-                    style={{ width: `${Math.round(d.confidence * 100)}%` }}
-                  />
-                </div>
-                <span className="battery-detail__conf-val">
-                  {Math.round(d.confidence * 100)}%
-                </span>
-              </div>
-              {d.bbox && (
-                <p className="battery-detail__bbox">
-                  bbox ({d.bbox.x}, {d.bbox.y}) · {d.bbox.width}×{d.bbox.height}
-                </p>
-              )}
-            </li>
-          ))}
+          {shown.map((d) => {
+            const isOnActiveImage = d.imageId === activeImageId
+            const tone = d.label.toLowerCase()
+            return (
+              <li key={d.defectResultId}>
+                <button
+                  type="button"
+                  className={`battery-detail__defect-card${isOnActiveImage ? '' : ' battery-detail__defect-card--dim'}`}
+                  onClick={() => onSelectDefectImage(d.imageId)}
+                >
+                  <div className="battery-detail__defect-header">
+                    <span className={`battery-detail__defect-num battery-detail__defect-num--${tone}`}>
+                      {d.orderNo}
+                    </span>
+                    <span className={`battery-detail__defect-dot battery-detail__defect-dot--${tone}`} />
+                    <span className="battery-detail__defect-type">{d.defectType}</span>
+                    <span className="battery-detail__image-type-tag">{d.imageType}</span>
+                  </div>
+                  <div className="battery-detail__conf-row">
+                    <div className="battery-detail__conf-bar-bg">
+                      <div
+                        className={`battery-detail__conf-bar battery-detail__conf-bar--${tone}`}
+                        style={{ width: `${Math.round(d.confidence * 100)}%` }}
+                      />
+                    </div>
+                    <span className="battery-detail__conf-val">
+                      {Math.round(d.confidence * 100)}%
+                    </span>
+                  </div>
+                </button>
+              </li>
+            )
+          })}
         </ul>
       )}
     </div>
   )
 }
 
-// ── Report Section ────────────────────────────────────────────────────────────
+// ── Inspection Report Section (per-inspection, right panel bottom) ────────────
 
-function ReportSection({ reports }: { reports: BatteryDetailReport[] }) {
+function InspectionReportSection({
+  inspectionId,
+  reports,
+}: {
+  inspectionId: number
+  reports: BatteryDetailReport[]
+}) {
   const navigate = useNavigate()
+  const inspectionReports = reports.filter((r) => r.inspectionId === inspectionId)
 
   return (
-    <div className="battery-detail__reports-card">
-      <p className="battery-detail__panel-label">리포트 ({reports.length}건)</p>
-      <ul className="battery-detail__report-list">
-        {reports.map((r) => (
-          <li key={r.reportId}>
-            <button
-              type="button"
-              className="battery-detail__report-row"
-              onClick={() => navigate(ROUTES.REPORT_INDIVIDUAL_DETAIL(r.reportId))}
-            >
-              <span className="battery-detail__report-info">
-                <span className="battery-detail__report-title">{r.title}</span>
-                <span className="battery-detail__report-meta">
-                  검사 #{r.inspectionId} · {formatDateTime(r.createdAt)}
+    <div className="battery-detail__insp-report-section">
+      <div className="battery-detail__insp-report-header">
+        <span className="battery-detail__sub-label">리포트</span>
+      </div>
+
+      {inspectionReports.length === 0 ? (
+        <p className="battery-detail__empty">리포트가 없습니다.</p>
+      ) : (
+        <ul className="battery-detail__insp-report-list">
+          {inspectionReports.map((r) => (
+            <li key={r.reportId}>
+              <button
+                type="button"
+                className="battery-detail__insp-report-row"
+                onClick={() => navigate(ROUTES.REPORT_INDIVIDUAL_DETAIL(r.reportId))}
+              >
+                <span className="battery-detail__insp-report-info">
+                  <span className="battery-detail__insp-report-title">{r.title}</span>
+                  <span className="battery-detail__insp-report-meta">
+                    RPT-{r.reportId} · {formatDateTime(r.createdAt)}
+                  </span>
                 </span>
-              </span>
-              <ReportStatusBadge status={r.status} />
-              <span className="battery-detail__report-arrow" aria-hidden="true">›</span>
-            </button>
-          </li>
-        ))}
-      </ul>
+                <span className="battery-detail__insp-report-status">{r.status}</span>
+                <svg
+                  className="battery-detail__insp-report-arrow"
+                  viewBox="0 0 9 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1 1L7.24 8L1 15"
+                    stroke="#0C5795"
+                    strokeWidth="1.63"
+                    strokeLinecap="round"
+                    fill="none"
+                  />
+                </svg>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }
@@ -254,17 +402,12 @@ function ReportSection({ reports }: { reports: BatteryDetailReport[] }) {
 function LabelBadge({ label }: { label: string }) {
   return (
     <span className={`battery-detail__badge battery-detail__badge--${label.toLowerCase()}`}>
+      {label === 'FAIL' && (
+        <svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M5 0L10 8H0L5 0Z" fill="#DC2626" />
+        </svg>
+      )}
       {label}
-    </span>
-  )
-}
-
-function ReportStatusBadge({ status }: { status: string }) {
-  return (
-    <span
-      className={`battery-detail__badge battery-detail__badge--status-${status.toLowerCase()}`}
-    >
-      {status}
     </span>
   )
 }
