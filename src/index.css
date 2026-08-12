@@ -1,18 +1,19 @@
-/* 정책 변경 — col-main 기준을 1200px에서 1400px로 되돌림. 레이아웃 총 폭
-   (col-side×2+col-main = 26×2+140 = 192rem)이 정확히 1920px 프레임과 같아서,
-   뷰포트 1920px에서 1rem=10px일 때 사이드 여백 없이 레이아웃이 화면에 꽉 찬다.
-   컴포넌트 rem 값은 이제 피그마 px ÷ 10 = rem 그대로 쓴다 (6/7 축소 계수 폐지).
+/* 정책 변경 — 사이드(좌우 컬럼)와 중앙(메인 콘텐츠)이 서로 다른 나눗수를 쓴다.
+   중앙은 :root font-size(나눗수 205)를 따르는 rem 그대로(--col-main: 140rem 등
+   기존 컴포넌트 rem 값 전부). 사이드는 --col-side 자체를 나눗수 192로 별도
+   계산하는 px clamp라서, 좌우 컬럼이 뷰포트 폭에 맞춰 여백 없이 꽉 찬다.
+   컴포넌트 rem 값은 피그마 px ÷ 10 = rem 그대로 쓴다 (6/7 축소 계수 폐지).
    기존 1200 기준으로 만들어진 컴포넌트 CSS는 더 이상 쓰지 않고 각 feature의
-   components/history/ 폴더로 옮겨 보관한다 — 새 CSS는 1400 기준으로 새로 만든다.
-
-   상한 10px — 1920px 뷰포트에서 레이아웃이 정확히 꽉 차는 지점.
-   하한 4px — 레이아웃 총 폭(192rem)이 하한에서 192×4=768px가 되어,
-   뷰포트가 그보다 좁아지기 전까지는 잘리지 않고 계속 비례해서 줄어든다. */
+   components/history/ 폴더로 옮겨 보관한다 — 새 CSS는 1400 기준으로 새로 만든다. */
 :root {
   --base-w: 1920px;
   --base-h: 920px;
 
-  --col-side: 26rem;   /* 260px */
+  /* 사이드(좌우 컬럼)는 나눗수 192, 중앙(--col-main 이하 전부)은 나눗수 205 —
+     서로 다른 배율이 필요해서 rem 하나로는 안 되고 --col-side만 별도 px clamp로
+     직접 계산한다(rem이 아님, 아래 :root font-size 나눗수의 영향을 안 받는다).
+     min/max는 font-size clamp의 4px/13px 하한·상한에 26을 곱한 값 */
+  --col-side: clamp(104px, calc(100vw * 30.44 / 192), 338px);
   --col-main: 140rem;  /* 1400px */
 
   --bg: #ededed;
@@ -29,7 +30,7 @@
   --r-xl: 1rem;    /* 15px — 최상위 카드 (상한) */
   --r-pill: 1rem;   /* 칩, 배지, 토글, 사용자 칩, 탭바 트랙·인디케이터 */
 
-  font-size: clamp(4px, calc(100vw / 205.294), 10px);
+  font-size: clamp(4px, calc(100vw / 205), 13px);
   font-family: 'Inter', system-ui, sans-serif;
   line-height: 1.5;
   color: #191c1d;

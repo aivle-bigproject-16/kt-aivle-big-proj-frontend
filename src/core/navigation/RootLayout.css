@@ -1,3 +1,5 @@
+/* --col-side는 index.css에서 나눗수 192로 직접 계산되는 px clamp라서
+   뷰포트에 맞춰 여백 없이 꽉 찬다 — --col-main(rem, 나눗수 205)과는 별개 배율 */
 .root-layout {
   display: flex;
   justify-content: center;
