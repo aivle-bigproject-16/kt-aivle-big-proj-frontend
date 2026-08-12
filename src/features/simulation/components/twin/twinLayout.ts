@@ -32,10 +32,10 @@ export const STATION_PAD = 14
 /** 스테이션 푸터 텍스트 baseline — 박스 하단에서 위로 이만큼 */
 export const STATION_FOOTER_OFFSET = 16
 
-/* 스테이션 높이는 격자 12행(12×21−6=246)에 헤더·패딩을 더한 값이다.
-   더 키우면 셀이 적을 때 빈 칸이 카드 대부분을 차지해 라인이 비어 보인다 */
-const STATION_Y = 90
-const STATION_H = 300
+/* 스테이션은 본선(LINE_Y)을 세로 중심으로 삼는다. 아래쪽에 배치 타임라인이 들어가면서
+   높이를 300에서 340으로 늘렸고, 그만큼 격자가 두 행 더 들어간다 */
+const STATION_H = 340
+const STATION_Y = LINE_Y - STATION_H / 2
 
 /**
  * 스테이션 3종.
@@ -111,8 +111,8 @@ interface GridSpec {
 }
 
 /** 스테이션 격자 공통 행 수. 스테이션 높이가 같으므로 행 수도 같다.
-    마지막 행 아래쪽이 푸터 텍스트와 겹치지 않는 최대값이 11이다 */
-const STATION_GRID_ROWS = 11
+    마지막 행 아래쪽이 푸터 텍스트와 겹치지 않는 최대값이 13이다 */
+const STATION_GRID_ROWS = 13
 
 function stationGrid(key: StationKey, cols: number): GridSpec {
   const s = STATIONS[key]
@@ -172,6 +172,43 @@ export function binSlot(key: BinKey, index: number): Point {
     },
     index,
   )
+}
+
+/* ── 배치 타임라인 ───────────────────────────────────────── */
+
+/** 스테이션 줄 아래에 놓이는 배치 진척 스트립. 가로 범위는 스테이션 줄과 정확히 맞춘다 */
+export const TIMELINE = {
+  x: STATIONS.source.x,
+  y: 442,
+  w: STATIONS.analyze.x + STATIONS.analyze.w - STATIONS.source.x,
+  h: 18,
+} as const
+
+/** 스트립 위 캡션 텍스트의 baseline */
+export const TIMELINE_CAPTION_BASELINE = 434
+
+/** 이 폭보다 얇아지면 칸이 서로 붙어 개수를 셀 수 없다 — 그때는 통짜 막대로 내려간다 */
+const TIMELINE_MIN_SEGMENT_W = 3
+
+export interface TimelineSegments {
+  width: number
+  gap: number
+}
+
+/**
+ * 배치 개수에 맞는 칸 폭과 간격. 칸이 너무 얇아지면 `null` 을 돌려주고,
+ * 호출부는 배치별 칸 대신 비율만 보여주는 통짜 막대로 대체한다.
+ */
+export function timelineSegments(count: number): TimelineSegments | null {
+  if (count <= 0) return null
+  const gap = count > 40 ? 1 : 2
+  const width = (TIMELINE.w - gap * (count - 1)) / count
+  return width >= TIMELINE_MIN_SEGMENT_W ? { width, gap } : null
+}
+
+/** i번째 배치 칸의 좌측 x 좌표 */
+export function timelineSegmentX(index: number, segments: TimelineSegments): number {
+  return TIMELINE.x + index * (segments.width + segments.gap)
 }
 
 /** 스테이션의 오브젝트 적재 영역 — 헤더 아래, 푸터 위. 장치 그래픽이 이 안에서만 움직인다 */

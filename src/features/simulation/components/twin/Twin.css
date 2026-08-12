@@ -278,6 +278,42 @@
   }
 }
 
+/* ── 배치 타임라인 ────────────────────────────────────────── */
+
+.twin-timeline__caption {
+  font-size: 11px;
+  font-weight: 600;
+  fill: var(--twin-ink-sub);
+}
+
+.twin-timeline__count {
+  font-family: var(--twin-mono);
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+  text-anchor: end;
+  fill: var(--twin-ink-faint);
+}
+
+.twin-timeline__track {
+  fill: #e9edf0;
+}
+
+/* 상태색이 아니라 진척 축이다 — 판정 5색을 쓰지 않고 청록 명도만으로 차오르게 한다.
+   대기(연회색) → 진행(흐린 청록) → 완료(진한 청록) 순으로 진해진다 */
+.twin-timeline__segment--pending {
+  fill: #d5dade;
+}
+
+/* 진행 칸에 펄스를 걸지 않는다. 배치가 열 개 넘게 동시에 진행 중일 수 있어
+   그대로 두면 무한 애니메이션이 화면 상한(§7.5, 4개)을 훌쩍 넘긴다 */
+.twin-timeline__segment--active {
+  fill: var(--twin-process-dim);
+}
+
+.twin-timeline__segment--done {
+  fill: var(--twin-process);
+}
+
 /* ── 배출함 ───────────────────────────────────────────────── */
 
 .twin-bin__card {

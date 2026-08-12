@@ -4,6 +4,7 @@ import { useTwinAgents } from '../../hooks/useTwinAgents'
 import { TwinStation } from './TwinStation'
 import { TwinBin } from './TwinBin'
 import { TwinPuck } from './TwinPuck'
+import { TwinBatchTimeline } from './TwinBatchTimeline'
 import {
   BELTS,
   BELT_THICKNESS,
@@ -205,6 +206,9 @@ function TwinStage({ onNavigate }: { onNavigate?: (index: number) => void }) {
           {analyzing ? 'AI 추론 진행 중' : '분석 대기 중'}
         </text>
       </TwinStation>
+
+      {/* 배치 진척 — 스테이션 줄 아래. 셀 단위와 결과 단위 사이의 배치 축을 채운다 */}
+      <TwinBatchTimeline />
 
       {/* 오브젝트 레이어 — 셀 퍽. 항상 최상단에서 구역 사이를 이동한다 */}
       <g className="twin-agents">
