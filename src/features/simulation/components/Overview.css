@@ -7,7 +7,7 @@
   box-sizing: border-box;
 }
 
-/* 카드 행 — 카드/화살표를 0.5rem gap으로 나열해 카드 사이 총 간격 7rem
+/* 카드 뷰의 카드 행 — 카드/화살표를 0.5rem gap으로 나열해 카드 사이 총 간격 7rem
    (화살표 6rem + 양옆 0.5rem)을 만든다. 가로 기준 중앙 정렬 */
 .overview-cards {
   display: flex;
@@ -16,6 +16,32 @@
   gap: 0.5rem;
   flex-shrink: 0;
   width: 100%;
+  margin-top: 2rem;
+  box-sizing: border-box;
+}
+
+/* 트윈 스테이지 자리 — 1404×480 고정. 헤더 폭과 좌우 정렬이 맞는다 */
+.overview-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 140.4rem;
+  height: 48rem;
+  margin-top: 2rem;
+  box-sizing: border-box;
+}
+
+/* 인사이트 행 — 1404×250 고정. 좌: 탐지 카드 스트립(860), 우: 최근 완료(524), gap 20.
+   세로 예산은 .simulation 90rem 에 정확히 맞춘다:
+   nav 8 + 헤더 5 + (2 + 스테이지 48) + (2 + 인사이트 25) = 90rem */
+.overview-insights {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-shrink: 0;
+  width: 140.4rem;
+  height: 25rem;
   margin-top: 2rem;
   box-sizing: border-box;
 }
@@ -31,11 +57,27 @@
   box-sizing: border-box;
 }
 
+/* 좌측 그룹 — 타이틀 + 리드아웃. 뷰에 따라 리드아웃이 사라져도 우측 그룹은
+   폭이 그대로라 토글·LIVE 배지·Sim Control 의 자리가 움직이지 않는다 */
+.overview-header__left {
+  display: flex;
+  align-items: baseline;
+  gap: 2.4rem;
+  flex-shrink: 0;
+}
+
 .overview-header__title {
   flex-shrink: 0;
   font-size: 2.172rem;
   font-weight: 700;
   color: #191c1d;
+}
+
+.overview-header__readouts {
+  display: flex;
+  align-items: baseline;
+  gap: 1.8rem;
+  flex-shrink: 0;
 }
 
 .overview-header__right {
@@ -44,6 +86,33 @@
   gap: 1.2rem;
   flex-shrink: 0;
   height: 4rem;
+}
+
+/* 헤더 리드아웃 — 완료 수와 양품률. 트윈 라인이 표현하지 못하는 두 지표만 여기 남는다 */
+.overview-header__readout {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.overview-header__readout-label {
+  flex-shrink: 0;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+.overview-header__readout-value {
+  flex-shrink: 0;
+  font-size: 1.7rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #191c1d;
+}
+
+.overview-header__readout-value--pass {
+  color: #1e7e34;
 }
 
 /* LIVE 배지 — 133×40 고정 */

@@ -7,6 +7,7 @@ import './OverviewResult.css'
    세로로 정렬된다: 헤더 / 스테이터스바 / 리절트 / 완료된 셀 목록 */
 function OverviewResult() {
   const completed = useSimulationStore((s) => s.completed)
+  const orderedCompleted = useSimulationStore((s) => s.completedOrdered)
   const totalCount = useSimulationStore((s) => s.batteryCellCount)
   const completedCount = completed.length
   const passCount = useMemo(() => completed.filter((c) => c.finalLabel === 'PASS').length, [completed])
@@ -16,8 +17,9 @@ function OverviewResult() {
   const rejectPct = completedCount > 0 ? (rejectCount / completedCount) * 100 : 0
   const failPct = completedCount > 0 ? (failCount / completedCount) * 100 : 0
 
-  /* completed 배열은 완료 순서대로 뒤에 추가되므로, 최근 완료된 셀이 위로 오도록 뒤집는다 */
-  const rows = useMemo(() => [...completed].reverse(), [completed])
+  /* 배열을 직접 뒤집지 않는다 — completed 의 정렬 방향은 계약에 규정돼 있지 않고,
+     스토어가 관측으로 알아낸 정규 순서(최근 완료가 앞)를 이미 발행하고 있다 */
+  const rows = orderedCompleted
 
   return (
     <div className="overview-result">
