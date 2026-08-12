@@ -30,10 +30,13 @@
   object-fit: contain;
 }
 
-/* 내비 pill — Group 94: w=100 h=358 rx=21.875, shadow dy=2.92 blur=12.4 alpha=0.25 */
+/* 내비 pill — Group 94: w=100 rx=21.875, shadow dy=2.92 blur=12.4 alpha=0.25
+   높이는 탭 개수에 맞춰 계산한다. 탭을 추가·제거하면 이 값도 함께 고쳐야 한다.
+   = padding-top 1.9714 + (아이콘 6 × 탭수) + (간격 3.7714 × (탭수-1)) + padding-bottom 3.1714
+   현재 탭 4개(대시보드·배터리·리포트·공지사항) 기준 40.457rem */
 .side-bar__pill {
   width: 8.5714rem;
-  height: 30.6857rem;
+  height: 40.457rem;
   background: #ffffff;
   border-radius: 1.8771rem;
   box-shadow: 0 0.2486rem 1.0629rem rgba(0, 0, 0, 0.25);

@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { DailyReportListNav } from './DailyReportListNav'
+import { ListBackNav } from '@/shared/ui/ListBackNav'
+import { ROUTES } from '@/core/navigation/routes'
 import { DailyReportPageHeader } from './DailyReportPageHeader'
 import { DailyReportStatCards } from './DailyReportStatCards'
 import { DailyReportDefectTypes } from './DailyReportDefectTypes'
@@ -23,7 +24,7 @@ function DailyReport({ reportId }: DailyReportProps) {
 
   return (
     <div className="daily-report">
-      <DailyReportListNav />
+      <ListBackNav to={ROUTES.REPORT_DAILY} label="일일 리포트 목록" />
       <DailyReportPageHeader />
       <DailyReportStatCards />
       <div className="daily-report__row">

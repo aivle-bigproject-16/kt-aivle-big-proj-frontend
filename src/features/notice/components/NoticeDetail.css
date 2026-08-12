@@ -1,0 +1,10 @@
+/* 섹션 — 공지사항 상세 페이지 전체 영역. 폭은 다른 섹션과 동일하게 140rem.
+   nav 아래 헤더/본문이 세로로 정렬되고 사이 갭은 2rem */
+.notice-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex-shrink: 0;
+  width: 140rem;
+  box-sizing: border-box;
+}

@@ -1,0 +1,19 @@
+/* 섹션 — 공지사항 작성·수정 페이지의 공통 골격.
+   두 화면은 제목 문구만 다르고 구조가 같아 스타일을 함께 쓴다.
+   폭은 다른 섹션과 동일하게 140rem */
+.notice-form-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex-shrink: 0;
+  width: 140rem;
+  box-sizing: border-box;
+}
+
+.notice-form-page__title {
+  flex-shrink: 0;
+  margin: 0;
+  font-size: 2.897rem;
+  font-weight: 700;
+  color: #191c1d;
+}

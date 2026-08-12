@@ -1,5 +1,5 @@
 /* 목록으로 가는 버튼 — 화살표 아이콘 + 텍스트 (피그마 px÷10=rem, 1400 기준 정책) */
-.daily-report-list-nav {
+.list-back-nav {
   display: inline-flex;
   align-items: center;
   gap: 1.7rem;
@@ -14,10 +14,10 @@
   margin-bottom: -1rem;
 }
 
-.daily-report-list-nav:hover {
+.list-back-nav:hover {
   opacity: 0.7;
 }
 
-.daily-report-list-nav svg {
+.list-back-nav svg {
   flex-shrink: 0;
 }
