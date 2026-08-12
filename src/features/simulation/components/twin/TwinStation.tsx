@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { STATION_FOOTER_OFFSET, STATION_PAD, type Box } from './twinLayout'
+import { STATION_PAD, rem, type Box } from './twinLayout'
 
 interface TwinStationProps {
   box: Box
@@ -16,7 +16,8 @@ interface TwinStationProps {
   active: boolean
   tone: 'pending' | 'process'
   onClick?: () => void
-  /** 스테이션 바닥 위에 얹는 장치 그래픽 (스캐너 프레임 등) */
+  /** 스테이션 바닥 위에 얹는 장치 그래픽 (스캐너 프레임 등) — 좌표는 이 스테이션의
+     좌상단(box.x, box.y)을 원점으로 하는 상대 좌표로 넘겨야 한다 */
   children?: ReactNode
 }
 
@@ -37,11 +38,10 @@ function TwinStation({
   onClick,
   children,
 }: TwinStationProps) {
-  const headerBaseline = box.y + 24
-
   return (
-    <g
+    <div
       className={`twin-station twin-station--${tone}${active ? ' twin-station--active' : ''}`}
+      style={{ left: rem(box.x), top: rem(box.y), width: rem(box.w), height: rem(box.h), padding: `0 ${rem(STATION_PAD)}` }}
       role={onClick ? 'button' : undefined}
       tabIndex={onClick ? 0 : undefined}
       onClick={onClick}
@@ -52,44 +52,24 @@ function TwinStation({
         }
       }}
     >
-      <rect className="twin-station__shell" x={box.x} y={box.y} width={box.w} height={box.h} rx={12} />
+      <div className="twin-station__header">
+        <span className="twin-station__dot" />
+        <span className="twin-station__label">{label}</span>
+        <span className="twin-station__code">{code}</span>
+        <span className="twin-station__count">
+          {count}
+          <span className="twin-station__unit"> {unit}</span>
+        </span>
+      </div>
 
-      <circle className="twin-station__dot" cx={box.x + STATION_PAD + 4} cy={headerBaseline - 5} r={4} />
-      <text className="twin-station__label" x={box.x + STATION_PAD + 16} y={headerBaseline}>
-        {label}
-      </text>
-      <text className="twin-station__code" x={box.x + STATION_PAD + 16 + labelWidth(label)} y={headerBaseline}>
-        {code}
-      </text>
+      <div className="twin-station__body">{children}</div>
 
-      <text className="twin-station__count" x={box.x + box.w - STATION_PAD} y={headerBaseline}>
-        {count}
-        <tspan className="twin-station__unit"> {unit}</tspan>
-      </text>
-
-      {children}
-
-      <text className="twin-station__footer-left" x={box.x + STATION_PAD} y={box.y + box.h - STATION_FOOTER_OFFSET}>
-        {footerLeft}
-      </text>
-      <text
-        className="twin-station__footer-right"
-        x={box.x + box.w - STATION_PAD}
-        y={box.y + box.h - STATION_FOOTER_OFFSET}
-      >
-        {footerRight}
-      </text>
-    </g>
+      <div className="twin-station__footer">
+        <span className="twin-station__footer-left">{footerLeft}</span>
+        <span className="twin-station__footer-right">{footerRight}</span>
+      </div>
+    </div>
   )
-}
-
-/* 한글 라벨 뒤에 영문 코드를 붙이려면 라벨 폭이 필요한데, SVG 텍스트는 렌더 전에는
-   폭을 모른다. 라벨은 한글과 공백뿐이라 글자당 고정폭으로 근사한다 —
-   15px 한글은 거의 정확히 정사각(15)이고 공백은 그 1/3쯤이다 */
-const HANGUL = /[가-힣]/
-
-function labelWidth(label: string): number {
-  return [...label].reduce((w, ch) => w + (HANGUL.test(ch) ? 15 : 5), 0) + 8
 }
 
 export { TwinStation }

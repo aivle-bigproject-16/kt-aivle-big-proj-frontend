@@ -1,5 +1,5 @@
 import { useBatchProgress, type BatchProgress } from '../../hooks/useBatchProgress'
-import { TIMELINE, TIMELINE_CAPTION_BASELINE, timelineSegmentX, timelineSegments } from './twinLayout'
+import { TIMELINE, TIMELINE_CAPTION_BASELINE, rem, timelineSegments } from './twinLayout'
 
 /**
  * 배치 진척 스트립 — 스테이션 줄 아래.
@@ -16,55 +16,45 @@ function TwinBatchTimeline() {
   const segments = timelineSegments(batches.length)
 
   return (
-    <g className="twin-timeline">
-      <text className="twin-timeline__caption" x={TIMELINE.x} y={TIMELINE_CAPTION_BASELINE}>
+    <div className="twin-timeline">
+      <span
+        className="twin-timeline__caption"
+        style={{ left: rem(TIMELINE.x), top: rem(TIMELINE_CAPTION_BASELINE) }}
+      >
         배치 진행
-      </text>
-      <text
+      </span>
+      <span
         className="twin-timeline__count"
-        x={TIMELINE.x + TIMELINE.w}
-        y={TIMELINE_CAPTION_BASELINE}
+        style={{ left: rem(TIMELINE.x + TIMELINE.w), top: rem(TIMELINE_CAPTION_BASELINE) }}
       >
         {batches.length > 0 ? `완료 ${doneCount} / ${batches.length} 배치` : '배치 없음'}
-      </text>
+      </span>
 
-      <rect
+      <div
         className="twin-timeline__track"
-        x={TIMELINE.x}
-        y={TIMELINE.y}
-        width={TIMELINE.w}
-        height={TIMELINE.h}
-        rx={4}
-      />
-
-      {segments
-        ? batches.map((batch, i) => (
-            <BatchSegment
-              key={batch.batchId}
-              batch={batch}
-              x={timelineSegmentX(i, segments)}
-              width={segments.width}
-            />
-          ))
-        : batches.length > 0 && <AggregateBar batches={batches} />}
-    </g>
+        style={{
+          left: rem(TIMELINE.x),
+          top: rem(TIMELINE.y),
+          width: rem(TIMELINE.w),
+          height: rem(TIMELINE.h),
+          gap: segments ? rem(segments.gap) : undefined,
+        }}
+      >
+        {segments
+          ? batches.map((batch) => <BatchSegment key={batch.batchId} batch={batch} width={segments.width} />)
+          : batches.length > 0 && <AggregateBar batches={batches} />}
+      </div>
+    </div>
   )
 }
 
-function BatchSegment({ batch, x, width }: { batch: BatchProgress; x: number; width: number }) {
+function BatchSegment({ batch, width }: { batch: BatchProgress; width: number }) {
   return (
-    <g>
-      <rect
-        className={`twin-timeline__segment twin-timeline__segment--${batch.phase}`}
-        x={x}
-        y={TIMELINE.y}
-        width={width}
-        height={TIMELINE.h}
-        rx={2}
-      >
-        <title>{`Batch #${batch.batchId} · ${batch.completed}/${batch.total} 셀 완료`}</title>
-      </rect>
-    </g>
+    <div
+      className={`twin-timeline__segment twin-timeline__segment--${batch.phase}`}
+      style={{ width: rem(width) }}
+      title={`Batch #${batch.batchId} · ${batch.completed}/${batch.total} 셀 완료`}
+    />
   )
 }
 
@@ -79,22 +69,8 @@ function AggregateBar({ batches }: { batches: BatchProgress[] }) {
 
   return (
     <>
-      <rect
-        className="twin-timeline__segment twin-timeline__segment--done"
-        x={TIMELINE.x}
-        y={TIMELINE.y}
-        width={doneW}
-        height={TIMELINE.h}
-        rx={2}
-      />
-      <rect
-        className="twin-timeline__segment twin-timeline__segment--active"
-        x={TIMELINE.x + doneW}
-        y={TIMELINE.y}
-        width={activeW}
-        height={TIMELINE.h}
-        rx={2}
-      />
+      <div className="twin-timeline__segment twin-timeline__segment--done" style={{ width: rem(doneW) }} />
+      <div className="twin-timeline__segment twin-timeline__segment--active" style={{ width: rem(activeW) }} />
     </>
   )
 }

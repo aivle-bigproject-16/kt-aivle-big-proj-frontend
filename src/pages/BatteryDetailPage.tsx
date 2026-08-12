@@ -5,7 +5,7 @@ function BatteryDetailPage() {
   const { batteryCellId } = useParams<{ batteryCellId: string }>()
 
   return (
-    <div style={{ background: '#F8F9FA', minHeight: '100%' }}>
+    <div style={{ background: 'var(--bg)', minHeight: '100%' }}>
       <BatteryDetailListNav />
       <BatteryDetailCard batteryCellId={Number(batteryCellId)} />
     </div>
