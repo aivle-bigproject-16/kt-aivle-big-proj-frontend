@@ -1,0 +1,648 @@
+/* 배터리 상세 바디 — 좌(검사 이력, 32rem 고정)/우(검사 상세, 남는 폭) 2분할 */
+.battery-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.battery-detail__notice {
+  font-size: 1.4rem;
+  color: #5b5f63;
+}
+
+.battery-detail__notice--error {
+  color: #dc2626;
+}
+
+.battery-detail__body {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.battery-detail__body-left {
+  flex-shrink: 0;
+}
+
+.battery-detail__body-right {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── 검사 이력 카드 — 330×720 고정, 곡률 1.5rem (피그마 px÷10=rem) ── */
+
+.battery-detail__insp-list {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 33rem;
+  height: 72rem;
+  border-radius: 1.5rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.battery-detail__panel-label {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  height: 5.6rem;
+  margin: 0;
+  padding: 0 2.4rem;
+  box-sizing: border-box;
+  border-bottom: 1px solid #eceef0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.battery-detail__insp-items {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #d0d4d8 transparent;
+}
+
+.battery-detail__insp-items::-webkit-scrollbar {
+  width: 0.7rem;
+}
+
+.battery-detail__insp-items::-webkit-scrollbar-thumb {
+  border-radius: 0.35rem;
+  background-color: #d0d4d8;
+}
+
+/* 행 — button이라 기본 스타일 리셋. 선택된 행만 좌측 액센트 바 + 배경색 */
+.battery-detail__insp-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  width: 100%;
+  height: 6.4rem;
+  padding: 0 2.4rem;
+  border: none;
+  border-bottom: 1px solid #f4f5f6;
+  box-sizing: border-box;
+  background-color: transparent;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.battery-detail__insp-items li:last-child .battery-detail__insp-item {
+  border-bottom: none;
+}
+
+.battery-detail__insp-item:not(.battery-detail__insp-item--active):hover {
+  background-color: #f9fafb;
+}
+
+.battery-detail__insp-item--active {
+  border-top-right-radius: 0.4rem;
+  border-bottom-right-radius: 0.4rem;
+  background-color: #eef6fe;
+}
+
+.battery-detail__insp-item-accent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0.4rem;
+  height: 100%;
+  background-color: #0c5795;
+}
+
+/* 상태 표시 — PASS/REJECT는 원, FAIL은 삼각형 */
+.battery-detail__insp-mark {
+  flex-shrink: 0;
+}
+
+.battery-detail__insp-mark--dot {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+}
+
+.battery-detail__insp-mark--pass {
+  background-color: #1e7e34;
+}
+
+.battery-detail__insp-mark--reject {
+  background-color: #d97706;
+}
+
+.battery-detail__insp-mark--fail {
+  width: 1rem;
+  height: 0.8rem;
+}
+
+.battery-detail__insp-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.battery-detail__insp-id {
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #191c1d;
+}
+
+.battery-detail__insp-id--active {
+  font-weight: 700;
+}
+
+.battery-detail__insp-time {
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+.battery-detail__insp-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* ── 배지 (PASS/REJECT/FAIL 공용 — 검사 행, 상세 패널, 결함 카드에서 재사용) ── */
+
+.battery-detail__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 2.2rem;
+  padding: 0 1.2rem;
+  border-radius: 1.1rem;
+  box-sizing: border-box;
+  font-size: 1.1rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.battery-detail__badge svg {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 0.8rem;
+}
+
+.battery-detail__badge--pass {
+  color: #1e7e34;
+  background-color: #ecfdf3;
+}
+
+.battery-detail__badge--reject {
+  color: #d97706;
+  background-color: #fffbeb;
+}
+
+.battery-detail__badge--fail {
+  color: #dc2626;
+  background-color: transparent;
+  border: 1px solid #dc2626;
+}
+
+.battery-detail__badge--status-completed {
+  color: #1e7e34;
+  background-color: #ecfdf3;
+}
+
+.battery-detail__badge--status-pending {
+  color: #5b5f63;
+  background-color: #f3f4f6;
+}
+
+.battery-detail__badge--status-failed {
+  color: #dc2626;
+  background-color: #fef2f2;
+}
+
+/* ── 리포트 개수 칩 ── */
+
+.battery-detail__report-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 2.2rem;
+  padding: 0 1rem;
+  border-radius: 1.1rem;
+  box-sizing: border-box;
+  background-color: #f3f4f6;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #5b5f63;
+  white-space: nowrap;
+}
+
+.battery-detail__report-chip-icon {
+  flex-shrink: 0;
+  width: 0.9rem;
+  height: 1.2rem;
+  stroke: #9ca3af;
+  stroke-width: 1.1;
+  fill: none;
+}
+
+.battery-detail__report-chip--empty {
+  color: #c3c8cd;
+  background-color: #f9fafb;
+}
+
+.battery-detail__report-chip--empty .battery-detail__report-chip-icon {
+  stroke: #d0d4d8;
+}
+
+.battery-detail__empty {
+  padding: 2.4rem;
+  font-size: 1.3rem;
+  color: #9ca3af;
+}
+
+/* ── 검사 상세 패널 — 105×72rem 고정, 곡률 1.5rem (피그마 px÷10=rem) ── */
+
+.battery-detail__insp-panel {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 105rem;
+  height: 72rem;
+  border-radius: 1.5rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.battery-detail__insp-panel--placeholder {
+  align-items: center;
+  justify-content: center;
+}
+
+.battery-detail__insp-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  height: 5.76rem;
+  padding: 0 2.4rem;
+  box-sizing: border-box;
+}
+
+.battery-detail__insp-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-shrink: 0;
+}
+
+.battery-detail__insp-panel-id {
+  font-size: 1.54rem;
+  font-weight: 700;
+  color: #191c1d;
+}
+
+.battery-detail__insp-panel-meta {
+  flex-shrink: 0;
+  font-size: 1.28rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.battery-detail__insp-panel-divider {
+  flex-shrink: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #eceef0;
+}
+
+/* ── 정상(PASS) 상태 — 가운데 정렬 안내 ── */
+
+.battery-detail__pass-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  flex: 1;
+  min-height: 0;
+  padding: 2.4rem;
+  box-sizing: border-box;
+}
+
+.battery-detail__pass-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 5.2rem;
+  height: 5.2rem;
+  border-radius: 50%;
+  background-color: #ecfdf3;
+}
+
+.battery-detail__pass-icon svg {
+  width: 2.6rem;
+  height: 2.6rem;
+}
+
+.battery-detail__pass-text {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #191c1d;
+}
+
+.battery-detail__pass-sub {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #5b5f63;
+  text-align: center;
+}
+
+/* ── 정상 외 상태 — 좌: 이미지 뷰어, 우: 결함 목록 + 리포트 ── */
+
+.battery-detail__insp-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.05rem;
+  flex: 1;
+  min-height: 0;
+  padding: 2.4rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.battery-detail__insp-side {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.battery-detail__insp-side-divider {
+  flex-shrink: 0;
+  width: 100%;
+  height: 1px;
+  margin: 2rem 0;
+  background-color: #eceef0;
+}
+
+/* ── 결함 탐지 결과 — 47rem 고정, 넘치면 목록만 스크롤 ── */
+
+.battery-detail__defect-section {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  height: 47rem;
+}
+
+.battery-detail__sub-label {
+  flex-shrink: 0;
+  margin: 0 0 1.2rem;
+  font-size: 1.29rem;
+  font-weight: 700;
+  color: #5b5f63;
+}
+
+.battery-detail__defect-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.battery-detail__defect-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 1.2rem 1.4rem;
+  border: none;
+  border-radius: 0.45rem;
+  box-sizing: border-box;
+  background-color: #f9fafb;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.battery-detail__defect-card:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.battery-detail__defect-card:active {
+  transform: scale(0.99);
+}
+
+/* 현재 보고 있는 이미지에 속하지 않은 결함은 흐리게 — 클릭하면 해당 이미지로 전환 */
+.battery-detail__defect-card--dim {
+  opacity: 0.42;
+}
+
+.battery-detail__defect-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.battery-detail__defect-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.26rem;
+  height: 2.26rem;
+  border-radius: 50%;
+  font-size: 1.24rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.battery-detail__defect-num--reject {
+  background-color: #d97706;
+}
+
+.battery-detail__defect-num--fail {
+  background-color: #dc2626;
+}
+
+.battery-detail__defect-num--pass {
+  background-color: #1e7e34;
+}
+
+.battery-detail__defect-dot {
+  flex-shrink: 0;
+  width: 0.82rem;
+  height: 0.82rem;
+  border-radius: 50%;
+}
+
+.battery-detail__defect-dot--reject {
+  background-color: #d97706;
+}
+
+.battery-detail__defect-dot--fail {
+  background-color: #dc2626;
+}
+
+.battery-detail__defect-dot--pass {
+  background-color: #1e7e34;
+}
+
+.battery-detail__defect-type {
+  flex-shrink: 0;
+  font-size: 1.34rem;
+  font-weight: 400;
+  color: #191c1d;
+}
+
+.battery-detail__image-type-tag {
+  flex-shrink: 0;
+  margin-left: auto;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.4rem;
+  box-sizing: border-box;
+  background-color: #eceef0;
+  font-size: 1.08rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+.battery-detail__conf-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.battery-detail__conf-bar-bg {
+  flex: 1;
+  min-width: 0;
+  height: 0.62rem;
+  border-radius: 0.31rem;
+  overflow: hidden;
+  background-color: #eceef0;
+}
+
+.battery-detail__conf-bar {
+  height: 100%;
+  background-color: #5b5f63;
+}
+
+.battery-detail__conf-val {
+  flex-shrink: 0;
+  font-size: 1.18rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+/* ── 검사별 리포트 ── */
+
+.battery-detail__insp-report-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.battery-detail__insp-report-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  margin-bottom: 1.2rem;
+}
+
+.battery-detail__insp-report-header .battery-detail__sub-label {
+  margin-bottom: 0;
+}
+
+.battery-detail__insp-report-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.battery-detail__insp-report-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.2rem 1.4rem;
+  border: none;
+  border-radius: 0.45rem;
+  box-sizing: border-box;
+  background-color: #f9fafb;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.battery-detail__insp-report-row:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.battery-detail__insp-report-row:active {
+  transform: scale(0.99);
+}
+
+.battery-detail__insp-report-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.battery-detail__insp-report-title {
+  font-size: 1.29rem;
+  font-weight: 400;
+  color: #191c1d;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.battery-detail__insp-report-meta {
+  font-size: 1.13rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.battery-detail__insp-report-status {
+  flex-shrink: 0;
+  font-size: 1.13rem;
+  font-weight: 400;
+  color: #5b5f63;
+}
+
+.battery-detail__insp-report-arrow {
+  flex-shrink: 0;
+  width: 0.9rem;
+  height: 1.6rem;
+}

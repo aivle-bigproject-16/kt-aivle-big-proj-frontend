@@ -16,11 +16,11 @@
 }
 
 /* 완료된 셀 목록 — 카드 아래 여백을 주고, 개수가 많아지면 이 영역만 스크롤되게
-   최대 높이를 제한한다 (공용 컴포넌트 자체는 flex:1이라 정해진 높이가 없으면
-   무한정 늘어나므로 여기서 max-height로 잡아준다) */
+   높이를 고정한다. max-height가 아니라 height로 고정해야 결과가 아직 없어도
+   (목록이 비어도) 카드가 줄어들지 않고 항상 이 높이만큼 자리를 차지한다 */
 .overview-result .completed-cell-list {
   flex: none;
-  max-height: 30rem;
+  height: 30rem;
   margin: 2rem 2.4rem 2.4rem;
 }
 

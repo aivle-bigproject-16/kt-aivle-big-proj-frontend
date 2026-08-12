@@ -527,6 +527,16 @@
               "imageId": 1001,
               "imageType": "CT",
               "imageUrl": "https://picsum.photos/seed/ct001/4000/530"
+            },
+            {
+              "imageId": 1002,
+              "imageType": "CT",
+              "imageUrl": "https://picsum.photos/seed/ct002/4000/530"
+            },
+            {
+              "imageId": 1003,
+              "imageType": "RGB",
+              "imageUrl": "https://picsum.photos/seed/rgb001/1200/900"
             }
           ],
           "defectResults": [
@@ -543,6 +553,36 @@
                 "y": 100,
                 "width": 500,
                 "height": 200
+              }
+            },
+            {
+              "defectResultId": 502,
+              "label": "REJECT",
+              "imageId": 1002,
+              "imageType": "CT",
+              "defectType": "MICRO_DEFECT",
+              "imageUrl": "https://picsum.photos/seed/ct002/4000/530",
+              "confidence": 0.785,
+              "bbox": {
+                "x": 1500,
+                "y": 150,
+                "width": 400,
+                "height": 180
+              }
+            },
+            {
+              "defectResultId": 503,
+              "label": "REJECT",
+              "imageId": 1003,
+              "imageType": "RGB",
+              "defectType": "CRACK",
+              "imageUrl": "https://picsum.photos/seed/rgb001/1200/900",
+              "confidence": 0.61,
+              "bbox": {
+                "x": 300,
+                "y": 200,
+                "width": 250,
+                "height": 180
               }
             }
           ]

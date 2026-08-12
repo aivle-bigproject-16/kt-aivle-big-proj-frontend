@@ -367,12 +367,11 @@ function makeCells(batchSize, batteryCellCount) {
   return cells
 }
 
-const ANALYZE_DELAY_MIN_MS = 1000
-const ANALYZE_DELAY_MAX_MS = 5000
+const ANALYZE_DELAY_MS = 10000
 const ANALYZE_TO_COMPLETED_GAP_MS = 300 // analyze가 null이 된 뒤 completed가 채워지기까지의 공백 재현용
 
 function randomAnalyzeDelayMs() {
-  return Math.floor(Math.random() * (ANALYZE_DELAY_MAX_MS - ANALYZE_DELAY_MIN_MS + 1)) + ANALYZE_DELAY_MIN_MS
+  return ANALYZE_DELAY_MS
 }
 
 // 캡처 완료 셀 하나를 분석 슬롯으로 이동한다.
