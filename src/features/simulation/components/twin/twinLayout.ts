@@ -277,11 +277,12 @@ export function stationFloor(key: StationKey): Box {
 }
 
 /** 분석 스테이션의 검사 게이트 — 퍽을 감싸는 사각 영역.
-    원래 110×72였던 걸 1.5배(165×108)로 키웠다 — ANALYZE_PUCK도 같은 배율로
-    커져서 게이트 대비 퍽 비율(가로 0.818, 세로 0.686)은 그대로다 */
+    ANALYZE_PUCK을 STATION_PUCK과 같은 크기(32×17.5)로 줄이면서, 게이트도 예전과
+    같은 게이트 대비 퍽 비율(가로 0.818, 세로 0.686)을 유지하도록 같이 줄였다
+    (32÷0.818≈39.1, 17.5÷0.686≈25.5) — 퍽이 게이트 안에서 헐렁하게 뜨지 않는다 */
 export function analyzeScanFrame(): Box {
   const c = analyzeSlot()
-  const w = 165
-  const h = 108
+  const w = 80
+  const h = 50
   return { x: c.x - w / 2, y: c.y - h / 2, w, h }
 }
