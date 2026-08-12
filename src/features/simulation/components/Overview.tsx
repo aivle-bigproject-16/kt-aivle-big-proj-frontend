@@ -1,16 +1,17 @@
 import { useSimulationStore } from '../store/useSimulationStore'
-import { OverviewPending } from './OverviewPending'
-import { OverviewCapture } from './OverviewCapture'
-import { OverviewAnalyze } from './OverviewAnalyze'
-import { OverviewArrow } from './OverviewArrow'
-import { OverviewResult } from './OverviewResult'
+import { TwinStage } from './twin/TwinStage'
 import { SimControl } from './SimControl'
 import './Overview.css'
 
-/** 오버뷰 헤더 — 1404×49 고정. 좌: 타이틀, 우: LIVE 배지 + Sim Control 버튼.
-   각 카드를 클릭하면 해당 탭(대기/촬영/분석)으로 이동한다 */
+/** 오버뷰 — 헤더 + 디지털 트윈 스테이지 2덩이.
+   구 flow 카드 3장(OverviewPending/Capture/Analyze)과 결과 블록(OverviewResult)은
+   트윈 스테이지가 통째로 대체한다. 결과는 라인 끝의 배출함 3개가 표시한다 */
 function Overview({ onNavigate }: { onNavigate?: (index: number) => void }) {
   const isLive = useSimulationStore((s) => s.simulationStatus === 'running')
+  const completedCount = useSimulationStore((s) => s.completed.length)
+  const totalCount = useSimulationStore((s) => s.batteryCellCount)
+  const passCount = useSimulationStore((s) => s.completed.filter((c) => c.finalLabel === 'PASS').length)
+  const passPct = completedCount > 0 ? (passCount / completedCount) * 100 : 0
 
   return (
     <div className="overview">
@@ -18,6 +19,20 @@ function Overview({ onNavigate }: { onNavigate?: (index: number) => void }) {
         <h2 className="overview-header__title">Live Monitoring Flow</h2>
 
         <div className="overview-header__right">
+          {/* 트윈이 표현할 수 없는 두 지표만 헤더에 남긴다 — 나머지는 라인 위에 있다 */}
+          <div className="overview-header__readout">
+            <span className="overview-header__readout-label">완료</span>
+            <span className="overview-header__readout-value">
+              {completedCount} / {totalCount}
+            </span>
+          </div>
+          <div className="overview-header__readout">
+            <span className="overview-header__readout-label">양품률</span>
+            <span className="overview-header__readout-value overview-header__readout-value--pass">
+              {passPct.toFixed(1)}%
+            </span>
+          </div>
+
           <div className={`overview-header__live${isLive ? '' : ' overview-header__live--off'}`}>
             <span className="overview-header__live-dot" />
             <span className="overview-header__live-text">
@@ -29,17 +44,9 @@ function Overview({ onNavigate }: { onNavigate?: (index: number) => void }) {
         </div>
       </div>
 
-      {/* 카드 사이 간격 7rem — 카드/화살표 모두 0.5rem gap으로 나열해
-         화살표(6rem) 양옆에 0.5rem씩 붙어 카드 사이 총 7rem이 되게 한다 */}
-      <div className="overview-cards">
-        <OverviewPending onClick={() => onNavigate?.(1)} />
-        <OverviewArrow />
-        <OverviewCapture onClick={() => onNavigate?.(2)} />
-        <OverviewArrow />
-        <OverviewAnalyze onClick={() => onNavigate?.(3)} />
+      <div className="overview-stage">
+        <TwinStage onNavigate={onNavigate} />
       </div>
-
-      <OverviewResult />
     </div>
   )
 }
