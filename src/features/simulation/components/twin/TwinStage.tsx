@@ -168,7 +168,7 @@ function TwinStage({ onNavigate }: { onNavigate?: (index: number) => void }) {
           y={captureFloor.y}
           width={SWEEP_W}
           height={captureFloor.h}
-          rx={4}
+          rx={0}
           style={{ '--twin-sweep-distance': `${captureFloor.w - SWEEP_W}px` } as CSSProperties}
         />
       </TwinStation>

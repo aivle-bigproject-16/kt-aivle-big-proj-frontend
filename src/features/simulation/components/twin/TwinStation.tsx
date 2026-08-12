@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { STATION_FOOTER_OFFSET, STATION_HEADER_H, STATION_PAD, type Box } from './twinLayout'
+import { STATION_FOOTER_OFFSET, STATION_PAD, type Box } from './twinLayout'
 
 interface TwinStationProps {
   box: Box
@@ -38,8 +38,6 @@ function TwinStation({
   children,
 }: TwinStationProps) {
   const headerBaseline = box.y + 24
-  const floorY = box.y + STATION_HEADER_H
-  const floorH = box.h - STATION_HEADER_H
 
   return (
     <g
@@ -55,14 +53,6 @@ function TwinStation({
       }}
     >
       <rect className="twin-station__shell" x={box.x} y={box.y} width={box.w} height={box.h} rx={12} />
-      <rect
-        className="twin-station__floor"
-        x={box.x + 1}
-        y={floorY}
-        width={box.w - 2}
-        height={floorH - 1}
-        rx={11}
-      />
 
       <circle className="twin-station__dot" cx={box.x + STATION_PAD + 4} cy={headerBaseline - 5} r={4} />
       <text className="twin-station__label" x={box.x + STATION_PAD + 16} y={headerBaseline}>

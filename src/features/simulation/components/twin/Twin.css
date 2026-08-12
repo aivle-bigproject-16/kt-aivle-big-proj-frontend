@@ -10,7 +10,7 @@
   width: 140.4rem;
   height: 48rem;
   display: block;
-  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
+
 
   --twin-pending: #6b7280;
   --twin-process: #13777c;
@@ -131,8 +131,22 @@
 
 /* ── 스테이션 ─────────────────────────────────────────────── */
 
+/* overview-analyze 버튼과 동일한 호버/액티브 애니메이션 — translateY(-0.2rem),
+   눌렀을 때 scale(0.99). transform-origin은 그룹 자체 경계 기준으로 잡으려면
+   transform-box:fill-box가 필요하다 */
 .twin-station {
   cursor: pointer;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.15s ease;
+}
+
+.twin-station:hover {
+  transform: translateY(-0.2rem);
+}
+
+.twin-station:active {
+  transform: scale(0.99);
 }
 
 .twin-station__shell {
@@ -140,11 +154,7 @@
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.12));
 }
 
-.twin-station__floor {
-  fill: #f8fafb;
-}
-
-.twin-station:hover .twin-station__floor {
+.twin-station:hover .twin-station__shell {
   fill: #f2f6f7;
 }
 
@@ -316,8 +326,20 @@
 
 /* ── 배출함 ───────────────────────────────────────────────── */
 
+/* overview-analyze 버튼과 동일한 호버/액티브 애니메이션 — .twin-station과 동일 */
 .twin-bin__card {
   cursor: pointer;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.15s ease;
+}
+
+.twin-bin__card:hover {
+  transform: translateY(-0.2rem);
+}
+
+.twin-bin__card:active {
+  transform: scale(0.99);
 }
 
 .twin-bin__shell {
@@ -388,10 +410,14 @@
 /* ── 셀 오브젝트 ──────────────────────────────────────────── */
 
 /* 이동의 전부. 구역/슬롯이 바뀌면 목표 좌표가 바뀌고 여기서 보간된다.
-   React 는 스냅샷당 한 번만 리렌더하고 프레임은 브라우저가 굴린다 */
+   React 는 스냅샷당 한 번만 리렌더하고 프레임은 브라우저가 굴린다.
+   퍽은 자체 클릭 핸들러가 없는 순수 장식 오브젝트인데, 칠해진 도형이라 기본값으로는
+   마우스 이벤트를 가로챈다 — station/bin 위에 퍽이 얹혀 있으면 그 밑의 호버·클릭이
+   막힌다. pointer-events:none 으로 이벤트가 퍽을 투과해 아래 트리거로 그대로 가게 한다 */
 .twin-puck {
   transform-box: view-box;
   transition: transform 620ms cubic-bezier(0.33, 0.1, 0.2, 1);
+  pointer-events: none;
 }
 
 /* 새 DOM 노드가 삽입될 때만 재생되어야 하므로 수정자 클래스가 아니라
@@ -413,82 +439,89 @@
   }
 }
 
-/* 색은 스냅샷이 오는 즉시 바뀌지만 위치는 이동이 끝나야 도착한다. 색 전환에도
-   같은 시간을 주지 않으면 아직 이전 구역에 앉아 있는 셀이 다음 단계 색으로 보인다 */
-.twin-puck__shell,
-.twin-puck__terminal {
-  transition: fill 620ms cubic-bezier(0.33, 0.1, 0.2, 1);
+/* pending-body__cell과 동일한 배터리 아이콘 3파트 — nub(상단 단자, 항상 회색 고정),
+   outline(테두리, stroke), fill(내부 충전량 사각형). 색은 스냅샷이 오는 즉시 바뀌지만
+   위치는 이동이 끝나야 도착한다. 색 전환에도 같은 시간을 주지 않으면 아직 이전
+   구역에 앉아 있는 셀이 다음 단계 색으로 보인다 */
+.twin-puck__nub {
+  fill: #94a3b8;
 }
 
-.twin-puck__shell {
+/* outline은 stroke만, fill은 fill만 건드린다 — outline 쪽에 fill을 같이 주면
+   JSX의 fill="none"을 CSS가 덮어써서 테두리가 속이 꽉 찬 덩어리가 돼 버린다 */
+.twin-puck__outline {
+  transition: stroke 620ms cubic-bezier(0.33, 0.1, 0.2, 1);
+  stroke: #d5dade;
+}
+
+.twin-puck__fill {
+  transition: fill 620ms cubic-bezier(0.33, 0.1, 0.2, 1);
   fill: #d5dade;
 }
 
-.twin-puck__terminal {
-  fill: #aeb5bb;
+.twin-puck__body--pending .twin-puck__outline {
+  stroke: #cbd2d8;
 }
 
-.twin-puck__rib {
-  fill: #ffffff;
-  opacity: 0.55;
-}
-
-.twin-puck__body--pending .twin-puck__shell {
+.twin-puck__body--pending .twin-puck__fill {
   fill: #cbd2d8;
 }
 
-.twin-puck__body--capturing .twin-puck__shell {
+.twin-puck__body--capturing .twin-puck__outline {
+  stroke: var(--twin-process);
+}
+
+.twin-puck__body--capturing .twin-puck__fill {
   fill: var(--twin-process);
   animation: twin-pulse 1s ease-in-out infinite;
 }
 
-.twin-puck__body--capturing .twin-puck__terminal,
-.twin-puck__body--captured .twin-puck__terminal {
-  fill: #5aa3a7;
+.twin-puck__body--captured .twin-puck__outline {
+  stroke: var(--twin-process-dim);
 }
 
-.twin-puck__body--captured .twin-puck__shell {
+.twin-puck__body--captured .twin-puck__fill {
   fill: var(--twin-process-dim);
 }
 
-.twin-puck__body--analyzing .twin-puck__shell {
+.twin-puck__body--analyzing .twin-puck__outline {
+  stroke: var(--twin-process);
+}
+
+.twin-puck__body--analyzing .twin-puck__fill {
   fill: var(--twin-process);
 }
 
-.twin-puck__body--analyzing .twin-puck__terminal {
-  fill: #0f5f63;
+.twin-puck__body--pass .twin-puck__outline {
+  stroke: var(--twin-pass);
 }
 
-.twin-puck__body--pass .twin-puck__shell {
+.twin-puck__body--pass .twin-puck__fill {
   fill: var(--twin-pass);
 }
 
-.twin-puck__body--pass .twin-puck__terminal {
-  fill: #17632a;
+.twin-puck__body--reject .twin-puck__outline {
+  stroke: var(--twin-reject);
 }
 
-.twin-puck__body--reject .twin-puck__shell {
+.twin-puck__body--reject .twin-puck__fill {
   fill: var(--twin-reject);
 }
 
-.twin-puck__body--reject .twin-puck__terminal {
-  fill: #a95d05;
+.twin-puck__body--fail .twin-puck__outline {
+  stroke: var(--twin-fail);
 }
 
-.twin-puck__body--fail .twin-puck__shell {
+.twin-puck__body--fail .twin-puck__fill {
   fill: var(--twin-fail);
-}
-
-.twin-puck__body--fail .twin-puck__terminal {
-  fill: #a81d1d;
 }
 
 /* ── 접근성 ───────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
   .twin-puck,
-  .twin-puck__shell,
-  .twin-puck__terminal {
+  .twin-puck__outline,
+  .twin-puck__fill {
     transition: none;
   }
 
@@ -497,7 +530,7 @@
   .twin-chute--running,
   .twin-sorter--running .twin-sorter__core,
   .twin-station--active .twin-station__dot,
-  .twin-puck__body--capturing .twin-puck__shell,
+  .twin-puck__body--capturing .twin-puck__fill,
   .twin-sweep--running,
   .twin-gate--running,
   .twin-gate__beam--running {

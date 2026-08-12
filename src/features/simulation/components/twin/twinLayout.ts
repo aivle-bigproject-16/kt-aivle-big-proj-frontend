@@ -8,10 +8,23 @@ export const STAGE = { width: 1404, height: 480 } as const
 /** 공정 본선의 세로 중심. 스테이션·벨트·분기점이 전부 이 선을 공유한다 */
 export const LINE_Y = 240
 
-/** 셀 퍽(오브젝트) 치수와 간격 */
-export const PUCK = { w: 26, h: 15, gapX: 6, gapY: 6 } as const
-const PITCH_X = PUCK.w + PUCK.gapX
-const PITCH_Y = PUCK.h + PUCK.gapY
+export interface PuckSize {
+  w: number
+  h: number
+  gapX: number
+  gapY: number
+}
+
+/* 셀 퍽(오브젝트) 치수와 간격 — 컨테이너마다 따로 둔다:
+   - STATION_PUCK: 대기(source)·촬영(capture)는 같은 스테이션 격자(320×340, 5열)를
+     공유하니 퍽 크기도 같아야 자연스럽다.
+   - ANALYZE_PUCK: 분석은 슬롯이 하나뿐이라 격자 제약이 없어 더 크게 키울 수 있다
+     (검사 게이트 110×72 안에만 들어가면 된다).
+   - BIN_PUCK: 정상/불량/실패 3개 배출함은 판정만 다를 뿐 같은 종류의 칸이므로
+     서로 크기가 같아야 한다. 204×130 함 안에 3×3 격자로 들어가는 크기로 맞췄다. */
+export const STATION_PUCK: PuckSize = { w: 70, h: 27, gapX: 5, gapY: 5 }
+export const ANALYZE_PUCK: PuckSize = { w: 90, h: 35, gapX: 0, gapY: 0 }
+export const BIN_PUCK: PuckSize = { w: 45, h: 20, gapX: 6, gapY: 6 }
 
 export interface Point {
   x: number
@@ -44,10 +57,16 @@ const STATION_Y = LINE_Y - STATION_H / 2
  * 마치고 분석을 기다리는 셀(CAPTURED)이 한 칸 안에 함께 놓이고, 둘은 색으로 구분한다.
  * 서버가 같은 배열로 내려주는 것을 화면에서 굳이 두 칸으로 쪼개지 않는다.
  */
+/* 세 스테이션의 shell/floor 크기를 전부 동일하게 맞춘다(320 폭). capture가
+   원래 450으로 제일 넓었는데, 그 폭을 나머지에 맞춰 늘리면(450×3+간격) 분기점(sorter,
+   x=1130)을 넘어가 버려서 반대로 capture를 줄이는 쪽으로 통일했다 */
+const STATION_W = 320
+const STATION_GAP = 40
+
 export const STATIONS = {
-  source: { x: 20, y: STATION_Y, w: 260, h: STATION_H },
-  capture: { x: 320, y: STATION_Y, w: 450, h: STATION_H },
-  analyze: { x: 810, y: STATION_Y, w: 260, h: STATION_H },
+  source: { x: 20, y: STATION_Y, w: STATION_W, h: STATION_H },
+  capture: { x: 20 + STATION_W + STATION_GAP, y: STATION_Y, w: STATION_W, h: STATION_H },
+  analyze: { x: 20 + (STATION_W + STATION_GAP) * 2, y: STATION_Y, w: STATION_W, h: STATION_H },
 } as const satisfies Record<string, Box>
 
 export type StationKey = keyof typeof STATIONS
@@ -72,8 +91,10 @@ export const BIN_HEADER_H = 34
 export const BIN_PAD = 12
 /** 배출함 좌측 판정색 액센트 바 폭 */
 export const BIN_ACCENT_W = 5
-export const BIN_VISIBLE_COLS = 5
-export const BIN_VISIBLE_ROWS = 4
+/* BIN_PUCK(45×20, gap 6) 기준 — 가로 (3-1)×51+45=147≤175, 세로 (3-1)×26+20=72≤88,
+   여유 있게 3×3으로 맞췄다 */
+export const BIN_VISIBLE_COLS = 3
+export const BIN_VISIBLE_ROWS = 3
 
 const BIN_X = 1180
 const BIN_W = 204
@@ -108,11 +129,17 @@ interface GridSpec {
   origin: Point
   cols: number
   rows: number
+  /** 있으면 열을 이 폭 안에서 space-between으로 벌린다(첫 칸 왼쪽 끝, 마지막 칸
+      오른쪽 끝). 없으면 고정 PITCH_X로 왼쪽부터 채운다(bin 격자가 이 경우) */
+  floorW?: number
 }
 
-/** 스테이션 격자 공통 행 수. 스테이션 높이가 같으므로 행 수도 같다.
-    마지막 행 아래쪽이 푸터 텍스트와 겹치지 않는 최대값이 13이다 */
-const STATION_GRID_ROWS = 13
+/** 스테이션 세로 적재 공간 예산 — 헤더/푸터를 뺀 대략적인 가용 높이.
+    스테이션 격자 공통 행 수는 여기서 STATION_PUCK 크기로 역산한다(스테이션
+    높이가 같으므로 행 수도 같다) */
+const STATION_GRID_H_BUDGET = 267
+const STATION_PITCH_Y = STATION_PUCK.h + STATION_PUCK.gapY
+const STATION_GRID_ROWS = Math.floor((STATION_GRID_H_BUDGET + STATION_PUCK.gapY) / STATION_PITCH_Y)
 
 function stationGrid(key: StationKey, cols: number): GridSpec {
   const s = STATIONS[key]
@@ -120,11 +147,13 @@ function stationGrid(key: StationKey, cols: number): GridSpec {
     origin: { x: s.x + STATION_PAD, y: s.y + STATION_HEADER_H },
     cols,
     rows: STATION_GRID_ROWS,
+    floorW: s.w - STATION_PAD * 2,
   }
 }
 
-const SOURCE_GRID = stationGrid('source', 7)
-const CAPTURE_GRID = stationGrid('capture', 13)
+/* 한 줄에 5개씩 — space-between(floorW)이 5칸을 바닥 폭 전체에 균등 배분한다 */
+const SOURCE_GRID = stationGrid('source', 5)
+const CAPTURE_GRID = stationGrid('capture', 5)
 
 /** 구역별로 그릴 수 있는 최대 오브젝트 수. 초과분은 수치로만 표시한다 */
 export const GRID_CAPACITY = {
@@ -133,22 +162,29 @@ export const GRID_CAPACITY = {
   bin: BIN_VISIBLE_COLS * BIN_VISIBLE_ROWS,
 } as const
 
-/** 격자 i번째 칸의 퍽 중심 좌표 */
-function gridSlot(grid: GridSpec, index: number): Point {
+/** 격자 i번째 칸의 퍽 중심 좌표. 퍽 크기는 호출부가 컨테이너에 맞는 것을 넘긴다 */
+function gridSlot(grid: GridSpec, index: number, puck: PuckSize): Point {
   const col = index % grid.cols
   const row = Math.floor(index / grid.cols)
+  const pitchY = puck.h + puck.gapY
+
+  const x =
+    grid.floorW !== undefined && grid.cols > 1
+      ? grid.origin.x + col * ((grid.floorW - puck.w) / (grid.cols - 1)) + puck.w / 2
+      : grid.origin.x + col * (puck.w + puck.gapX) + puck.w / 2
+
   return {
-    x: grid.origin.x + col * PITCH_X + PUCK.w / 2,
-    y: grid.origin.y + row * PITCH_Y + PUCK.h / 2,
+    x,
+    y: grid.origin.y + row * pitchY + puck.h / 2,
   }
 }
 
 export function sourceSlot(index: number): Point {
-  return gridSlot(SOURCE_GRID, index)
+  return gridSlot(SOURCE_GRID, index, STATION_PUCK)
 }
 
 export function captureSlot(index: number): Point {
-  return gridSlot(CAPTURE_GRID, index)
+  return gridSlot(CAPTURE_GRID, index, STATION_PUCK)
 }
 
 /** 분석은 슬롯이 하나뿐이다. 스테이션 본문 정중앙 */
@@ -162,8 +198,8 @@ export function analyzeSlot(): Point {
 
 export function binSlot(key: BinKey, index: number): Point {
   const bin = BINS[key]
-  /* 좌측 액센트 바를 피해 안쪽으로 더 들어간다.
-     세로는 헤더 아래 8 을 띄우면 4행(3×21+15=78)이 함 바닥 안에 들어간다 */
+  /* 좌측 액센트 바를 피해 안쪽으로 더 들어간다. 정상/불량/실패 3개 함이 전부
+     같은 BIN_PUCK 크기를 쓰므로 셋의 격자가 완전히 동일하다 */
   return gridSlot(
     {
       origin: { x: bin.x + BIN_PAD + BIN_ACCENT_W, y: bin.y + BIN_HEADER_H + 8 },
@@ -171,6 +207,7 @@ export function binSlot(key: BinKey, index: number): Point {
       rows: BIN_VISIBLE_ROWS,
     },
     index,
+    BIN_PUCK,
   )
 }
 
@@ -218,7 +255,7 @@ export function stationFloor(key: StationKey): Box {
     x: s.x + STATION_PAD,
     y: s.y + STATION_HEADER_H,
     w: s.w - STATION_PAD * 2,
-    h: STATION_GRID_ROWS * PITCH_Y - PUCK.gapY,
+    h: STATION_GRID_ROWS * STATION_PITCH_Y - STATION_PUCK.gapY,
   }
 }
 

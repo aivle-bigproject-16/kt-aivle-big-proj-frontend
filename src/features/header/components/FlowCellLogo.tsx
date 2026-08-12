@@ -6,7 +6,7 @@ function FlowCellLogo() {
       className="flow-cell-logo"
       viewBox="120 35 120 110"
       xmlns="http://www.w3.org/2000/svg"
-      aria-label="FlowCell"
+      aria-label="CELLNEX"
     >
       <path d="M191.561 72.5826L188.776 75.3672L187.812 75.7956H187.063L186.206 75.3672L176.46 65.6211L174.853 64.9785H173.568L171.533 65.9424L162.751 74.7246L161.894 75.153L160.502 75.4743H152.041" stroke="url(#paint0_linear_255_430)" strokeWidth="1.7136" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M190.92 58.9805L202.165 70.1189L202.594 70.8686L202.379 71.297L191.991 81.7928L190.491 82.8638L189.206 83.3993L186.636 83.6135L184.279 82.7567L183.316 82.1141L179.781 78.5798" stroke="url(#paint1_linear_255_430)" strokeWidth="1.7136" strokeLinecap="round" strokeLinejoin="round" />
@@ -81,7 +81,7 @@ function FlowCellLogo() {
       <path d="M192.375 65.1709L192.921 65.6957" stroke="#64A0DD" strokeWidth="1.7136" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M190.275 63.082L190.554 63.3284" stroke="#64A0DD" strokeWidth="1.7136" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M171.631 75.6777L171.888 75.8812" stroke="#5796D3" strokeWidth="1.7136" strokeLinecap="round" strokeLinejoin="round" />
-      <text fill="#0C5795" fontFamily="Inter" fontSize="22" fontWeight="bold" x="139.276" y="132.243">FlowCell</text>
+      <text fill="#0C5795" fontFamily="Inter" fontSize="22" fontWeight="bold" x="139.276" y="132.243">CELLNEX</text>
       <defs>
         <linearGradient id="paint0_linear_255_430" x1="191.561" y1="72.5826" x2="152.041" y2="75.4743" gradientUnits="userSpaceOnUse">
           <stop stopColor="#4B8BC8" />
