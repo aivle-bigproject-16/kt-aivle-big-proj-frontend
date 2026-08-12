@@ -5,8 +5,8 @@ import type { CellProgress, CellStatus } from '../types'
 import type { FinalLabel } from '@/features/battery/types'
 
 /** 셀 오브젝트가 놓일 수 있는 구역. 배출함 3종은 판정 라벨과 1:1.
-    `buffer` 는 촬영을 마치고 분석을 기다리는 CAPTURED 셀이 쌓이는 큐다 */
-export type TwinZone = 'source' | 'capture' | 'buffer' | 'analyze' | 'PASS' | 'REJECT' | 'FAIL'
+    촬영 중(CAPTURING)과 분석 대기(CAPTURED)는 같은 `capture` 구역에 놓이고 색으로만 갈린다 */
+export type TwinZone = 'source' | 'capture' | 'analyze' | 'PASS' | 'REJECT' | 'FAIL'
 
 export interface TwinAgent {
   /** React key. 셀 id 를 그대로 쓴다 — 노드가 재사용되어야 CSS transition 이 걸린다 */
@@ -22,7 +22,7 @@ export interface TwinAgent {
 export interface TwinAgentsResult {
   agents: TwinAgent[]
   /** 격자 용량을 넘어 그리지 못한 셀 수. 스테이션 푸터에 `+N` 으로 표기한다 */
-  overflow: { source: number; buffer: number }
+  overflow: { source: number; capture: number }
 }
 
 /** 완료 셀은 판정 라벨이 곧 배출함이다. 라벨이 비어 오면 검사 실패로 본다 */
@@ -61,30 +61,23 @@ export function useTwinAgents(): TwinAgentsResult {
     })
 
     /* capture 배열에는 촬영 중(CAPTURING)과 촬영 완료(CAPTURED)가 섞여 온다.
-       두 상태는 물리적으로 다른 자리에 있다 — 하나는 챔버 안, 하나는 분석 대기 큐다 */
-    let captureSlot = 0
-    let bufferSlot = 0
-    let bufferOverflow = 0
+       한 구역에 함께 놓고 색으로만 구분한다 — 서버가 한 배열로 주는 것을 화면에서
+       쪼개지 않는다. 촬영 중인 셀을 앞자리에 모아야 지금 무엇이 도는지 눈에 띈다 */
+    const ordered = [
+      ...capture.filter((c) => c.status === 'CAPTURING'),
+      ...capture.filter((c) => c.status !== 'CAPTURING'),
+    ]
 
-    for (const cell of capture) {
-      const inChamber = cell.status === 'CAPTURING'
-      const slot = inChamber ? captureSlot++ : bufferSlot++
-      const capacity = inChamber ? GRID_CAPACITY.capture : GRID_CAPACITY.buffer
-
-      if (slot >= capacity) {
-        if (!inChamber) bufferOverflow += 1
-        continue
-      }
-
+    ordered.slice(0, GRID_CAPACITY.capture).forEach((cell, i) => {
       agents.push({
         id: cell.batteryCellId,
-        zone: inChamber ? 'capture' : 'buffer',
-        slot,
+        zone: 'capture',
+        slot: i,
         status: cell.status,
         finalLabel: cell.finalLabel,
         batchId: cell.batchId,
       })
-    }
+    })
 
     if (analyze) {
       agents.push({
@@ -127,7 +120,7 @@ export function useTwinAgents(): TwinAgentsResult {
       agents,
       overflow: {
         source: Math.max(0, registered.length - GRID_CAPACITY.source),
-        buffer: bufferOverflow,
+        capture: Math.max(0, capture.length - GRID_CAPACITY.capture),
       },
     }
   }, [registered, capture, analyze, completed])

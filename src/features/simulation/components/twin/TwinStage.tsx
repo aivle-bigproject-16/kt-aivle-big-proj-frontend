@@ -49,10 +49,10 @@ function TwinStage({ onNavigate }: { onNavigate?: (index: number) => void }) {
   const pendingCount = useSimulationStore((s) => s.registered.length)
   const nextBatchId = useSimulationStore((s) => s.registered[0]?.batchId)
 
+  const captureCount = useSimulationStore((s) => s.capture.length)
   const capturingCount = useSimulationStore((s) => s.capture.filter((c) => c.status === 'CAPTURING').length)
   const capturedCount = useSimulationStore((s) => s.capture.filter((c) => c.status === 'CAPTURED').length)
   const capturingBatchId = useSimulationStore((s) => s.capture.find((c) => c.status === 'CAPTURING')?.batchId)
-  const headBatchId = useSimulationStore((s) => s.capture.find((c) => c.status === 'CAPTURED')?.batchId)
 
   const analyzeCellId = useSimulationStore((s) => s.analyze?.batteryCellId)
   const analyzeBatchId = useSimulationStore((s) => s.analyze?.batchId)
@@ -73,7 +73,7 @@ function TwinStage({ onNavigate }: { onNavigate?: (index: number) => void }) {
       className="twin-stage"
       viewBox={`0 0 ${STAGE.width} ${STAGE.height}`}
       role="img"
-      aria-label={`배터리 셀 검사 공정 실시간 라인. 대기 ${pendingCount}, 촬영 ${capturingCount}, 분석 대기 ${capturedCount}, 완료 ${completedCount} / ${totalCount}`}
+      aria-label={`배터리 셀 검사 공정 실시간 라인. 대기 ${pendingCount}, 촬영 중 ${capturingCount}, 분석 대기 ${capturedCount}, 완료 ${completedCount} / ${totalCount}`}
     >
       <defs>
         <pattern id="twin-floor-grid" width="16" height="16" patternUnits="userSpaceOnUse">
@@ -136,18 +136,30 @@ function TwinStage({ onNavigate }: { onNavigate?: (index: number) => void }) {
         onClick={() => onNavigate?.(1)}
       />
 
+      {/* 촬영 챔버 — 촬영 중과 분석 대기가 한 칸에 함께 놓인다.
+          대표 수치는 이 칸이 붙들고 있는 셀 전체이고, 그중 몇 개가 지금 찍히는지는
+          보조 수치로 붙인다. 진한 청록이 늘지 않고 흐린 청록만 쌓이면 분석이 병목이다 */}
       <TwinStation
         box={STATIONS.capture}
         label="촬영"
         code="CAPTURING"
-        count={capturingCount}
-        unit="active"
+        count={captureCount}
+        unit="cells"
         tone="process"
         active={capturingCount > 0}
-        footerLeft={`${captureSpeed?.toFixed(1) ?? '-'}s / 배치`}
-        footerRight={capturingBatchId !== undefined ? `Batch #${capturingBatchId}` : '촬영 중 없음'}
+        footerLeft={
+          overflow.capture > 0
+            ? `촬영 중 ${capturingCount} · 분석 대기 ${capturedCount} · +${overflow.capture} 미표시`
+            : `촬영 중 ${capturingCount} · 분석 대기 ${capturedCount}`
+        }
+        footerRight={
+          capturingBatchId !== undefined
+            ? `Batch #${capturingBatchId} · ${captureSpeed?.toFixed(1) ?? '-'}s`
+            : '촬영 중 없음'
+        }
         onClick={() => onNavigate?.(2)}
       >
+
         {/* 촬영 스위프 — 촬영 중일 때만 챔버를 훑는다 */}
         <rect
           className={`twin-sweep${capturingCount > 0 ? ' twin-sweep--running' : ''}`}
@@ -159,20 +171,6 @@ function TwinStage({ onNavigate }: { onNavigate?: (index: number) => void }) {
           style={{ '--twin-sweep-distance': `${captureFloor.w - SWEEP_W}px` } as CSSProperties}
         />
       </TwinStation>
-
-      {/* 분석 대기 큐 — 여기가 길어지면 분석이 병목이라는 뜻이다 */}
-      <TwinStation
-        box={STATIONS.buffer}
-        label="분석 대기"
-        code="QUEUE"
-        count={capturedCount}
-        unit="queued"
-        tone="process"
-        active={capturedCount > 0}
-        footerLeft={overflow.buffer > 0 ? `+${overflow.buffer} 미표시` : '촬영 완료 · 분석 대기'}
-        footerRight={headBatchId !== undefined ? `선두 Batch #${headBatchId}` : '큐 비어 있음'}
-        onClick={() => onNavigate?.(3)}
-      />
 
       <TwinStation
         box={STATIONS.analyze}

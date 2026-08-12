@@ -38,17 +38,16 @@ const STATION_Y = 90
 const STATION_H = 300
 
 /**
- * 스테이션 4종.
+ * 스테이션 3종.
  *
- * `buffer` 는 촬영을 마치고(CAPTURED) 분석을 기다리는 셀이 쌓이는 곳이다.
- * 촬영 챔버 안에 같이 그리면 진행 중인 배치와 적체분이 섞여 병목이 보이지 않는다.
- * 큐를 따로 세워야 "분석이 느려서 앞이 밀린다"가 화면에 그대로 나타난다.
+ * 촬영 스테이션은 WS `capture` 배열을 통째로 담는다 — 촬영 중(CAPTURING)과 촬영을
+ * 마치고 분석을 기다리는 셀(CAPTURED)이 한 칸 안에 함께 놓이고, 둘은 색으로 구분한다.
+ * 서버가 같은 배열로 내려주는 것을 화면에서 굳이 두 칸으로 쪼개지 않는다.
  */
 export const STATIONS = {
-  source: { x: 20, y: STATION_Y, w: 200, h: STATION_H },
-  capture: { x: 260, y: STATION_Y, w: 230, h: STATION_H },
-  buffer: { x: 530, y: STATION_Y, w: 300, h: STATION_H },
-  analyze: { x: 870, y: STATION_Y, w: 200, h: STATION_H },
+  source: { x: 20, y: STATION_Y, w: 260, h: STATION_H },
+  capture: { x: 320, y: STATION_Y, w: 450, h: STATION_H },
+  analyze: { x: 810, y: STATION_Y, w: 260, h: STATION_H },
 } as const satisfies Record<string, Box>
 
 export type StationKey = keyof typeof STATIONS
@@ -60,8 +59,7 @@ export const BELT_THICKNESS = 30
 /** 스테이션 사이를 잇는 직선 벨트. y 는 전부 LINE_Y */
 export const BELTS = [
   { id: 'source-capture', x1: STATIONS.source.x + STATIONS.source.w, x2: STATIONS.capture.x },
-  { id: 'capture-buffer', x1: STATIONS.capture.x + STATIONS.capture.w, x2: STATIONS.buffer.x },
-  { id: 'buffer-analyze', x1: STATIONS.buffer.x + STATIONS.buffer.w, x2: STATIONS.analyze.x },
+  { id: 'capture-analyze', x1: STATIONS.capture.x + STATIONS.capture.w, x2: STATIONS.analyze.x },
   { id: 'analyze-sorter', x1: STATIONS.analyze.x + STATIONS.analyze.w, x2: 1130 },
 ] as const
 
@@ -125,15 +123,13 @@ function stationGrid(key: StationKey, cols: number): GridSpec {
   }
 }
 
-const SOURCE_GRID = stationGrid('source', 5)
-const CAPTURE_GRID = stationGrid('capture', 6)
-const BUFFER_GRID = stationGrid('buffer', 8)
+const SOURCE_GRID = stationGrid('source', 7)
+const CAPTURE_GRID = stationGrid('capture', 13)
 
 /** 구역별로 그릴 수 있는 최대 오브젝트 수. 초과분은 수치로만 표시한다 */
 export const GRID_CAPACITY = {
   source: SOURCE_GRID.cols * SOURCE_GRID.rows,
   capture: CAPTURE_GRID.cols * CAPTURE_GRID.rows,
-  buffer: BUFFER_GRID.cols * BUFFER_GRID.rows,
   bin: BIN_VISIBLE_COLS * BIN_VISIBLE_ROWS,
 } as const
 
@@ -153,10 +149,6 @@ export function sourceSlot(index: number): Point {
 
 export function captureSlot(index: number): Point {
   return gridSlot(CAPTURE_GRID, index)
-}
-
-export function bufferSlot(index: number): Point {
-  return gridSlot(BUFFER_GRID, index)
 }
 
 /** 분석은 슬롯이 하나뿐이다. 스테이션 본문 정중앙 */

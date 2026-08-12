@@ -1,4 +1,4 @@
-import { PUCK, analyzeSlot, binSlot, bufferSlot, captureSlot, sourceSlot, type Point } from './twinLayout'
+import { PUCK, analyzeSlot, binSlot, captureSlot, sourceSlot, type Point } from './twinLayout'
 import type { TwinAgent } from '../../hooks/useTwinAgents'
 
 /** 오브젝트 하나의 목표 좌표. 구역·슬롯이 바뀌면 이 값이 바뀌고, 이동은 CSS transition 이 만든다 */
@@ -8,8 +8,6 @@ function slotPoint(agent: TwinAgent): Point {
       return sourceSlot(agent.slot)
     case 'capture':
       return captureSlot(agent.slot)
-    case 'buffer':
-      return bufferSlot(agent.slot)
     case 'analyze':
       return analyzeSlot()
     default:
@@ -17,19 +15,25 @@ function slotPoint(agent: TwinAgent): Point {
   }
 }
 
-/** 상태별 톤. 촬영 중/촬영 완료는 명도만 다르고(§6.1 파생색), 완료는 판정색을 받는다 */
+/** 상태별 톤. 촬영 중/촬영 완료는 명도만 다르다(§6.1 파생색) */
 function toneOf(agent: TwinAgent): string {
+  /* 배출함에 들어간 셀은 판정색으로 칠한다. status 를 보지 않는 이유는
+     API_SPEC Example 의 completed[] 원소 status 가 COMPLETED 가 아니라
+     CAPTURING/CAPTURED 로 적혀 있어서다 — 그대로 내려오면 완료된 셀이 청록으로
+     보인다. 구역은 finalLabel 에서 파생되므로 판정과 어긋날 수 없다 */
+  if (agent.zone === 'PASS' || agent.zone === 'REJECT' || agent.zone === 'FAIL') {
+    return agent.zone.toLowerCase()
+  }
+
   switch (agent.status) {
-    case 'REGISTERED':
-      return 'pending'
     case 'CAPTURING':
       return 'capturing'
     case 'CAPTURED':
       return 'captured'
     case 'ANALYZING':
       return 'analyzing'
-    case 'COMPLETED':
-      return (agent.finalLabel ?? 'FAIL').toLowerCase()
+    default:
+      return 'pending'
   }
 }
 
