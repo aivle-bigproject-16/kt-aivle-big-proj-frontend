@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 920" width="1920" height="920" font-family="Inter, system-ui, 'Pretendard', sans-serif">
+  <title>CELLNEX 로그인 화면</title>
+  <desc>기존 공장 사진과 좌우 분할 구도를 유지하고 브랜드 블루, 뉴트럴, 라운드 규칙을 반영한 구현형 로그인 시안</desc>
+
+  <defs>
+    <linearGradient id="photoShade" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#03203b" stop-opacity="0.88"/>
+      <stop offset="0.46" stop-color="#054477" stop-opacity="0.52"/>
+      <stop offset="1" stop-color="#0c5795" stop-opacity="0.18"/>
+    </linearGradient>
+    <linearGradient id="photoFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.52" stop-color="#03203b" stop-opacity="0"/>
+      <stop offset="1" stop-color="#03203b" stop-opacity="0.58"/>
+    </linearGradient>
+    <linearGradient id="brandLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#64a0dd"/>
+      <stop offset="1" stop-color="#0c5795"/>
+    </linearGradient>
+    <filter id="panelShadow" x="-20%" y="-20%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="30" flood-color="#03203b" flood-opacity="0.10"/>
+    </filter>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="10" flood-color="#03203b" flood-opacity="0.10"/>
+    </filter>
+    <clipPath id="photoClip"><rect width="1120" height="920"/></clipPath>
+  </defs>
+
+  <rect width="1920" height="920" fill="#f7f9fb"/>
+
+  <!-- 좌측: 기존 배터리 생산 공장 사진 -->
+  <g clip-path="url(#photoClip)">
+    <image href="../../../src/assets/authBgPic.png" xlink:href="../../../src/assets/authBgPic.png" x="0" y="0" width="1120" height="920" preserveAspectRatio="xMidYMid slice"/>
+    <rect width="1120" height="920" fill="url(#photoShade)"/>
+    <rect width="1120" height="920" fill="url(#photoFade)"/>
+
+    <!-- 브랜드 -->
+    <g transform="translate(72 58)">
+      <rect width="60" height="60" rx="15" fill="#ffffff" fill-opacity="0.96" filter="url(#softShadow)"/>
+      <image href="../logo_blue.svg" xlink:href="../logo_blue.svg" x="10" y="12" width="40" height="36" preserveAspectRatio="xMidYMid meet"/>
+      <text x="78" y="31" fill="#ffffff" font-size="24" font-weight="750" letter-spacing="1.8">CELLNEX</text>
+      <text x="79" y="51" fill="#d9eafc" font-size="11" font-weight="600" letter-spacing="1.4">AI BATTERY INSPECTION</text>
+    </g>
+
+    <!-- 메인 메시지 -->
+    <g transform="translate(72 570)">
+      <rect width="54" height="5" rx="2.5" fill="#64a0dd"/>
+      <text y="68" fill="#ffffff" font-size="48" font-weight="730" letter-spacing="-1.6">정밀 검사의 기준을</text>
+      <text y="126" fill="#ffffff" font-size="48" font-weight="730" letter-spacing="-1.6">하나로 연결합니다.</text>
+      <text y="172" fill="#d9eafc" font-size="18" font-weight="450">AI 기반 배터리 셀 검사와 리포트를 한곳에서 관리하세요.</text>
+
+      <g transform="translate(0 214)">
+        <g>
+          <rect width="166" height="42" rx="21" fill="#ffffff" fill-opacity="0.14" stroke="#ffffff" stroke-opacity="0.24"/>
+          <circle cx="23" cy="21" r="7" fill="#85c4c8"/>
+          <path d="M20 21l2 2 4-5" fill="none" stroke="#032526" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="39" y="27" fill="#ffffff" font-size="14" font-weight="600">실시간 공정 추적</text>
+        </g>
+        <g transform="translate(178 0)">
+          <rect width="174" height="42" rx="21" fill="#ffffff" fill-opacity="0.14" stroke="#ffffff" stroke-opacity="0.24"/>
+          <circle cx="23" cy="21" r="7" fill="#8ebcec"/>
+          <path d="M20 21l2 2 4-5" fill="none" stroke="#033259" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="39" y="27" fill="#ffffff" font-size="14" font-weight="600">AI 결함 분석</text>
+        </g>
+        <g transform="translate(364 0)">
+          <rect width="174" height="42" rx="21" fill="#ffffff" fill-opacity="0.14" stroke="#ffffff" stroke-opacity="0.24"/>
+          <circle cx="23" cy="21" r="7" fill="#b6d6f8"/>
+          <path d="M20 21l2 2 4-5" fill="none" stroke="#033259" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="39" y="27" fill="#ffffff" font-size="14" font-weight="600">통합 리포트</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- 우측: 로그인 패널 -->
+  <rect x="1096" y="0" width="824" height="920" rx="28" fill="#f7f9fb"/>
+  <path d="M1096 28C1096 12.5 1108.5 0 1124 0h14v920h-14c-15.5 0-28-12.5-28-28V28z" fill="#ffffff" fill-opacity="0.32"/>
+
+  <g transform="translate(1280 104)">
+    <rect width="504" height="712" rx="20" fill="#ffffff" filter="url(#panelShadow)"/>
+    <rect width="504" height="5" rx="2.5" fill="url(#brandLine)"/>
+
+    <g transform="translate(48 48)">
+      <g>
+        <rect width="92" height="28" rx="14" fill="#eef6fe"/>
+        <circle cx="17" cy="14" r="4" fill="#0c5795"/>
+        <text x="29" y="19" fill="#0c5795" font-size="11" font-weight="700" letter-spacing="0.5">SECURE</text>
+      </g>
+
+      <text y="76" fill="#191c1d" font-size="34" font-weight="730" letter-spacing="-1">다시 만나 반갑습니다</text>
+      <text y="108" fill="#5b5f63" font-size="15">계정에 로그인하고 검사 대시보드를 확인하세요.</text>
+
+      <!-- 이메일 -->
+      <g transform="translate(0 150)">
+        <text y="0" fill="#191c1d" font-size="13" font-weight="650">이메일</text>
+        <rect y="14" width="408" height="58" rx="10" fill="#ffffff" stroke="#cfd5da"/>
+        <g transform="translate(18 32)" fill="none" stroke="#5b5f63" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="20" height="16" rx="3"/>
+          <path d="M2 3l8 6 8-6"/>
+        </g>
+        <text x="54" y="51" fill="#9ca3af" font-size="14">이메일을 입력하세요</text>
+      </g>
+
+      <!-- 비밀번호 -->
+      <g transform="translate(0 252)">
+        <text y="0" fill="#191c1d" font-size="13" font-weight="650">비밀번호</text>
+        <rect y="14" width="408" height="58" rx="10" fill="#ffffff" stroke="#cfd5da"/>
+        <g transform="translate(18 30)" fill="none" stroke="#5b5f63" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect y="7" width="20" height="16" rx="3"/>
+          <path d="M5 7V5a5 5 0 0110 0v2"/>
+          <circle cx="10" cy="15" r="1.2" fill="#5b5f63" stroke="none"/>
+        </g>
+        <text x="54" y="51" fill="#9ca3af" font-size="14">비밀번호를 입력하세요</text>
+        <g transform="translate(368 35)" fill="none" stroke="#7b8187" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M0 8s4-6 10-6 10 6 10 6-4 6-10 6S0 8 0 8z"/>
+          <circle cx="10" cy="8" r="2.5"/>
+        </g>
+      </g>
+
+      <!-- 보조 옵션 -->
+      <g transform="translate(0 350)">
+        <rect width="18" height="18" rx="5" fill="#ffffff" stroke="#aeb5bb"/>
+        <text x="27" y="14" fill="#5b5f63" font-size="13">로그인 상태 유지</text>
+        <text x="408" y="14" text-anchor="end" fill="#0c5795" font-size="13" font-weight="650">비밀번호를 잊으셨나요?</text>
+      </g>
+
+      <!-- CTA -->
+      <g transform="translate(0 398)">
+        <rect width="408" height="58" rx="10" fill="#0c5795" filter="url(#softShadow)"/>
+        <text x="204" y="36" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="700">로그인</text>
+        <path d="M330 29h18m-5-5 5 5-5 5" fill="none" stroke="#b6d6f8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+
+      <!-- 구분 및 회원가입 -->
+      <g transform="translate(0 490)">
+        <line x1="0" y1="8" x2="170" y2="8" stroke="#e2e6e9"/>
+        <line x1="238" y1="8" x2="408" y2="8" stroke="#e2e6e9"/>
+        <text x="204" y="13" text-anchor="middle" fill="#9ca3af" font-size="12">또는</text>
+      </g>
+      <g transform="translate(0 534)">
+        <rect width="408" height="54" rx="10" fill="#eef6fe" stroke="#b6d6f8"/>
+        <text x="204" y="34" text-anchor="middle" fill="#0c5795" font-size="14" font-weight="650">새 계정 만들기</text>
+      </g>
+
+      <text x="204" y="624" text-anchor="middle" fill="#9ca3af" font-size="11">로그인하면 서비스 이용약관과 개인정보 처리방침에 동의하게 됩니다.</text>
+    </g>
+  </g>
+
+  <!-- 버전 및 환경 표기 -->
+  <g transform="translate(1268 870)">
+    <circle cx="5" cy="5" r="5" fill="#1e7e34"/>
+    <text x="18" y="10" fill="#7b8187" font-size="11">SYSTEM OPERATIONAL</text>
+    <text x="508" y="10" text-anchor="end" fill="#9ca3af" font-size="11">CELLNEX v1.0</text>
+  </g>
+</svg>
