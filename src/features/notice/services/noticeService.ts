@@ -15,7 +15,11 @@ interface GetNoticeListParams {
 
 export function buildNoticeFormData({ request, file }: NoticeSavePayload) {
   const formData = new FormData()
-  formData.append('request', new Blob([JSON.stringify(request)], { type: 'application/json' }))
+  formData.append('title', request.title)
+  formData.append('content', request.content)
+  if (request.deleteFile !== undefined) {
+    formData.append('deleteFile', String(request.deleteFile))
+  }
   if (file) formData.append('file', file)
   return formData
 }

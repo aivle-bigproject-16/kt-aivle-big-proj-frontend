@@ -50,12 +50,14 @@ async function parseNoticeRequest(req, body) {
     headers: { 'content-type': contentType },
     body,
   }).formData()
-  const requestPart = formData.get('request')
-  const requestText = typeof requestPart === 'string' ? requestPart : await requestPart?.text()
   const filePart = formData.get('file')
 
   return {
-    request: JSON.parse(requestText || '{}'),
+    request: {
+      title: String(formData.get('title') ?? ''),
+      content: String(formData.get('content') ?? ''),
+      deleteFile: formData.get('deleteFile') === 'true',
+    },
     file: typeof filePart === 'string' ? null : filePart,
   }
 }
