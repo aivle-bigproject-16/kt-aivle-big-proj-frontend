@@ -100,10 +100,9 @@ function TwinStage({ onNavigate }: { onNavigate?: (index: number) => void }) {
   const scanFrame = analyzeScanFrame()
   const SWEEP_W = 30
 
-  /* 스위프/게이트는 스테이션 본문(body) 안에 담기는 장치 그래픽이다. 본문의 좌상단은
+  /* 게이트는 스테이션 본문(body) 안에 담기는 장치 그래픽이다. 본문의 좌상단은
      항상 (스테이션.x + STATION_PAD, 스테이션.y + STATION_HEADER_H)이므로, 그 원점을
-     빼면 stationFloor/analyzeScanFrame의 스테이지 절대좌표가 본문 기준 상대좌표가 된다 */
-  const captureBodyOrigin = { x: STATIONS.capture.x + STATION_PAD, y: STATIONS.capture.y + STATION_HEADER_H }
+     빼면 analyzeScanFrame의 스테이지 절대좌표가 본문 기준 상대좌표가 된다 */
   const analyzeBodyOrigin = { x: STATIONS.analyze.x + STATION_PAD, y: STATIONS.analyze.y + STATION_HEADER_H }
   const gateRel = {
     x: scanFrame.x - analyzeBodyOrigin.x,

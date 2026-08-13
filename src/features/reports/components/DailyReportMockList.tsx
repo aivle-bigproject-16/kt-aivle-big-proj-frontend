@@ -10,7 +10,7 @@ function DailyReportMockList() {
   const { fetchList } = useDailyReportListStore((s) => s.actions)
 
   useEffect(() => {
-    fetchList()
+    fetchList(0, 100)
   }, [fetchList])
 
   return (
