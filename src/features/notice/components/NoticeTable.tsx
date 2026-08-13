@@ -9,6 +9,9 @@ import { ListSkeletonRows, ListEmptyRow, ListErrorRow } from '@/shared/ui/ListSt
 import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue'
 import { usePaginatedList } from '@/shared/hooks/usePaginatedList'
 import { useNoticeListStore } from '../store/useNoticeListStore'
+import { useLoginStore } from '@/features/auth'
+import { hasRole } from '@/shared/security/access'
+import { maskName } from '@/shared/security/masking'
 
 const COLUMN_COUNT = 3
 
@@ -27,6 +30,8 @@ function NoticeTable() {
   const isLoading = useNoticeListStore((s) => s.isLoading)
   const error = useNoticeListStore((s) => s.error)
   const { fetchList } = useNoticeListStore((s) => s.actions)
+  const role = useLoginStore((s) => s.role)
+  const isAdmin = hasRole(role, 'ADMIN')
 
   const [search, setSearch] = useState('')
   const debouncedSearch = useDebouncedValue(search, 300)
@@ -48,9 +53,11 @@ function NoticeTable() {
     <section className="list-page">
       <div className="list-page__header">
         <h1 className="list-page__title">공지사항</h1>
-        <Link to={ROUTES.NOTICE_CREATE} className="list-page__action-btn">
-          + 공지 작성
-        </Link>
+        {isAdmin && (
+          <Link to={ROUTES.NOTICE_CREATE} className="list-page__action-btn">
+            + 공지 작성
+          </Link>
+        )}
       </div>
 
       <div className="list-page__toolbar">
@@ -105,7 +112,7 @@ function NoticeTable() {
                 pagedList.map((item) => (
                   <tr key={item.id} onClick={() => navigate(ROUTES.NOTICE_DETAIL(item.id))}>
                     <td>{item.title}</td>
-                    <td className="list-page__secondary">{item.authorName}</td>
+                    <td className="list-page__secondary">{maskName(item.authorName)}</td>
                     <td className="list-page__secondary list-page__mono">
                       {formatDate(item.createdAt)}
                       <ListRowChevron />

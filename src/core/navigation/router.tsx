@@ -2,8 +2,11 @@ import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { ROUTES } from './routes'
 import RootLayout from './RootLayout'
 import PrivateRoute from './PrivateRoute'
+import RoleRoute from './RoleRoute'
 import LoginPage from '@/pages/LoginPage'
 import SignupPage from '@/pages/SignupPage'
+import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage'
+import ForbiddenPage from '@/pages/ForbiddenPage'
 import DashboardPage from '@/pages/DashboardPage'
 import BatteryPage from '@/pages/BatteryPage'
 import BatteryDetailPage from '@/pages/BatteryDetailPage'
@@ -18,6 +21,7 @@ import NoticeEditPage from '@/pages/NoticeEditPage'
 
 export const router = createBrowserRouter([
   { path: '/', element: <Navigate to={ROUTES.DASHBOARD} replace /> },
+  { path: ROUTES.PRIVACY, Component: PrivacyPolicyPage },
   {
     path: '/auth',
     children: [
@@ -44,10 +48,16 @@ export const router = createBrowserRouter([
             ],
           },
           { path: 'notices', Component: NoticePage },
-          // 'new'가 :id보다 먼저 와야 /notices/new가 상세로 잘못 잡히지 않는다
-          { path: 'notices/new', Component: NoticeCreatePage },
           { path: 'notices/:id', Component: NoticeDetailPage },
-          { path: 'notices/:id/edit', Component: NoticeEditPage },
+          { path: 'forbidden', Component: ForbiddenPage },
+          {
+            element: <RoleRoute role="ADMIN" />,
+            children: [
+              // 'new'가 :id보다 먼저 와야 /notices/new가 상세로 잘못 잡히지 않는다
+              { path: 'notices/new', Component: NoticeCreatePage },
+              { path: 'notices/:id/edit', Component: NoticeEditPage },
+            ],
+          },
         ],
       },
     ],

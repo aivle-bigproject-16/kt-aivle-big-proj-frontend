@@ -1632,6 +1632,13 @@
       "name": "이영희",
       "role": "user",
       "id": "ggEs0grHnmQ"
+    },
+    {
+      "email": "test@123.com",
+      "password": "1234",
+      "name": "테스트 사용자",
+      "role": "user",
+      "id": "mock-test-user"
     }
   ],
   "notices": [

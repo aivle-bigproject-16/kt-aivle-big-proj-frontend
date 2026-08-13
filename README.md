@@ -41,10 +41,18 @@ bun lint
 ### mock 서버 실행 (백엔드 없이 개발 시)
 
 ```bash
-node mock-server.mjs
+bun mock
 ```
 
-`http://localhost:4000` — json-server 기반. `db.json`이 데이터 소스.
+목 API wrapper는 `http://localhost:8080`, 내부 json-server는 `http://localhost:4001`을 사용한다. 실제 백엔드도 8080을 사용하므로 둘을 동시에 실행하지 않는다. 데이터 소스는 `db.json`이다.
+
+목 로그인 계정:
+
+|이메일|비밀번호|권한|
+|---|---|---|
+|`test@123.com`|`1234`|일반 사용자|
+
+운영 배포 전 `.env.example`의 개인정보 보호책임자 관련 환경변수를 실제 값으로 설정한다. 값이 없으면 `/privacy` 화면에 배포 경고가 표시된다.
 
 ---
 
@@ -78,6 +86,8 @@ src/
 |---|---|---|
 | 로그인 | `/auth/login` | ✅ |
 | 회원가입 | `/auth/signup` | ✅ |
+| 개인정보처리방침 | `/privacy` | 공개 페이지 |
+| 접근 권한 없음 | `/forbidden` | 인증 필요 |
 | 대시보드 | `/dashboard` | ✅ |
 | 배터리 목록 | `/battery` | ✅ |
 | 배터리 상세 | `/battery/:batteryCellId` | ✅ |

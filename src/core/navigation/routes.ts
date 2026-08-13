@@ -1,6 +1,8 @@
 export const ROUTES = {
   AUTH_LOGIN: '/auth/login',
   AUTH_SIGNUP: '/auth/signup',
+  PRIVACY: '/privacy',
+  FORBIDDEN: '/forbidden',
   DASHBOARD: '/dashboard',
   BATTERY: '/battery',
   BATTERY_DETAIL: (batteryCellId: string | number) => `/battery/${batteryCellId}`,

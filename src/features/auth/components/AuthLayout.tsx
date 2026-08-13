@@ -1,15 +1,22 @@
-import type { ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
+import { initializeCsrfProtection } from '@/core/api/csrf'
+import { LegalFooter } from '@/shared/ui/LegalFooter'
 import './AuthLayout.css'
 import authBgPic from '@/assets/authBgPic.png'
 import { FlowCellLogo } from '@/features/header/components/FlowCellLogo'
 
 interface AuthLayoutProps {
   children: ReactNode
+  variant?: 'default' | 'signup'
 }
 
-function AuthLayout({ children }: AuthLayoutProps) {
+function AuthLayout({ children, variant = 'default' }: AuthLayoutProps) {
+  useEffect(() => {
+    void initializeCsrfProtection()
+  }, [])
+
   return (
-    <div className="auth-layout">
+    <div className={`auth-layout auth-layout--${variant}`}>
       <div
         className="auth-layout__visual"
         style={{ backgroundImage: `url(${authBgPic})` }}
@@ -43,10 +50,7 @@ function AuthLayout({ children }: AuthLayoutProps) {
       </div>
       <div className="auth-layout__panel">
         <main className="auth-layout__form-wrap">{children}</main>
-        <footer className="auth-layout__footer">
-          <span className="auth-layout__system-status">SYSTEM OPERATIONAL</span>
-          <span>CELLNEX v1.0</span>
-        </footer>
+        <div className="auth-layout__footer"><LegalFooter showSystemStatus /></div>
       </div>
     </div>
   )

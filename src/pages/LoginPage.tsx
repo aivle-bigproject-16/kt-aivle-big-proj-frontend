@@ -79,7 +79,9 @@ function LoginPage() {
         새 계정 만들기
       </Link>
 
-      <p className="auth-legal">로그인하면 서비스 이용약관과 개인정보 처리방침에 동의하게 됩니다.</p>
+      <p className="auth-legal">
+        개인정보 처리에 관한 자세한 내용은 <Link className="auth-link" to={ROUTES.PRIVACY}>개인정보처리방침</Link>에서 확인할 수 있습니다.
+      </p>
     </AuthLayout>
   )
 }

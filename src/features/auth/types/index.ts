@@ -12,6 +12,8 @@ export interface SignupRequest {
   email: string
   password: string
   name: string
+  privacyConsent: true
+  privacyPolicyVersion: string
 }
 
 export type SignupResponse = Record<string, never>
