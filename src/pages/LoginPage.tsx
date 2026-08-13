@@ -25,8 +25,9 @@ function LoginPage() {
 
   return (
     <AuthLayout>
-      <h1 className="auth-title">로그인</h1>
-      <p className="auth-subtitle">계정에 로그인하고 대시보드를 확인하세요</p>
+      <span className="auth-eyebrow">SECURE</span>
+      <h1 className="auth-title">다시 만나 반갑습니다</h1>
+      <p className="auth-subtitle">계정에 로그인하고 검사 대시보드를 확인하세요.</p>
 
       <form className="auth-form" onSubmit={handleSubmit}>
         <label className="auth-field">
@@ -34,7 +35,7 @@ function LoginPage() {
           <span className="auth-input-wrap">
             <MailIcon />
             <input
-              type="text"
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="이메일을 입력하세요"
@@ -65,7 +66,8 @@ function LoginPage() {
         {error && <p className="auth-error">{error}</p>}
 
         <button type="submit" className="auth-submit" disabled={isLoading}>
-          {isLoading ? '로그인 중...' : '로그인'}
+          <span>{isLoading ? '로그인 중...' : '로그인'}</span>
+          {!isLoading && <span className="auth-submit__arrow" aria-hidden="true">→</span>}
         </button>
       </form>
 
@@ -73,9 +75,11 @@ function LoginPage() {
         <span>또는</span>
       </div>
 
-      <p className="auth-switch">
-        계정이 없으신가요? <Link to={ROUTES.AUTH_SIGNUP}>회원가입</Link>
-      </p>
+      <Link className="auth-secondary-action" to={ROUTES.AUTH_SIGNUP}>
+        새 계정 만들기
+      </Link>
+
+      <p className="auth-legal">로그인하면 서비스 이용약관과 개인정보 처리방침에 동의하게 됩니다.</p>
     </AuthLayout>
   )
 }
