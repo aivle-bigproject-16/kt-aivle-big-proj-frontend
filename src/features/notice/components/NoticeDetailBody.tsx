@@ -9,6 +9,14 @@ function NoticeDetailBody() {
     <div className="notice-detail-body">
       <span className="notice-detail-body__title">내용</span>
       <p className="notice-detail-body__content">{detail?.content ?? ''}</p>
+      {detail?.fileUrl && detail.originalFileName && (
+        <div className="notice-detail-body__attachment">
+          <span>첨부파일</span>
+          <a href={detail.fileUrl} target="_blank" rel="noreferrer">
+            {detail.originalFileName}
+          </a>
+        </div>
+      )}
     </div>
   )
 }

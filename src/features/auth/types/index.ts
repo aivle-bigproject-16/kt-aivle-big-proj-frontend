@@ -17,3 +17,11 @@ export interface SignupRequest {
 }
 
 export type SignupResponse = Record<string, never>
+
+export interface EmailSendRequest {
+  email: string
+}
+
+export interface EmailVerifyRequest extends EmailSendRequest {
+  code: string
+}

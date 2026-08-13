@@ -27,7 +27,14 @@ function NoticeEdit({ id }: NoticeEditProps) {
   const handleUpdate = async (values: NoticeFormValues) => {
     // 수정 응답은 data가 null이라 돌려받을 게 없다.
     // 상세로 이동하면 그 화면이 다시 조회하므로 최신 내용이 보인다.
-    await update(id, values)
+    await update(id, {
+      request: {
+        title: values.title,
+        content: values.content,
+        ...(values.deleteFile ? { deleteFile: true } : {}),
+      },
+      file: values.file ?? undefined,
+    })
     navigate(ROUTES.NOTICE_DETAIL(id))
   }
 
@@ -43,6 +50,9 @@ function NoticeEdit({ id }: NoticeEditProps) {
       ) : (
         <NoticeForm
           initialValues={{ title: detail.title, content: detail.content }}
+          initialAttachment={detail.fileUrl && detail.originalFileName
+            ? { fileUrl: detail.fileUrl, originalFileName: detail.originalFileName }
+            : undefined}
           submitLabel="수정"
           onSubmit={handleUpdate}
           cancelTo={ROUTES.NOTICE_DETAIL(id)}
