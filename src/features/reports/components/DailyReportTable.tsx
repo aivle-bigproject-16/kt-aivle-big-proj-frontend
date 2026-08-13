@@ -57,6 +57,8 @@ function DailyReportTable() {
     setCreating(true)
     try {
       const reportId = await create({ reportDate })
+      // 백엔드에서 데이터 생성이 완료될 시간을 벌어주기 위해 5초 대기
+      await new Promise((resolve) => setTimeout(resolve, 5000))
       setCreatorOpen(false)
       navigate(ROUTES.REPORT_DAILY_DETAIL(reportId))
     } catch {

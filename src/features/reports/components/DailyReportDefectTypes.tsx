@@ -12,7 +12,7 @@ const EMPTY_DEFECTS: DefectStat[] = []
 /** 결함 유형 분포 카드 — 869×367. 결함 유형별 건수/비율을 막대로 보여준다 */
 function DailyReportDefectTypes() {
   const detail = useDailyReportDetailStore((s) => s.detail)
-  const defects = detail?.summary.defects ?? EMPTY_DEFECTS
+  const defects = detail?.summary?.defects ?? EMPTY_DEFECTS
   const total = useMemo(() => defects.reduce((sum, d) => sum + d.count, 0), [defects])
 
   return (
