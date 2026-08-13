@@ -19,13 +19,21 @@ export interface NoticeDetail {
   authorEmail: string
   createdAt: string
   updatedAt: string
+  fileUrl: string | null
+  originalFileName: string | null
 }
 
 // POST /notices — Request
 export interface NoticeCreateRequest {
   title: string
   content: string
+  deleteFile?: boolean
 }
 
 // PUT /notices/:id — Request (요청 본문이 작성과 동일하다)
 export type NoticeUpdateRequest = NoticeCreateRequest
+
+export interface NoticeSavePayload {
+  request: NoticeCreateRequest | NoticeUpdateRequest
+  file?: File
+}

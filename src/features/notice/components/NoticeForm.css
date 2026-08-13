@@ -84,6 +84,84 @@
   color: #9ca3af;
 }
 
+.notice-form__tabs {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.4rem;
+  border-bottom: 1px solid #e1e5ea;
+}
+
+.notice-form__tab {
+  padding: 0.8rem 1.6rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: #7b8187;
+  font: inherit;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.notice-form__tab[aria-selected='true'] { border-bottom-color: #0c5795; color: #0c5795; }
+
+.notice-form__attachment-panel {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+  padding: 2rem;
+  border: 1px dashed #b8c4cf;
+  border-radius: 0.8rem;
+  background: #f8fafc;
+}
+
+.notice-form__upload-copy { display: flex; flex-direction: column; gap: 0.5rem; }
+.notice-form__upload-copy strong { color: #191c1d; font-size: 1.5rem; }
+.notice-form__upload-copy span { color: #7b8187; font-size: 1.3rem; }
+
+.notice-form__upload-button,
+.notice-form__replace-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 4rem;
+  padding: 0 1.6rem;
+  border: 1px solid #0c5795;
+  border-radius: 0.8rem;
+  background: #ffffff;
+  color: #0c5795;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.notice-form__upload-button input,
+.notice-form__replace-button input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+
+.notice-form__file-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 1.4rem 1.6rem;
+  border: 1px solid #d9e2e9;
+  border-radius: 0.8rem;
+  background: #ffffff;
+}
+
+.notice-form__file-row > div { min-width: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+.notice-form__file-row strong,
+.notice-form__file-row a { overflow: hidden; color: #191c1d; font-size: 1.4rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.notice-form__file-row span { color: #7b8187; font-size: 1.2rem; }
+.notice-form__file-row button,
+.notice-form__restore { border: 0; background: transparent; color: #b91c1c; font: inherit; font-size: 1.3rem; font-weight: 700; cursor: pointer; }
+.notice-form__restore { padding: 0; color: #0c5795; }
+
 .notice-form__error {
   flex-shrink: 0;
   margin: 0;

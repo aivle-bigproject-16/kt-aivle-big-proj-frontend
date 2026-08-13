@@ -5,6 +5,7 @@ import { WebSocketServer } from 'ws'
 
 const RAW_PORT = 4001
 const PROXY_PORT = 8080
+const emailCodes = new Map()
 
 async function readDb() {
   return JSON.parse(await readFile(new URL('./db.json', import.meta.url), 'utf-8'))
@@ -36,6 +37,29 @@ function wrap(data) {
     }
   }
   return { success: true, message: 'ok', data }
+}
+
+async function parseNoticeRequest(req, body) {
+  const contentType = req.headers['content-type'] ?? ''
+  if (contentType.includes('application/json')) {
+    return { request: JSON.parse(body.toString() || '{}'), file: null }
+  }
+
+  const formData = await new Request('http://localhost/notices', {
+    method: req.method,
+    headers: { 'content-type': contentType },
+    body,
+  }).formData()
+  const filePart = formData.get('file')
+
+  return {
+    request: {
+      title: String(formData.get('title') ?? ''),
+      content: String(formData.get('content') ?? ''),
+      deleteFile: formData.get('deleteFile') === 'true',
+    },
+    file: typeof filePart === 'string' ? null : filePart,
+  }
 }
 
 // sort=createdAt,desc|asc 형식을 해석해 정렬한다. 파라미터가 없으면 desc(최신순) 기본값.
@@ -101,6 +125,27 @@ const server = http.createServer(async (req, res) => {
   }
 
   // POST /auth/signup — 실제 회원가입 로직 없이 성공만 흉내낸다.
+  if (req.method === 'POST' && url.pathname === '/auth/email/send') {
+    const { email } = JSON.parse(body.toString() || '{}')
+    emailCodes.set(email, '123456')
+    res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
+    res.end()
+    return
+  }
+
+  if (req.method === 'POST' && url.pathname === '/auth/email/verify') {
+    const { email, code } = JSON.parse(body.toString() || '{}')
+    if (emailCodes.get(email) !== code) {
+      res.writeHead(400, { 'content-type': 'text/plain; charset=utf-8', 'access-control-allow-origin': '*' })
+      res.end('인증번호가 일치하지 않거나 만료되었습니다.')
+      return
+    }
+    emailCodes.delete(email)
+    res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'access-control-allow-origin': '*' })
+    res.end('인증이 완료되었습니다.')
+    return
+  }
+
   if (req.method === 'POST' && url.pathname === '/auth/signup') {
     res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
     res.end(JSON.stringify(wrap({})))
@@ -251,7 +296,8 @@ const server = http.createServer(async (req, res) => {
 
   // 작성자 정보와 일시는 실제 서버가 세션·DB에서 채우는 값이라 mock이 대신 만들어 준다.
   if (req.method === 'POST' && url.pathname === '/notices') {
-    const { title, content } = JSON.parse(body.toString() || '{}')
+    const { request, file } = await parseNoticeRequest(req, body)
+    const { title, content } = request
     if (!title || !content) {
       res.writeHead(400, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
       res.end(JSON.stringify({ success: false, message: '제목과 내용은 필수입니다.', data: null }))
@@ -268,6 +314,8 @@ const server = http.createServer(async (req, res) => {
       authorEmail: 'admin@test.com',
       createdAt: now,
       updatedAt: now,
+      fileUrl: file ? `https://example.com/mock-files/${encodeURIComponent(file.name)}` : null,
+      originalFileName: file?.name ?? null,
     }
     db.notices.push(created)
     await writeDb(db)
@@ -277,7 +325,8 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (req.method === 'PUT' && noticeDetailMatch) {
-    const { title, content } = JSON.parse(body.toString() || '{}')
+    const { request, file } = await parseNoticeRequest(req, body)
+    const { title, content, deleteFile } = request
     if (!title || !content) {
       res.writeHead(400, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
       res.end(JSON.stringify({ success: false, message: '제목과 내용은 필수입니다.', data: null }))
@@ -292,10 +341,17 @@ const server = http.createServer(async (req, res) => {
     }
     notice.title = title
     notice.content = content
+    if (file) {
+      notice.fileUrl = `https://example.com/mock-files/${encodeURIComponent(file.name)}`
+      notice.originalFileName = file.name
+    } else if (deleteFile) {
+      notice.fileUrl = null
+      notice.originalFileName = null
+    }
     notice.updatedAt = new Date().toISOString().slice(0, 19)
     await writeDb(db)
     res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
-    res.end(JSON.stringify({ success: true, message: '공지사항 수정이 완료되었습니다.', data: null }))
+    res.end(JSON.stringify({ success: true, message: '공지사항 수정이 완료되었습니다.', data: notice }))
     return
   }
 

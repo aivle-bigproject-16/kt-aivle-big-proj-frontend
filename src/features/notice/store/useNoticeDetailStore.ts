@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { noticeService } from '../services/noticeService'
-import type { NoticeDetail, NoticeCreateRequest, NoticeUpdateRequest } from '../types'
+import type { NoticeDetail, NoticeSavePayload } from '../types'
 import type { AsyncState } from '@/shared/types/store'
 
 interface NoticeDetailState extends AsyncState {
@@ -10,8 +10,8 @@ interface NoticeDetailState extends AsyncState {
 interface NoticeDetailActions {
   actions: {
     fetchDetail: (id: number) => Promise<void>
-    create: (body: NoticeCreateRequest) => Promise<number>
-    update: (id: number, body: NoticeUpdateRequest) => Promise<void>
+    create: (payload: NoticeSavePayload) => Promise<number>
+    update: (id: number, payload: NoticeSavePayload) => Promise<void>
     remove: (id: number) => Promise<void>
     reset: () => void
   }
@@ -39,13 +39,13 @@ export const useNoticeDetailStore = create<NoticeDetailState & NoticeDetailActio
     // 작성·수정·삭제는 조회와 달리 에러를 스토어에 담지 않고 그대로 던진다.
     // 저장에 실패하면 화면을 이동시키지 않고 폼에 머물러야 하는데,
     // 그 판단은 호출한 컴포넌트가 해야 하기 때문이다.
-    create: async (body) => {
-      const res = await noticeService.createNotice(body)
+    create: async (payload) => {
+      const res = await noticeService.createNotice(payload)
       return res.data.id
     },
 
-    update: async (id, body) => {
-      await noticeService.updateNotice(id, body)
+    update: async (id, payload) => {
+      await noticeService.updateNotice(id, payload)
     },
 
     remove: async (id) => {

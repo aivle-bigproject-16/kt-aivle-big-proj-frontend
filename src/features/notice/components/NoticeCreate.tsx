@@ -13,7 +13,10 @@ function NoticeCreate() {
   const handleCreate = async (values: NoticeFormValues) => {
     // 저장이 끝나면 방금 만든 글의 상세 페이지로 이동한다.
     // create가 새 글의 id를 돌려주기 때문에 가능하다.
-    const newId = await create(values)
+    const newId = await create({
+      request: { title: values.title, content: values.content },
+      file: values.file ?? undefined,
+    })
     navigate(ROUTES.NOTICE_DETAIL(newId))
   }
 

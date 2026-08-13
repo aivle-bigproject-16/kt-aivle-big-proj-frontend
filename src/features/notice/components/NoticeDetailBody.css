@@ -32,3 +32,17 @@
   white-space: pre-wrap;
   word-break: break-word;
 }
+
+.notice-detail-body__attachment {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-shrink: 0;
+  padding-top: 1.6rem;
+  border-top: 1px solid #e1e5ea;
+  font-size: 1.4rem;
+}
+
+.notice-detail-body__attachment span { color: #7b8187; font-weight: 700; }
+.notice-detail-body__attachment a { color: #0c5795; font-weight: 600; text-decoration: none; }
+.notice-detail-body__attachment a:hover { text-decoration: underline; }

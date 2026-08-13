@@ -11,7 +11,10 @@ const httpClient = axios.create({
 httpClient.interceptors.response.use(
   (response) => response.data,
   (error) => {
-    const message = error.response?.data?.message ?? '알 수 없는 오류가 발생했습니다.'
+    const responseData = error.response?.data
+    const message = typeof responseData === 'string' && responseData.trim()
+      ? responseData
+      : responseData?.message ?? '알 수 없는 오류가 발생했습니다.'
     return Promise.reject({ ...error, message })
   },
 )
