@@ -33,3 +33,9 @@
   overflow: visible;
   min-height: 0;
 }
+
+.root-layout__center > .legal-footer {
+  flex: 0 0 34px;
+  border-top: 1px solid #d9dde0;
+  background: #f7f9fb;
+}

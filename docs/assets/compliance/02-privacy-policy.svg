@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080" width="1920" height="1080" font-family="Inter, system-ui, 'Pretendard', sans-serif">
+  <title>CELLNEX 개인정보처리방침 공개 페이지</title>
+  <desc>로그인 여부와 무관하게 접근 가능한 개인정보처리방침 페이지. 목차, 요약, 본문, 변경 이력을 제공한다.</desc>
+  <defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="2" stdDeviation="8" flood-color="#03203b" flood-opacity="0.08"/></filter></defs>
+  <rect width="1920" height="1080" fill="#f4f7f9"/>
+
+  <g>
+    <rect width="1920" height="88" fill="#fff"/>
+    <line x1="0" y1="87" x2="1920" y2="87" stroke="#e2e6e9"/>
+    <g transform="translate(76 14)">
+      <rect width="60" height="60" rx="14" fill="#eef6fe"/>
+      <image href="../logo_blue.svg" xlink:href="../logo_blue.svg" x="10" y="12" width="40" height="36"/>
+      <text x="78" y="30" fill="#0c5795" font-size="23" font-weight="750" letter-spacing="1.6">CELLNEX</text>
+      <text x="79" y="50" fill="#5b5f63" font-size="10.5" font-weight="650" letter-spacing="1.2">AI BATTERY INSPECTION</text>
+    </g>
+    <text x="1660" y="53" text-anchor="end" fill="#5b5f63" font-size="14">서비스로 돌아가기</text>
+    <rect x="1690" y="24" width="152" height="42" rx="9" fill="#0c5795"/>
+    <text x="1766" y="51" text-anchor="middle" fill="#fff" font-size="14" font-weight="650">로그인</text>
+  </g>
+
+  <g transform="translate(0 88)">
+    <rect width="1920" height="210" fill="#03203b"/>
+    <circle cx="1670" cy="-10" r="250" fill="#0c5795" fill-opacity="0.32"/>
+    <circle cx="1510" cy="70" r="150" fill="#64a0dd" fill-opacity="0.13"/>
+    <g transform="translate(210 48)">
+      <text y="23" fill="#8ebcec" font-size="12" font-weight="700" letter-spacing="1.4">PRIVACY POLICY</text>
+      <text y="78" fill="#fff" font-size="40" font-weight="750" letter-spacing="-1">개인정보처리방침</text>
+      <text y="116" fill="#d9eafc" font-size="15">CELLNEX는 필요한 개인정보만 처리하고, 이용자의 권리를 투명하게 안내합니다.</text>
+    </g>
+    <g transform="translate(1390 56)">
+      <rect width="320" height="100" rx="14" fill="#fff" fill-opacity="0.1" stroke="#fff" stroke-opacity="0.16"/>
+      <text x="22" y="31" fill="#b6d6f8" font-size="11">현재 적용 버전</text>
+      <text x="22" y="58" fill="#fff" font-size="17" font-weight="700">v1.0 · 2026.08.13</text>
+      <text x="22" y="80" fill="#d9eafc" font-size="11">운영 정책 확정 후 시행일 교체</text>
+    </g>
+  </g>
+
+  <g transform="translate(210 336)">
+    <g>
+      <rect width="280" height="594" rx="14" fill="#fff" filter="url(#shadow)"/>
+      <text x="24" y="37" fill="#191c1d" font-size="15" font-weight="700">목차</text>
+      <line x1="24" y1="52" x2="256" y2="52" stroke="#e8ecef"/>
+      <rect x="16" y="68" width="248" height="44" rx="9" fill="#eef6fe"/>
+      <rect x="16" y="68" width="4" height="44" rx="2" fill="#0c5795"/>
+      <text x="34" y="95" fill="#0c5795" font-size="12.5" font-weight="650">1. 개인정보 처리 목적</text>
+      <text x="34" y="139" fill="#5b5f63" font-size="12.5">2. 처리하는 개인정보 항목</text>
+      <text x="34" y="183" fill="#5b5f63" font-size="12.5">3. 처리 및 보유기간</text>
+      <text x="34" y="227" fill="#5b5f63" font-size="12.5">4. 제3자 제공</text>
+      <text x="34" y="271" fill="#5b5f63" font-size="12.5">5. 처리업무 위탁</text>
+      <text x="34" y="315" fill="#5b5f63" font-size="12.5">6. 파기 절차와 방법</text>
+      <text x="34" y="359" fill="#5b5f63" font-size="12.5">7. 정보주체의 권리</text>
+      <text x="34" y="403" fill="#5b5f63" font-size="12.5">8. 안전성 확보조치</text>
+      <text x="34" y="447" fill="#5b5f63" font-size="12.5">9. 개인정보 보호책임자</text>
+      <text x="34" y="491" fill="#5b5f63" font-size="12.5">10. 권익침해 구제방법</text>
+      <text x="34" y="535" fill="#5b5f63" font-size="12.5">11. 방침 변경 이력</text>
+      <rect x="20" y="554" width="240" height="24" rx="7" fill="#fffbeb"/>
+      <text x="32" y="570" fill="#b45309" font-size="10.5">미확정 값은 배포 전 책임자 검토 필요</text>
+    </g>
+
+    <g transform="translate(312)">
+      <rect width="1188" height="594" rx="14" fill="#fff" filter="url(#shadow)"/>
+      <g transform="translate(38 32)">
+        <text y="23" fill="#191c1d" font-size="22" font-weight="730">핵심 내용을 먼저 확인하세요</text>
+        <text y="50" fill="#5b5f63" font-size="13">전체 조항은 아래 본문에서 확인할 수 있습니다.</text>
+
+        <g transform="translate(0 76)">
+          <rect width="352" height="112" rx="12" fill="#eef6fe"/>
+          <circle cx="34" cy="34" r="16" fill="#0c5795"/><path d="M27 34l5 5 10-12" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+          <text x="62" y="34" fill="#0c5795" font-size="14" font-weight="700">최소 수집</text>
+          <text x="22" y="72" fill="#5b5f63" font-size="12">계정 생성과 권한 관리에 필요한</text><text x="22" y="93" fill="#5b5f63" font-size="12">이름·이메일만 수집합니다.</text>
+          <g transform="translate(370)">
+            <rect width="352" height="112" rx="12" fill="#ebf8f9"/>
+            <circle cx="34" cy="34" r="16" fill="#13777c"/><path d="M34 24v11l8 5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+            <text x="62" y="34" fill="#086165" font-size="14" font-weight="700">목적 달성까지 보관</text>
+            <text x="22" y="72" fill="#5b5f63" font-size="12">회원 탈퇴 또는 처리 목적 달성 시</text><text x="22" y="93" fill="#5b5f63" font-size="12">지체 없이 안전하게 파기합니다.</text>
+          </g>
+          <g transform="translate(740)">
+            <rect width="352" height="112" rx="12" fill="#ecfdf3"/>
+            <circle cx="34" cy="34" r="16" fill="#1e7e34"/><path d="M26 35h16M34 27v16" stroke="#fff" stroke-width="2"/>
+            <text x="62" y="34" fill="#166534" font-size="14" font-weight="700">권리 행사 보장</text>
+            <text x="22" y="72" fill="#5b5f63" font-size="12">열람·정정·삭제·처리정지와</text><text x="22" y="93" fill="#5b5f63" font-size="12">동의 철회를 요청할 수 있습니다.</text>
+          </g>
+        </g>
+
+        <g transform="translate(0 220)">
+          <text y="22" fill="#0c5795" font-size="13" font-weight="700">01</text><text x="38" y="22" fill="#191c1d" font-size="18" font-weight="720">개인정보의 처리 목적</text>
+          <text x="38" y="51" fill="#5b5f63" font-size="12.5">CELLNEX는 계정 생성, 사용자 인증, 역할에 따른 검사 시스템 접근 제어를 위해 개인정보를 처리합니다.</text>
+          <rect x="38" y="70" width="1054" height="76" rx="10" fill="#f8fafc" stroke="#e2e6e9"/>
+          <text x="56" y="95" fill="#5b5f63" font-size="11.5">서비스</text><text x="198" y="95" fill="#191c1d" font-size="11.5" font-weight="650">계정·인증</text><text x="420" y="95" fill="#5b5f63" font-size="11.5">처리 목적</text><text x="560" y="95" fill="#191c1d" font-size="11.5">회원 식별, 로그인, 권한 관리</text>
+          <line x1="56" y1="108" x2="1074" y2="108" stroke="#edf0f2"/>
+          <text x="56" y="130" fill="#5b5f63" font-size="11.5">처리 항목</text><text x="198" y="130" fill="#191c1d" font-size="11.5">이름, 이메일(아이디)</text><text x="420" y="130" fill="#5b5f63" font-size="11.5">보유기간</text><text x="560" y="130" fill="#b45309" font-size="11.5">운영 정책 확정 필요</text>
+        </g>
+
+        <g transform="translate(0 398)">
+          <text y="22" fill="#0c5795" font-size="13" font-weight="700">02</text><text x="38" y="22" fill="#191c1d" font-size="18" font-weight="720">정보주체의 권리와 문의</text>
+          <text x="38" y="51" fill="#5b5f63" font-size="12.5">권리 행사 방법은 개인정보 수집 방법과 같거나 더 쉽게 제공하며, 처리 결과를 안내합니다.</text>
+          <g transform="translate(38 74)">
+            <rect width="512" height="82" rx="10" fill="#f8fafc" stroke="#e2e6e9"/>
+            <text x="18" y="26" fill="#5b5f63" font-size="11">개인정보 보호책임자</text>
+            <text x="18" y="51" fill="#191c1d" font-size="13" font-weight="650">[운영기관 담당자 확정 필요]</text>
+            <text x="18" y="69" fill="#9ca3af" font-size="10.5">privacy@company.example · 02-0000-0000</text>
+            <g transform="translate(532)">
+              <rect width="522" height="82" rx="10" fill="#eef6fe" stroke="#b6d6f8"/>
+              <text x="18" y="26" fill="#0c5795" font-size="11">온라인 권리 행사</text>
+              <text x="18" y="52" fill="#0c5795" font-size="13" font-weight="700">열람·정정·삭제·처리정지 요청</text>
+              <text x="484" y="52" text-anchor="end" fill="#0c5795" font-size="18">→</text>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(0 974)">
+    <rect width="1920" height="106" fill="#fff"/>
+    <line x1="0" y1="0" x2="1920" y2="0" stroke="#e2e6e9"/>
+    <text x="210" y="39" fill="#0c5795" font-size="14" font-weight="750">CELLNEX</text>
+    <text x="210" y="65" fill="#9ca3af" font-size="11">© 2026 CELLNEX. 운영기관 정보 확정 필요.</text>
+    <text x="1340" y="49" fill="#0c5795" font-size="12.5" font-weight="700">개인정보처리방침</text>
+    <text x="1500" y="49" fill="#5b5f63" font-size="12.5">이용약관</text>
+    <text x="1600" y="49" fill="#5b5f63" font-size="12.5">문의하기</text>
+  </g>
+</svg>

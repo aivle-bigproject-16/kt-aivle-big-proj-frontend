@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { Modal } from '@/shared/ui/Modal'
 import { ROUTES } from '@/core/navigation/routes'
 import { useNoticeDetailStore } from '../store/useNoticeDetailStore'
+import { useLoginStore } from '@/features/auth'
+import { hasRole } from '@/shared/security/access'
 import './NoticeDetailActions.css'
 
 interface NoticeDetailActionsProps {
@@ -13,6 +15,8 @@ interface NoticeDetailActionsProps {
 function NoticeDetailActions({ id }: NoticeDetailActionsProps) {
   const navigate = useNavigate()
   const { remove } = useNoticeDetailStore((s) => s.actions)
+  const role = useLoginStore((s) => s.role)
+  const isAdmin = hasRole(role, 'ADMIN')
 
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
@@ -38,6 +42,8 @@ function NoticeDetailActions({ id }: NoticeDetailActionsProps) {
     setIsConfirmOpen(false)
     setError(null)
   }
+
+  if (!isAdmin) return null
 
   return (
     <>

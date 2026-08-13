@@ -1,4 +1,5 @@
 import { useNoticeDetailStore } from '../store/useNoticeDetailStore'
+import { maskEmail, maskName } from '@/shared/security/masking'
 import './NoticeDetailHeader.css'
 
 function formatDateTime(value: string | null): string {
@@ -22,8 +23,8 @@ function NoticeDetailHeader() {
     <div className="notice-detail-header">
       <div className="notice-detail-header__left">
         <div className="notice-detail-header__badge-row">
-          <span className="notice-detail-header__badge">{detail?.authorName ?? '-'}</span>
-          <span className="notice-detail-header__email">{detail?.authorEmail ?? ''}</span>
+          <span className="notice-detail-header__badge">{detail ? maskName(detail.authorName) : '-'}</span>
+          <span className="notice-detail-header__email">{detail ? maskEmail(detail.authorEmail) : ''}</span>
         </div>
         <h1 className="notice-detail-header__title">{detail?.title ?? ''}</h1>
       </div>

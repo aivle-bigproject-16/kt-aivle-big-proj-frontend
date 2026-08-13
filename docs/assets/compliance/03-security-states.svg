@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" font-family="Inter, system-ui, 'Pretendard', sans-serif">
+  <title>CELLNEX 보안·규제 UI 상태 시트</title>
+  <desc>로그인 보호, 파일 업로드 검증, 개인정보 마스킹과 권한 거부의 공통 화면 상태</desc>
+  <defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="3" stdDeviation="8" flood-color="#03203b" flood-opacity="0.09"/></filter></defs>
+  <rect width="1920" height="1080" fill="#f3f6f8"/>
+  <rect width="1920" height="96" fill="#03203b"/>
+  <text x="72" y="43" fill="#8ebcec" font-size="11" font-weight="700" letter-spacing="1.4">CELLNEX DESIGN SYSTEM</text>
+  <text x="72" y="72" fill="#fff" font-size="25" font-weight="730">보안·규제 UI 상태</text>
+  <text x="1848" y="59" text-anchor="end" fill="#d9eafc" font-size="12">서버 판정이 원본 · 화면은 결과를 설명한다</text>
+
+  <g transform="translate(72 132)">
+    <text y="22" fill="#0c5795" font-size="11" font-weight="750">A</text><text x="26" y="22" fill="#191c1d" font-size="18" font-weight="720">로그인 보호 상태</text>
+    <g transform="translate(0 44)">
+      <rect width="548" height="360" rx="14" fill="#fff" filter="url(#shadow)"/>
+      <text x="24" y="34" fill="#191c1d" font-size="14" font-weight="700">실패 1–4회 · 계정 존재 여부 비노출</text>
+      <rect x="24" y="58" width="500" height="62" rx="9" fill="#fff" stroke="#dc2626"/>
+      <text x="44" y="95" fill="#5b5f63" font-size="13">••••••••••••</text>
+      <circle cx="494" cy="89" r="9" fill="none" stroke="#7b8187"/><circle cx="494" cy="89" r="3" fill="#7b8187"/>
+      <rect x="24" y="136" width="500" height="64" rx="9" fill="#fef2f2"/>
+      <circle cx="48" cy="168" r="10" fill="#dc2626"/><text x="48" y="172" text-anchor="middle" fill="#fff" font-size="12" font-weight="750">!</text>
+      <text x="68" y="162" fill="#b91c1c" font-size="12.5" font-weight="650">아이디 또는 비밀번호를 확인해 주세요.</text>
+      <text x="68" y="181" fill="#7f1d1d" font-size="10.5">보안을 위해 어떤 값이 일치하지 않는지는 안내하지 않습니다.</text>
+      <rect x="24" y="220" width="500" height="54" rx="9" fill="#0c5795"/><text x="274" y="253" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">다시 로그인</text>
+      <rect x="24" y="292" width="500" height="44" rx="9" fill="#fffbeb"/>
+      <text x="44" y="319" fill="#b45309" font-size="11.5">남은 횟수 공개 여부는 위협 모델에 따라 서버 정책으로 결정</text>
+    </g>
+    <g transform="translate(572 44)">
+      <rect width="548" height="360" rx="14" fill="#fff" filter="url(#shadow)"/>
+      <text x="24" y="34" fill="#191c1d" font-size="14" font-weight="700">계정 잠금 · 권장 보호 상태</text>
+      <rect x="24" y="58" width="500" height="100" rx="10" fill="#fffbeb" stroke="#f5d9a4"/>
+      <circle cx="62" cy="108" r="22" fill="#d97706"/><rect x="53" y="103" width="18" height="16" rx="3" fill="none" stroke="#fff" stroke-width="2"/><path d="M57 103v-5a5 5 0 0110 0v5" fill="none" stroke="#fff" stroke-width="2"/>
+      <text x="98" y="99" fill="#92400e" font-size="15" font-weight="700">잠시 계정이 잠겼습니다</text>
+      <text x="98" y="122" fill="#b45309" font-size="11.5">잠시 후 다시 시도하거나 관리자에게 문의해 주세요.</text>
+      <rect x="24" y="176" width="500" height="92" rx="10" fill="#f8fafc" stroke="#d9e2e9"/>
+      <rect x="44" y="194" width="78" height="56" rx="6" fill="#e5e7eb"/><path d="M52 235l16-21 12 12 10-8 24 17" fill="none" stroke="#9ca3af" stroke-width="2"/>
+      <text x="144" y="210" fill="#5b5f63" font-size="11">CAPTCHA 또는 추가 인증 슬롯</text>
+      <rect x="144" y="224" width="248" height="30" rx="7" fill="#fff" stroke="#cfd5da"/><text x="158" y="244" fill="#9ca3af" font-size="10.5">보이는 문자를 입력하세요</text>
+      <rect x="24" y="288" width="500" height="48" rx="9" fill="#eef6fe" stroke="#b6d6f8"/><text x="274" y="318" text-anchor="middle" fill="#0c5795" font-size="12.5" font-weight="650">계정 복구 안내 보기</text>
+    </g>
+    <g transform="translate(1144 44)">
+      <rect width="632" height="360" rx="14" fill="#fff" filter="url(#shadow)"/>
+      <text x="24" y="34" fill="#191c1d" font-size="14" font-weight="700">비밀번호 입력 상태</text>
+      <rect x="24" y="58" width="584" height="58" rx="9" fill="#fff" stroke="#0c5795"/>
+      <text x="44" y="93" fill="#191c1d" font-size="13">••••••••••••</text><text x="580" y="93" text-anchor="end" fill="#0c5795" font-size="12" font-weight="700">안전</text>
+      <g transform="translate(24 132)">
+        <rect width="584" height="10" rx="5" fill="#e5e7eb"/><rect width="438" height="10" rx="5" fill="#1e7e34"/>
+        <text y="36" fill="#1e7e34" font-size="11.5" font-weight="650">추측하기 어려운 비밀번호입니다.</text>
+        <text x="584" y="36" text-anchor="end" fill="#9ca3af" font-size="10.5">강도 측정은 참고 정보</text>
+        <g transform="translate(0 58)">
+          <rect width="178" height="30" rx="15" fill="#ecfdf3"/><circle cx="15" cy="15" r="7" fill="#1e7e34"/><path d="M12 15l2 2 4-5" fill="none" stroke="#fff" stroke-width="1.5"/><text x="29" y="20" fill="#166534" font-size="11">최소 길이 충족</text>
+          <g transform="translate(190)"><rect width="196" height="30" rx="15" fill="#ecfdf3"/><circle cx="15" cy="15" r="7" fill="#1e7e34"/><path d="M12 15l2 2 4-5" fill="none" stroke="#fff" stroke-width="1.5"/><text x="29" y="20" fill="#166534" font-size="11">문자 조합 충족</text></g>
+          <g transform="translate(398)"><rect width="186" height="30" rx="15" fill="#fef2f2"/><circle cx="15" cy="15" r="7" fill="#dc2626"/><path d="M12 12l6 6m0-6-6 6" stroke="#fff" stroke-width="1.5"/><text x="29" y="20" fill="#b91c1c" font-size="11">유출 목록 확인 중</text></g>
+        </g>
+        <rect y="110" width="584" height="68" rx="9" fill="#eef6fe"/>
+        <text x="18" y="136" fill="#0c5795" font-size="11" font-weight="650">서버 저장 원칙</text>
+        <text x="18" y="157" fill="#5b5f63" font-size="10.8">단순 SHA-256 금지 · Argon2id + 고유 salt + work factor 적용</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(72 590)">
+    <text y="22" fill="#0c5795" font-size="11" font-weight="750">B</text><text x="26" y="22" fill="#191c1d" font-size="18" font-weight="720">업로드·개인정보·권한 상태</text>
+    <g transform="translate(0 44)">
+      <rect width="548" height="330" rx="14" fill="#fff" filter="url(#shadow)"/>
+      <text x="24" y="34" fill="#191c1d" font-size="14" font-weight="700">파일 업로드 화이트리스트</text>
+      <rect x="24" y="58" width="500" height="102" rx="10" fill="#f8fafc" stroke="#cfd5da" stroke-dasharray="5 5"/>
+      <circle cx="80" cy="109" r="24" fill="#eef6fe"/><path d="M80 121V91m-10 10 10-10 10 10" fill="none" stroke="#0c5795" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="122" y="102" fill="#191c1d" font-size="12.5" font-weight="650">이미지 또는 PDF를 선택하세요</text><text x="122" y="124" fill="#7b8187" font-size="10.5">JPG, PNG, PDF · 파일당 10MB · 최대 5개</text>
+      <rect x="24" y="178" width="500" height="66" rx="9" fill="#fef2f2"/>
+      <circle cx="50" cy="211" r="10" fill="#dc2626"/><text x="50" y="215" text-anchor="middle" fill="#fff" font-size="12" font-weight="750">!</text>
+      <text x="70" y="204" fill="#b91c1c" font-size="12" font-weight="650">inspection.jsp는 업로드할 수 없습니다.</text>
+      <text x="70" y="225" fill="#7f1d1d" font-size="10.5">확장자·MIME·파일 시그니처를 서버에서 다시 검증합니다.</text>
+      <rect x="24" y="264" width="500" height="42" rx="8" fill="#eef6fe"/><text x="274" y="290" text-anchor="middle" fill="#0c5795" font-size="11.5" font-weight="650">허용 형식 다시 확인</text>
+    </g>
+
+    <g transform="translate(572 44)">
+      <rect width="548" height="330" rx="14" fill="#fff" filter="url(#shadow)"/>
+      <text x="24" y="34" fill="#191c1d" font-size="14" font-weight="700">개인정보 표시 · 기본 마스킹</text>
+      <rect x="24" y="58" width="500" height="178" rx="10" fill="#f8fafc" stroke="#e2e6e9"/>
+      <text x="44" y="88" fill="#7b8187" font-size="11">항목</text><text x="202" y="88" fill="#7b8187" font-size="11">일반 표시</text><text x="388" y="88" fill="#7b8187" font-size="11">권한 확인 후</text>
+      <line x1="44" y1="100" x2="480" y2="100" stroke="#e2e6e9"/>
+      <text x="44" y="126" fill="#5b5f63" font-size="11.5">이름</text><text x="202" y="126" fill="#191c1d" font-size="12.5" font-weight="650">홍*동</text><text x="388" y="126" fill="#0c5795" font-size="12.5">홍길동</text>
+      <text x="44" y="160" fill="#5b5f63" font-size="11.5">연락처</text><text x="202" y="160" fill="#191c1d" font-size="12.5" font-weight="650">010-****-1234</text><text x="388" y="160" fill="#0c5795" font-size="12.5">승인 후 열람</text>
+      <text x="44" y="194" fill="#5b5f63" font-size="11.5">이메일</text><text x="202" y="194" fill="#191c1d" font-size="12.5" font-weight="650">ki***@cellnex.io</text><text x="388" y="194" fill="#0c5795" font-size="12.5">승인 후 열람</text>
+      <rect x="24" y="254" width="500" height="52" rx="9" fill="#fffbeb"/>
+      <text x="42" y="276" fill="#92400e" font-size="11.5" font-weight="650">원문 보기 자체가 권한이다</text>
+      <text x="42" y="294" fill="#b45309" font-size="10.5">프론트 마스킹만으로 원문 API 응답을 보호할 수 없다.</text>
+    </g>
+
+    <g transform="translate(1144 44)">
+      <rect width="632" height="330" rx="14" fill="#fff" filter="url(#shadow)"/>
+      <text x="24" y="34" fill="#191c1d" font-size="14" font-weight="700">403 · 서버 인가 거부</text>
+      <g transform="translate(24 58)">
+        <rect width="584" height="248" rx="12" fill="#f8fafc" stroke="#e2e6e9"/>
+        <circle cx="292" cy="64" r="36" fill="#eef6fe"/>
+        <path d="M278 63h28v23h-28zM284 63v-8a8 8 0 0116 0v8" fill="none" stroke="#0c5795" stroke-width="3" stroke-linejoin="round"/>
+        <text x="292" y="126" text-anchor="middle" fill="#191c1d" font-size="19" font-weight="730">접근 권한이 없습니다</text>
+        <text x="292" y="151" text-anchor="middle" fill="#5b5f63" font-size="11.5">관리자 권한은 서버 세션을 기준으로 확인합니다.</text>
+        <rect x="120" y="176" width="160" height="44" rx="8" fill="#fff" stroke="#cfd5da"/><text x="200" y="203" text-anchor="middle" fill="#5b5f63" font-size="12" font-weight="650">이전 화면</text>
+        <rect x="304" y="176" width="160" height="44" rx="8" fill="#0c5795"/><text x="384" y="203" text-anchor="middle" fill="#fff" font-size="12" font-weight="650">대시보드로</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(72 1012)">
+    <rect width="1776" height="40" rx="10" fill="#03203b"/>
+    <text x="20" y="25" fill="#b6d6f8" font-size="10.5">원칙</text>
+    <text x="70" y="25" fill="#fff" font-size="10.5">클라이언트 검증은 사용자 안내용이다. 업로드·CSRF·리다이렉트·인가·잠금은 서버가 최종 판정한다.</text>
+    <text x="1754" y="25" text-anchor="end" fill="#64a0dd" font-size="10.5">brand-700 #0C5795 · status colors isolated</text>
+  </g>
+</svg>
