@@ -47,37 +47,44 @@ const FETCH_INTERVAL_MS = 800
  * 검사의 첫 장을 썸네일로 쓰고 bbox 없이 판정만 보여준다. 둘 다 없으면 그릴 게
  * 없으므로 카드를 만들지 않는다.
  */
-function toCard(detail: BatteryDetail): DetectionCard | null {
+export function toDetectionCard(
+  detail: BatteryDetail,
+  completedBatchId?: number,
+): DetectionCard | null {
   const inspections = detail.inspections ?? []
+  const inspection =
+    inspections.find((item) => item.batchId === completedBatchId) ?? inspections[0]
 
-  const best = inspections
-    .flatMap((inspection) =>
-      (inspection.defectResults ?? []).map((defect) => ({ defect, inspection })),
+  if (!inspection) return null
+
+  const representativeDefect = (inspection.defectResults ?? [])
+    .filter(
+      (defect) =>
+        defect.label === inspection.finalLabel && defect.label !== 'PASS',
     )
-    .sort((a, b) => b.defect.confidence - a.defect.confidence)[0]
+    .sort((a, b) => (b.confidence ?? 0) - (a.confidence ?? 0))[0]
 
-  if (best) {
+  if (representativeDefect) {
     return {
       batteryCellId: detail.batteryCellId,
-      imageUrl: best.defect.imageUrl,
-      imageType: best.defect.imageType,
-      bbox: best.defect.bbox,
-      finalLabel: best.defect.label ?? best.inspection.finalLabel,
-      defectType: best.defect.defectType,
-      confidence: best.defect.confidence,
+      imageUrl: representativeDefect.imageUrl,
+      imageType: representativeDefect.imageType,
+      bbox: representativeDefect.bbox,
+      finalLabel: inspection.finalLabel,
+      defectType: representativeDefect.defectType,
+      confidence: representativeDefect.confidence,
     }
   }
 
-  const withImage = inspections.find((inspection) => (inspection.images?.length ?? 0) > 0)
-  const image = withImage?.images[0]
-  if (!withImage || !image) return null
+  const image = inspection.images?.[0]
+  if (!image) return null
 
   return {
     batteryCellId: detail.batteryCellId,
     imageUrl: image.imageUrl,
     imageType: image.imageType,
     bbox: null,
-    finalLabel: withImage.finalLabel,
+    finalLabel: inspection.finalLabel,
     defectType: null,
     confidence: null,
   }
@@ -110,6 +117,10 @@ export const useDetectionStore = create<DetectionState>((set, get) => ({
       const targets = arrived.filter((id) => !fetched.has(id)).slice(0, DETECTION_CARD_LIMIT)
       if (targets.length === 0) return
 
+      const completedByCellId = new Map(
+        completed.map((cell) => [cell.batteryCellId, cell]),
+      )
+
       /* 조회 성공 여부와 무관하게 재시도하지 않는다. 실패한 셀을 매 스냅샷마다
          다시 부르면 상세가 없는 셀 하나가 무한 요청을 만든다 */
       targets.forEach((id) => fetched.add(id))
@@ -123,7 +134,12 @@ export const useDetectionStore = create<DetectionState>((set, get) => ({
         )
 
         const fresh = results
-          .map((r) => (r.status === 'fulfilled' ? toCard(r.value.data) : null))
+          .map((result, index) => {
+            if (result.status !== 'fulfilled') return null
+
+            const completedCell = completedByCellId.get(targets[index])
+            return toDetectionCard(result.value.data, completedCell?.batchId)
+          })
           .filter((c): c is DetectionCard => c !== null)
 
         if (fresh.length > 0) {
