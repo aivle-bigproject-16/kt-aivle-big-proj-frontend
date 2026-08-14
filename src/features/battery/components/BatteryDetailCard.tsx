@@ -39,7 +39,7 @@ function BatteryDetailCard({ batteryCellId }: Props) {
   const error = useBatteryDetailStore((s) => s.error)
   const { fetchDetail, reset } = useBatteryDetailStore((s) => s.actions)
 
-  const [selectedInspectionId, setSelectedInspectionId] = useState<number | null>(null)
+  const [selectedBatchId, setSelectedBatchId] = useState<number | null>(null)
 
   useEffect(() => {
     fetchDetail(batteryCellId)
@@ -47,13 +47,13 @@ function BatteryDetailCard({ batteryCellId }: Props) {
   }, [fetchDetail, reset, batteryCellId])
 
   useEffect(() => {
-    if (detail?.inspections.length && selectedInspectionId === null) {
-      setSelectedInspectionId(detail.inspections[0].inspectionId)
+    if (detail?.inspections.length && selectedBatchId === null) {
+      setSelectedBatchId(detail.inspections[0].batchId)
     }
-  }, [detail, selectedInspectionId])
+  }, [detail, selectedBatchId])
 
   const selectedInspection =
-    detail?.inspections.find((i) => i.inspectionId === selectedInspectionId) ?? null
+    detail?.inspections.find((i) => i.batchId === selectedBatchId) ?? null
 
   return (
     <section className="battery-detail">
@@ -79,8 +79,8 @@ function BatteryDetailCard({ batteryCellId }: Props) {
               <InspectionList
                 inspections={detail.inspections}
                 reports={detail.reports}
-                selectedId={selectedInspectionId}
-                onSelect={setSelectedInspectionId}
+                selectedId={selectedBatchId}
+                onSelect={setSelectedBatchId}
               />
             </div>
             <div className="battery-detail__body-right">
@@ -114,27 +114,29 @@ function InspectionList({
       ) : (
         <ul className="battery-detail__insp-items">
           {inspections.map((insp) => {
-            const reportCount = reports.filter((r) => r.inspectionId === insp.inspectionId).length
+            const reportCount = reports.filter((r) =>
+              insp.inspectionIds.includes(r.inspectionId),
+            ).length
             return (
-              <li key={insp.inspectionId}>
+              <li key={insp.batchId}>
                 <button
                   type="button"
                   className={
-                    insp.inspectionId === selectedId
+                    insp.batchId === selectedId
                       ? 'battery-detail__insp-item battery-detail__insp-item--active'
                       : 'battery-detail__insp-item'
                   }
-                  onClick={() => onSelect(insp.inspectionId)}
+                  onClick={() => onSelect(insp.batchId)}
                 >
-                  {insp.inspectionId === selectedId && (
+                  {insp.batchId === selectedId && (
                     <span className="battery-detail__insp-item-accent" />
                   )}
                   <InspectionStatusMark label={insp.finalLabel} />
                   <span className="battery-detail__insp-info">
                     <span
-                      className={`battery-detail__insp-id${insp.inspectionId === selectedId ? ' battery-detail__insp-id--active' : ''}`}
+                      className={`battery-detail__insp-id${insp.batchId === selectedId ? ' battery-detail__insp-id--active' : ''}`}
                     >
-                      검사 #{insp.inspectionId}
+                      검사 배치 #{insp.batchId}
                     </span>
                     <span className="battery-detail__insp-time">
                       {formatDateTime(insp.analyzedAt)}
@@ -203,7 +205,7 @@ function InspectionDetailPanel({
   const [activeImageId, setActiveImageId] = useState<number | null>(null)
 
   useEffect(() => {
-    setActiveImageId(inspection?.image[0]?.imageId ?? null)
+    setActiveImageId(inspection?.images[0]?.imageId ?? null)
   }, [inspection])
 
   if (!inspection) {
@@ -214,15 +216,14 @@ function InspectionDetailPanel({
     )
   }
 
-  const isPass = inspection.finalLabel === 'PASS'
   const activeImage =
-    inspection.image.find((i) => i.imageId === activeImageId) ?? inspection.image[0] ?? null
+    inspection.images.find((i) => i.imageId === activeImageId) ?? inspection.images[0] ?? null
 
   return (
     <div className="battery-detail__insp-panel">
       <div className="battery-detail__insp-panel-header">
         <div className="battery-detail__insp-panel-title">
-          <span className="battery-detail__insp-panel-id">검사 #{inspection.inspectionId}</span>
+          <span className="battery-detail__insp-panel-id">검사 배치 #{inspection.batchId}</span>
           <LabelBadge label={inspection.finalLabel} />
         </div>
         <span className="battery-detail__insp-panel-meta">
@@ -232,45 +233,27 @@ function InspectionDetailPanel({
 
       <span className="battery-detail__insp-panel-divider" />
 
-      {isPass ? (
-        <div className="battery-detail__pass-state">
-          <span className="battery-detail__pass-icon">
-            <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M6 10.5L8.5 13L14 7"
-                stroke="#1E7E34"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </span>
-          <p className="battery-detail__pass-text">이상 없음</p>
-          <p className="battery-detail__pass-sub">검사 결과 정상으로 판단되었습니다.</p>
-        </div>
-      ) : (
-        <div className="battery-detail__insp-content">
-          <ImageSection
-            images={inspection.image}
+      <div className="battery-detail__insp-content">
+        <ImageSection
+          images={inspection.images}
+          defects={inspection.defectResults}
+          activeImageId={activeImageId}
+          onSelectImage={setActiveImageId}
+        />
+
+        <div className="battery-detail__insp-side">
+          <DefectSection
             defects={inspection.defectResults}
+            activeType={activeImage?.imageType}
             activeImageId={activeImageId}
-            onSelectImage={setActiveImageId}
+            onSelectDefectImage={setActiveImageId}
           />
 
-          <div className="battery-detail__insp-side">
-            <DefectSection
-              defects={inspection.defectResults}
-              activeType={activeImage?.imageType}
-              activeImageId={activeImageId}
-              onSelectDefectImage={setActiveImageId}
-            />
+          <span className="battery-detail__insp-side-divider" />
 
-            <span className="battery-detail__insp-side-divider" />
-
-            <InspectionReportSection inspectionId={inspection.inspectionId} reports={reports} />
-          </div>
+          <InspectionReportSection inspectionIds={inspection.inspectionIds} reports={reports} />
         </div>
-      )}
+      </div>
     </div>
   )
 }
@@ -341,14 +324,14 @@ function DefectSection({
 // ── Inspection Report Section (per-inspection, right panel bottom) ────────────
 
 function InspectionReportSection({
-  inspectionId,
+  inspectionIds,
   reports,
 }: {
-  inspectionId: number
+  inspectionIds: number[]
   reports: BatteryDetailReport[]
 }) {
   const navigate = useNavigate()
-  const inspectionReports = reports.filter((r) => r.inspectionId === inspectionId)
+  const inspectionReports = reports.filter((r) => inspectionIds.includes(r.inspectionId))
 
   return (
     <div className="battery-detail__insp-report-section">

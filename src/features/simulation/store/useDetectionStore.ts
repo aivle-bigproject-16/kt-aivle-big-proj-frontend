@@ -68,8 +68,8 @@ function toCard(detail: BatteryDetail): DetectionCard | null {
     }
   }
 
-  const withImage = inspections.find((inspection) => (inspection.image?.length ?? 0) > 0)
-  const image = withImage?.image[0]
+  const withImage = inspections.find((inspection) => (inspection.images?.length ?? 0) > 0)
+  const image = withImage?.images[0]
   if (!withImage || !image) return null
 
   return {
