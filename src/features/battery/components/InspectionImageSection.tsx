@@ -10,7 +10,7 @@ const LABEL_TONE: Record<string, 'reject' | 'fail' | 'pass'> = {
 }
 
 interface ImageSectionProps {
-  images: Inspection['image']
+  images: Inspection['images']
   defects: Inspection['defectResults']
   /** 결함 목록(우측 패널)과 번호/강조 상태를 공유하기 위한 상태 끌어올리기 */
   activeImageId: number | null

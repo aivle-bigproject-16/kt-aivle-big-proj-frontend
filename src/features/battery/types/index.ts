@@ -5,7 +5,8 @@ export type ReportStatus = 'COMPLETED' | 'PENDING' | 'FAILED'
 
 // GET /battery
 export interface BatteryListItem {
-  inspectionId: number
+  inspectionId: number | null
+  batchId: number | null
   batteryCellId: number
   cellSerialNo: string | null
   modelName: string | null
@@ -17,6 +18,8 @@ export interface BatteryListItem {
 // GET /battery/:batteryCellId
 export interface InspectionImage {
   imageId: number
+  inspectionId: number
+  inspectionType: ImageType
   imageType: ImageType
   imageUrl: string
 }
@@ -30,6 +33,8 @@ export interface Bbox {
 
 export interface DefectResult {
   defectResultId: number
+  inspectionId: number
+  attemptNo: number
   label: FinalLabel
   imageId: number
   imageType: ImageType
@@ -40,10 +45,11 @@ export interface DefectResult {
 }
 
 export interface Inspection {
-  inspectionId: number
+  batchId: number
+  inspectionIds: number[]
   finalLabel: FinalLabel
   analyzedAt: string
-  image: InspectionImage[]
+  images: InspectionImage[]
   defectResults: DefectResult[]
 }
 
