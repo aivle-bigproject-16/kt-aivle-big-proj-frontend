@@ -4,7 +4,9 @@ import { useLoginStore } from '@/features/auth'
 
 function PrivateRoute() {
   const isAuthenticated = useLoginStore((s) => s.isAuthenticated)
+  const isInitialized = useLoginStore((s) => s.isInitialized)
 
+  if (!isInitialized) return null
   return isAuthenticated ? <Outlet /> : <Navigate to={ROUTES.AUTH_LOGIN} replace />
 }
 

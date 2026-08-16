@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { dailyReportService } from '../services/dailyReportService'
 import type { DailyReportDetail, DailyReportCreateRequest } from '../types'
+import type { ReportStatus } from '../types'
 import type { AsyncState } from '@/shared/types/store'
 
 interface DailyReportDetailState extends AsyncState {
@@ -9,7 +10,7 @@ interface DailyReportDetailState extends AsyncState {
 
 interface DailyReportDetailActions {
   actions: {
-    fetchDetail: (reportId: number) => Promise<void>
+    fetchDetail: (reportId: number) => Promise<ReportStatus | null>
     create: (body: DailyReportCreateRequest) => Promise<number>
     reset: () => void
   }
@@ -23,16 +24,20 @@ const initialState: DailyReportDetailState = {
 
 export const useDailyReportDetailStore = create<
   DailyReportDetailState & DailyReportDetailActions
->((set) => ({
+>((set, get) => ({
   ...initialState,
   actions: {
     fetchDetail: async (reportId) => {
-      set({ isLoading: true, error: null })
+      if (get().detail?.reportId !== reportId) {
+        set({ isLoading: true, error: null })
+      }
       try {
         const res = await dailyReportService.getDailyReport(reportId)
-        set({ detail: res.data, isLoading: false })
+        set({ detail: res.data, isLoading: false, error: null })
+        return res.data.status
       } catch {
         set({ error: '일일 리포트 조회에 실패했습니다.', isLoading: false })
+        return null
       }
     },
 

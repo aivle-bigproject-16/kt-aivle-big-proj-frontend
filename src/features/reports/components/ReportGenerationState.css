@@ -1,0 +1,43 @@
+.report-generation-state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+  padding: 2.4rem;
+  border: 1px solid #d9e6f2;
+  border-radius: 0.8rem;
+  box-sizing: border-box;
+  background: #f4f9fd;
+  color: #16324a;
+}
+
+.report-generation-state--failed {
+  border-color: #fecaca;
+  background: #fff7f7;
+  color: #991b1b;
+}
+
+.report-generation-state strong {
+  font-size: 1.8rem;
+}
+
+.report-generation-state p {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.report-generation-state button {
+  padding: 0.9rem 1.4rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: #0c5795;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.report-generation-state button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}

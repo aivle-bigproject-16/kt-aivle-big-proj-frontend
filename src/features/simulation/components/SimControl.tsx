@@ -31,8 +31,8 @@ function SimControlPopover({ onClose }: { onClose: () => void }) {
   const startError = useSimulationStore((s) => s.startError)
   const start = useSimulationStore((s) => s.actions.start)
 
-  const [batchSize, setBatchSize] = useState(10)
-  const [batteryCellCount, setBatteryCellCount] = useState(1000)
+  const [batchSize, setBatchSize] = useState(5)
+  const [batteryCellCount, setBatteryCellCount] = useState(20)
   const [captureSpeed, setCaptureSpeed] = useState(5)
 
   const handleStart = async () => {

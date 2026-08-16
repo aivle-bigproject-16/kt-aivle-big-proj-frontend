@@ -577,6 +577,28 @@
   margin-bottom: 0;
 }
 
+.battery-detail__insp-report-create {
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 0.45rem;
+  background: #0c5795;
+  color: #fff;
+  font: inherit;
+  font-size: 1.13rem;
+  cursor: pointer;
+}
+
+.battery-detail__insp-report-create:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.battery-detail__insp-report-error {
+  margin: 0 0 1rem;
+  color: #b91c1c;
+  font-size: 1.13rem;
+}
+
 .battery-detail__insp-report-list {
   display: flex;
   flex-direction: column;
