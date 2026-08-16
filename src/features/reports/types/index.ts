@@ -4,9 +4,11 @@ export type ImageAxis = 'x' | 'y' | 'z'
 export type FailureReason =
   | 'INCOMPLETE_SET'
   | 'AI_SERVER_ERROR'
+  | 'AI_SERVER_TIMEOUT'
   | 'TIMEOUT'
   | 'MALFORMED_RESPONSE'
   | 'PARTIAL_ANALYSIS_FAILURE'
+  | 'WORKER_ERROR'
 
 // ─── 공통 ────────────────────────────────────────────────────────────────────
 

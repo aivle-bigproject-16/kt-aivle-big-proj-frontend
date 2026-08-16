@@ -3,6 +3,7 @@ import type { ApiResponse } from '@/shared/types/api'
 import type {
   EmailSendRequest,
   EmailVerifyRequest,
+  AuthProfile,
   LoginRequest,
   LoginResponse,
   SignupRequest,
@@ -14,6 +15,10 @@ const BASE_URL = '/auth'
 export const authService = {
   login: (body: LoginRequest) =>
     httpClient.post<ApiResponse<LoginResponse>>(`${BASE_URL}/login`, body),
+
+  me: () => httpClient.get<AuthProfile>(`${BASE_URL}/me`),
+
+  logout: () => httpClient.post<void>(`${BASE_URL}/logout`),
 
   signup: (body: SignupRequest) =>
     httpClient.post<ApiResponse<SignupResponse>>(`${BASE_URL}/signup`, body),

@@ -6,6 +6,7 @@ import { useBatteryDetailStore } from '../store/useBatteryDetailStore'
 import { ImageSection } from './InspectionImageSection'
 import { ROUTES } from '@/core/navigation/routes'
 import { BatteryInfoHeader } from '@/shared/ui/BatteryInfoHeader'
+import { useIndividualReportDetailStore } from '@/features/reports'
 import type { BatteryDetail, Inspection, BatteryDetailReport } from '../types'
 
 interface Props {
@@ -46,14 +47,10 @@ function BatteryDetailCard({ batteryCellId }: Props) {
     return () => reset()
   }, [fetchDetail, reset, batteryCellId])
 
-  useEffect(() => {
-    if (detail?.inspections.length && selectedBatchId === null) {
-      setSelectedBatchId(detail.inspections[0].batchId)
-    }
-  }, [detail, selectedBatchId])
-
+  const effectiveSelectedBatchId =
+    selectedBatchId ?? detail?.inspections[0]?.batchId ?? null
   const selectedInspection =
-    detail?.inspections.find((i) => i.batchId === selectedBatchId) ?? null
+    detail?.inspections.find((i) => i.batchId === effectiveSelectedBatchId) ?? null
 
   return (
     <section className="battery-detail">
@@ -79,12 +76,16 @@ function BatteryDetailCard({ batteryCellId }: Props) {
               <InspectionList
                 inspections={detail.inspections}
                 reports={detail.reports}
-                selectedId={selectedBatchId}
+                selectedId={effectiveSelectedBatchId}
                 onSelect={setSelectedBatchId}
               />
             </div>
             <div className="battery-detail__body-right">
-              <InspectionDetailPanel inspection={selectedInspection} reports={detail.reports} />
+              <InspectionDetailPanel
+                batteryCellId={detail.batteryCellId}
+                inspection={selectedInspection}
+                reports={detail.reports}
+              />
             </div>
           </div>
         </>
@@ -196,17 +197,15 @@ function ReportCountChip({ count }: { count: number }) {
 // ── Inspection Detail Panel (right panel) ─────────────────────────────────────
 
 function InspectionDetailPanel({
+  batteryCellId,
   inspection,
   reports,
 }: {
+  batteryCellId: number
   inspection: Inspection | null
   reports: BatteryDetailReport[]
 }) {
   const [activeImageId, setActiveImageId] = useState<number | null>(null)
-
-  useEffect(() => {
-    setActiveImageId(inspection?.images[0]?.imageId ?? null)
-  }, [inspection])
 
   if (!inspection) {
     return (
@@ -216,8 +215,11 @@ function InspectionDetailPanel({
     )
   }
 
+  const effectiveActiveImageId = inspection.images.some((image) => image.imageId === activeImageId)
+    ? activeImageId
+    : inspection.images[0]?.imageId ?? null
   const activeImage =
-    inspection.images.find((i) => i.imageId === activeImageId) ?? inspection.images[0] ?? null
+    inspection.images.find((i) => i.imageId === effectiveActiveImageId) ?? inspection.images[0] ?? null
 
   return (
     <div className="battery-detail__insp-panel">
@@ -237,7 +239,7 @@ function InspectionDetailPanel({
         <ImageSection
           images={inspection.images}
           defects={inspection.defectResults}
-          activeImageId={activeImageId}
+          activeImageId={effectiveActiveImageId}
           onSelectImage={setActiveImageId}
         />
 
@@ -245,13 +247,18 @@ function InspectionDetailPanel({
           <DefectSection
             defects={inspection.defectResults}
             activeType={activeImage?.imageType}
-            activeImageId={activeImageId}
+            activeImageId={effectiveActiveImageId}
             onSelectDefectImage={setActiveImageId}
           />
 
           <span className="battery-detail__insp-side-divider" />
 
-          <InspectionReportSection inspectionIds={inspection.inspectionIds} reports={reports} />
+          <InspectionReportSection
+            batteryCellId={batteryCellId}
+            canCreate={inspection.finalLabel === 'REJECT'}
+            inspectionIds={inspection.inspectionIds}
+            reports={reports}
+          />
         </div>
       </div>
     </div>
@@ -324,20 +331,59 @@ function DefectSection({
 // ── Inspection Report Section (per-inspection, right panel bottom) ────────────
 
 function InspectionReportSection({
+  batteryCellId,
+  canCreate,
   inspectionIds,
   reports,
 }: {
+  batteryCellId: number | null
+  canCreate: boolean
   inspectionIds: number[]
   reports: BatteryDetailReport[]
 }) {
   const navigate = useNavigate()
+  const { create } = useIndividualReportDetailStore((state) => state.actions)
+  const [creating, setCreating] = useState(false)
+  const [createError, setCreateError] = useState<string | null>(null)
   const inspectionReports = reports.filter((r) => inspectionIds.includes(r.inspectionId))
+  const pendingReport = inspectionReports.find((report) => report.status === 'PENDING')
+
+  const createReport = async () => {
+    if (creating || batteryCellId === null) return
+    if (pendingReport) {
+      navigate(ROUTES.REPORT_INDIVIDUAL_DETAIL(pendingReport.reportId))
+      return
+    }
+
+    setCreating(true)
+    setCreateError(null)
+    try {
+      const reportId = await create({ batteryCellId })
+      navigate(ROUTES.REPORT_INDIVIDUAL_DETAIL(reportId))
+    } catch {
+      setCreateError('리포트 생성 요청에 실패했습니다.')
+    } finally {
+      setCreating(false)
+    }
+  }
 
   return (
     <div className="battery-detail__insp-report-section">
       <div className="battery-detail__insp-report-header">
         <span className="battery-detail__sub-label">리포트</span>
+        {canCreate && (
+          <button
+            type="button"
+            className="battery-detail__insp-report-create"
+            onClick={createReport}
+            disabled={creating || batteryCellId === null}
+          >
+            {pendingReport ? '생성 중 리포트 보기' : creating ? '생성 요청 중...' : '개별 리포트 생성'}
+          </button>
+        )}
       </div>
+
+      {createError && <p className="battery-detail__insp-report-error" role="alert">{createError}</p>}
 
       {inspectionReports.length === 0 ? (
         <p className="battery-detail__empty">리포트가 없습니다.</p>

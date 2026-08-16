@@ -5,11 +5,11 @@ import { disconnectSimulationSocket } from '@/features/simulation'
 
 export function useLogout() {
   const navigate = useNavigate()
-  const { reset } = useLoginStore((s) => s.actions)
+  const { logout } = useLoginStore((s) => s.actions)
 
-  return () => {
+  return async () => {
     disconnectSimulationSocket()
-    reset()
+    await logout()
     navigate(ROUTES.AUTH_LOGIN, { replace: true })
   }
 }

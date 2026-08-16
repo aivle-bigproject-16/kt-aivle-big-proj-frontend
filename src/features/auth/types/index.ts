@@ -8,6 +8,13 @@ export interface LoginResponse {
   role: string
 }
 
+export interface AuthProfile {
+  id: number
+  email: string
+  name: string
+  role: string
+}
+
 export interface SignupRequest {
   email: string
   password: string
