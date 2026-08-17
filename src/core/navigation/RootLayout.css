@@ -23,9 +23,14 @@
   box-sizing: border-box;
 }
 
+/* 우측 컬럼 — 사용자 블록 자리 (DASHBOARD_REDESIGN.md §3.1).
+   칩이 컬럼 안에서 가로 중앙에 놓이도록 세로 배치만 잡아준다 */
 .root-layout__right {
   flex: none;
   width: var(--col-side);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .root-layout__content {
