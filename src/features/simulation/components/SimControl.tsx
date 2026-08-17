@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useLoginStore } from '@/features/auth/store/useLoginStore'
+import { hasRole } from '@/shared/security/access'
 import { useSimulationStore } from '../store/useSimulationStore'
 import './SimControl.css'
 
@@ -30,6 +32,7 @@ function SimControlPopover({ onClose }: { onClose: () => void }) {
   const isStarting = useSimulationStore((s) => s.isStarting)
   const startError = useSimulationStore((s) => s.startError)
   const start = useSimulationStore((s) => s.actions.start)
+  const canResetHistory = useLoginStore((s) => hasRole(s.role, 'ADMIN'))
 
   const [batchSize, setBatchSize] = useState(5)
   const [batteryCellCount, setBatteryCellCount] = useState(20)
@@ -37,8 +40,10 @@ function SimControlPopover({ onClose }: { onClose: () => void }) {
   const [resetBeforeStart, setResetBeforeStart] = useState(false)
 
   const handleStart = async () => {
+    const shouldResetBeforeStart = canResetHistory && resetBeforeStart
+
     if (
-      resetBeforeStart
+      shouldResetBeforeStart
       && !window.confirm(
         '기존 시뮬레이션, 검사 결과, 이미지 연결 정보 및 리포트가 모두 삭제되고 ID가 1부터 다시 시작합니다. 계속하시겠습니까?',
       )
@@ -46,7 +51,12 @@ function SimControlPopover({ onClose }: { onClose: () => void }) {
       return
     }
 
-    await start({ batchSize, batteryCellCount, captureSpeed, resetBeforeStart })
+    await start({
+      batchSize,
+      batteryCellCount,
+      captureSpeed,
+      resetBeforeStart: shouldResetBeforeStart,
+    })
     onClose()
   }
 
@@ -80,14 +90,16 @@ function SimControlPopover({ onClose }: { onClose: () => void }) {
           onChange={(e) => setCaptureSpeed(Number(e.target.value))}
         />
       </label>
-      <label className="sim-control__reset">
-        <input
-          type="checkbox"
-          checked={resetBeforeStart}
-          onChange={(e) => setResetBeforeStart(e.target.checked)}
-        />
-        기존 검사 기록 초기화
-      </label>
+      {canResetHistory && (
+        <label className="sim-control__reset">
+          <input
+            type="checkbox"
+            checked={resetBeforeStart}
+            onChange={(e) => setResetBeforeStart(e.target.checked)}
+          />
+          기존 검사 기록 초기화
+        </label>
+      )}
 
       {startError && <p className="sim-control__error">{startError}</p>}
 

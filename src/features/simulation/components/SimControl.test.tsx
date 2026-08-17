@@ -1,6 +1,7 @@
 import { act } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { useLoginStore } from '@/features/auth/store/useLoginStore'
 import { simulationService } from '../services/simulationService'
 import { useSimulationStore } from '../store/useSimulationStore'
 import { SimControl } from './SimControl'
@@ -19,6 +20,7 @@ describe('SimControl', () => {
     container = document.createElement('div')
     document.body.appendChild(container)
     root = createRoot(container)
+    useLoginStore.setState({ role: 'ADMIN' })
     useSimulationStore.getState().actions.reset()
     vi.mocked(simulationService.startSimulation).mockClear()
 
@@ -33,6 +35,7 @@ describe('SimControl', () => {
 
   afterEach(async () => {
     vi.restoreAllMocks()
+    useLoginStore.getState().actions.reset()
     await act(async () => {
       root.unmount()
     })
@@ -88,6 +91,24 @@ describe('SimControl', () => {
       batteryCellCount: 20,
       captureSpeed: 5,
       resetBeforeStart: true,
+    })
+  })
+
+  it('관리자가 아니면 초기화 선택을 노출하지 않고 false를 전송한다', async () => {
+    await act(async () => {
+      useLoginStore.setState({ role: 'USER' })
+    })
+
+    expect(container.querySelector('input[type="checkbox"]')).toBeNull()
+
+    await act(async () => {
+      getButton('시뮬레이션 시작').click()
+    })
+    expect(simulationService.startSimulation).toHaveBeenCalledWith({
+      batchSize: 5,
+      batteryCellCount: 20,
+      captureSpeed: 5,
+      resetBeforeStart: false,
     })
   })
 })
