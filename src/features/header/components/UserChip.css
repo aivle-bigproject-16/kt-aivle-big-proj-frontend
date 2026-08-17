@@ -1,0 +1,123 @@
+/* 섹션 — 우측 컬럼 최상단에 sticky 고정. 상단 여백 3rem은 사이드바 로고 카드와 수직 정렬을 맞춘다
+   (DASHBOARD_REDESIGN.md §3.4) */
+.user-chip {
+  position: sticky;
+  top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  margin-top: 3rem;
+}
+
+/* 디자인 컴포넌트 — 190×42 고정, pill (§2.7: 칩·배지·토글·사용자 칩은 --r-pill) */
+.user-chip__button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+  width: 19rem;
+  max-width: 100%;
+  height: 4.2rem;
+  padding: 0 1.4rem 0 0.5rem;
+  border: none;
+  border-radius: var(--r-pill);
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+}
+
+.user-chip__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  background-color: #f3f4f6;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #5b5f63;
+}
+
+.user-chip__name {
+  flex: 1;
+  min-width: 0;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #191c1d;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 화살표 색은 여기서 정한다 — 아이콘이 currentColor를 따르므로 CSS로 제어된다 */
+.user-chip__arrow {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: #9ca3af;
+  transition: transform 0.15s ease;
+}
+
+.user-chip__arrow--open {
+  transform: rotate(180deg);
+}
+
+/* ── 펼친 상태 ── */
+
+.user-chip__dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  flex-shrink: 0;
+  width: 19rem;
+  max-width: 100%;
+  margin-top: 0.8rem;
+  padding: 1.4rem;
+  border-radius: var(--r-lg);
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.user-chip__role {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.user-chip__role-label {
+  flex-shrink: 0;
+  font-size: 1.2rem;
+  color: #9ca3af;
+}
+
+.user-chip__role-value {
+  flex-shrink: 0;
+  font-size: 1.2rem;
+  color: #5b5f63;
+}
+
+.user-chip__logout {
+  flex-shrink: 0;
+  height: 3.4rem;
+  border: 1px solid #e1e5ea;
+  border-radius: var(--r-md);
+  box-sizing: border-box;
+  background-color: #ffffff;
+  font-family: inherit;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #5b5f63;
+  cursor: pointer;
+}
+
+.user-chip__logout:hover {
+  background-color: #f3f4f6;
+}
