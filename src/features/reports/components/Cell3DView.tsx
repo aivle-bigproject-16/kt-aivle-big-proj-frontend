@@ -59,12 +59,31 @@ function boxFromMapping(m: ImageMapping): Box3 | null {
   const bound = m.axis === 'x' ? a : m.axis === 'y' ? b : c
   // 1-based index — index=1이면 스택의 첫 슬라이스
   const band: Range = [((m.index - 1) / m.volume) * bound, (m.index / m.volume) * bound]
-  const planeH: Range = [m.bbox.x, m.bbox.x + m.bbox.width]
-  const planeV: Range = [m.bbox.y, m.bbox.y + m.bbox.height]
+  if (!m.imageWidth || !m.imageHeight) return null
+  const planeH: Range = [
+    (m.bbox.x / m.imageWidth),
+    ((m.bbox.x + m.bbox.width) / m.imageWidth),
+  ]
+  const planeV: Range = [
+    (m.bbox.y / m.imageHeight),
+    ((m.bbox.y + m.bbox.height) / m.imageHeight),
+  ]
 
-  if (m.axis === 'x') return { x: clampRange(band, a), y: clampRange(planeH, b), z: clampRange(planeV, c) }
-  if (m.axis === 'y') return { x: clampRange(planeH, a), y: clampRange(band, b), z: clampRange(planeV, c) }
-  return { x: clampRange(planeH, a), y: clampRange(planeV, b), z: clampRange(band, c) }
+  if (m.axis === 'x') return {
+    x: clampRange(band, a),
+    y: clampRange([planeH[0] * b, planeH[1] * b], b),
+    z: clampRange([planeV[0] * c, planeV[1] * c], c),
+  }
+  if (m.axis === 'y') return {
+    x: clampRange([planeH[0] * a, planeH[1] * a], a),
+    y: clampRange(band, b),
+    z: clampRange([planeV[0] * c, planeV[1] * c], c),
+  }
+  return {
+    x: clampRange([planeH[0] * a, planeH[1] * a], a),
+    y: clampRange([planeV[0] * b, planeV[1] * b], b),
+    z: clampRange(band, c),
+  }
 }
 
 // ─── 결함 박스 메시 ──────────────────────────────────────────────────────────
@@ -167,18 +186,16 @@ function Cell3DCanvas({ mappings }: Cell3DCanvasProps) {
   return (
     <div className="cell3d" style={{ '--cell3d-border': DEFAULT_BORDER } as React.CSSProperties}>
       <div className="cell3d__canvas-wrap">
-        {boxes.length > 0 && (
-          <Canvas camera={{ fov: 50, near: 0.1, far: 200 }}>
-            <CameraSetup azimuth={DEFAULT_AZIMUTH} elevation={DEFAULT_ELEVATION} />
-            <ambientLight intensity={0.6} />
-            <directionalLight position={[10, 10, 10]} intensity={0.8} />
-            <CellBounds />
-            {boxes.map((box, i) => (
-              <DefectBox key={i} box={box} />
-            ))}
-            <OrbitControls enablePan={false} minDistance={8} maxDistance={40} />
-          </Canvas>
-        )}
+        <Canvas camera={{ fov: 50, near: 0.1, far: 200 }}>
+          <CameraSetup azimuth={DEFAULT_AZIMUTH} elevation={DEFAULT_ELEVATION} />
+          <ambientLight intensity={0.6} />
+          <directionalLight position={[10, 10, 10]} intensity={0.8} />
+          <CellBounds />
+          {boxes.map((box, i) => (
+            <DefectBox key={i} box={box} />
+          ))}
+          <OrbitControls enablePan={false} minDistance={8} maxDistance={40} />
+        </Canvas>
       </div>
     </div>
   )
