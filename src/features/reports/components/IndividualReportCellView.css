@@ -52,6 +52,26 @@
   background-color: #1b2027;
 }
 
+.individual-report-cellview__unavailable {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  color: #cbd5e1;
+}
+
+.individual-report-cellview__unavailable strong {
+  font-size: 1.6rem;
+}
+
+.individual-report-cellview__unavailable span {
+  font-size: 1.2rem;
+  color: #94a3b8;
+}
+
 .individual-report-cellview__caption {
   flex-shrink: 0;
   align-self: flex-end;

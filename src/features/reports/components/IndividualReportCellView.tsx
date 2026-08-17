@@ -14,6 +14,8 @@ const EMPTY_MAPPINGS: ImageMapping[] = []
 function IndividualReportCellView() {
   const imageMappings = useIndividualReportDetailStore((s) => s.detail?.imageMappings) ?? EMPTY_MAPPINGS
   const batteryCellId = useIndividualReportDetailStore((s) => s.detail?.batteryCellId)
+  const finalLabel = useIndividualReportDetailStore((s) => s.detail?.finalLabel)
+  const failureReason = useIndividualReportDetailStore((s) => s.detail?.inspectionFailureReason)
 
   const ctMappings = useMemo(() => imageMappings.filter((m) => m.imageType === 'CT'), [imageMappings])
   const hasAxisData = ctMappings.some((m) => m.axis)
@@ -27,7 +29,19 @@ function IndividualReportCellView() {
       </div>
 
       <div className="individual-report-cellview__canvas">
-        {hasAxisData && <Cell3DCanvas mappings={ctMappings} />}
+        {finalLabel === 'FAIL' ? (
+          <div className="individual-report-cellview__unavailable">
+            <strong>3D 모델 생성 불가</strong>
+            <span>{failureReason ?? '검사 분석이 완료되지 않아 결함 위치를 재구성할 수 없습니다.'}</span>
+          </div>
+        ) : finalLabel === 'REJECT' && !hasAxisData ? (
+          <div className="individual-report-cellview__unavailable">
+            <strong>3D 위치 데이터 없음</strong>
+            <span>CT 축·슬라이스 메타데이터를 확인해주세요.</span>
+          </div>
+        ) : (
+          <Cell3DCanvas mappings={ctMappings} />
+        )}
       </div>
 
       {batteryCellId !== undefined && (

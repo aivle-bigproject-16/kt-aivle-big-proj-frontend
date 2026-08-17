@@ -29,6 +29,8 @@ export interface ImageMapping {
   index?: number
   /** CT만 해당 — 슬라이스 축. 한 볼륨에 x/y/z 세 축이 전부 내려올 수 있다 */
   axis?: ImageAxis
+  imageWidth?: number
+  imageHeight?: number
   bbox: BboxCoords
 }
 
@@ -55,6 +57,10 @@ export interface IndividualReportDetail {
   batteryCellId: number
   cellSerialNo: string
   status: ReportStatus
+  finalLabel: 'PASS' | 'REJECT' | 'FAIL' | null
+  inspectionStatus: 'COMPLETED' | 'FAILED' | null
+  inspectionFailureType: string | null
+  inspectionFailureReason: string | null
   title: string | null
   content: string | null
   rgbImages: string[]
