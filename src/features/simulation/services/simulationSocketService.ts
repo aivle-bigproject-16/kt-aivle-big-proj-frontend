@@ -39,6 +39,9 @@ export function startSimulationSocket(cb: SimulationSocketCallbacks) {
       console.log('[stomp] disconnected')
       cb.onStatusChange('reconnecting')
     },
+    onWebSocketClose: () => {
+      cb.onStatusChange(client?.active ? 'reconnecting' : 'closed')
+    },
     onStompError: () => {
       cb.onStatusChange('closed')
     },

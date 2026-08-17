@@ -1,4 +1,5 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { simulationService } from '../services/simulationService'
 import { useSimulationStore } from './useSimulationStore'
 
 /*
@@ -123,5 +124,33 @@ describe('useSimulationStore.applyMessage', () => {
     useSimulationStore.getState().actions.applyMessage({ hello: 'world' })
 
     expect(useSimulationStore.getState().event).toBe('PROGRESS')
+  })
+})
+
+describe('useSimulationStore.start', () => {
+  beforeEach(() => {
+    useSimulationStore.getState().actions.reset()
+  })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it('시작 실패 시 서버 오류 메시지를 화면 상태에 보존한다', async () => {
+    vi.spyOn(simulationService, 'startSimulation').mockRejectedValue({
+      message: '이미 실행 중인 시뮬레이션이 있습니다.',
+    })
+
+    await useSimulationStore.getState().actions.start({
+      batchSize: 1,
+      batteryCellCount: 1,
+      captureSpeed: 1,
+      resetBeforeStart: false,
+    })
+
+    expect(useSimulationStore.getState().isStarting).toBe(false)
+    expect(useSimulationStore.getState().startError).toBe(
+      '이미 실행 중인 시뮬레이션이 있습니다.',
+    )
   })
 })

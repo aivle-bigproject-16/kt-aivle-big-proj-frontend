@@ -57,7 +57,7 @@ function SimControlPopover({ onClose }: { onClose: () => void }) {
       captureSpeed,
       resetBeforeStart: shouldResetBeforeStart,
     })
-    onClose()
+    if (!useSimulationStore.getState().startError) onClose()
   }
 
   return (
@@ -76,6 +76,7 @@ function SimControlPopover({ onClose }: { onClose: () => void }) {
         <input
           type="number"
           min={1}
+          max={20}
           value={batteryCellCount}
           onChange={(e) => setBatteryCellCount(Number(e.target.value))}
         />
@@ -84,8 +85,8 @@ function SimControlPopover({ onClose }: { onClose: () => void }) {
         촬영 속도(초)
         <input
           type="number"
-          min={0.1}
-          step={0.1}
+          min={1}
+          step={1}
           value={captureSpeed}
           onChange={(e) => setCaptureSpeed(Number(e.target.value))}
         />
