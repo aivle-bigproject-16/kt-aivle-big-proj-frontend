@@ -26,6 +26,14 @@ function isSimulationSocketMessage(data: unknown): data is SimulationSocketMessa
   return hasEvent(data)
 }
 
+function simulationStartErrorMessage(error: unknown): string {
+  if (typeof error === 'object' && error !== null && 'message' in error) {
+    const message = (error as { message?: unknown }).message
+    if (typeof message === 'string' && message.trim()) return message
+  }
+  return '시뮬레이션 시작에 실패했습니다.'
+}
+
 /* API_SPEC Example 의 status 값에 `"CAPTURING "` 처럼 뒤쪽 공백이 붙어 있다. 오타로
    보이지만 실제로 그렇게 내려오면 화면 전체가 조용히 어긋난다 — 상태 비교가 전부
    정확 일치라서 촬영/분석 구분이 사라지고 셀 색도 결정되지 않는다. 컴포넌트마다
@@ -172,8 +180,8 @@ export const useSimulationStore = create<SimulationState & SimulationActions>((s
         const res = await simulationService.startSimulation(body)
         get().actions.applyMessage(res.data)
         set({ isStarting: false })
-      } catch {
-        set({ isStarting: false, startError: '시뮬레이션 시작에 실패했습니다.' })
+      } catch (error) {
+        set({ isStarting: false, startError: simulationStartErrorMessage(error) })
       }
     },
 
