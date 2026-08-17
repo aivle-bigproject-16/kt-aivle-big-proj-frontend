@@ -34,9 +34,19 @@ function SimControlPopover({ onClose }: { onClose: () => void }) {
   const [batchSize, setBatchSize] = useState(5)
   const [batteryCellCount, setBatteryCellCount] = useState(20)
   const [captureSpeed, setCaptureSpeed] = useState(5)
+  const [resetBeforeStart, setResetBeforeStart] = useState(false)
 
   const handleStart = async () => {
-    await start({ batchSize, batteryCellCount, captureSpeed })
+    if (
+      resetBeforeStart
+      && !window.confirm(
+        '기존 시뮬레이션, 검사 결과, 이미지 연결 정보 및 리포트가 모두 삭제되고 ID가 1부터 다시 시작합니다. 계속하시겠습니까?',
+      )
+    ) {
+      return
+    }
+
+    await start({ batchSize, batteryCellCount, captureSpeed, resetBeforeStart })
     onClose()
   }
 
@@ -69,6 +79,14 @@ function SimControlPopover({ onClose }: { onClose: () => void }) {
           value={captureSpeed}
           onChange={(e) => setCaptureSpeed(Number(e.target.value))}
         />
+      </label>
+      <label className="sim-control__reset">
+        <input
+          type="checkbox"
+          checked={resetBeforeStart}
+          onChange={(e) => setResetBeforeStart(e.target.checked)}
+        />
+        기존 검사 기록 초기화
       </label>
 
       {startError && <p className="sim-control__error">{startError}</p>}

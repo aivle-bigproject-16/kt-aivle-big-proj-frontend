@@ -5,6 +5,7 @@ export interface SimStartRequest {
   batchSize: number
   batteryCellCount: number
   captureSpeed: number
+  resetBeforeStart: boolean
 }
 
 // PUT /sim — Request (미구현)

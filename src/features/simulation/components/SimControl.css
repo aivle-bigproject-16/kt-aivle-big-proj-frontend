@@ -69,6 +69,22 @@
   font-size: 1.4rem;
 }
 
+.sim-control__reset {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 1.3rem;
+  color: #5b5f63;
+  cursor: pointer;
+}
+
+.sim-control__reset input {
+  width: 1.6rem;
+  height: 1.6rem;
+  margin: 0;
+  accent-color: #13777c;
+}
+
 .sim-control__error {
   font-size: 1.2rem;
   color: #dc2626;
