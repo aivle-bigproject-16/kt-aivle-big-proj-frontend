@@ -129,6 +129,18 @@
   gap: 1rem;
   flex-shrink: 0;
   margin-top: 1.6rem;
+  overflow-x: auto;
+  max-width: 100%;
+  padding-bottom: 0.8rem;
+}
+
+.battery-detail__image-thumbs::-webkit-scrollbar {
+  height: 0.6rem;
+}
+
+.battery-detail__image-thumbs::-webkit-scrollbar-thumb {
+  background-color: #d0d4d8;
+  border-radius: 0.3rem;
 }
 
 .battery-detail__image-thumb {

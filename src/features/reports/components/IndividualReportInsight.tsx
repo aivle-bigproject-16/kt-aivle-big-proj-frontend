@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { ReportModal } from '@/shared/ui/ReportModal'
 import { useIndividualReportDetailStore } from '../store/useIndividualReportDetailStore'
 import './IndividualReportInsight.css'
@@ -24,7 +26,9 @@ function IndividualReportInsight() {
         <span className="individual-report-insight__divider" />
 
         {content ? (
-          <p className="individual-report-insight__body">{content}</p>
+          <div className="individual-report-insight__body markdown-body">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+          </div>
         ) : (
           <p className="individual-report-insight__empty">본문이 없습니다.</p>
         )}
