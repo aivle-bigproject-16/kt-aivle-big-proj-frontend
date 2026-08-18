@@ -6,6 +6,36 @@ import { asBlob } from 'html-docx-js-typescript'
 import { saveAs } from 'file-saver'
 import { useModalAnimation } from '@/shared/hooks/useModalAnimation'
 import './ReportModal.css'
+import './markdown.css'
+// 화면에 먹이는 것과 같은 파일을 문자열로도 읽어 인쇄 창·DOCX 에 심는다
+import markdownCss from './markdown.css?raw'
+
+/* 인쇄 창·DOCX 에 함께 실어 보내는 문서용 스타일.
+   본문 규칙은 markdown.css 하나에서 오고, 여기에는 종이에만 필요한 것만 더한다. */
+const documentCss = `
+  ${markdownCss}
+  body { margin: 0; padding: 20mm; font-family: sans-serif; }
+  @media print {
+    @page { margin: 0; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .markdown-body h1,
+    .markdown-body h2,
+    .markdown-body h3 { page-break-after: avoid; }
+    .markdown-body table,
+    .markdown-body pre,
+    .markdown-body img,
+    .markdown-body blockquote { page-break-inside: avoid; }
+  }
+`
+
+/** 인쇄 창 <title> 로 나가는 값이라 태그로 읽히지 않게 막는다 */
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
 
 interface ReportModalProps {
   title?: string
@@ -39,89 +69,30 @@ function ReportModal({ title = 'REPORT', content, open, onClose }: ReportModalPr
       return
     }
 
+    /* 인쇄가 끝난 뒤에 창을 닫는다. print() 가 블로킹인 브라우저는 onafterprint 로,
+       비동기인 브라우저는 print 미디어가 풀리는 순간으로 잡는다. 고정 지연으로 닫으면
+       대화상자가 뜨기도 전에 창이 사라지는 브라우저가 있다. */
     printWindow.document.write(`
       <!DOCTYPE html>
-      <html>
+      <html lang="ko">
         <head>
-          <title>REPORT - ${title}</title>
-          <style>
-            body {
-              font-family: sans-serif;
-              color: #191c1d;
-              line-height: 1.6;
-              padding: 20mm;
-              margin: 0;
-            }
-            h1, h2, h3 {
-              margin-top: 1.5em;
-              margin-bottom: 0.5em;
-              font-weight: 600;
-              line-height: 1.25;
-            }
-            h1 { font-size: 2em; border-bottom: 1px solid #eceef0; padding-bottom: 0.3em; }
-            h2 { font-size: 1.5em; border-bottom: 1px solid #eceef0; padding-bottom: 0.3em; }
-            h3 { font-size: 1.25em; }
-            p, blockquote, ul, ol, dl, table, pre, details {
-              margin-top: 0;
-              margin-bottom: 16px;
-            }
-            blockquote {
-              padding: 0 1em;
-              color: #6a737d;
-              border-left: 0.25em solid #dfe2e5;
-            }
-            table {
-              border-spacing: 0;
-              border-collapse: collapse;
-              width: 100%;
-            }
-            th, td {
-              padding: 6px 13px;
-              border: 1px solid #dfe2e5;
-            }
-            tr:nth-child(2n) {
-              background-color: #f6f8fa;
-            }
-            code {
-              padding: 0.2em 0.4em;
-              margin: 0;
-              font-size: 85%;
-              background-color: rgba(27, 31, 35, 0.05);
-              border-radius: 3px;
-            }
-            pre {
-              background-color: #f6f8fa;
-              padding: 16px;
-              overflow: auto;
-              border-radius: 3px;
-            }
-            pre > code {
-              padding: 0;
-              margin: 0;
-              font-size: 100%;
-              white-space: pre-wrap;
-              background: transparent;
-              border: 0;
-            }
-            @media print {
-              @page { margin: 0; }
-              body { 
-                -webkit-print-color-adjust: exact; 
-                print-color-adjust: exact; 
-              }
-              h1, h2, h3 { page-break-after: avoid; }
-              table, pre, img, blockquote { page-break-inside: avoid; }
-            }
-          </style>
+          <meta charset="utf-8" />
+          <title>REPORT - ${escapeHtml(title)}</title>
+          <style>${documentCss}</style>
         </head>
         <body>
-          ${contentHtml}
+          <div class="markdown-body">${contentHtml}</div>
           <script>
             window.onload = () => {
-              setTimeout(() => {
-                window.print();
-                window.close();
-              }, 200);
+              const close = () => window.close()
+              window.addEventListener('afterprint', close)
+              const printMedia = window.matchMedia && window.matchMedia('print')
+              if (printMedia) {
+                printMedia.addEventListener('change', (e) => {
+                  if (!e.matches) close()
+                })
+              }
+              window.print()
             }
           </script>
         </body>
@@ -133,7 +104,9 @@ function ReportModal({ title = 'REPORT', content, open, onClose }: ReportModalPr
   const handleDownloadDocx = async () => {
     if (!bodyRef.current) return
     try {
-      const htmlString = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>${bodyRef.current.outerHTML}</body></html>`
+      /* Word 는 클래스 선택자를 해석하므로 스타일시트를 함께 넣어야 표 테두리와
+         제목 크기가 살아남는다. 넣지 않으면 서식 없는 문서가 나온다. */
+      const htmlString = `<!DOCTYPE html><html><head><meta charset="utf-8" /><style>${documentCss}</style></head><body>${bodyRef.current.outerHTML}</body></html>`
       const blob = await asBlob(htmlString)
       saveAs(blob as Blob, 'report.docx')
     } catch (err) {
