@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { ReportModal } from '@/shared/ui/ReportModal'
 import { useDailyReportDetailStore } from '../store/useDailyReportDetailStore'
 import './DailyReportSummary.css'
@@ -20,7 +22,9 @@ function DailyReportSummary() {
         <span className="daily-report-summary__divider" />
 
         {content ? (
-          <p className="daily-report-summary__body">{content}</p>
+          <div className="daily-report-summary__body markdown-body">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+          </div>
         ) : (
           <p className="daily-report-summary__empty">본문이 없습니다.</p>
         )}

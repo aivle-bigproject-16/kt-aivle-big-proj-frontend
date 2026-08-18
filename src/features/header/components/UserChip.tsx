@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLoginStore } from '@/features/auth'
 import { useLogout } from '@/core/navigation'
+import { maskName } from '@/shared/security/masking'
 import { ChevronDownIcon } from './Icons'
 import './UserChip.css'
 
@@ -49,6 +50,9 @@ function UserChip() {
   // 세션 복구 중에는 이름이 아직 없다. 빈 칩이 깜빡이지 않도록 그리지 않는다
   if (!name) return null
 
+  // 이름 마스킹 (한국 표준: 관*자, 홍*동)
+  const displayName = maskName(name)
+
   return (
     <div className="user-chip" ref={containerRef}>
       <button
@@ -61,7 +65,7 @@ function UserChip() {
         <span className="user-chip__avatar" aria-hidden="true">
           {name.charAt(0)}
         </span>
-        <span className="user-chip__name">{name}</span>
+        <span className="user-chip__name">{displayName}</span>
         <span className={isOpen ? 'user-chip__arrow user-chip__arrow--open' : 'user-chip__arrow'}>
           <ChevronDownIcon />
         </span>
