@@ -4,6 +4,7 @@ import remarkGfm from 'remark-gfm'
 import { ReportModal } from '@/shared/ui/ReportModal'
 import { useDailyReportDetailStore } from '../store/useDailyReportDetailStore'
 import './DailyReportSummary.css'
+import '@/shared/ui/markdown.css'
 
 /** 일일 총평 카드 — 1400×289. 리포트 본문(detail.content)을 그대로 보여준다.
    고정 높이라 길면 잘리므로, 클릭하면 전체 리포트를 모달로 펼쳐 보여준다 */

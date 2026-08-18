@@ -4,6 +4,7 @@ import remarkGfm from 'remark-gfm'
 import { ReportModal } from '@/shared/ui/ReportModal'
 import { useIndividualReportDetailStore } from '../store/useIndividualReportDetailStore'
 import './IndividualReportInsight.css'
+import '@/shared/ui/markdown.css'
 
 /** AI 분석 소견 카드 — 507×345. 리포트 본문(detail.content)을 그대로 보여준다.
    카드 안에서는 스크롤로 잘려 보이므로, 클릭하면 전체 리포트를 모달로 펼쳐 보여준다 */
