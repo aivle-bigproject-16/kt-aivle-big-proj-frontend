@@ -9,11 +9,39 @@
   box-sizing: border-box;
 }
 
-/* 결함 유형 분포 / 참조 이미지 — 좌우 배치, 사이 갭 2.4rem */
 .daily-report__row {
   display: flex;
   gap: 2.4rem;
   flex-shrink: 0;
   width: 140rem;
   height: 33.872rem;
+}
+
+.daily-report__footer {
+  display: flex;
+  justify-content: flex-end;
+  width: 140rem;
+  padding: 1rem 0 4rem 0;
+}
+
+.daily-report__delete-btn {
+  height: 4rem;
+  padding: 0 2rem;
+  border: 1px solid #ff4d4f;
+  border-radius: 0.8rem;
+  background-color: transparent;
+  color: #ff4d4f;
+  font-size: 1.4rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.daily-report__delete-btn:hover:not(:disabled) {
+  background-color: #fff1f0;
+}
+
+.daily-report__delete-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

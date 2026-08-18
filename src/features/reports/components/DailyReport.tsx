@@ -9,6 +9,7 @@ import { DailyReportReference } from './DailyReportReference'
 import { DailyReportSummary } from './DailyReportSummary'
 import { useDailyReportDetailStore } from '../store/useDailyReportDetailStore'
 import { ReportGenerationState } from './ReportGenerationState'
+import { dailyReportService } from '../services/dailyReportService'
 import './DailyReport.css'
 
 interface DailyReportProps {
@@ -25,6 +26,7 @@ function DailyReport({ reportId }: DailyReportProps) {
   const [pollVersion, setPollVersion] = useState(0)
   const [retrying, setRetrying] = useState(false)
   const [retryError, setRetryError] = useState<string | null>(null)
+  const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
     let active = true
@@ -64,6 +66,18 @@ function DailyReport({ reportId }: DailyReportProps) {
     }
   }
 
+  const handleDelete = async () => {
+    if (!window.confirm('정말 이 리포트를 삭제하시겠습니까?')) return
+    setDeleting(true)
+    try {
+      await dailyReportService.deleteDailyReport(reportId)
+      navigate(ROUTES.REPORT_DAILY, { replace: true })
+    } catch (err: any) {
+      alert(err?.message || '리포트 삭제에 실패했습니다.')
+      setDeleting(false)
+    }
+  }
+
   const refresh = () => setPollVersion((version) => version + 1)
 
   return (
@@ -78,6 +92,16 @@ function DailyReport({ reportId }: DailyReportProps) {
             <DailyReportReference />
           </div>
           <DailyReportSummary />
+          <div className="daily-report__footer">
+            <button
+              type="button"
+              className="daily-report__delete-btn"
+              onClick={handleDelete}
+              disabled={deleting}
+            >
+              {deleting ? '삭제 중...' : '리포트 삭제'}
+            </button>
+          </div>
         </>
       ) : (
         <ReportGenerationState
@@ -86,8 +110,10 @@ function DailyReport({ reportId }: DailyReportProps) {
           failureReason={detail?.failureReason}
           actionError={retryError}
           retrying={retrying}
+          deleting={deleting}
           onRetry={detail?.status === 'FAILED' ? retry : undefined}
           onRefresh={error ? refresh : undefined}
+          onDelete={detail?.status === 'FAILED' || error ? handleDelete : undefined}
         />
       )}
     </div>

@@ -24,4 +24,7 @@ export const dailyReportService = {
 
   getDailyReportList: (params: GetDailyReportListParams) =>
     httpClient.get<ApiResponse<ListResponse<DailyReportListItem>>>(BASE_URL, { params }),
+
+  deleteDailyReport: (reportId: number) =>
+    httpClient.delete<ApiResponse<void>>(`${BASE_URL}/${reportId}`),
 }

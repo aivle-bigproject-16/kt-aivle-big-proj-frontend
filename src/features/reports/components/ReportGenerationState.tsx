@@ -17,8 +17,10 @@ interface Props {
   failureReason?: string | null
   actionError?: string | null
   retrying?: boolean
+  deleting?: boolean
   onRetry?: () => void
   onRefresh?: () => void
+  onDelete?: () => void
 }
 
 function failureMessage(reason?: string | null) {
@@ -33,15 +35,24 @@ function ReportGenerationState({
   failureReason,
   actionError,
   retrying = false,
+  deleting = false,
   onRetry,
   onRefresh,
+  onDelete,
 }: Props) {
   if (error) {
     return (
       <section className="report-generation-state report-generation-state--failed" role="alert">
         <strong>리포트 상태를 불러오지 못했습니다.</strong>
         <p>{error}</p>
-        {onRefresh && <button type="button" onClick={onRefresh}>다시 조회</button>}
+        <div className="report-generation-state__actions">
+          {onRefresh && <button type="button" onClick={onRefresh}>다시 조회</button>}
+          {onDelete && (
+            <button type="button" className="report-generation-state__delete" onClick={onDelete} disabled={deleting}>
+              {deleting ? '삭제 중...' : '리포트 삭제'}
+            </button>
+          )}
+        </div>
       </section>
     )
   }
@@ -52,11 +63,18 @@ function ReportGenerationState({
         <strong>리포트 생성 실패</strong>
         <p>{failureMessage(failureReason)}</p>
         {actionError && <p>{actionError}</p>}
-        {onRetry && (
-          <button type="button" onClick={onRetry} disabled={retrying}>
-            {retrying ? '재시도 요청 중...' : '다시 생성'}
-          </button>
-        )}
+        <div className="report-generation-state__actions">
+          {onRetry && (
+            <button type="button" onClick={onRetry} disabled={retrying || deleting}>
+              {retrying ? '재시도 요청 중...' : '다시 생성'}
+            </button>
+          )}
+          {onDelete && (
+            <button type="button" className="report-generation-state__delete" onClick={onDelete} disabled={retrying || deleting}>
+              {deleting ? '삭제 중...' : '리포트 삭제'}
+            </button>
+          )}
+        </div>
       </section>
     )
   }

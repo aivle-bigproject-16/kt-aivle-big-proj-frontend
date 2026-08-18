@@ -58,9 +58,6 @@ function LoginPage() {
             <input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
             로그인 상태 유지
           </label>
-          <a className="auth-link" href="#">
-            비밀번호를 잊으셨나요?
-          </a>
         </div>
 
         {error && <p className="auth-error">{error}</p>}

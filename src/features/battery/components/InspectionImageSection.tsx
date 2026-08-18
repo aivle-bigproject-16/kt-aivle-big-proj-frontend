@@ -28,7 +28,8 @@ function useCoverScale() {
     const nh = img.naturalHeight
     const dw = img.clientWidth
     const dh = img.clientHeight
-    const s = Math.max(dw / nw, dh / nh)
+    // cover에서 contain으로 변경하여 이미지가 잘리지 않게 함
+    const s = Math.min(dw / nw, dh / nh)
     setScale({ sx: s, sy: s, ox: (dw - nw * s) / 2, oy: (dh - nh * s) / 2 })
   }
 
@@ -143,7 +144,7 @@ function ImageSection({ images, defects, activeImageId, onSelectImage }: ImageSe
           imageUrl={activeImage.imageUrl}
           regions={activeDefects
             .filter((d) => d.bbox)
-            .map((d) => ({ id: d.defectResultId, bbox: d.bbox!, tone: LABEL_TONE[d.label] ?? 'pass' }))}
+            .map((d) => ({ id: d.defectResultId, bbox: d.bbox!, tone: LABEL_TONE[d.label] ?? 'pass', label: d.orderNo }))}
           infoItems={activeDefects.map((d) => ({
             id: d.defectResultId,
             badgeText: d.label,

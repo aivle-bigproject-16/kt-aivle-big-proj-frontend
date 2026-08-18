@@ -1,31 +1,39 @@
-/* 섹션 — 1400 폭 고정, 곡률 1.44rem. 높이는 헤더 아래 세 섹션 합이 개별 리포트의
-   본문1+본문2 합(76.8rem)과 같아지도록 26.673rem으로 조정 */
+/* 섹션 — 1400 폭 고정, 곡률 1.44rem. */
 .daily-report-summary {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   width: 140rem;
-  height: 26.673rem;
+  min-height: 26.673rem;
+  height: auto;
   border: none;
   border-radius: 1.44rem;
   box-sizing: border-box;
   padding: 2.9rem 3.1rem;
   background-color: #ffffff;
   box-shadow: var(--shadow-card);
-  overflow: hidden;
   font-family: inherit;
   text-align: left;
+}
+
+.daily-report-summary__download-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.2rem;
+  padding: 0 1.6rem;
+  border-radius: 0.8rem;
+  background-color: #0c5795;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 500;
+  border: none;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: background-color 0.2s;
 }
 
-.daily-report-summary:hover {
-  transform: translateY(-0.15rem);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.daily-report-summary:active {
-  transform: scale(0.99);
+.daily-report-summary__download-btn:hover {
+  background-color: #0a487a;
 }
 
 .daily-report-summary__header {

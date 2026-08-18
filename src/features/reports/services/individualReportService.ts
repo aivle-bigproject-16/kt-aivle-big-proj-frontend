@@ -26,4 +26,7 @@ export const individualReportService = {
     httpClient.get<ApiResponse<ListResponse<IndividualReportListItem>>>(BASE_URL, {
       params,
     }),
+
+  deleteIndividualReport: (reportId: number) =>
+    httpClient.delete<ApiResponse<void>>(`${BASE_URL}/${reportId}`),
 }

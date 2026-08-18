@@ -14,10 +14,21 @@ function DailyReportSummary() {
 
   return (
     <>
-      <button type="button" className="daily-report-summary" onClick={() => setOpen(true)}>
+      <div className="daily-report-summary">
         <div className="daily-report-summary__header">
           <span className="daily-report-summary__title">REPORT</span>
           <span className="daily-report-summary__badge">LLM 생성</span>
+          <div className="daily-report-summary__header-spacer" style={{ flexGrow: 1 }} />
+          <button 
+            type="button" 
+            className="daily-report-summary__download-btn"
+            onClick={() => setOpen(true)}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: '1.6rem', height: '1.6rem', marginRight: '0.4rem' }}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            다운로드
+          </button>
         </div>
 
         <span className="daily-report-summary__divider" />
@@ -29,7 +40,7 @@ function DailyReportSummary() {
         ) : (
           <p className="daily-report-summary__empty">본문이 없습니다.</p>
         )}
-      </button>
+      </div>
 
       <ReportModal title="REPORT" content={content} open={open} onClose={() => setOpen(false)} />
     </>
