@@ -9,6 +9,7 @@ import { IndividualReportImages } from './IndividualReportImages'
 import { IndividualReportInsight } from './IndividualReportInsight'
 import { useIndividualReportDetailStore } from '../store/useIndividualReportDetailStore'
 import { ReportGenerationState } from './ReportGenerationState'
+import { individualReportService } from '../services/individualReportService'
 import './IndividualReport.css'
 
 interface IndividualReportProps {
@@ -25,6 +26,7 @@ function IndividualReport({ reportId }: IndividualReportProps) {
   const [pollVersion, setPollVersion] = useState(0)
   const [retrying, setRetrying] = useState(false)
   const [retryError, setRetryError] = useState<string | null>(null)
+  const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
     let active = true
@@ -63,6 +65,18 @@ function IndividualReport({ reportId }: IndividualReportProps) {
     }
   }
 
+  const handleDelete = async () => {
+    if (!window.confirm('정말 이 리포트를 삭제하시겠습니까?')) return
+    setDeleting(true)
+    try {
+      await individualReportService.deleteIndividualReport(reportId)
+      navigate(ROUTES.REPORT_INDIVIDUAL, { replace: true })
+    } catch (err: any) {
+      alert(err?.message || '리포트 삭제에 실패했습니다.')
+      setDeleting(false)
+    }
+  }
+
   const refresh = () => setPollVersion((version) => version + 1)
 
   return (
@@ -79,6 +93,16 @@ function IndividualReport({ reportId }: IndividualReportProps) {
             <IndividualReportImages />
             <IndividualReportInsight />
           </div>
+          <div className="individual-report__footer">
+            <button
+              type="button"
+              className="individual-report__delete-btn"
+              onClick={handleDelete}
+              disabled={deleting}
+            >
+              {deleting ? '삭제 중...' : '리포트 삭제'}
+            </button>
+          </div>
         </>
       ) : (
         <ReportGenerationState
@@ -86,8 +110,10 @@ function IndividualReport({ reportId }: IndividualReportProps) {
           error={error}
           actionError={retryError}
           retrying={retrying}
+          deleting={deleting}
           onRetry={detail?.status === 'FAILED' ? retry : undefined}
           onRefresh={error ? refresh : undefined}
+          onDelete={detail?.status === 'FAILED' || error ? handleDelete : undefined}
         />
       )}
     </div>
