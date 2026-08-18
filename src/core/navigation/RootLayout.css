@@ -35,7 +35,8 @@
 
 .root-layout__content {
   flex: 1;
-  overflow: visible;
+  overflow-y: auto;
+  overflow-x: hidden;
   min-height: 0;
 }
 
