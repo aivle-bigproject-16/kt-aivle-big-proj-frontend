@@ -40,8 +40,8 @@ function useCoverScale() {
     const containerH = img.clientHeight
     const dw = portrait ? containerH : containerW
     const dh = portrait ? containerW : containerH
-    // cover에서 contain으로 변경하여 이미지가 잘리지 않게 함
-    const s = Math.min(dw / nw, dh / nh)
+    // 너비를 꽉 채워야 해서 contain이 아니라 cover — 세로가 넘치면 위아래를 잘라낸다
+    const s = Math.max(dw / nw, dh / nh)
     setScale({ sx: s, sy: s, ox: (dw - nw * s) / 2, oy: (dh - nh * s) / 2 })
     setRotated(portrait)
     setWorkSize({ w: dw, h: dh })
