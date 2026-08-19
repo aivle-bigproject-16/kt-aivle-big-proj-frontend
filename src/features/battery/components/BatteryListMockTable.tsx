@@ -15,7 +15,7 @@ function BatteryListMockTable() {
   const { fetchList } = useBatteryListStore((s) => s.actions)
 
   useEffect(() => {
-    fetchList(0, 10000)
+    fetchList({ page: 0, size: 10000 })
   }, [fetchList])
 
   return (
