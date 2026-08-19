@@ -187,3 +187,9 @@
   font-size: 1.25rem;
   color: #9ca3af;
 }
+
+.list-page__footer-right {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+}

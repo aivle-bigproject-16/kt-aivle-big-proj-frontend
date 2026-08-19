@@ -12,7 +12,7 @@ interface IndividualReportListState extends AsyncState {
 
 interface IndividualReportListActions {
   actions: {
-    fetchList: (page: number, size: number, sort?: string) => Promise<void>
+    fetchList: (params?: { page?: number; size?: number; sort?: string; keyword?: string; status?: string }) => Promise<void>
     reset: () => void
   }
 }
@@ -29,10 +29,10 @@ export const useIndividualReportListStore = create<
 >((set) => ({
   ...initialState,
   actions: {
-    fetchList: async (page, size, sort) => {
+    fetchList: async (params = {}) => {
       set({ isLoading: true, error: null })
       try {
-        const res = await individualReportService.getIndividualReportList({ page, size, sort })
+        const res = await individualReportService.getIndividualReportList(params)
         const { content, pageable } = normalizeListResponse(res.data)
         set({ list: content, pageable, isLoading: false })
       } catch {

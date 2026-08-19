@@ -4,6 +4,7 @@ import '@/shared/ui/ListPageShell.css'
 import { ROUTES } from '@/core/navigation/routes'
 import { Pagination } from '@/shared/ui/Pagination'
 import { ListRowChevron } from '@/shared/ui/ListRowChevron'
+import { PageSizeSelector } from '@/shared/ui/PageSizeSelector'
 import { useDailyReportListStore } from '../store/useDailyReportListStore'
 import { useDailyReportDetailStore } from '../store/useDailyReportDetailStore'
 import { useReportListFilters } from '../hooks/useReportListFilters'
@@ -26,6 +27,7 @@ function formatDateTime(value: string | null): string {
 function DailyReportTable() {
   const navigate = useNavigate()
   const list = useDailyReportListStore((s) => s.list)
+  const pageable = useDailyReportListStore((s) => s.pageable)
   const isLoading = useDailyReportListStore((s) => s.isLoading)
   const error = useDailyReportListStore((s) => s.error)
   const { fetchList } = useDailyReportListStore((s) => s.actions)
@@ -40,15 +42,16 @@ function DailyReportTable() {
     setSearch,
     currentPage,
     setCurrentPage,
-    counts,
-    filtered,
+    pageSize,
+    setPageSize,
     pagedList,
     totalPages,
+    totalElements,
     rangeStart,
     rangeEnd,
     resetFilters,
     retry,
-  } = useReportListFilters(list, fetchList)
+  } = useReportListFilters(list, fetchList, pageable)
 
   const [creatorOpen, setCreatorOpen] = useState(false)
   const [creating, setCreating] = useState(false)
@@ -85,7 +88,6 @@ function DailyReportTable() {
       <ReportListToolbar
         statusFilter={statusFilter}
         onStatusFilterChange={setStatusFilter}
-        counts={counts}
         sortOrder={sortOrder}
         onSortOrderChange={setSortOrder}
         search={search}
@@ -114,7 +116,7 @@ function DailyReportTable() {
 
               {!isLoading && error && <ListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={retry} />}
 
-              {!isLoading && !error && list.length === 0 && (
+              {!isLoading && !error && list.length === 0 && !search && !statusFilter && (
                 <ListEmptyRow
                   colSpan={COLUMN_COUNT}
                   variant="no-data"
@@ -125,7 +127,7 @@ function DailyReportTable() {
                 />
               )}
 
-              {!isLoading && !error && list.length > 0 && filtered.length === 0 && (
+              {!isLoading && !error && list.length === 0 && (search || statusFilter) && (
                 <ListEmptyRow
                   colSpan={COLUMN_COUNT}
                   variant="no-results"
@@ -157,11 +159,14 @@ function DailyReportTable() {
 
         <div className="list-page__footer">
           <span className="list-page__count">
-            {filtered.length === 0 ? '0건' : `${filtered.length}건 중 ${rangeStart}–${rangeEnd}`}
+            {list.length === 0 ? '0건' : `${totalElements}건 중 ${rangeStart}–${rangeEnd}`}
           </span>
-          {filtered.length > 0 && (
-            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
-          )}
+          <div className="list-page__footer-right">
+            <PageSizeSelector value={pageSize} onChange={setPageSize} />
+            {list.length > 0 && (
+              <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+            )}
+          </div>
         </div>
       </div>
     </section>

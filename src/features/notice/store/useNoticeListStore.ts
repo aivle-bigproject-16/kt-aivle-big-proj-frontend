@@ -12,7 +12,7 @@ interface NoticeListState extends AsyncState {
 
 interface NoticeListActions {
   actions: {
-    fetchList: (page: number, size: number) => Promise<void>
+    fetchList: (params?: { page?: number; size?: number; keyword?: string }) => Promise<void>
     reset: () => void
   }
 }
@@ -27,10 +27,10 @@ const initialState: NoticeListState = {
 export const useNoticeListStore = create<NoticeListState & NoticeListActions>((set) => ({
   ...initialState,
   actions: {
-    fetchList: async (page, size) => {
+    fetchList: async (params = {}) => {
       set({ isLoading: true, error: null })
       try {
-        const res = await noticeService.getNoticeList({ page, size })
+        const res = await noticeService.getNoticeList(params)
         const { content, pageable } = normalizeListResponse(res.data)
         set({ list: content, pageable, isLoading: false })
       } catch {

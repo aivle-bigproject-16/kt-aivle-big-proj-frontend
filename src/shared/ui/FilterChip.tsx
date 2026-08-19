@@ -7,7 +7,7 @@ interface FilterChipMarker {
 
 interface FilterChipProps {
   label: string
-  count: number
+  count?: number
   active: boolean
   marker?: FilterChipMarker
   onClick: () => void
@@ -27,7 +27,7 @@ function FilterChip({ label, count, active, marker, onClick }: FilterChipProps) 
         <span className="filter-chip__marker-triangle" style={{ borderBottomColor: marker.color }} />
       )}
       <span>{label}</span>
-      <span className="filter-chip__count">{count}</span>
+      {count !== undefined && <span className="filter-chip__count">{count}</span>}
     </button>
   )
 }

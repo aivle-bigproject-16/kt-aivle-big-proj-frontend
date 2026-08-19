@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useState, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import '@/shared/ui/ListPageShell.css'
 import { ROUTES } from '@/core/navigation/routes'
@@ -7,7 +7,8 @@ import { SearchBox } from '@/shared/ui/SearchBox'
 import { ListRowChevron } from '@/shared/ui/ListRowChevron'
 import { ListSkeletonRows, ListEmptyRow, ListErrorRow } from '@/shared/ui/ListStates'
 import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue'
-import { usePaginatedList } from '@/shared/hooks/usePaginatedList'
+import { useServerPagination } from '@/shared/hooks/useServerPagination'
+import { PageSizeSelector } from '@/shared/ui/PageSizeSelector'
 import { useNoticeListStore } from '../store/useNoticeListStore'
 import { useLoginStore } from '@/features/auth'
 import { hasRole } from '@/shared/security/access'
@@ -27,6 +28,7 @@ function formatDate(value: string | null): string {
 function NoticeTable() {
   const navigate = useNavigate()
   const list = useNoticeListStore((s) => s.list)
+  const pageable = useNoticeListStore((s) => s.pageable)
   const isLoading = useNoticeListStore((s) => s.isLoading)
   const error = useNoticeListStore((s) => s.error)
   const { fetchList } = useNoticeListStore((s) => s.actions)
@@ -36,18 +38,16 @@ function NoticeTable() {
   const [search, setSearch] = useState('')
   const debouncedSearch = useDebouncedValue(search, 300)
 
-  useEffect(() => {
-    fetchList(0, 100)
-  }, [fetchList])
+  const handleFetch = useCallback((page: number, size: number) => {
+    fetchList({
+      page,
+      size,
+      keyword: debouncedSearch.trim() || undefined,
+    })
+  }, [fetchList, debouncedSearch])
 
-  const filtered = useMemo(() => {
-    const keyword = debouncedSearch.trim().toLowerCase()
-    if (!keyword) return list
-    return list.filter((item) => item.title.toLowerCase().includes(keyword))
-  }, [list, debouncedSearch])
-
-  const { currentPage, setCurrentPage, pagedList, totalPages, rangeStart, rangeEnd } =
-    usePaginatedList(filtered, debouncedSearch)
+  const { currentPage, setCurrentPage, pageSize, setPageSize, totalPages, totalElements, rangeStart, rangeEnd } =
+    useServerPagination(handleFetch, debouncedSearch, pageable)
 
   return (
     <section className="list-page">
@@ -84,10 +84,10 @@ function NoticeTable() {
               {isLoading && <ListSkeletonRows colSpan={COLUMN_COUNT} />}
 
               {!isLoading && error && (
-                <ListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={() => fetchList(0, 100)} />
+                <ListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={() => handleFetch(currentPage - 1, pageSize)} />
               )}
 
-              {!isLoading && !error && list.length === 0 && (
+              {!isLoading && !error && list.length === 0 && !debouncedSearch && (
                 <ListEmptyRow
                   colSpan={COLUMN_COUNT}
                   variant="no-data"
@@ -96,7 +96,7 @@ function NoticeTable() {
                 />
               )}
 
-              {!isLoading && !error && list.length > 0 && filtered.length === 0 && (
+              {!isLoading && !error && list.length === 0 && debouncedSearch && (
                 <ListEmptyRow
                   colSpan={COLUMN_COUNT}
                   variant="no-results"
@@ -109,7 +109,7 @@ function NoticeTable() {
 
               {!isLoading &&
                 !error &&
-                pagedList.map((item) => (
+                list.map((item) => (
                   <tr key={item.id} onClick={() => navigate(ROUTES.NOTICE_DETAIL(item.id))}>
                     <td>{item.title}</td>
                     <td className="list-page__secondary">{maskName(item.authorName)}</td>
@@ -125,11 +125,14 @@ function NoticeTable() {
 
         <div className="list-page__footer">
           <span className="list-page__count">
-            {filtered.length === 0 ? '0건' : `${filtered.length}건 중 ${rangeStart}–${rangeEnd}`}
+            {list.length === 0 ? '0건' : `${totalElements}건 중 ${rangeStart}–${rangeEnd}`}
           </span>
-          {filtered.length > 0 && (
-            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
-          )}
+          <div className="list-page__footer-right">
+            <PageSizeSelector value={pageSize} onChange={setPageSize} />
+            {list.length > 0 && (
+              <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+            )}
+          </div>
         </div>
       </div>
     </section>

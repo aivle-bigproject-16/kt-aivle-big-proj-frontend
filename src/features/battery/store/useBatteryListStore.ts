@@ -12,7 +12,7 @@ interface BatteryListState extends AsyncState {
 
 interface BatteryListActions {
   actions: {
-    fetchList: (page?: number, size?: number) => Promise<void>
+    fetchList: (params?: { page?: number; size?: number; keyword?: string; finalLabel?: string }) => Promise<void>
     reset: () => void
   }
 }
@@ -27,10 +27,10 @@ const initialState: BatteryListState = {
 export const useBatteryListStore = create<BatteryListState & BatteryListActions>((set) => ({
   ...initialState,
   actions: {
-    fetchList: async (page, size) => {
+    fetchList: async (params = {}) => {
       set({ isLoading: true, error: null })
       try {
-        const res = await batteryService.getBatteryList({ page, size })
+        const res = await batteryService.getBatteryList(params)
         const { content, pageable } = normalizeListResponse(res.data)
         set({ list: content, pageable, isLoading: false })
       } catch {

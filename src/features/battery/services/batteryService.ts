@@ -7,6 +7,8 @@ const BASE_URL = '/battery'
 interface GetBatteryListParams {
   page?: number
   size?: number
+  keyword?: string
+  finalLabel?: string
 }
 
 export const batteryService = {
