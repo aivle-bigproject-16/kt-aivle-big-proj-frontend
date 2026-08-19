@@ -4,6 +4,7 @@ import '@/shared/ui/ListPageShell.css'
 import { ROUTES } from '@/core/navigation/routes'
 import { Pagination } from '@/shared/ui/Pagination'
 import { ListRowChevron } from '@/shared/ui/ListRowChevron'
+import { PageSizeSelector } from '@/shared/ui/PageSizeSelector'
 import { useDailyReportListStore } from '../store/useDailyReportListStore'
 import { useDailyReportDetailStore } from '../store/useDailyReportDetailStore'
 import { useReportListFilters } from '../hooks/useReportListFilters'
@@ -40,6 +41,8 @@ function DailyReportTable() {
     setSearch,
     currentPage,
     setCurrentPage,
+    pageSize,
+    setPageSize,
     counts,
     filtered,
     pagedList,
@@ -159,9 +162,12 @@ function DailyReportTable() {
           <span className="list-page__count">
             {filtered.length === 0 ? '0건' : `${filtered.length}건 중 ${rangeStart}–${rangeEnd}`}
           </span>
-          {filtered.length > 0 && (
-            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
-          )}
+          <div className="list-page__footer-right">
+            <PageSizeSelector value={pageSize} onChange={setPageSize} />
+            {filtered.length > 0 && (
+              <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+            )}
+          </div>
         </div>
       </div>
     </section>

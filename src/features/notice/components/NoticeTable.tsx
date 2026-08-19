@@ -8,6 +8,7 @@ import { ListRowChevron } from '@/shared/ui/ListRowChevron'
 import { ListSkeletonRows, ListEmptyRow, ListErrorRow } from '@/shared/ui/ListStates'
 import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue'
 import { usePaginatedList } from '@/shared/hooks/usePaginatedList'
+import { PageSizeSelector } from '@/shared/ui/PageSizeSelector'
 import { useNoticeListStore } from '../store/useNoticeListStore'
 import { useLoginStore } from '@/features/auth'
 import { hasRole } from '@/shared/security/access'
@@ -37,7 +38,7 @@ function NoticeTable() {
   const debouncedSearch = useDebouncedValue(search, 300)
 
   useEffect(() => {
-    fetchList(0, 100)
+    fetchList(0, 10000)
   }, [fetchList])
 
   const filtered = useMemo(() => {
@@ -46,7 +47,7 @@ function NoticeTable() {
     return list.filter((item) => item.title.toLowerCase().includes(keyword))
   }, [list, debouncedSearch])
 
-  const { currentPage, setCurrentPage, pagedList, totalPages, rangeStart, rangeEnd } =
+  const { currentPage, setCurrentPage, pageSize, setPageSize, pagedList, totalPages, rangeStart, rangeEnd } =
     usePaginatedList(filtered, debouncedSearch)
 
   return (
@@ -84,7 +85,7 @@ function NoticeTable() {
               {isLoading && <ListSkeletonRows colSpan={COLUMN_COUNT} />}
 
               {!isLoading && error && (
-                <ListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={() => fetchList(0, 100)} />
+                <ListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={() => fetchList(0, 10000)} />
               )}
 
               {!isLoading && !error && list.length === 0 && (
@@ -127,9 +128,12 @@ function NoticeTable() {
           <span className="list-page__count">
             {filtered.length === 0 ? '0건' : `${filtered.length}건 중 ${rangeStart}–${rangeEnd}`}
           </span>
-          {filtered.length > 0 && (
-            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
-          )}
+          <div className="list-page__footer-right">
+            <PageSizeSelector value={pageSize} onChange={setPageSize} />
+            {filtered.length > 0 && (
+              <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+            )}
+          </div>
         </div>
       </div>
     </section>

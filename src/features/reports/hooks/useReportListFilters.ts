@@ -28,7 +28,7 @@ function useReportListFilters<T extends ReportListItemLike>(
   const debouncedSearch = useDebouncedValue(search, 300)
 
   useEffect(() => {
-    fetchList(0, 100, toSortParam(sortOrder))
+    fetchList(0, 10000, toSortParam(sortOrder))
   }, [fetchList, sortOrder])
 
   const counts = useMemo(
@@ -53,7 +53,7 @@ function useReportListFilters<T extends ReportListItemLike>(
     })
   }, [list, statusFilter, debouncedSearch])
 
-  const { currentPage, setCurrentPage, pagedList, totalPages, rangeStart, rangeEnd } = usePaginatedList(
+  const { currentPage, setCurrentPage, pageSize, setPageSize, pagedList, totalPages, rangeStart, rangeEnd } = usePaginatedList(
     filtered,
     `${statusFilter ?? ''}|${debouncedSearch}`,
   )
@@ -63,7 +63,7 @@ function useReportListFilters<T extends ReportListItemLike>(
     setSearch('')
   }
 
-  const retry = () => fetchList(0, 100, toSortParam(sortOrder))
+  const retry = () => fetchList(0, 10000, toSortParam(sortOrder))
 
   return {
     statusFilter,
@@ -74,6 +74,8 @@ function useReportListFilters<T extends ReportListItemLike>(
     setSearch,
     currentPage,
     setCurrentPage,
+    pageSize,
+    setPageSize,
     counts,
     filtered,
     pagedList,

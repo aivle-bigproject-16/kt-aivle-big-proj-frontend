@@ -8,6 +8,7 @@ import { ListSkeletonRows, ListEmptyRow, ListErrorRow } from '@/shared/ui/ListSt
 import { ListRowChevron } from '@/shared/ui/ListRowChevron'
 import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue'
 import { usePaginatedList } from '@/shared/hooks/usePaginatedList'
+import { PageSizeSelector } from '@/shared/ui/PageSizeSelector'
 import { useBatteryListStore } from '../store/useBatteryListStore'
 import { BatteryResultBadge } from './BatteryResultBadge'
 import { BatteryListToolbar } from './BatteryListToolbar'
@@ -41,7 +42,7 @@ function BatteryList() {
   const debouncedSearch = useDebouncedValue(search, 300)
 
   useEffect(() => {
-    fetchList()
+    fetchList(0, 10000)
   }, [fetchList])
 
   const counts = useMemo(
@@ -66,7 +67,7 @@ function BatteryList() {
     })
   }, [list, resultFilter, debouncedSearch])
 
-  const { currentPage, setCurrentPage, pagedList, totalPages, rangeStart, rangeEnd } = usePaginatedList(
+  const { currentPage, setCurrentPage, pageSize, setPageSize, pagedList, totalPages, rangeStart, rangeEnd } = usePaginatedList(
     filtered,
     `${resultFilter ?? ''}|${debouncedSearch}`,
   )
@@ -113,7 +114,7 @@ function BatteryList() {
               {isLoading && <ListSkeletonRows colSpan={COLUMN_COUNT} />}
 
               {!isLoading && error && (
-                <ListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={() => fetchList()} />
+                <ListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={() => fetchList(0, 10000)} />
               )}
 
               {!isLoading && !error && list.length === 0 && (
@@ -170,9 +171,12 @@ function BatteryList() {
           <span className="list-page__count">
             {filtered.length === 0 ? '0건' : `${filtered.length}건 중 ${rangeStart}–${rangeEnd}`}
           </span>
-          {filtered.length > 0 && (
-            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
-          )}
+          <div className="list-page__footer-right">
+            <PageSizeSelector value={pageSize} onChange={setPageSize} />
+            {filtered.length > 0 && (
+              <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+            )}
+          </div>
         </div>
       </div>
     </section>
