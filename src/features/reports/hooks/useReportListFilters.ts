@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue'
-import { usePaginatedList } from '@/shared/hooks/usePaginatedList'
+import { useServerPagination } from '@/shared/hooks/useServerPagination'
 import type { ReportStatus } from '../types'
+import type { Pageable } from '@/shared/types/api'
 
 interface ReportListItemLike {
   reportId: number
@@ -15,47 +16,32 @@ function toSortParam(order: 'desc' | 'asc'): string {
 
 /**
  * 일일/개별 리포트 목록 화면의 상태 필터·검색·정렬·페이징을 공용으로 처리한다.
- * 정렬은 fetchList(page, size, sort) 재호출로, 상태 필터·검색은 로드된 배열 안에서 처리한다
- * (LIST_REDESIGN.md §8 — sort만 실제 API 파라미터가 있고 필터·검색은 서버 파라미터가 없다).
+ * 백엔드 서버 사이드 페이징을 지원한다.
  */
 function useReportListFilters<T extends ReportListItemLike>(
   list: T[],
-  fetchList: (page: number, size: number, sort: string) => void,
+  fetchList: (params: { page?: number; size?: number; sort?: string; keyword?: string; status?: string }) => void,
+  pageable: Pageable | null
 ) {
   const [statusFilter, setStatusFilter] = useState<ReportStatus | null>(null)
   const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc')
   const [search, setSearch] = useState('')
   const debouncedSearch = useDebouncedValue(search, 300)
 
-  useEffect(() => {
-    fetchList(0, 10000, toSortParam(sortOrder))
-  }, [fetchList, sortOrder])
-
-  const counts = useMemo(
-    () => ({
-      total: list.length,
-      completed: list.filter((r) => r.status === 'COMPLETED').length,
-      pending: list.filter((r) => r.status === 'PENDING').length,
-      failed: list.filter((r) => r.status === 'FAILED').length,
-    }),
-    [list],
-  )
-
-  const filtered = useMemo(() => {
-    const keyword = debouncedSearch.trim().toLowerCase()
-    return list.filter((item) => {
-      if (statusFilter && item.status !== statusFilter) return false
-      if (keyword) {
-        const title = (item.title ?? `리포트 #${item.reportId}`).toLowerCase()
-        if (!title.includes(keyword)) return false
-      }
-      return true
+  const handleFetch = useCallback((page: number, size: number) => {
+    fetchList({
+      page,
+      size,
+      sort: toSortParam(sortOrder),
+      keyword: debouncedSearch.trim() || undefined,
+      status: statusFilter || undefined
     })
-  }, [list, statusFilter, debouncedSearch])
+  }, [fetchList, sortOrder, debouncedSearch, statusFilter])
 
-  const { currentPage, setCurrentPage, pageSize, setPageSize, pagedList, totalPages, rangeStart, rangeEnd } = usePaginatedList(
-    filtered,
-    `${statusFilter ?? ''}|${debouncedSearch}`,
+  const { currentPage, setCurrentPage, pageSize, setPageSize, totalPages, totalElements, rangeStart, rangeEnd } = useServerPagination(
+    handleFetch,
+    `${statusFilter ?? ''}|${debouncedSearch}|${sortOrder}`,
+    pageable
   )
 
   const resetFilters = () => {
@@ -63,7 +49,8 @@ function useReportListFilters<T extends ReportListItemLike>(
     setSearch('')
   }
 
-  const retry = () => fetchList(0, 10000, toSortParam(sortOrder))
+  const retry = () => handleFetch(currentPage - 1, pageSize)
+
 
   return {
     statusFilter,
@@ -76,10 +63,10 @@ function useReportListFilters<T extends ReportListItemLike>(
     setCurrentPage,
     pageSize,
     setPageSize,
-    counts,
-    filtered,
-    pagedList,
+    filtered: list, // 호환성을 위해 이름 유지
+    pagedList: list, // 이제 프론트엔드가 자르는게 아니라 백엔드가 자른 데이터를 그대로 사용
     totalPages,
+    totalElements,
     rangeStart,
     rangeEnd,
     resetFilters,

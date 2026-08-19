@@ -13,6 +13,8 @@ interface GetDailyReportListParams {
   page?: number
   size?: number
   sort?: string
+  keyword?: string
+  status?: string
 }
 
 export const dailyReportService = {

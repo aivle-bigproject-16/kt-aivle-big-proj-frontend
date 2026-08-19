@@ -13,6 +13,8 @@ interface GetIndividualReportListParams {
   page?: number
   size?: number
   sort?: string
+  keyword?: string
+  status?: string
 }
 
 export const individualReportService = {

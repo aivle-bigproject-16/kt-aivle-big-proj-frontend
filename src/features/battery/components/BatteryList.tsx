@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '@/shared/ui/ListPageShell.css'
 import './BatteryList.css'
@@ -7,7 +7,7 @@ import { Pagination } from '@/shared/ui/Pagination'
 import { ListSkeletonRows, ListEmptyRow, ListErrorRow } from '@/shared/ui/ListStates'
 import { ListRowChevron } from '@/shared/ui/ListRowChevron'
 import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue'
-import { usePaginatedList } from '@/shared/hooks/usePaginatedList'
+import { useServerPagination } from '@/shared/hooks/useServerPagination'
 import { PageSizeSelector } from '@/shared/ui/PageSizeSelector'
 import { useBatteryListStore } from '../store/useBatteryListStore'
 import { BatteryResultBadge } from './BatteryResultBadge'
@@ -33,6 +33,7 @@ function formatDateTime(value: string | null): string {
 function BatteryList() {
   const navigate = useNavigate()
   const list = useBatteryListStore((s) => s.list)
+  const pageable = useBatteryListStore((s) => s.pageable)
   const isLoading = useBatteryListStore((s) => s.isLoading)
   const error = useBatteryListStore((s) => s.error)
   const { fetchList } = useBatteryListStore((s) => s.actions)
@@ -41,35 +42,19 @@ function BatteryList() {
   const [search, setSearch] = useState('')
   const debouncedSearch = useDebouncedValue(search, 300)
 
-  useEffect(() => {
-    fetchList(0, 10000)
-  }, [fetchList])
-
-  const counts = useMemo(
-    () => ({
-      total: list.length,
-      pass: list.filter((r) => r.latestFinalLabel === 'PASS').length,
-      reject: list.filter((r) => r.latestFinalLabel === 'REJECT').length,
-      fail: list.filter((r) => r.latestFinalLabel === 'FAIL').length,
-    }),
-    [list],
-  )
-
-  const filtered = useMemo(() => {
-    const keyword = debouncedSearch.trim().toLowerCase()
-    return list.filter((item) => {
-      if (resultFilter && item.latestFinalLabel !== resultFilter) return false
-      if (keyword) {
-        const serial = (item.cellSerialNo ?? `CELL-${item.batteryCellId}`).toLowerCase()
-        if (!serial.includes(keyword)) return false
-      }
-      return true
+  const handleFetch = useCallback((page: number, size: number) => {
+    fetchList({
+      page,
+      size,
+      keyword: debouncedSearch.trim() || undefined,
+      finalLabel: resultFilter || undefined
     })
-  }, [list, resultFilter, debouncedSearch])
+  }, [fetchList, debouncedSearch, resultFilter])
 
-  const { currentPage, setCurrentPage, pageSize, setPageSize, pagedList, totalPages, rangeStart, rangeEnd } = usePaginatedList(
-    filtered,
+  const { currentPage, setCurrentPage, pageSize, setPageSize, totalPages, totalElements, rangeStart, rangeEnd } = useServerPagination(
+    handleFetch,
     `${resultFilter ?? ''}|${debouncedSearch}`,
+    pageable
   )
 
   const resetFilters = () => {
@@ -86,7 +71,6 @@ function BatteryList() {
       <BatteryListToolbar
         resultFilter={resultFilter}
         onResultFilterChange={setResultFilter}
-        counts={counts}
         search={search}
         onSearchChange={setSearch}
       />
@@ -114,10 +98,10 @@ function BatteryList() {
               {isLoading && <ListSkeletonRows colSpan={COLUMN_COUNT} />}
 
               {!isLoading && error && (
-                <ListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={() => fetchList(0, 10000)} />
+                <ListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={() => handleFetch(currentPage - 1, pageSize)} />
               )}
 
-              {!isLoading && !error && list.length === 0 && (
+              {!isLoading && !error && list.length === 0 && !debouncedSearch && !resultFilter && (
                 <ListEmptyRow
                   colSpan={COLUMN_COUNT}
                   variant="no-data"
@@ -126,7 +110,7 @@ function BatteryList() {
                 />
               )}
 
-              {!isLoading && !error && list.length > 0 && filtered.length === 0 && (
+              {!isLoading && !error && list.length === 0 && (debouncedSearch || resultFilter) && (
                 <ListEmptyRow
                   colSpan={COLUMN_COUNT}
                   variant="no-results"
@@ -139,7 +123,7 @@ function BatteryList() {
 
               {!isLoading &&
                 !error &&
-                pagedList.map((item) => (
+                list.map((item) => (
                   <tr key={item.batteryCellId} onClick={() => navigate(ROUTES.BATTERY_DETAIL(item.batteryCellId))}>
                     <td className="list-page__mono">{item.cellSerialNo ?? `CELL-${item.batteryCellId}`}</td>
                     <td>{item.modelName ?? '-'}</td>
@@ -169,11 +153,11 @@ function BatteryList() {
 
         <div className="list-page__footer">
           <span className="list-page__count">
-            {filtered.length === 0 ? '0건' : `${filtered.length}건 중 ${rangeStart}–${rangeEnd}`}
+            {list.length === 0 ? '0건' : `${totalElements}건 중 ${rangeStart}–${rangeEnd}`}
           </span>
           <div className="list-page__footer-right">
             <PageSizeSelector value={pageSize} onChange={setPageSize} />
-            {filtered.length > 0 && (
+            {list.length > 0 && (
               <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
             )}
           </div>

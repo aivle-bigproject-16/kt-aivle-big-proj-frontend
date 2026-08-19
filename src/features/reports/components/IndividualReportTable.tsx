@@ -24,6 +24,7 @@ function formatDateTime(value: string | null): string {
 function IndividualReportTable() {
   const navigate = useNavigate()
   const list = useIndividualReportListStore((s) => s.list)
+  const pageable = useIndividualReportListStore((s) => s.pageable)
   const isLoading = useIndividualReportListStore((s) => s.isLoading)
   const error = useIndividualReportListStore((s) => s.error)
   const { fetchList } = useIndividualReportListStore((s) => s.actions)
@@ -39,15 +40,14 @@ function IndividualReportTable() {
     setCurrentPage,
     pageSize,
     setPageSize,
-    counts,
-    filtered,
     pagedList,
     totalPages,
+    totalElements,
     rangeStart,
     rangeEnd,
     resetFilters,
     retry,
-  } = useReportListFilters(list, fetchList)
+  } = useReportListFilters(list, fetchList, pageable)
 
   return (
     <section className="list-page">
@@ -58,7 +58,6 @@ function IndividualReportTable() {
       <ReportListToolbar
         statusFilter={statusFilter}
         onStatusFilterChange={setStatusFilter}
-        counts={counts}
         sortOrder={sortOrder}
         onSortOrderChange={setSortOrder}
         search={search}
@@ -87,7 +86,7 @@ function IndividualReportTable() {
 
               {!isLoading && error && <ListErrorRow colSpan={COLUMN_COUNT} message={error} onRetry={retry} />}
 
-              {!isLoading && !error && list.length === 0 && (
+              {!isLoading && !error && list.length === 0 && !search && !statusFilter && (
                 <ListEmptyRow
                   colSpan={COLUMN_COUNT}
                   variant="no-data"
@@ -96,7 +95,7 @@ function IndividualReportTable() {
                 />
               )}
 
-              {!isLoading && !error && list.length > 0 && filtered.length === 0 && (
+              {!isLoading && !error && list.length === 0 && (search || statusFilter) && (
                 <ListEmptyRow
                   colSpan={COLUMN_COUNT}
                   variant="no-results"
@@ -128,11 +127,11 @@ function IndividualReportTable() {
 
         <div className="list-page__footer">
           <span className="list-page__count">
-            {filtered.length === 0 ? '0건' : `${filtered.length}건 중 ${rangeStart}–${rangeEnd}`}
+            {list.length === 0 ? '0건' : `${totalElements}건 중 ${rangeStart}–${rangeEnd}`}
           </span>
           <div className="list-page__footer-right">
             <PageSizeSelector value={pageSize} onChange={setPageSize} />
-            {filtered.length > 0 && (
+            {list.length > 0 && (
               <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
             )}
           </div>

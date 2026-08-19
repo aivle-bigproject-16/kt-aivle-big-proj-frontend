@@ -11,6 +11,7 @@ const BASE_URL = '/notices'
 interface GetNoticeListParams {
   page?: number
   size?: number
+  keyword?: string
 }
 
 export function buildNoticeFormData({ request, file }: NoticeSavePayload) {

@@ -5,17 +5,11 @@ import { FilterChip } from '@/shared/ui/FilterChip'
 import { SearchBox } from '@/shared/ui/SearchBox'
 import type { ReportStatus } from '../types'
 
-interface StatusChipCounts {
-  total: number
-  completed: number
-  pending: number
-  failed: number
-}
+
 
 interface ReportListToolbarProps {
   statusFilter: ReportStatus | null
   onStatusFilterChange: (status: ReportStatus | null) => void
-  counts: StatusChipCounts
   sortOrder: 'desc' | 'asc'
   onSortOrderChange: (order: 'desc' | 'asc') => void
   search: string
@@ -41,7 +35,6 @@ function ChevronDownIcon() {
 function ReportListToolbar({
   statusFilter,
   onStatusFilterChange,
-  counts,
   sortOrder,
   onSortOrderChange,
   search,
@@ -55,26 +48,22 @@ function ReportListToolbar({
         <div className="report-list-toolbar__chips">
           <FilterChip
             label="전체"
-            count={counts.total}
             active={statusFilter === null}
             onClick={() => onStatusFilterChange(null)}
           />
           <FilterChip
             label="완료"
-            count={counts.completed}
             active={statusFilter === 'COMPLETED'}
             onClick={() => onStatusFilterChange('COMPLETED')}
           />
           <FilterChip
             label="대기중"
-            count={counts.pending}
             active={statusFilter === 'PENDING'}
             marker={{ shape: 'dot', color: '#13777c' }}
             onClick={() => onStatusFilterChange('PENDING')}
           />
           <FilterChip
             label="실패"
-            count={counts.failed}
             active={statusFilter === 'FAILED'}
             marker={{ shape: 'triangle', color: '#dc2626' }}
             onClick={() => onStatusFilterChange('FAILED')}
