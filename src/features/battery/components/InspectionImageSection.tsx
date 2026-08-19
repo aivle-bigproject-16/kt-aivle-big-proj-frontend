@@ -18,36 +18,44 @@ interface ImageSectionProps {
   onSelectImage: (imageId: number) => void
 }
 
-/** 긴 쪽이 항상 가로가 되도록, 세로로 긴(portrait) 원본이면 히어로 박스 안에서 90도
-   돌려 보여준다. object-fit/마커 스케일 계산은 실제 히어로 박스 크기가 아니라
-   가로/세로를 맞바꾼 "작업 박스" 기준으로 하고, 그 작업 박스를 통째로 90도 돌리면
-   다시 실제 히어로 박스 크기에 정확히 맞아떨어진다 — img와 마커가 같은 좌표계를
-   쓰므로 회전해도 서로 어긋나지 않는다 */
-function useCoverScale() {
+/** 히어로는 잘림 없이 너비를 항상 꽉 채워야 한다 — "안 잘림"과 "너비 꽉 채움"을
+   고정 비율 박스 안에서 동시에 만족시킬 수는 없으므로(비율이 안 맞으면 letterbox
+   아니면 crop 둘 중 하나), 박스 높이를 이미지 비율에 맞춰 매번 다시 계산한다.
+   폭(W)은 고정, 높이(H) = W × (짧은 변 / 긴 변) — 세로로 긴(portrait) 원본이면
+   긴 변이 가로가 되도록 90도 돌리므로, 회전 여부와 무관하게 "항상 긴 변 대 짧은
+   변" 비율로 H를 잡으면 그대로 꽉 차면서 잘리는 부분이 없다.
+   회전 시 img+마커는 가로/세로를 맞바꾼 작업 박스(rotor)에 넣고 그 박스를
+   통째로 90도 돌린다 — 좌표계가 공유되어 마커가 어긋나지 않는다 */
+function useAdaptiveHero() {
+  const heroRef = useRef<HTMLButtonElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
   const [scale, setScale] = useState<{ sx: number; sy: number; ox: number; oy: number } | null>(null)
   const [rotated, setRotated] = useState(false)
+  const [boxSize, setBoxSize] = useState<{ w: number; h: number } | null>(null)
   const [workSize, setWorkSize] = useState<{ w: number; h: number } | null>(null)
 
   const handleLoad = () => {
     const img = imgRef.current
-    if (!img || !img.naturalWidth) return
+    const hero = heroRef.current
+    if (!img || !hero || !img.naturalWidth) return
     const nw = img.naturalWidth
     const nh = img.naturalHeight
     const portrait = nh > nw
-    // 히어로 박스의 실제(회전 전) 크기 — object-fit 때문에 img 박스 크기는 항상 이 값
-    const containerW = img.clientWidth
-    const containerH = img.clientHeight
-    const dw = portrait ? containerH : containerW
-    const dh = portrait ? containerW : containerH
-    // 너비를 꽉 채워야 해서 contain이 아니라 cover — 세로가 넘치면 위아래를 잘라낸다
-    const s = Math.max(dw / nw, dh / nh)
-    setScale({ sx: s, sy: s, ox: (dw - nw * s) / 2, oy: (dh - nh * s) / 2 })
+
+    const W = hero.clientWidth
+    const longSide = Math.max(nw, nh)
+    const shortSide = Math.min(nw, nh)
+    const H = (W * shortSide) / longSide
+
+    setBoxSize({ w: W, h: H })
     setRotated(portrait)
-    setWorkSize({ w: dw, h: dh })
+    setWorkSize(portrait ? { w: H, h: W } : { w: W, h: H })
+    // 박스 비율이 이미지 비율과 정확히 일치하도록 만들었으니 letterbox/crop 여백이 없다
+    const s = W / longSide
+    setScale({ sx: s, sy: s, ox: 0, oy: 0 })
   }
 
-  return { imgRef, scale, rotated, workSize, handleLoad }
+  return { heroRef, imgRef, scale, rotated, boxSize, workSize, handleLoad }
 }
 
 /** rotated일 때만 img+마커를 작업 박스 크기의 래퍼로 감싸 90도 돌린다 —
@@ -81,7 +89,7 @@ function ImageSection({ images, defects, activeImageId, onSelectImage }: ImageSe
   const tab = activeImage?.imageType ?? (ctImages.length > 0 ? 'CT' : 'RGB')
   const shown = tab === 'CT' ? ctImages : rgbImages
 
-  const { imgRef, scale, rotated, workSize, handleLoad } = useCoverScale()
+  const { heroRef, imgRef, scale, rotated, boxSize, workSize, handleLoad } = useAdaptiveHero()
   const [modalOpen, setModalOpen] = useState(false)
 
   if (images.length === 0) {
@@ -120,8 +128,10 @@ function ImageSection({ images, defects, activeImageId, onSelectImage }: ImageSe
       )}
 
       <button
+        ref={heroRef}
         type="button"
         className="battery-detail__image-hero"
+        style={boxSize ? { height: boxSize.h } : undefined}
         onClick={() => activeImage && setModalOpen(true)}
       >
         {activeImage && (
