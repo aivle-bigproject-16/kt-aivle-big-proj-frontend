@@ -10,7 +10,7 @@ function IndividualReportMockList() {
   const { fetchList } = useIndividualReportListStore((s) => s.actions)
 
   useEffect(() => {
-    fetchList(0, 100)
+    fetchList({ page: 0, size: 100 })
   }, [fetchList])
 
   return (
