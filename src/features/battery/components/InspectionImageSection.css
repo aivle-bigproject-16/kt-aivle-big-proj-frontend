@@ -71,6 +71,15 @@
   transform: scale(1.03);
 }
 
+/* 세로로 긴(portrait) 원본을 90도 돌려 히어로 박스를 채운다 — 가로/세로를
+   맞바꾼 크기로 만든 뒤 통째로 회전시키면 다시 실제 박스 크기에 맞아떨어진다 */
+.battery-detail__image-rotor {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
 .battery-detail__image-marker {
   position: absolute;
   box-sizing: border-box;
@@ -144,6 +153,7 @@
 }
 
 .battery-detail__image-thumb {
+  position: relative;
   flex-shrink: 0;
   width: 7.4rem;
   height: 7.4rem;

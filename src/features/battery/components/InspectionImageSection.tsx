@@ -1,5 +1,6 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, type ReactNode } from 'react'
 import { ImageBboxModal } from '@/shared/ui/ImageBboxModal'
+import { RotatingImage } from '@/shared/ui/RotatingImage'
 import type { Inspection } from '../types'
 import './InspectionImageSection.css'
 
@@ -17,23 +18,55 @@ interface ImageSectionProps {
   onSelectImage: (imageId: number) => void
 }
 
+/** 긴 쪽이 항상 가로가 되도록, 세로로 긴(portrait) 원본이면 히어로 박스 안에서 90도
+   돌려 보여준다. object-fit/마커 스케일 계산은 실제 히어로 박스 크기가 아니라
+   가로/세로를 맞바꾼 "작업 박스" 기준으로 하고, 그 작업 박스를 통째로 90도 돌리면
+   다시 실제 히어로 박스 크기에 정확히 맞아떨어진다 — img와 마커가 같은 좌표계를
+   쓰므로 회전해도 서로 어긋나지 않는다 */
 function useCoverScale() {
   const imgRef = useRef<HTMLImageElement>(null)
   const [scale, setScale] = useState<{ sx: number; sy: number; ox: number; oy: number } | null>(null)
+  const [rotated, setRotated] = useState(false)
+  const [workSize, setWorkSize] = useState<{ w: number; h: number } | null>(null)
 
   const handleLoad = () => {
     const img = imgRef.current
     if (!img || !img.naturalWidth) return
     const nw = img.naturalWidth
     const nh = img.naturalHeight
-    const dw = img.clientWidth
-    const dh = img.clientHeight
+    const portrait = nh > nw
+    // 히어로 박스의 실제(회전 전) 크기 — object-fit 때문에 img 박스 크기는 항상 이 값
+    const containerW = img.clientWidth
+    const containerH = img.clientHeight
+    const dw = portrait ? containerH : containerW
+    const dh = portrait ? containerW : containerH
     // cover에서 contain으로 변경하여 이미지가 잘리지 않게 함
     const s = Math.min(dw / nw, dh / nh)
     setScale({ sx: s, sy: s, ox: (dw - nw * s) / 2, oy: (dh - nh * s) / 2 })
+    setRotated(portrait)
+    setWorkSize({ w: dw, h: dh })
   }
 
-  return { imgRef, scale, handleLoad }
+  return { imgRef, scale, rotated, workSize, handleLoad }
+}
+
+/** rotated일 때만 img+마커를 작업 박스 크기의 래퍼로 감싸 90도 돌린다 —
+   img와 마커가 같은 좌표계를 공유하는 채로 통째로 회전해 서로 어긋나지 않는다 */
+function HeroFrame({
+  rotated,
+  workSize,
+  children,
+}: {
+  rotated: boolean
+  workSize: { w: number; h: number } | null
+  children: ReactNode
+}) {
+  if (!rotated || !workSize) return <>{children}</>
+  return (
+    <div className="battery-detail__image-rotor" style={{ width: workSize.w, height: workSize.h }}>
+      {children}
+    </div>
+  )
 }
 
 /** 검사 이미지 뷰어 — 좌측 열. CT/RGB 탭 + 히어로 이미지(결함 bbox 번호 마커) +
@@ -48,7 +81,7 @@ function ImageSection({ images, defects, activeImageId, onSelectImage }: ImageSe
   const tab = activeImage?.imageType ?? (ctImages.length > 0 ? 'CT' : 'RGB')
   const shown = tab === 'CT' ? ctImages : rgbImages
 
-  const { imgRef, scale, handleLoad } = useCoverScale()
+  const { imgRef, scale, rotated, workSize, handleLoad } = useCoverScale()
   const [modalOpen, setModalOpen] = useState(false)
 
   if (images.length === 0) {
@@ -92,29 +125,31 @@ function ImageSection({ images, defects, activeImageId, onSelectImage }: ImageSe
         onClick={() => activeImage && setModalOpen(true)}
       >
         {activeImage && (
-          <img
-            ref={imgRef}
-            src={activeImage.imageUrl}
-            alt={`${activeImage.imageType} · IMG-${activeImage.imageId}`}
-            className="battery-detail__image-hero-img"
-            onLoad={handleLoad}
-          />
+          <HeroFrame rotated={rotated} workSize={workSize}>
+            <img
+              ref={imgRef}
+              src={activeImage.imageUrl}
+              alt={`${activeImage.imageType} · IMG-${activeImage.imageId}`}
+              className="battery-detail__image-hero-img"
+              onLoad={handleLoad}
+            />
+            {scale &&
+              activeDefects.map((d) => (
+                <span
+                  key={d.defectResultId}
+                  className={`battery-detail__image-marker battery-detail__image-marker--${d.label.toLowerCase()}`}
+                  style={{
+                    left: scale.ox + d.bbox!.x * scale.sx,
+                    top: scale.oy + d.bbox!.y * scale.sy,
+                    width: d.bbox!.width * scale.sx,
+                    height: d.bbox!.height * scale.sy,
+                  }}
+                >
+                  <span className="battery-detail__image-marker-num">{d.orderNo}</span>
+                </span>
+              ))}
+          </HeroFrame>
         )}
-        {scale &&
-          activeDefects.map((d) => (
-            <span
-              key={d.defectResultId}
-              className={`battery-detail__image-marker battery-detail__image-marker--${d.label.toLowerCase()}`}
-              style={{
-                left: scale.ox + d.bbox!.x * scale.sx,
-                top: scale.oy + d.bbox!.y * scale.sy,
-                width: d.bbox!.width * scale.sx,
-                height: d.bbox!.height * scale.sy,
-              }}
-            >
-              <span className="battery-detail__image-marker-num">{d.orderNo}</span>
-            </span>
-          ))}
       </button>
 
       {activeImage && (
@@ -132,7 +167,7 @@ function ImageSection({ images, defects, activeImageId, onSelectImage }: ImageSe
               className={`battery-detail__image-thumb${img.imageId === activeImage?.imageId ? ' battery-detail__image-thumb--active' : ''}`}
               onClick={() => onSelectImage(img.imageId)}
             >
-              <img src={img.imageUrl} alt={`${img.imageType} · IMG-${img.imageId}`} />
+              <RotatingImage src={img.imageUrl} alt={`${img.imageType} · IMG-${img.imageId}`} />
             </button>
           ))}
         </div>

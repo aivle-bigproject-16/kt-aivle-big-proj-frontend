@@ -27,34 +27,51 @@ interface ImageBboxModalProps {
   onClose: () => void
 }
 
+interface Fit {
+  /** 회전 전 이미지 자체 크기(자연 비율 유지) — 회전 안 하면 그대로가 최종 표시 크기 */
+  w: number
+  h: number
+  rotated: boolean
+  scale: number
+}
+
 function ImageBboxModal({ title, imageUrl, regions, infoItems, open, onClose }: ImageBboxModalProps) {
   const { mounted, visible } = useModalAnimation(open)
   const imgRef = useRef<HTMLImageElement>(null)
-  const [scale, setScale] = useState<{ sx: number; sy: number; ox: number; oy: number } | null>(null)
+  const bodyRef = useRef<HTMLDivElement>(null)
+  const [fit, setFit] = useState<Fit | null>(null)
 
-  // 윈도우 리사이즈 등에 대응하기 위해 ResizeObserver 사용
+  /* 긴 쪽이 항상 가로가 되도록, 세로로 긴(portrait) 원본이면 90도 돌린다. 모달은
+     고정 크기가 아니라 뷰포트에 맞춰 늘었다 줄었다 하므로(반응형), 가용 폭(body
+     기준)·높이(60vh, CSS의 max-height와 동일 기준)를 직접 재서 맞는 스케일을
+     계산한다 — 회전 시엔 자연 폭/높이를 맞바꿔서 맞춘 뒤, 그 크기 그대로 90도
+     돌리면 다시 가용 영역 안에 들어온다 */
   useEffect(() => {
     if (!mounted || !open) return
     const img = imgRef.current
-    if (!img) return
+    const body = bodyRef.current
+    if (!img || !body) return
 
-    const updateScale = () => {
+    const update = () => {
       if (!img.naturalWidth) return
       const nw = img.naturalWidth
       const nh = img.naturalHeight
-      const dw = img.clientWidth
-      const dh = img.clientHeight
-      const s = Math.min(dw / nw, dh / nh)
-      setScale({ sx: s, sy: s, ox: (dw - nw * s) / 2, oy: (dh - nh * s) / 2 })
+      const portrait = nh > nw
+      const maxW = body.clientWidth
+      const maxH = window.innerHeight * 0.6
+
+      const scale = portrait ? Math.min(maxW / nh, maxH / nw) : Math.min(maxW / nw, maxH / nh)
+      setFit({ w: nw * scale, h: nh * scale, rotated: portrait, scale })
     }
 
-    const observer = new ResizeObserver(updateScale)
-    observer.observe(img)
-    img.addEventListener('load', updateScale)
+    const observer = new ResizeObserver(update)
+    observer.observe(body)
+    img.addEventListener('load', update)
+    update()
 
     return () => {
       observer.disconnect()
-      img.removeEventListener('load', updateScale)
+      img.removeEventListener('load', update)
     }
   }, [mounted, open, imageUrl])
 
@@ -69,6 +86,25 @@ function ImageBboxModal({ title, imageUrl, regions, infoItems, open, onClose }: 
 
   if (!mounted) return null
 
+  const markers = fit && (
+    <>
+      {regions.map((r) => (
+        <span
+          key={r.id}
+          className={`image-bbox-modal__marker image-bbox-modal__marker--${r.tone ?? 'neutral'}`}
+          style={{
+            left: r.bbox.x * fit.scale,
+            top: r.bbox.y * fit.scale,
+            width: r.bbox.width * fit.scale,
+            height: r.bbox.height * fit.scale,
+          }}
+        >
+          {r.label && <span className="image-bbox-modal__marker-label">{r.label}</span>}
+        </span>
+      ))}
+    </>
+  )
+
   return createPortal(
     <div className="image-bbox-modal-overlay" data-visible={visible} onClick={onClose}>
       <div className="image-bbox-modal" onClick={(e) => e.stopPropagation()}>
@@ -79,24 +115,26 @@ function ImageBboxModal({ title, imageUrl, regions, infoItems, open, onClose }: 
           </button>
         </div>
 
-        <div className="image-bbox-modal__body">
-          <div className="image-bbox-modal__img-container">
-            <img ref={imgRef} src={imageUrl} alt={title} className="image-bbox-modal__img" />
-            {scale &&
-              regions.map((r) => (
-                <span
-                  key={r.id}
-                  className={`image-bbox-modal__marker image-bbox-modal__marker--${r.tone ?? 'neutral'}`}
-                  style={{
-                    left: scale.ox + r.bbox.x * scale.sx,
-                    top: scale.oy + r.bbox.y * scale.sy,
-                    width: r.bbox.width * scale.sx,
-                    height: r.bbox.height * scale.sy,
-                  }}
-                >
-                  {r.label && <span className="image-bbox-modal__marker-label">{r.label}</span>}
-                </span>
-              ))}
+        <div className="image-bbox-modal__body" ref={bodyRef}>
+          <div
+            className="image-bbox-modal__img-container"
+            style={
+              fit
+                ? { width: fit.rotated ? fit.h : fit.w, height: fit.rotated ? fit.w : fit.h }
+                : undefined
+            }
+          >
+            <div
+              className="image-bbox-modal__rotor"
+              style={
+                fit
+                  ? { width: fit.w, height: fit.h, transform: fit.rotated ? 'rotate(90deg)' : 'none' }
+                  : undefined
+              }
+            >
+              <img ref={imgRef} src={imageUrl} alt={title} className="image-bbox-modal__img" />
+              {markers}
+            </div>
           </div>
         </div>
 

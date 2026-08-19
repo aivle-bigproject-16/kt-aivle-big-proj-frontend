@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { ImageBboxModal } from '@/shared/ui/ImageBboxModal'
+import { RotatingImage } from '@/shared/ui/RotatingImage'
 import { useIndividualReportDetailStore } from '../store/useIndividualReportDetailStore'
 import type { ImageMapping, ImageType } from '../types'
 import './IndividualReportImages.css'
@@ -96,7 +97,7 @@ function ImageThumbnail({ mapping, onClick }: { mapping: ImageMapping; onClick: 
   return (
     <div className="individual-report-images__item">
       <button type="button" className="individual-report-images__thumb" onClick={onClick}>
-        <img
+        <RotatingImage
           src={mapping.imgUrl}
           alt={`${mapping.imageType} ${mapping.imageId}`}
           className="individual-report-images__thumb-img"

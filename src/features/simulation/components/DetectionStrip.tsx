@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { useEffect, useRef, useState, type CSSProperties, type RefObject } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/core/navigation/routes'
 import { defectTypeLabel } from '@/shared/utils/defectTypeLabel'
@@ -17,6 +17,11 @@ interface CropStyles {
   box: CSSProperties | null
 }
 
+interface WorkSize {
+  w: number
+  h: number
+}
+
 /**
  * 썸네일을 탐지 영역 중심으로 잘라낸다.
  *
@@ -24,20 +29,33 @@ interface CropStyles {
  * 극단적으로 납작해서 정작 결함이 있는 자리가 잘려나간다. 탐지 카드가 탐지 영역을
  * 못 보여주면 카드를 둘 이유가 없으므로, bbox 중심으로 확대해 잘라낸다.
  * bbox 가 없는(결함 없는) 셀은 종전대로 가운데를 남긴다.
+ *
+ * 원본이 세로로 긴(portrait) 경우 긴 쪽이 항상 가로가 되도록 90도 돌린다 — holder의
+ * 실제(고정) 크기는 img가 아니라 holderRef로 직접 재고(회전용 래퍼를 나중에 끼워
+ * 넣어도 흔들리지 않는다), 가로/세로를 맞바꾼 크기를 이 크롭 계산에 넘긴 뒤 그
+ * 결과(img+box)를 통째로 담은 래퍼를 90도 돌리면 다시 holder 크기에 맞아떨어진다
  */
-function useDetectionCrop(bbox: Bbox | null) {
+function useDetectionCrop(holderRef: RefObject<HTMLDivElement | null>, bbox: Bbox | null) {
   const imgRef = useRef<HTMLImageElement>(null)
   const [crop, setCrop] = useState<CropStyles | null>(null)
+  const [rotated, setRotated] = useState(false)
+  const [workSize, setWorkSize] = useState<WorkSize | null>(null)
 
   const handleLoad = () => {
     const img = imgRef.current
-    const holder = img?.parentElement
+    const holder = holderRef.current
     if (!img || !holder || !img.naturalWidth) return
 
     const nw = img.naturalWidth
     const nh = img.naturalHeight
-    const cw = holder.clientWidth
-    const ch = holder.clientHeight
+    const portrait = nh > nw
+    const realW = holder.clientWidth
+    const realH = holder.clientHeight
+    const cw = portrait ? realH : realW
+    const ch = portrait ? realW : realH
+    setRotated(portrait)
+    setWorkSize({ w: cw, h: ch })
+
     /* 어떤 배율이든 이 값 밑으로 내려가면 썸네일에 빈 여백이 생긴다 */
     const cover = Math.max(cw / nw, ch / nh)
 
@@ -68,7 +86,7 @@ function useDetectionCrop(bbox: Bbox | null) {
     })
   }
 
-  return { imgRef, crop, handleLoad }
+  return { imgRef, crop, rotated, workSize, handleLoad }
 }
 
 /**
@@ -113,8 +131,37 @@ function DetectionStrip() {
 
 function DetectionCardItem({ card }: { card: DetectionCard }) {
   const navigate = useNavigate()
-  const { imgRef, crop, handleLoad } = useDetectionCrop(card.bbox)
+  const holderRef = useRef<HTMLDivElement>(null)
+  const { imgRef, crop, rotated, workSize, handleLoad } = useDetectionCrop(holderRef, card.bbox)
   const tone = card.finalLabel.toLowerCase()
+
+  const rotorStyle: CSSProperties | undefined =
+    rotated && workSize
+      ? {
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          width: workSize.w,
+          height: workSize.h,
+          transform: 'translate(-50%, -50%) rotate(90deg)',
+        }
+      : undefined
+
+  const frame = (
+    <>
+      <img
+        ref={imgRef}
+        src={card.imageUrl}
+        alt={`셀 ${card.batteryCellId} 검사 이미지`}
+        className="detection-card__img"
+        style={crop?.img ?? { opacity: 0 }}
+        onLoad={handleLoad}
+      />
+      {crop?.box && (
+        <span className={`detection-card__bbox detection-card__bbox--${tone}`} style={crop.box} />
+      )}
+    </>
+  )
 
   return (
     <button
@@ -122,19 +169,9 @@ function DetectionCardItem({ card }: { card: DetectionCard }) {
       className="detection-card"
       onClick={() => navigate(ROUTES.BATTERY_DETAIL(card.batteryCellId))}
     >
-      <div className="detection-card__thumb">
-        <img
-          ref={imgRef}
-          src={card.imageUrl}
-          alt={`셀 ${card.batteryCellId} 검사 이미지`}
-          className="detection-card__img"
-          style={crop?.img ?? { opacity: 0 }}
-          onLoad={handleLoad}
-        />
+      <div className="detection-card__thumb" ref={holderRef}>
+        {rotorStyle ? <div style={rotorStyle}>{frame}</div> : frame}
         <span className="detection-card__type">{card.imageType}</span>
-        {crop?.box && (
-          <span className={`detection-card__bbox detection-card__bbox--${tone}`} style={crop.box} />
-        )}
       </div>
 
       <div className="detection-card__meta">
