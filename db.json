@@ -344,9 +344,10 @@
           "cellSerialNo": "CELL-002",
           "status": "COMPLETED",
           "title": "BATT-002 불량 검사 상세 리포트",
-          "content": "RGB 이미지 분석 결과, 표면에 오점이 발견되었습니다.",
+          "content": "RGB 이미지 분석 결과, 표면에 오점이 발견되었습니다. CT 이미지 분석 결과, 셀 중앙부를 기준으로 좌우에 미세 결함 20건이 발견되었습니다.",
           "ctImages": [
-            "https://picsum.photos/seed/ct1002/4000/530"
+            "https://picsum.photos/seed/ct1002/4000/530",
+            "/ct-cell-002.jpg"
           ],
           "rgbImages": [
             "https://picsum.photos/seed/rgb1002/1920/1080"
@@ -365,48 +366,66 @@
                 "height": 280
               }
             },
-            {
-              "imageType": "CT",
-              "imageId": 1001,
-              "imgUrl": "https://picsum.photos/seed/ct2x/800/800",
-              "volume": 60,
-              "index": 30,
-              "axis": "x",
-              "bbox": {
-                "x": 110,
-                "y": 390,
-                "width": 40,
-                "height": 40
-              }
-            },
-            {
-              "imageType": "CT",
-              "imageId": 1001,
-              "imgUrl": "https://picsum.photos/seed/ct2y/800/800",
-              "volume": 60,
-              "index": 29,
-              "axis": "y",
-              "bbox": {
-                "x": 40,
-                "y": 390,
-                "width": 20,
-                "height": 40
-              }
-            },
-            {
-              "imageType": "CT",
-              "imageId": 1001,
-              "imgUrl": "https://picsum.photos/seed/ct2z/800/800",
-              "volume": 60,
-              "index": 31,
-              "axis": "z",
-              "bbox": {
-                "x": 40,
-                "y": 110,
-                "width": 20,
-                "height": 40
-              }
-            }
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 561, "y": 182, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 563, "y": 183, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 565, "y": 182, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 567, "y": 181, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 569, "y": 182, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 571, "y": 183, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 573, "y": 182, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 575, "y": 181, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 577, "y": 182, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 579, "y": 183, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 581, "y": 182, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 583, "y": 181, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 585, "y": 182, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 587, "y": 183, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 589, "y": 182, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 591, "y": 181, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 593, "y": 182, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 595, "y": 183, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 597, "y": 182, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "z", "bbox": { "x": 599, "y": 181, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 182, "y": 180, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 183, "y": 181, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 182, "y": 182, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 181, "y": 183, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 182, "y": 184, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 183, "y": 185, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 182, "y": 186, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 181, "y": 187, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 182, "y": 188, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 183, "y": 189, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 182, "y": 190, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 181, "y": 191, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 182, "y": 192, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 183, "y": 193, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 182, "y": 194, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 181, "y": 195, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 182, "y": 196, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 183, "y": 197, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 182, "y": 198, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "x", "bbox": { "x": 181, "y": 199, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 561, "y": 180, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 563, "y": 181, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 565, "y": 182, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 567, "y": 183, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 569, "y": 184, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 571, "y": 185, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 573, "y": 186, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 575, "y": 187, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 577, "y": 188, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 579, "y": 189, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 581, "y": 190, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 583, "y": 191, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 585, "y": 192, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 587, "y": 193, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 589, "y": 194, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 591, "y": 195, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 593, "y": 196, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 595, "y": 197, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 597, "y": 198, "width": 2, "height": 2 } },
+            { "imageType": "CT", "imageId": 2101, "imgUrl": "/ct-cell-002.jpg", "volume": 60, "index": 30, "axis": "y", "bbox": { "x": 599, "y": 199, "width": 2, "height": 2 } }
           ]
         },
         {
@@ -624,6 +643,40 @@
           "analyzedAt": "2026-07-06T11:00:00Z",
           "image": [],
           "defectResults": []
+        },
+        {
+          "inspectionId": 202,
+          "finalLabel": "REJECT",
+          "analyzedAt": "2026-07-06T12:00:00Z",
+          "image": [
+            {
+              "imageId": 2101,
+              "imageType": "CT",
+              "imageUrl": "/ct-cell-002.jpg"
+            }
+          ],
+          "defectResults": [
+            { "defectResultId": 7001, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.62, "bbox": { "x": 380, "y": 176, "width": 2, "height": 2 } },
+            { "defectResultId": 7002, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.71, "bbox": { "x": 400, "y": 179, "width": 2, "height": 2 } },
+            { "defectResultId": 7003, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.85, "bbox": { "x": 420, "y": 182, "width": 2, "height": 2 } },
+            { "defectResultId": 7004, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.93, "bbox": { "x": 440, "y": 185, "width": 2, "height": 2 } },
+            { "defectResultId": 7005, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.58, "bbox": { "x": 460, "y": 188, "width": 2, "height": 2 } },
+            { "defectResultId": 7006, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.77, "bbox": { "x": 480, "y": 176, "width": 2, "height": 2 } },
+            { "defectResultId": 7007, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.89, "bbox": { "x": 500, "y": 179, "width": 2, "height": 2 } },
+            { "defectResultId": 7008, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.65, "bbox": { "x": 520, "y": 182, "width": 2, "height": 2 } },
+            { "defectResultId": 7009, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.95, "bbox": { "x": 540, "y": 185, "width": 2, "height": 2 } },
+            { "defectResultId": 7010, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.73, "bbox": { "x": 560, "y": 188, "width": 2, "height": 2 } },
+            { "defectResultId": 7011, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.68, "bbox": { "x": 600, "y": 176, "width": 2, "height": 2 } },
+            { "defectResultId": 7012, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.81, "bbox": { "x": 620, "y": 179, "width": 2, "height": 2 } },
+            { "defectResultId": 7013, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.59, "bbox": { "x": 640, "y": 182, "width": 2, "height": 2 } },
+            { "defectResultId": 7014, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.92, "bbox": { "x": 660, "y": 185, "width": 2, "height": 2 } },
+            { "defectResultId": 7015, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.75, "bbox": { "x": 680, "y": 188, "width": 2, "height": 2 } },
+            { "defectResultId": 7016, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.87, "bbox": { "x": 700, "y": 176, "width": 2, "height": 2 } },
+            { "defectResultId": 7017, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.63, "bbox": { "x": 720, "y": 179, "width": 2, "height": 2 } },
+            { "defectResultId": 7018, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.96, "bbox": { "x": 740, "y": 182, "width": 2, "height": 2 } },
+            { "defectResultId": 7019, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.79, "bbox": { "x": 760, "y": 185, "width": 2, "height": 2 } },
+            { "defectResultId": 7020, "label": "REJECT", "imageId": 2101, "imageType": "CT", "defectType": "MICRO_DEFECT", "imageUrl": "/ct-cell-002.jpg", "confidence": 0.69, "bbox": { "x": 780, "y": 188, "width": 2, "height": 2 } }
+          ]
         }
       ],
       "reports": []

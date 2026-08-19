@@ -62,6 +62,38 @@ async function parseNoticeRequest(req, body) {
   }
 }
 
+/* db.json의 batteryDetail[].inspections[]는 원시 형태(inspectionId 단수, image 단수)라
+   프런트 Inspection 타입(batchId/inspectionIds 배치 묶음, images 복수)과 안 맞는다 —
+   실제 백엔드는 여러 inspectionId를 하나의 배치(batchId)로 묶어 내려주지만, 목 데이터는
+   그 배치 개념이 없으니 raw inspection 하나를 배치 하나로 취급해 변환한다 */
+function toBatchedInspections(rawInspections) {
+  return (rawInspections ?? []).map((insp) => ({
+    batchId: insp.inspectionId,
+    inspectionIds: [insp.inspectionId],
+    finalLabel: insp.finalLabel,
+    analyzedAt: insp.analyzedAt,
+    images: (insp.image ?? []).map((img) => ({
+      imageId: img.imageId,
+      inspectionId: insp.inspectionId,
+      inspectionType: img.imageType,
+      imageType: img.imageType,
+      imageUrl: img.imageUrl,
+    })),
+    defectResults: (insp.defectResults ?? []).map((d) => ({
+      defectResultId: d.defectResultId,
+      inspectionId: insp.inspectionId,
+      attemptNo: 1,
+      label: d.label,
+      imageId: d.imageId,
+      imageType: d.imageType,
+      defectType: d.defectType,
+      imageUrl: d.imageUrl,
+      confidence: d.confidence,
+      bbox: d.bbox,
+    })),
+  }))
+}
+
 // sort=createdAt,desc|asc 형식을 해석해 정렬한다. 파라미터가 없으면 desc(최신순) 기본값.
 function sortByCreatedAt(items, sortParam) {
   const order = sortParam?.split(',')[1] === 'asc' ? 'asc' : 'desc'
@@ -185,7 +217,13 @@ const server = http.createServer(async (req, res) => {
       return
     }
     res.writeHead(200, { 'content-type': 'application/json', 'access-control-allow-origin': '*' })
-    res.end(JSON.stringify({ success: true, message: '배터리 상세 조회가 완료되었습니다.', data: item }))
+    res.end(
+      JSON.stringify({
+        success: true,
+        message: '배터리 상세 조회가 완료되었습니다.',
+        data: { ...item, inspections: toBatchedInspections(item.inspections) },
+      }),
+    )
     return
   }
 

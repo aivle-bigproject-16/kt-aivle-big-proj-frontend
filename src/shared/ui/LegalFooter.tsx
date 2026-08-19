@@ -12,7 +12,11 @@ function LegalFooter({ showSystemStatus = false }: LegalFooterProps) {
       <span className={showSystemStatus ? 'legal-footer__status' : undefined}>
         {showSystemStatus ? 'SYSTEM OPERATIONAL' : '© 2026 CELLNEX'}
       </span>
-      <Link to={ROUTES.PRIVACY}>개인정보처리방침</Link>
+      <Link to={ROUTES.PRIVACY}>
+        개인정보
+        <br />
+        처리방침
+      </Link>
       <span>CELLNEX v1.0</span>
     </footer>
   )

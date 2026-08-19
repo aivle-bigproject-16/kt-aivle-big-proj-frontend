@@ -73,13 +73,18 @@
   color: #9ca3af;
 }
 
-/* 썸네일 그리드 — 4열, 사이 갭 2.414rem */
+/* 썸네일 그리드 — 4열, 사이 갭 2.414rem. 카드 높이(34.5rem)가 고정이라 썸네일이
+   늘어나면(예: 결함 20개) 넘치므로, 남은 공간을 차지하고(flex:1) 그 안에서만
+   세로 스크롤한다 — 카드 자체는 커지지 않는다 */
 .individual-report-images__grid {
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
   gap: 2.414rem;
-  flex-shrink: 0;
+  flex: 1 1 auto;
+  min-height: 0;
   margin-top: 2rem;
+  overflow-y: auto;
 }
 
 .individual-report-images__item {

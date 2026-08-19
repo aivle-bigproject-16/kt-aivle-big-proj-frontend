@@ -29,7 +29,7 @@ export const useBatteryDetailStore = create<BatteryDetailState & BatteryDetailAc
         const res = await batteryService.getBatteryDetail(batteryCellId)
         set({ detail: res.data, isLoading: false })
       } catch {
-        set({ error: '배터리 상세 조회에 실패했습니다.', isLoading: false })
+        set({ detail: null, error: '배터리 상세 조회에 실패했습니다.', isLoading: false })
       }
     },
 

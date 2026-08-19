@@ -34,7 +34,9 @@ function AiLogPanel({ jobId }: AiLogPanelProps) {
 
       <div className="ai-log-panel__body" ref={scrollRef}>
         {entries.length === 0 ? (
-          <span className="ai-log-panel__empty">로그가 없습니다.</span>
+          <>
+            <span className="ai-log-panel__empty">대기 중</span>
+          </>
         ) : (
           entries.map((entry, i) => (
             <div key={i} className="ai-log-panel__line">

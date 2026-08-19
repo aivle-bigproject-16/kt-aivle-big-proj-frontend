@@ -14,15 +14,29 @@ function DailyReportSummary() {
 
   return (
     <>
-      <div className="daily-report-summary">
+      <div
+        className="daily-report-summary"
+        role="button"
+        tabIndex={0}
+        onClick={() => setOpen(true)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            setOpen(true)
+          }
+        }}
+      >
         <div className="daily-report-summary__header">
           <span className="daily-report-summary__title">REPORT</span>
           <span className="daily-report-summary__badge">LLM 생성</span>
           <div className="daily-report-summary__header-spacer" style={{ flexGrow: 1 }} />
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="daily-report-summary__download-btn"
-            onClick={() => setOpen(true)}
+            onClick={(e) => {
+              e.stopPropagation()
+              setOpen(true)
+            }}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: '1.6rem', height: '1.6rem', marginRight: '0.4rem' }}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />

@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import { SideBar, UserChip } from '@/features/header'
 import { initializeCsrfProtection } from '@/core/api/csrf'
-import { LegalFooter } from '@/shared/ui/LegalFooter'
 import './RootLayout.css'
 
 function RootLayout() {
@@ -19,7 +18,6 @@ function RootLayout() {
         <div className="root-layout__content">
           <Outlet />
         </div>
-        <LegalFooter />
       </div>
       <aside className="root-layout__right">
         <UserChip />

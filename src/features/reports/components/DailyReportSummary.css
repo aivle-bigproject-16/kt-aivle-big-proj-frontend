@@ -14,6 +14,25 @@
   box-shadow: var(--shadow-card);
   font-family: inherit;
   text-align: left;
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* individual-report-insight와 동일한 호버 — 살짝 뜨고 그림자가 짙어진다 */
+.daily-report-summary:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.daily-report-summary:active {
+  transform: scale(0.99);
+}
+
+.daily-report-summary:focus-visible {
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.15),
+    0 0 0 0.2rem #0c5795;
 }
 
 .daily-report-summary__download-btn {

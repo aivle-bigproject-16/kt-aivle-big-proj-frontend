@@ -49,6 +49,18 @@ body {
   background: var(--bg);
 }
 
+/* 스크롤은 되지만 스크롤바는 안 보이게 — 앱 전역(문서 레벨)에도 적용한다.
+   #root가 100svh, .root-layout이 100vh라 브라우저에 따라 1px 안팎으로 어긋나면서
+   문서 레벨 스크롤바가 생길 수 있는데, 기능은 그대로 두고 바만 숨긴다 */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* 구형 Edge/IE */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, 신형 Edge */
+}
+
 #root {
   min-height: 100svh;
 }

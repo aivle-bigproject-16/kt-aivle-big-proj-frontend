@@ -156,7 +156,7 @@ function TwinStage({ onNavigate }: { onNavigate?: (index: number) => void }) {
       />
       <TwinBin
         binKey="FAIL"
-        label="실패"
+        label="검사 실패"
         count={failCount}
         pct={pct(failCount)}
         onClick={() => onNavigate?.(4)}

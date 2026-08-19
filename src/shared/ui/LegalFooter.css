@@ -10,9 +10,11 @@
 }
 
 .legal-footer a {
+  min-width: 70px;
   color: #0c5795;
   font-weight: 650;
   text-decoration: none;
+  text-align: center;
 }
 
 .legal-footer a:hover {

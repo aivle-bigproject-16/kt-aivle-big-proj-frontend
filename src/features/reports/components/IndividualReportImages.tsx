@@ -10,9 +10,11 @@ import './IndividualReportImages.css'
 const EMPTY_MAPPINGS: ImageMapping[] = []
 
 /* 슬라이스 하나 = 썸네일 하나. CT는 같은 imageId(볼륨) 안에서 axis(x/y/z)별로 여러
-   슬라이스가 오므로, imageId만으로는 키가 충돌한다 — imageId+axis+index로 구분한다 */
+   슬라이스가 오므로, imageId만으로는 키가 충돌한다 — imageId+axis+index로 구분한다.
+   같은 슬라이스 이미지 위에 결함이 여러 개 찍힌 경우(예: 같은 imageId+axis+index로
+   결함 20개)에는 그마저도 충돌하므로 bbox 좌표까지 더해 구분한다 */
 function sliceKey(m: ImageMapping): string {
-  return `${m.imageId}-${m.axis ?? 'flat'}-${m.index ?? ''}`
+  return `${m.imageId}-${m.axis ?? 'flat'}-${m.index ?? ''}-${m.bbox.x}-${m.bbox.y}`
 }
 
 function sliceLabel(m: ImageMapping): string {

@@ -71,18 +71,16 @@ function DailyReportTable() {
     <section className="list-page">
       <div className="list-page__header">
         <h1 className="list-page__title">일일 리포트</h1>
-        <div style={{ position: 'relative' }}>
-          <button type="button" className="list-page__action-btn" onClick={() => setCreatorOpen((v) => !v)}>
-            + 리포트 생성
-          </button>
-          {creatorOpen && (
-            <DailyReportCreatePopover
-              onClose={() => setCreatorOpen(false)}
-              onSubmit={handleCreate}
-              submitting={creating}
-            />
-          )}
-        </div>
+        <button type="button" className="list-page__action-btn" onClick={() => setCreatorOpen((v) => !v)}>
+          + 리포트 생성
+        </button>
+        {creatorOpen && (
+          <DailyReportCreatePopover
+            onClose={() => setCreatorOpen(false)}
+            onSubmit={handleCreate}
+            submitting={creating}
+          />
+        )}
       </div>
 
       <ReportListToolbar

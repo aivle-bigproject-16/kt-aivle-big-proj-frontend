@@ -77,12 +77,18 @@
    min-width: 0 — flex 아이템 기본값(min-width: auto)이 안의 테이블 크기만큼 폭을 밀어내는 것을 막는다.
    overflow-x: hidden — 세로 스크롤바가 scrollbar-gutter로 예약하는 폭만큼 안쪽이 좁아져도
    가로 스크롤이 뜨지 않게 한다 (컬럼 폭은 카드 폭에 맞춰 설계되어 있어 실제로 넘칠 내용은 없다). */
+/* 스크롤은 되지만 스크롤바는 안 보이게 — 기능은 유지하고 바만 숨긴다 */
 .list-page__scroll {
   min-width: 0;
   max-height: 63.2rem;
   overflow-y: auto;
   overflow-x: hidden;
-  scrollbar-gutter: stable;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* 구형 Edge/IE */
+}
+
+.list-page__scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, 신형 Edge */
 }
 
 .list-page__scroll .list-page__table th {

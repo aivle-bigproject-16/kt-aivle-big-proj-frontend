@@ -33,6 +33,15 @@
   padding: 0;
 }
 
+/* 사이드바가 flex column이라 margin-top:auto로 남는 세로 공간을 전부 밀어내
+   맨 아래에 붙는다 */
+.side-bar > .legal-footer {
+  flex-shrink: 0;
+  margin-top: auto;
+  border-top: 1px solid #d9dde0;
+  background: #f7f9fb;
+}
+
 /* 항목 하나 — 전체 폭, 6rem(60px) 높이. 아이콘은 좌측 4.5rem 지점부터 시작 */
 .side-bar__nav-item {
   display: flex;
